@@ -14,6 +14,9 @@ import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
 // import { parse } from 'csv-parse';
 const parse = require('csv-parse/lib/sync');
+const VALIDATORS_API_PATH = 'https://flare-indexer.flare.rocks/validators/list';
+const DELEGATORS_API_PATH = 'https://flare-indexer.flare.rocks/delegators/list';
+
 
 @Singleton
 @Factory(() => new CalculatingRewardsService())
@@ -76,10 +79,11 @@ export class CalculatingRewardsService {
 			let eligibleNodesUptime = await this.getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
 
 			// get active nodes at staking vote power block
-			let activeNodes = await this.getActiveNodes(stakingVpBlock) as NodeData[];
+			let activeNodes = await this.getActiveStakes(stakingVpBlock, VALIDATORS_API_PATH) as NodeData[];
+			activeNodes.sort((a, b) => a.startTime > b.startTime ? 1 : -1);
 
 			// get delegations active at staking vp block
-			let delegations = await this.getDelegations(stakingVpBlock) as DelegationData[];
+			let delegations = await this.getActiveStakes(stakingVpBlock, DELEGATORS_API_PATH) as DelegationData[];
 
 			// total stake (self-bonds + delegations) of the network at staking VP block
 			let totalStakeNetwork = BigInt(0);
@@ -212,47 +216,34 @@ export class CalculatingRewardsService {
 		return JSON.parse(fs.readFileSync(fnlFile, 'utf8'));
 	}
 
-	public async getActiveNodes(vpBlock: number) {
-		let path = 'https://flare-indexer.flare.rocks/validators/list';
+	public async getActiveStakes(vpBlock: number, apiPath: string) {
 		let vpBlockTs = (await this.contractService.web3.eth.getBlock(vpBlock)).timestamp as number;
 		let vpBlockISO = new Date(vpBlockTs * 1000).toISOString();
-		let queryObj = {
-			"limit": 100,
-			"offset": 0,
-			"time": vpBlockISO
+
+		let fullData = [];
+		let len = 100;
+		let offset = 0;
+
+		while (len === 100) {
+			let queryObj = {
+				"limit": 100,
+				"offset": offset,
+				"time": vpBlockISO
+			}
+			let res = await axios.post(apiPath, queryObj);
+			let data = res.data['data'];
+			data.forEach(node => {
+				// ISO8601 to unix timestamp
+				node.startTime = Date.parse(node.startTime) / 1000;
+				node.endTime = Date.parse(node.endTime) / 1000;
+				node.weight = BigInt(node.weight);
+			})
+			fullData = fullData.concat(data);
+			len = data.length;
+			offset += len;
 		}
 
-		let res = await axios.post(path, queryObj);
-		let data = res.data['data'];
-		data.forEach(node => {
-			// ISO8601 to unix timestamp
-			node.startTime = Date.parse(node.startTime) / 1000;
-			node.endTime = Date.parse(node.endTime) / 1000;
-			node.weight = BigInt(node.weight);
-		})
-		data.sort((a, b) => a.startTime > b.startTime ? 1 : -1);
-		return data;
-	}
-
-	public async getDelegations(vpBlock: number) {
-		let path = 'https://flare-indexer.flare.rocks/delegators/list';
-		let vpBlockTs = (await this.contractService.web3.eth.getBlock(vpBlock)).timestamp as number;
-		let vpBlockISO = new Date(vpBlockTs * 1000).toISOString();
-		let queryObj = {
-			"limit": 100,
-			"offset": 0,
-			"time": vpBlockISO
-		}
-
-		let res = await axios.post(path, queryObj);
-		let data = res.data['data'];
-		data.forEach(del => {
-			// ISO8601 to unix timestamp
-			del.startTime = Date.parse(del.startTime) / 1000;
-			del.endTime = Date.parse(del.endTime) / 1000;
-			del.weight = BigInt(del.weight);
-		})
-		return data;
+		return fullData;
 	}
 
 	public async getPChainAddresses(pChainFile: string) {
