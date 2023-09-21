@@ -1,0 +1,45 @@
+{
+   // Use IntelliSense to learn about possible attributes.
+   // Hover to view descriptions of existing attributes.
+   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+   "version": "0.2.0",
+   "configurations": [
+       {
+           "type": "node",
+           "request": "launch",
+           "name": "Backend",
+           "runtimeExecutable": "yarn",
+           "env": {
+           },
+           "outFiles": [
+            "${workspaceFolder}/**/*.js",
+            "${workspaceFolder}/node_modules/typescript-ioc/**",
+            "${workspaceFolder}/node_modules/typescript-ioc/src/**"
+           ],
+           "runtimeArgs": [
+               "ts-node",
+               "src/server.ts"
+           ]
+       },
+
+       {
+        "type": "node",
+        "runtimeVersion": "16.14.0",
+        "request": "launch",
+        "name": "Opt out addresses",
+        "runtimeExecutable": "yarn",
+        "env": {
+        },
+        "outFiles": [
+         "${workspaceFolder}/**/*.js",
+         "${workspaceFolder}/node_modules/typescript-ioc/**",
+         "${workspaceFolder}/node_modules/typescript-ioc/src/**"
+        ],
+        "runtimeArgs": [
+            "process-staking-rewards", "-r", "Infinity"
+        ]
+    },
+
+
+   ]
+}

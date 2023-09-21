@@ -1,0 +1,12 @@
+[
+   {
+      "name": "FtsoRewardManager",
+      "contractName": "FtsoRewardManager.sol",
+      "address": "0x85627d71921AE25769f5370E482AdA5E1e418d37"
+   },
+   {
+      "name": "FtsoManager",
+      "contractName": "FtsoManager.sol",
+      "address": "0x2E99a4543F9ea708Cf8CCaC447515e61706D9DE9"
+   }
+]

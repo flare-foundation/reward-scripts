@@ -1,0 +1,27 @@
+[
+   {
+      "name": "FtsoRewardManager",
+      "contractName": "FtsoRewardManager.sol",
+      "address": "0x16E6A0b7a26518c336Bca0E935782C22A9EE07Fd"
+   },
+   {
+      "name": "FtsoManager",
+      "contractName": "FtsoManager.sol",
+      "address": "0x4F52e61907B0ED9f26b88F16B2510a4CA524d6d0"
+   },
+   {
+      "name": "PChainStakeMirrorMultiSigVoting",
+      "contractName": "PChainStakeMirrorMultiSigVoting.sol",
+      "address": "0x694905ca5f9F6c49f4748E8193B3e8053FA9E7E4"
+   },
+   {
+      "name": "ValidatorRewardManager",
+      "contractName": "ValidatorRewardManager.sol",
+      "address": "0x33913AcE907F682E305f36d7538D3cCd37E2cA5B"
+   },
+   {
+      "name": "AddressBinder",
+      "contractName": "AddressBinder.sol",
+      "address": "0xCc8f7C3d04C7f60BC89fA4DCDC77D668183aa2ac"
+   }
+]
