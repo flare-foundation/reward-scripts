@@ -32,7 +32,7 @@ let args = yargs
    .option('uptimeVotingThreshold', { alias: 't', type: 'number', description: 'Required number of votes for uptime to be considered high enough' })
    .option('minForBEB', { alias: 'x', type: 'number', description: 'Minimal amount of delegations/self-bond to be eligible for boosting' })
    .option('defaultFee', { alias: 'd', type: 'number', description: 'Default fee (for group 1 nodes)' })
-   .option('rewardAmount', { alias: 'a', type: 'number', description: 'Reward amount to be distributed' })
+   .option('rewardAmount', { alias: 'a', type: 'number', description: 'Reward amount to be distributed per reward epoch' })
    .option('apiPath', { alias: 'y', type: 'string', description: 'Api for validators and delegators' })
    .argv;
 
@@ -56,10 +56,10 @@ async function runProcessCalculateRewards() {
    let uptimeVotingThreshold = args['uptimeVotingThreshold'] ? args['uptimeVotingThreshold'] : configurationService.uptimeVotingThreshold;
    let minForBEB = args['minForBEB'] ? args['minForBEB'] : configurationService.minForBEB;
    let defaultFee = args['defaultFee'] ? args['defaultFee'] : configurationService.defaultFee;
-   let rewardAmount = args['rewardAmount'] ? args['rewardAmount'] : configurationService.rewardAmount;
+   let rewardAmountEpoch = args['rewardAmountEpoch'] ? args['rewardAmountEpoch'] : configurationService.rewardAmountEpoch;
    let apiPath = args['apiPath'] ? args['apiPath'] : configurationService.apiPath;
 
-   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformance, boostingFactor, votePowerCap, numUnrewardedEpochs, uptimeVotigPeriodLength, rps, batchSize, uptimeVotingThreshold, minForBEB, defaultFee, rewardAmount, apiPath);
+   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformance, boostingFactor, votePowerCap, numUnrewardedEpochs, uptimeVotigPeriodLength, rps, batchSize, uptimeVotingThreshold, minForBEB, defaultFee, rewardAmountEpoch, apiPath);
 }
 
 runProcessCalculateRewards()

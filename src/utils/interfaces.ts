@@ -26,6 +26,7 @@ export interface DelegationData {
    weight: bigint;
    startTime: number;
    endTime: number;
+   txID: string;
 }
 
 export interface ActiveNode {
@@ -58,15 +59,9 @@ export interface ActiveNode {
 
 export interface Entity {
    entityAddress: string;          // same as ftso address
-   nodes: NodeEntity[];
+   nodes: string[];
    totalStakeRewarding?: bigint;
    capFactor?: bigint;             // in BIPS
-   totalSelfBond: bigint;
-}
-
-export interface NodeEntity {
-   nodeId: string;
-   totalStakeRewarding: bigint;
    totalSelfBond: bigint;
 }
 
@@ -117,6 +112,6 @@ export interface INetworkConfigJson {
    UPTIME_VOTING_THRESHOLD: number;
    MIN_FOR_BEB: number;
    DEFAULT_FEE: number;
-   REWARD_AMOUNT: number;
+   REWARD_AMOUNT_EPOCH: string;
    API_PATH: string;
 }

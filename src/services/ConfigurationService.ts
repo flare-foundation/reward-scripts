@@ -21,7 +21,7 @@ export class ConfigurationService {
    uptimeVotingThreshold: number;
    minForBEB: number;
    defaultFee: number;
-   rewardAmount: number;
+   rewardAmountEpoch: string;
    apiPath: string;
 
    constructor() {
@@ -48,7 +48,7 @@ export class ConfigurationService {
          this.uptimeVotingThreshold = configFile.UPTIME_VOTING_THRESHOLD ? configFile.UPTIME_VOTING_THRESHOLD : undefined;
          this.minForBEB = configFile.MIN_FOR_BEB ? configFile.MIN_FOR_BEB : 1e6;
          this.defaultFee = configFile.DEFAULT_FEE ? configFile.DEFAULT_FEE : 200000;
-         this.rewardAmount = configFile.REWARD_AMOUNT ? configFile.REWARD_AMOUNT : undefined;
+         this.rewardAmountEpoch = configFile.REWARD_AMOUNT_EPOCH ? configFile.REWARD_AMOUNT_EPOCH : undefined;
          this.apiPath = configFile.API_PATH ? configFile.API_PATH : "https://flare-indexer.flare.rocks";
       }
    }
