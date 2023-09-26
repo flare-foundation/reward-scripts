@@ -118,4 +118,5 @@ export interface INetworkConfigJson {
    MIN_FOR_BEB: number;
    DEFAULT_FEE: number;
    REWARD_AMOUNT: number;
+   API_PATH: string;
 }

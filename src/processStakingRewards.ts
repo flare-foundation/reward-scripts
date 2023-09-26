@@ -33,6 +33,7 @@ let args = yargs
    .option('minForBEB', { alias: 'x', type: 'number', description: 'Minimal amount of delegations/self-bond to be eligible for boosting' })
    .option('defaultFee', { alias: 'd', type: 'number', description: 'Default fee (for group 1 nodes)' })
    .option('rewardAmount', { alias: 'a', type: 'number', description: 'Reward amount to be distributed' })
+   .option('apiPath', { alias: 'y', type: 'string', description: 'Api for validators and delegators' })
    .argv;
 
 
@@ -56,8 +57,9 @@ async function runProcessCalculateRewards() {
    let minForBEB = args['minForBEB'] ? args['minForBEB'] : configurationService.minForBEB;
    let defaultFee = args['defaultFee'] ? args['defaultFee'] : configurationService.defaultFee;
    let rewardAmount = args['rewardAmount'] ? args['rewardAmount'] : configurationService.rewardAmount;
+   let apiPath = args['apiPath'] ? args['apiPath'] : configurationService.apiPath;
 
-   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformance, boostingFactor, votePowerCap, numUnrewardedEpochs, uptimeVotigPeriodLength, rps, batchSize, uptimeVotingThreshold, minForBEB, defaultFee, rewardAmount);
+   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformance, boostingFactor, votePowerCap, numUnrewardedEpochs, uptimeVotigPeriodLength, rps, batchSize, uptimeVotingThreshold, minForBEB, defaultFee, rewardAmount, apiPath);
 }
 
 runProcessCalculateRewards()

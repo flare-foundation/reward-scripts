@@ -14,8 +14,8 @@ import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
 // import { parse } from 'csv-parse';
 const parse = require('csv-parse/lib/sync');
-const VALIDATORS_API_PATH = 'https://flare-indexer.flare.rocks/validators/list';
-const DELEGATORS_API_PATH = 'https://flare-indexer.flare.rocks/delegators/list';
+const VALIDATORS_API = 'validators/list';
+const DELEGATORS_API = 'delegators/list';
 
 
 @Singleton
@@ -37,7 +37,7 @@ export class CalculatingRewardsService {
 		return this.loggerService.logger;
 	}
 
-	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLength: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEB: number, defaultFee: number, rewardAmount: number | bigint) {
+	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLength: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEB: number, defaultFee: number, rewardAmount: number | bigint, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
 
@@ -79,11 +79,11 @@ export class CalculatingRewardsService {
 			let eligibleNodesUptime = await this.getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
 
 			// get active nodes at staking vote power block
-			let activeNodes = await this.getActiveStakes(stakingVpBlock, VALIDATORS_API_PATH) as NodeData[];
+			let activeNodes = await this.getActiveStakes(stakingVpBlock, apiPath, VALIDATORS_API) as NodeData[];
 			activeNodes.sort((a, b) => a.startTime > b.startTime ? 1 : -1);
 
 			// get delegations active at staking vp block
-			let delegations = await this.getActiveStakes(stakingVpBlock, DELEGATORS_API_PATH) as DelegationData[];
+			let delegations = await this.getActiveStakes(stakingVpBlock, apiPath, DELEGATORS_API) as DelegationData[];
 
 			// total stake (self-bonds + delegations) of the network at staking VP block
 			let totalStakeNetwork = BigInt(0);
@@ -216,7 +216,7 @@ export class CalculatingRewardsService {
 		return JSON.parse(fs.readFileSync(fnlFile, 'utf8'));
 	}
 
-	public async getActiveStakes(vpBlock: number, apiPath: string) {
+	public async getActiveStakes(vpBlock: number, path1: string, path2: string) {
 		let vpBlockTs = (await this.contractService.web3.eth.getBlock(vpBlock)).timestamp as number;
 		let vpBlockISO = new Date(vpBlockTs * 1000).toISOString();
 
@@ -230,7 +230,7 @@ export class CalculatingRewardsService {
 				"offset": offset,
 				"time": vpBlockISO
 			}
-			let res = await axios.post(apiPath, queryObj);
+			let res = await axios.post(`${path1}/${path2}`, queryObj);
 			let data = res.data['data'];
 			data.forEach(node => {
 				// ISO8601 to unix timestamp
