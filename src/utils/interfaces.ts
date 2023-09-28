@@ -106,12 +106,12 @@ export interface INetworkConfigJson {
    FIRST_REWARD_EPOCH: number;
    REQUIRED_FTSO_PERFORMANCE: number;
    BOOSTING_FACTOR: number;
-   VOTE_POWER_CAP: number;
+   VOTE_POWER_CAP_BIPS: number;
    NUM_UNREWARDED_EPOCHS: number;
-   UPTIME_VOTING_PERIOD_LENGTH: number;
+   UPTIME_VOTING_PERIOD_LENGTH_SECONDS: number;
    UPTIME_VOTING_THRESHOLD: number;
-   MIN_FOR_BEB: number;
-   DEFAULT_FEE: number;
-   REWARD_AMOUNT_EPOCH: string;
+   MIN_FOR_BEB_GWEI: number;
+   DEFAULT_FEE_PPM: number;
+   REWARD_AMOUNT_EPOCH_WEI: string;
    API_PATH: string;
 }

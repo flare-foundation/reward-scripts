@@ -12,11 +12,13 @@ import { FtsoRewardManager } from '../../typechain-web3-v1/FtsoRewardManager';
 import { EventProcessorService } from './EventProcessorService';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
+import { FtsoManager } from '../../typechain-web3-v1/FtsoManager';
 // import { parse } from 'csv-parse';
 const parseCsv = require('csv-parse/lib/sync');
 const VALIDATORS_API = 'validators/list';
 const DELEGATORS_API = 'delegators/list';
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+const DAY_SECONDS = 24 * 60 * 60;
 
 @Singleton
 @Factory(() => new CalculatingRewardsService())
@@ -37,7 +39,7 @@ export class CalculatingRewardsService {
 		return this.loggerService.logger;
 	}
 
-	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLength: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEB: number, defaultFee: number, rewardAmountEpoch: string, apiPath: string) {
+	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: number, defaultFeePPM: number, rewardAmountEpochWei: string, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
 
@@ -74,7 +76,7 @@ export class CalculatingRewardsService {
 
 			//// get list of nodes with sufficient uptime
 			await this.contractService.resetUptimeArray();
-			await this.eventProcessorService.processEvents(nextRewardEpochStartBlock, rps, batchSize, uptimeVotingPeriodLength, nextRewardEpochStartTs, epoch);
+			await this.eventProcessorService.processEvents(nextRewardEpochStartBlock, rps, batchSize, uptimeVotingPeriodLengthSeconds, nextRewardEpochStartTs, epoch);
 			let uptimeVotingData = await this.contractService.getUptimeVotingData();
 			let eligibleNodesUptime = await this.getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
 
@@ -96,7 +98,7 @@ export class CalculatingRewardsService {
 				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForReward);
 
 				// decide to which group node belongs
-				let node = await this.nodeGroup(activeNode, ftsoAddress, fnlAddresses, pChainAddresses, defaultFee);
+				let node = await this.nodeGroup(activeNode, ftsoAddress, fnlAddresses, pChainAddresses, defaultFeePPM);
 				node.eligible = eligible;
 
 				if (node.group === 1) {
@@ -156,7 +158,7 @@ export class CalculatingRewardsService {
 			// after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
 			allActiveNodes.forEach(node => {
 				const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
-				if (entities[i].totalSelfBond < minForBEB) {
+				if (entities[i].totalSelfBond < minForBEBGwei) {
 					node.overboost = node.boost;
 				} else {
 					node.overboost = node.boost - node.BEB * BigInt(boostingFactor) > 0 ? node.boost - node.BEB * BigInt(boostingFactor) : BigInt(0);
@@ -173,10 +175,10 @@ export class CalculatingRewardsService {
 
 			// reward amount available for distribution
 			let rewardAmount: bigint;
-			if (rewardAmountEpoch === undefined) {
-				rewardAmount = await this.getRewardAmount(validatorRewardManager, numUnrewardedEpochs);
+			if (rewardAmountEpochWei === undefined) {
+				rewardAmount = await this.getRewardAmount(validatorRewardManager, ftsoManager);
 			} else {
-				rewardAmount = BigInt(rewardAmountEpoch);
+				rewardAmount = BigInt(rewardAmountEpochWei);
 			}
 
 			this.logger.info(`entities: ${JSON.stringify(entities, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`);
@@ -301,16 +303,18 @@ export class CalculatingRewardsService {
 		let ftsoObj = ftsoAddresses.find(obj => {
 			return obj.nodeId == node.nodeID;
 		})
-		let ftsoAddress = ftsoObj == undefined ? "" : ftsoObj.ftsoAddress;
+		if (ftsoObj === undefined) {
+			return [false, ""];
+		}
 
 		// uptime
 		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
-			return [false, ftsoAddress];
+			return [false, ftsoObj.ftsoAddress];
 		}
 
 		// ftso rewards
 		let ftsoPerformance = await ftsoRewardManager.methods.getDataProviderPerformanceInfo(epochNum.toString(), ftsoObj.ftsoAddress).call();
-		return [BigInt(ftsoPerformance[0]) > BigInt(ftsoPerformanceForReward), ftsoAddress];
+		return [BigInt(ftsoPerformance[0]) > BigInt(ftsoPerformanceForReward), ftsoObj.ftsoAddress];
 	}
 
 	public async nodeGroup(node: NodeData, ftsoAddress: string, fnlAddresses: string[], pChainAddresses: PAddressData[], defaultFee: number): Promise<ActiveNode> {
@@ -358,9 +362,10 @@ export class CalculatingRewardsService {
 		return [activeNodes, totalCappedWeightEligible, entities];
 	}
 
-	public async getRewardAmount(validatorRewardManager: ValidatorRewardManager, numUnrewardedEpochs: number): Promise<bigint> {
+	public async getRewardAmount(validatorRewardManager: ValidatorRewardManager, ftsoManager: FtsoManager): Promise<bigint> {
 		let totals = await validatorRewardManager.methods.getTotals().call();
-		return (BigInt(totals[2]) - BigInt(totals[0])) / BigInt(numUnrewardedEpochs);
+		let epochDurationSeconds = await ftsoManager.methods.rewardEpochDurationSeconds().call();
+		return BigInt(totals[5]) * BigInt(epochDurationSeconds) / BigInt(DAY_SECONDS);
 	}
 
 	public async calculateRewardAmounts(activeNodes: ActiveNode[], totalStakeAmount: bigint, availableRewardAmount: bigint): Promise<ActiveNode[]> {

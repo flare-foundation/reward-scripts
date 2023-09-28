@@ -15,13 +15,13 @@ export class ConfigurationService {
    firstRewardEpoch: number;
    requiredFtsoPerformance: number;
    boostingFactor: number;
-   votePowerCap: number;
+   votePowerCapBIPS: number;
    numUnrewardedEpochs: number;
-   uptimeVotigPeriodLength: number;
+   uptimeVotigPeriodLengthSeconds: number;
    uptimeVotingThreshold: number;
-   minForBEB: number;
-   defaultFee: number;
-   rewardAmountEpoch: string;
+   minForBEBGwei: number;
+   defaultFeePPM: number;
+   rewardAmountEpochWei: string;
    apiPath: string;
 
    constructor() {
@@ -41,14 +41,14 @@ export class ConfigurationService {
          this.maxRequestsPerSecond = configFile.MAX_REQUESTS_PER_SECOND ? configFile.MAX_REQUESTS_PER_SECOND : 3;
          this.firstRewardEpoch = configFile.FIRST_REWARD_EPOCH ? configFile.FIRST_REWARD_EPOCH : 50;
          this.requiredFtsoPerformance = configFile.REQUIRED_FTSO_PERFORMANCE ? configFile.REQUIRED_FTSO_PERFORMANCE : 0;
-         this.boostingFactor = configFile.BOOSTING_FACTOR ? configFile.BOOSTING_FACTOR : 2;
-         this.votePowerCap = configFile.VOTE_POWER_CAP ? configFile.VOTE_POWER_CAP : 500;
+         this.boostingFactor = configFile.BOOSTING_FACTOR ? configFile.BOOSTING_FACTOR : 5;
+         this.votePowerCapBIPS = configFile.VOTE_POWER_CAP_BIPS ? configFile.VOTE_POWER_CAP_BIPS : 500;
          this.numUnrewardedEpochs = configFile.NUM_UNREWARDED_EPOCHS ? configFile.NUM_UNREWARDED_EPOCHS : 1;
-         this.uptimeVotigPeriodLength = configFile.UPTIME_VOTING_PERIOD_LENGTH ? configFile.UPTIME_VOTING_PERIOD_LENGTH : 600;
+         this.uptimeVotigPeriodLengthSeconds = configFile.UPTIME_VOTING_PERIOD_LENGTH_SECONDS ? configFile.UPTIME_VOTING_PERIOD_LENGTH_SECONDS : 600;
          this.uptimeVotingThreshold = configFile.UPTIME_VOTING_THRESHOLD ? configFile.UPTIME_VOTING_THRESHOLD : undefined;
-         this.minForBEB = configFile.MIN_FOR_BEB ? configFile.MIN_FOR_BEB : 1e6;
-         this.defaultFee = configFile.DEFAULT_FEE ? configFile.DEFAULT_FEE : 200000;
-         this.rewardAmountEpoch = configFile.REWARD_AMOUNT_EPOCH ? configFile.REWARD_AMOUNT_EPOCH : undefined;
+         this.minForBEBGwei = configFile.MIN_FOR_BEB_GWEI ? configFile.MIN_FOR_BEB_GWEI : 1e15;
+         this.defaultFeePPM = configFile.DEFAULT_FEE_PPM ? configFile.DEFAULT_FEE_PPM : 200000;
+         this.rewardAmountEpochWei = configFile.REWARD_AMOUNT_EPOCH_WEI ? configFile.REWARD_AMOUNT_EPOCH_WEI : undefined;
          this.apiPath = configFile.API_PATH ? configFile.API_PATH : "https://flare-indexer.flare.rocks";
       }
    }

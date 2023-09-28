@@ -19,20 +19,19 @@ let args = yargs
       default: 'configs/networks/flare.json',
    })
    .option('firstEpoch', { alias: 'f', type: 'number', description: 'First reward epoch to calculate rewards for' })
-   .option('lastEpoch', { alias: 'l', type: 'number', description: 'Last reward epoch to calculate rewards for' })
    .option('uptime', { alias: 'u', type: 'number', description: 'Required uptime for the node to be eligible for staking rewards' })
    .option('ftsoPerformance', { alias: 'p', type: 'number', description: 'Required FTSO performance (received FTSO rewards) for the node to be eligible for staking rewards. Performance should be strictly greater than ftsoPerformance' })
    .option('boostingFactor', { alias: 's', type: 'number', description: 'Boosting factor (for calculating boost amount)' })
-   .option('votePowerCap', { alias: 'v', type: 'number', description: 'Cap vote power to x% of total stake amount' })
+   .option('votePowerCapBIPS', { alias: 'v', type: 'number', description: 'Cap vote power to x% of total stake amount' })
    .option('minVirtualSelfBond', { alias: 'm', type: 'number', description: 'Minimal virtual self bond needed to be eligible for rewards' })
    .option('numUnrewardedEpochs', { alias: 'e', type: 'number', description: 'Number of reward epochs for which validators and delegators were not yet rewarded' })
    .option('uptimeVotigPeriodLength', { alias: 'l', type: 'number', description: 'Length of voting period (which starts at the end of reward epoch) for reward epoch uptime' })
    .option('batchSize', { alias: 'b', type: 'number', description: 'Batch size for blocks to process events' })
    .option('rps', { alias: 'r', type: 'number', description: 'Request per second' })
    .option('uptimeVotingThreshold', { alias: 't', type: 'number', description: 'Required number of votes for uptime to be considered high enough' })
-   .option('minForBEB', { alias: 'x', type: 'number', description: 'Minimal amount of delegations/self-bond to be eligible for boosting' })
-   .option('defaultFee', { alias: 'd', type: 'number', description: 'Default fee (for group 1 nodes)' })
-   .option('rewardAmount', { alias: 'a', type: 'number', description: 'Reward amount to be distributed per reward epoch' })
+   .option('minForBEBGwei', { alias: 'x', type: 'number', description: 'Minimal amount (in gwei) of self-bond to be eligible for boosting' })
+   .option('defaultFeePPM', { alias: 'd', type: 'number', description: 'Default fee (for group 1 nodes)' })
+   .option('rewardAmountEpochWei', { alias: 'a', type: 'number', description: 'Reward amount (in wei) to be distributed per reward epoch' })
    .option('apiPath', { alias: 'y', type: 'string', description: 'Api for validators and delegators' })
    .argv;
 
@@ -48,18 +47,18 @@ async function runProcessCalculateRewards() {
    let firstRewardEpoch = args['firstEpoch'] ? args['firstEpoch'] : configurationService.firstRewardEpoch;
    let requiredFtsoPerformance = args['ftsoPerformance'] ? args['ftsoPerformance'] : configurationService.requiredFtsoPerformance;
    let boostingFactor = args['boostingFactor'] ? args['boostingFactor'] : configurationService.boostingFactor;
-   let votePowerCap = args['votePowerCap'] ? args['votePowerCap'] : configurationService.votePowerCap;
+   let votePowerCapBIPS = args['votePowerCapBIPS'] ? args['votePowerCapBIPS'] : configurationService.votePowerCapBIPS;
    let numUnrewardedEpochs = args['numUnrewardedEpochs'] ? args['numUnrewardedEpochs'] : configurationService.numUnrewardedEpochs;
-   let uptimeVotigPeriodLength = args['uptimeVotigPeriodLength'] ? args['uptimeVotigPeriodLength'] : configurationService.uptimeVotigPeriodLength;
+   let uptimeVotigPeriodLengthSeconds = args['uptimeVotigPeriodLengthSeconds'] ? args['uptimeVotigPeriodLengthSeconds'] : configurationService.uptimeVotigPeriodLengthSeconds;
    let batchSize = args['batchSize'] ? args['batchSize'] : configurationService.maxBlocksForEventReads;
    let rps = args['rps'] ? args['rps'] : configurationService.maxRequestsPerSecond;
    let uptimeVotingThreshold = args['uptimeVotingThreshold'] ? args['uptimeVotingThreshold'] : configurationService.uptimeVotingThreshold;
-   let minForBEB = args['minForBEB'] ? args['minForBEB'] : configurationService.minForBEB;
-   let defaultFee = args['defaultFee'] ? args['defaultFee'] : configurationService.defaultFee;
-   let rewardAmountEpoch = args['rewardAmountEpoch'] ? args['rewardAmountEpoch'] : configurationService.rewardAmountEpoch;
+   let minForBEBGwei = args['minForBEBGwei'] ? args['minForBEBGwei'] : configurationService.minForBEBGwei;
+   let defaultFeePPM = args['defaultFeePPM'] ? args['defaultFeePPM'] : configurationService.defaultFeePPM;
+   let rewardAmountEpochWei = args['rewardAmountEpochWei'] ? args['rewardAmountEpochWei'] : configurationService.rewardAmountEpochWei;
    let apiPath = args['apiPath'] ? args['apiPath'] : configurationService.apiPath;
 
-   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformance, boostingFactor, votePowerCap, numUnrewardedEpochs, uptimeVotigPeriodLength, rps, batchSize, uptimeVotingThreshold, minForBEB, defaultFee, rewardAmountEpoch, apiPath);
+   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformance, boostingFactor, votePowerCapBIPS, numUnrewardedEpochs, uptimeVotigPeriodLengthSeconds, rps, batchSize, uptimeVotingThreshold, minForBEBGwei, defaultFeePPM, rewardAmountEpochWei, apiPath);
 }
 
 runProcessCalculateRewards()
