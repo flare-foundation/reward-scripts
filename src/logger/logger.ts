@@ -3,7 +3,7 @@ import Transport from 'winston-transport';
 import { round } from '../utils/utils';
 import { Terminal } from './terminal';
 
-const PROJECT_NAME = 'opt-out';
+const PROJECT_NAME = 'staking-rewards';
 
 const level = process.env.LOG_LEVEL || 'info';
 

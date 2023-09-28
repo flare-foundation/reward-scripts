@@ -8,5 +8,20 @@
       "name": "FtsoManager",
       "contractName": "FtsoManager.sol",
       "address": "0x2E99a4543F9ea708Cf8CCaC447515e61706D9DE9"
+   },
+   {
+      "name": "PChainStakeMirrorMultiSigVoting",
+      "contractName": "PChainStakeMirrorMultiSigVoting.sol",
+      "address": "0x12b3079D5b65a17EFD1665d9731FB0Adb46F14e4"
+   },
+   {
+      "name": "ValidatorRewardManager",
+      "contractName": "ValidatorRewardManager.sol",
+      "address": "0x9907886ceF3DfDE3D679e1083fb0F610e9A527a0"
+   },
+   {
+      "name": "AddressBinder",
+      "contractName": "AddressBinder.sol",
+      "address": "0x5d931b4b7e408278F417ec887995696DA5Bd6ca2"
    }
 ]

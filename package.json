@@ -28,8 +28,7 @@
       "json2csv": "^6.0.0-alpha.2",
       "axios": "^1.4.0",
       "csv-parse": "^4.15.3",
-      "@flarenetwork/flarejs": "^1.2.1",
-      "bn.js": "5.2.1"
+      "@flarenetwork/flarejs": "^1.2.1"
    },
    "devDependencies": {
       "@typechain/web3-v1": "3.1.0",
