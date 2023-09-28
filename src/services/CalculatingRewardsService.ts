@@ -39,7 +39,7 @@ export class CalculatingRewardsService {
 		return this.loggerService.logger;
 	}
 
-	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: number, defaultFeePPM: number, rewardAmountEpochWei: string, apiPath: string) {
+	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, defaultFeePPM: number, rewardAmountEpochWei: string, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
 
@@ -158,7 +158,7 @@ export class CalculatingRewardsService {
 			// after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
 			allActiveNodes.forEach(node => {
 				const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
-				if (entities[i].totalSelfBond < minForBEBGwei) {
+				if (entities[i].totalSelfBond < BigInt(minForBEBGwei)) {
 					node.overboost = node.boost;
 				} else {
 					node.overboost = node.boost - node.BEB * BigInt(boostingFactor) > 0 ? node.boost - node.BEB * BigInt(boostingFactor) : BigInt(0);
