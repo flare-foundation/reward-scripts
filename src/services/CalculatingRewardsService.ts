@@ -75,7 +75,8 @@ export class CalculatingRewardsService {
 		const generatedFilesPath = `generated-files/reward-epochs-${firstRewardEpoch}-${firstRewardEpoch + numUnrewardedEpochs - 1}`
 		fs.mkdirSync(generatedFilesPath, { recursive: true });
 
-		let firstRun = true;
+		let rewardAmount: bigint;
+
 		for (let epoch = firstRewardEpoch; epoch < firstRewardEpoch + numUnrewardedEpochs; epoch++) {
 
 			let nextRewardEpochData = await ftsoManager.methods.getRewardEpochData((epoch + 1).toString()).call();
@@ -186,15 +187,10 @@ export class CalculatingRewardsService {
 			[allActiveNodes, totalStakeRewarding, entities] = await this.getTotalStakeAndCapVP(allActiveNodes, votePowerCapBIPS, totalStakeNetwork, entities);
 
 			// reward amount available for distribution
-			let rewardAmount: bigint;
 			if (rewardAmountEpochWei === undefined) {
 				rewardAmount = await this.getRewardAmount(validatorRewardManager, ftsoManager);
 			} else {
 				rewardAmount = BigInt(rewardAmountEpochWei);
-			}
-			if (firstRun) {
-				rewardsData.rewardAmountEpochWei = rewardAmount.toString();
-				firstRun = false;
 			}
 
 			this.logger.info(`entities: ${JSON.stringify(entities, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`);
@@ -216,6 +212,7 @@ export class CalculatingRewardsService {
 		rewardsData.defaultFeePPM = defaultFeePPM;
 		rewardsData.firstRewardEpoch = firstRewardEpoch;
 		rewardsData.numUnrewardedEpochs = numUnrewardedEpochs;
+		rewardsData.rewardAmountEpochWei = rewardAmount.toString();
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
 		let rewardsDataJSON = JSON.stringify(rewardsData, (_, v) => typeof v === 'bigint' ? v.toString() : v);
@@ -232,9 +229,6 @@ export class CalculatingRewardsService {
 		dataRewardManager.rewardAmounts = arrayAmounts;
 		let dataForRewardManagerJSON = JSON.stringify(dataRewardManager);
 		fs.writeFileSync(`${generatedFilesPath}/data-reward-manager.json`, dataForRewardManagerJSON, "utf8");
-
-		// let rewardsDataCSV = parse(rewardsData);
-		// fs.writeFileSync(`rewards-epochs-${firstRewardEpoch}-${firstRewardEpoch + numUnrewardedEpochs - 1}.csv`, rewardsDataCSV, "utf8");
 	}
 
 
