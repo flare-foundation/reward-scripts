@@ -66,6 +66,10 @@ export class CalculatingRewardsService {
 
 		let rewardsData = [] as RewardsData[];
 
+		if (firstRewardEpoch === undefined) {
+			firstRewardEpoch = parseInt(await ftsoRewardManager.methods.getCurrentRewardEpoch().call()) - numUnrewardedEpochs;
+		}
+
 		for (let epoch = firstRewardEpoch; epoch < firstRewardEpoch + numUnrewardedEpochs; epoch++) {
 
 			let nextRewardEpochData = await ftsoManager.methods.getRewardEpochData((epoch + 1).toString()).call();

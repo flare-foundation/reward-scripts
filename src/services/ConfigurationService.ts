@@ -39,7 +39,7 @@ export class ConfigurationService {
          this.networkRPC = configFile.RPC ? configFile.RPC : "https://flare-api.flare.network/ext/C/rpc";
          this.maxBlocksForEventReads = configFile.MAX_BLOCKS_FOR_EVENT_READS ? configFile.MAX_BLOCKS_FOR_EVENT_READS : 30;
          this.maxRequestsPerSecond = configFile.MAX_REQUESTS_PER_SECOND ? configFile.MAX_REQUESTS_PER_SECOND : 3;
-         this.firstRewardEpoch = configFile.FIRST_REWARD_EPOCH ? configFile.FIRST_REWARD_EPOCH : 50;
+         this.firstRewardEpoch = configFile.FIRST_REWARD_EPOCH ? configFile.FIRST_REWARD_EPOCH : undefined;
          this.requiredFtsoPerformance = configFile.REQUIRED_FTSO_PERFORMANCE ? configFile.REQUIRED_FTSO_PERFORMANCE : 0;
          this.boostingFactor = configFile.BOOSTING_FACTOR ? configFile.BOOSTING_FACTOR : 5;
          this.votePowerCapBIPS = configFile.VOTE_POWER_CAP_BIPS ? configFile.VOTE_POWER_CAP_BIPS : 500;
