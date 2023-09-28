@@ -87,6 +87,24 @@ export interface RewardsData {
    amount: bigint;
 }
 
+export interface RewardingPeriodData {
+   recipients: RewardsData[],
+   boostingFactor: number;
+   votePowerCapBIPS: number;
+   uptimeVotingPeriodLengthSeconds: number;
+   uptimeVotingThreshold: number;
+   minForBEBGwei: string;
+   defaultFeePPM: number;
+   rewardAmountEpochWei: string;
+   firstRewardEpoch: number;
+   numUnrewardedEpochs: number;
+}
+
+export interface DataValidatorRewardManager {
+   addresses: string[]
+   rewardAmounts: string[]
+}
+
 export interface UptimeVoteData {
    epochId: number;
    nodeIds: string[];
