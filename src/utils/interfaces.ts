@@ -98,6 +98,7 @@ export interface RewardingPeriodData {
    rewardAmountEpochWei: string;
    firstRewardEpoch: number;
    numUnrewardedEpochs: number;
+   requiredFtsoPerformanceWei: string;
 }
 
 export interface DataValidatorRewardManager {
@@ -122,7 +123,7 @@ export interface INetworkConfigJson {
    MAX_BLOCKS_FOR_EVENT_READS?: number;
    MAX_REQUESTS_PER_SECOND?: number | string;
    FIRST_REWARD_EPOCH: number;
-   REQUIRED_FTSO_PERFORMANCE: number;
+   REQUIRED_FTSO_PERFORMANCE_WEI: string;
    BOOSTING_FACTOR: number;
    VOTE_POWER_CAP_BIPS: number;
    NUM_UNREWARDED_EPOCHS: number;

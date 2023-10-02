@@ -39,7 +39,7 @@ export class CalculatingRewardsService {
 		return this.loggerService.logger;
 	}
 
-	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForReward: number, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, defaultFeePPM: number, rewardAmountEpochWei: string, apiPath: string) {
+	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForRewardWei: string, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, defaultFeePPM: number, rewardAmountEpochWei: string, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
 
@@ -106,7 +106,7 @@ export class CalculatingRewardsService {
 
 			//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
 			for (const activeNode of activeNodes) {
-				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForReward);
+				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei);
 
 				// decide to which group node belongs
 				let node = await this.nodeGroup(activeNode, ftsoAddress, fnlAddresses, pChainAddresses, defaultFeePPM);
@@ -135,6 +135,8 @@ export class CalculatingRewardsService {
 				}
 				if (node.pChainAddress !== "") {
 					node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress)).call();
+				} else {
+					this.logger.error(`FTSO ${node.ftsoAddress} did not provide its p-chain address`);
 				}
 				if (node.cChainAddress === ZERO_ADDRESS) {
 					this.logger.error(`Validator address ${node.pChainAddress} is not binded`);
@@ -193,8 +195,6 @@ export class CalculatingRewardsService {
 				rewardAmount = BigInt(rewardAmountEpochWei);
 			}
 
-			this.logger.info(`entities: ${JSON.stringify(entities, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`);
-
 			// calculated reward amount for each eligible node and for its delegators
 			allActiveNodes = await this.calculateRewardAmounts(allActiveNodes, totalStakeRewarding, rewardAmount);
 
@@ -213,6 +213,7 @@ export class CalculatingRewardsService {
 		rewardsData.firstRewardEpoch = firstRewardEpoch;
 		rewardsData.numUnrewardedEpochs = numUnrewardedEpochs;
 		rewardsData.rewardAmountEpochWei = rewardAmount.toString();
+		rewardsData.requiredFtsoPerformanceWei = ftsoPerformanceForRewardWei;
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
 		let rewardsDataJSON = JSON.stringify(rewardsData, (_, v) => typeof v === 'bigint' ? v.toString() : v);
@@ -305,7 +306,6 @@ export class CalculatingRewardsService {
 
 	public async getUptimeEligibleNodes(votingData: UptimeVote[], threshold: number) {
 		let eligibleNodesUptime = [] as string[];
-		this.logger.info(JSON.stringify(votingData))
 
 		// const voteCount = votingData.reduce((result, vote) => {
 		// 	vote.nodeIds.forEach(node => {
@@ -330,8 +330,7 @@ export class CalculatingRewardsService {
 	}
 
 	// check if node is eligible (high enough ftso performance and uptime) for rewards
-	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: number): Promise<[boolean, string]> {
-
+	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string): Promise<[boolean, string]> {
 		// find node's entity/ftso address
 		let ftsoObj = ftsoAddresses.find(obj => {
 			return obj.nodeId == node.nodeID;
@@ -339,7 +338,6 @@ export class CalculatingRewardsService {
 		if (ftsoObj === undefined) {
 			return [false, ""];
 		}
-
 		// uptime
 		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
 			return [false, ftsoObj.ftsoAddress];
@@ -441,7 +439,6 @@ export class CalculatingRewardsService {
 				})
 			}
 		});
-
 		this.logger.info(`nodes: ${JSON.stringify(activeNodes, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`)
 		return activeNodes;
 	}
@@ -538,8 +535,7 @@ export class CalculatingRewardsService {
 
 		activeNodes.forEach(node => {
 			if (node.eligible) {
-				// TODO: use c-chain address
-				let address = node.group == 1 ? node.pChainAddress : node.bondingAddress;
+				let address = node.cChainAddress;
 				const index = epochRewardsData.findIndex(validator => validator.address == address);
 				if (index > -1) {
 					epochRewardsData[index].amount += node.validatorRewardAmount;
@@ -567,9 +563,8 @@ export class CalculatingRewardsService {
 						epochRewardsData[index].amount += delegator.delegatorRewardAmount;
 					}
 					else {
-						// TODO: use c-chain address
 						epochRewardsData.push({
-							address: delegator.pAddress,
+							address: delegator.cAddress,
 							amount: delegator.delegatorRewardAmount
 						});
 					}
@@ -579,9 +574,8 @@ export class CalculatingRewardsService {
 						rewardsData.recipients[i].amount += delegator.delegatorRewardAmount;
 					}
 					else {
-						// TODO: use c-chain address
 						rewardsData.recipients.push({
-							address: delegator.pAddress,
+							address: delegator.cAddress,
 							amount: delegator.delegatorRewardAmount
 						});
 					}

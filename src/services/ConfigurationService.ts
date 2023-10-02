@@ -13,7 +13,7 @@ export class ConfigurationService {
    maxBlocksForEventReads: number;
    maxRequestsPerSecond: number | string;
    firstRewardEpoch: number;
-   requiredFtsoPerformance: number;
+   requiredFtsoPerformanceWei: string;
    boostingFactor: number;
    votePowerCapBIPS: number;
    numUnrewardedEpochs: number;
@@ -40,7 +40,7 @@ export class ConfigurationService {
          this.maxBlocksForEventReads = configFile.MAX_BLOCKS_FOR_EVENT_READS ? configFile.MAX_BLOCKS_FOR_EVENT_READS : 30;
          this.maxRequestsPerSecond = configFile.MAX_REQUESTS_PER_SECOND ? configFile.MAX_REQUESTS_PER_SECOND : 3;
          this.firstRewardEpoch = configFile.FIRST_REWARD_EPOCH ? configFile.FIRST_REWARD_EPOCH : undefined;
-         this.requiredFtsoPerformance = configFile.REQUIRED_FTSO_PERFORMANCE ? configFile.REQUIRED_FTSO_PERFORMANCE : 0;
+         this.requiredFtsoPerformanceWei = configFile.REQUIRED_FTSO_PERFORMANCE_WEI ? configFile.REQUIRED_FTSO_PERFORMANCE_WEI : "0";
          this.boostingFactor = configFile.BOOSTING_FACTOR ? configFile.BOOSTING_FACTOR : 5;
          this.votePowerCapBIPS = configFile.VOTE_POWER_CAP_BIPS ? configFile.VOTE_POWER_CAP_BIPS : 500;
          this.numUnrewardedEpochs = configFile.NUM_UNREWARDED_EPOCHS ? configFile.NUM_UNREWARDED_EPOCHS : 1;
