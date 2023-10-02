@@ -12,7 +12,7 @@
    {
       "name": "PChainStakeMirrorMultiSigVoting",
       "contractName": "PChainStakeMirrorMultiSigVoting.sol",
-      "address": "0x694905ca5f9F6c49f4748E8193B3e8053FA9E7E4"
+      "address": "0x37c5d6DCCb4421A47E3931584B306fBc00288aE9"
    },
    {
       "name": "ValidatorRewardManager",
@@ -22,6 +22,6 @@
    {
       "name": "AddressBinder",
       "contractName": "AddressBinder.sol",
-      "address": "0xCc8f7C3d04C7f60BC89fA4DCDC77D668183aa2ac"
+      "address": "0x332aa9e37D64CAAF70ae5dBe8EFC2FC7611934Ae"
    }
 ]

@@ -5,7 +5,7 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# Typescript 
+# Typescript
 dist
 
 ## Node packages etc
@@ -29,3 +29,5 @@ nul
 .secure*
 
 !.gitignore
+configs/networks/flare.json
+configs/networks/coston2.json
