@@ -49,7 +49,7 @@ export class ConfigurationService {
          this.minForBEBGwei = configFile.MIN_FOR_BEB_GWEI ? configFile.MIN_FOR_BEB_GWEI : "1000000000000000";
          this.defaultFeePPM = configFile.DEFAULT_FEE_PPM ? configFile.DEFAULT_FEE_PPM : 200000;
          this.rewardAmountEpochWei = configFile.REWARD_AMOUNT_EPOCH_WEI ? configFile.REWARD_AMOUNT_EPOCH_WEI : undefined;
-         this.apiPath = configFile.API_PATH ? configFile.API_PATH : "https://flare-indexer.flare.rocks";
+         this.apiPath = configFile.API_PATH ? configFile.API_PATH : undefined;
       }
    }
 
