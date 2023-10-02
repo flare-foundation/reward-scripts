@@ -36,7 +36,7 @@
          "${workspaceFolder}/node_modules/typescript-ioc/src/**"
         ],
         "runtimeArgs": [
-            "process-staking-rewards", "-r", "Infinity"
+            "process-staking-rewards"
         ]
     },
 

@@ -238,7 +238,7 @@ export class CalculatingRewardsService {
 		const parsed: { nodeId: string, ftsoAddress: string }[] = parseCsv(rawData, {
 			columns: true,
 			skip_empty_lines: true,
-			delimiter: ';',
+			delimiter: ',',
 			skip_records_with_error: false
 		}).map(
 			(it: any, i: number) => {
@@ -291,7 +291,7 @@ export class CalculatingRewardsService {
 		const parsed: { ftsoAddress: string, pChainAddress: string }[] = parseCsv(rawData, {
 			columns: true,
 			skip_empty_lines: true,
-			delimiter: ';',
+			delimiter: ',',
 			skip_records_with_error: false
 		}).map(
 			(it: any, i: number) => {
@@ -375,8 +375,13 @@ export class CalculatingRewardsService {
 
 		// cap factor for entity
 		entities.forEach(e => {
-			let capBIPS = totalStakeNetwork * BigInt(votePowerCapFactor) / e.totalStakeRewarding;
-			e.capFactor = capBIPS < 1e4 ? capBIPS : BigInt(1e4);
+			if (e.totalStakeRewarding !== BigInt(0)) {
+				let capBIPS = totalStakeNetwork * BigInt(votePowerCapFactor) / e.totalStakeRewarding;
+				e.capFactor = capBIPS < 1e4 ? capBIPS : BigInt(1e4);
+			} else { // rewarding weight == overboost
+				e.capFactor = BigInt(0);
+			}
+
 		})
 
 		// total capped rewarding weight of eligible nodes
@@ -407,7 +412,7 @@ export class CalculatingRewardsService {
 		activeNodes.forEach(node => {
 			if (node.eligible) {
 				// reward amount available for a node
-				node.nodeRewardAmount = node.cappedWeight * availableRewardAmount / totalStakeAmount;
+				node.nodeRewardAmount = totalStakeAmount > BigInt(0) ? node.cappedWeight * availableRewardAmount / totalStakeAmount : BigInt(0);
 				let nodeRemainingRewardAmount = node.nodeRewardAmount;
 				let nodeRemainingWeight = node.rewardingWeight;
 				availableRewardAmount -= node.nodeRewardAmount;
@@ -419,13 +424,13 @@ export class CalculatingRewardsService {
 				nodeRemainingRewardAmount -= feeAmount;
 
 				// rewards (excluding fees) for total self bond (group1: self-delegations; group2: self-delegations + self-bond)
-				let validatorSelfBondReward = nodeRemainingWeight > 0 ? node.totalSelfBond * nodeRemainingRewardAmount / nodeRemainingWeight : BigInt(0);
+				let validatorSelfBondReward = nodeRemainingWeight > BigInt(0) ? node.totalSelfBond * nodeRemainingRewardAmount / nodeRemainingWeight : BigInt(0);
 				node.validatorRewardAmount += validatorSelfBondReward;
 				nodeRemainingRewardAmount -= validatorSelfBondReward;
 				nodeRemainingWeight -= node.totalSelfBond;
 
 				// adjusted reward (that would otherwise be earned by boosting addresses)
-				let validatorAdjustedReward = nodeRemainingWeight > 0 ? (node.boost - node.overboost) * nodeRemainingRewardAmount / nodeRemainingWeight : BigInt(0);
+				let validatorAdjustedReward = nodeRemainingWeight > BigInt(0) ? (node.boost - node.overboost) * nodeRemainingRewardAmount / nodeRemainingWeight : BigInt(0);
 				node.validatorRewardAmount += validatorAdjustedReward;
 				nodeRemainingRewardAmount -= validatorAdjustedReward;
 				nodeRemainingWeight -= node.boost - node.overboost;
