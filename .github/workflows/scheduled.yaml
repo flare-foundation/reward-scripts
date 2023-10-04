@@ -19,6 +19,8 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 20
+    - name: Install jq
+      run: apt update -y && apt install jq -y
     - name: Install node modules
       run: yarn install --frozen-lockfile
     - name: Calculate current epoch
