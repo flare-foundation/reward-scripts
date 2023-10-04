@@ -50,8 +50,8 @@ export class CalculatingRewardsService {
 		let pChainStakeMirrorMultiSigVoting = await this.contractService.pChainStakeMirrorMultiSigVoting();
 		let addressBinder = await this.contractService.addressBinder();
 
-		// excluded (FNL) addresses
-		let fnlAddresses = await this.getFNLAddresses("fnl.json");
+		// boosting addresses
+		let boostingAddresses = await this.getBoostingAddresses("boosting-addresses.json");
 
 		// ftso (entity) address for a node
 		let ftsoAddresses = await this.getFtsoAddress("ftso-address.csv") as FtsoData[];
@@ -109,11 +109,11 @@ export class CalculatingRewardsService {
 				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei);
 
 				// decide to which group node belongs
-				let node = await this.nodeGroup(activeNode, ftsoAddress, fnlAddresses, pChainAddresses, defaultFeePPM);
+				let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses, defaultFeePPM);
 				node.eligible = eligible;
 
 				if (node.group === 1) {
-					let [selfDelegations, BEB, normalDelegations, boostDelegations, delegators] = await this.nodeGroup1Data(delegations, node, fnlAddresses, addressBinder);
+					let [selfDelegations, BEB, normalDelegations, boostDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder);
 					node.boost = node.selfBond + boostDelegations;
 					node.BEB = BEB;
 					node.selfDelegations = selfDelegations;
@@ -123,7 +123,7 @@ export class CalculatingRewardsService {
 					node.delegators = delegators;
 					node.totalStakeAmount = selfDelegations + node.boost + normalDelegations;
 				} else if (node.group === 2) {
-					let [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(delegations, fnlAddresses, node, addressBinder);
+					let [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(delegations, boostingAddresses, node, addressBinder);
 					node.BEB = node.selfBond;
 					node.boostDelegations = boost;
 					node.boost = boost;
@@ -252,7 +252,7 @@ export class CalculatingRewardsService {
 	}
 
 
-	public async getFNLAddresses(fnlFile: string) {
+	public async getBoostingAddresses(fnlFile: string) {
 		return JSON.parse(fs.readFileSync(fnlFile, 'utf8'));
 	}
 
@@ -348,7 +348,7 @@ export class CalculatingRewardsService {
 		return [BigInt(ftsoPerformance[0]) > BigInt(ftsoPerformanceForReward), ftsoObj.ftsoAddress];
 	}
 
-	public async nodeGroup(node: NodeData, ftsoAddress: string, fnlAddresses: string[], pChainAddresses: PAddressData[], defaultFee: number): Promise<ActiveNode> {
+	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[], defaultFee: number): Promise<ActiveNode> {
 		let nodeObj = {} as ActiveNode;
 		nodeObj.nodeId = node.nodeID;
 		nodeObj.bondingAddress = node.inputAddresses[0];
@@ -357,7 +357,7 @@ export class CalculatingRewardsService {
 		nodeObj.stakeEnd = node.endTime;
 
 		// node is in group 1
-		if (fnlAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000 * 1e9)) {
+		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000 * 1e9)) {
 			// bind p chain address to node id
 			const pAddr = pChainAddresses.find((obj) => obj.ftsoAddress == nodeObj.ftsoAddress);
 			nodeObj.pChainAddress = pAddr ? pAddr.pChainAddress : "";
@@ -448,7 +448,7 @@ export class CalculatingRewardsService {
 		return activeNodes;
 	}
 
-	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, fnlAddresses: string[], addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, bigint, DelegatorData[]]> {
+	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, boostingAddresses: string[], addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, bigint, DelegatorData[]]> {
 		let selfDelegations = BigInt(0);
 		let regularDelegations = BigInt(0);
 		let delegators = [] as DelegatorData[];
@@ -468,7 +468,7 @@ export class CalculatingRewardsService {
 				}
 			}
 			// FNL delegation (boosting)
-			else if (fnlAddresses.includes(delegation.inputAddresses[0])) {
+			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
 				boostDelegations += delegation.weight;
 			}
 			// regular delegation
@@ -494,7 +494,7 @@ export class CalculatingRewardsService {
 		return [selfDelegations, BEB, regularDelegations, boostDelegations, delegators];
 	}
 
-	public async nodeGroup2Data(delegations: DelegationData[], fnlAddresses: string[], node: ActiveNode, addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
+	public async nodeGroup2Data(delegations: DelegationData[], boostingAddresses: string[], node: ActiveNode, addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
 		let selfDelegations = BigInt(0);
 		let regularDelegations = BigInt(0);
 		let boost = BigInt(0);
@@ -507,7 +507,7 @@ export class CalculatingRewardsService {
 				selfDelegations += delegation.weight;
 			}
 			// FNL delegation (boosting)
-			else if (fnlAddresses.includes(delegation.inputAddresses[0])) {
+			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
 				boost += delegation.weight;
 			}
 			// regular delegation
