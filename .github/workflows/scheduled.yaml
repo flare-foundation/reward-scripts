@@ -7,7 +7,7 @@ on:
   - cron:  '0 6 * * 5' # Every Friday at 08:00 +2
   workflow_dispatch:
     inputs:
-      name:
+      first_reward_epoch:
         description: "First reward epoch"
         type: number
 
@@ -23,6 +23,17 @@ jobs:
       run: yarn install --frozen-lockfile
     - name: Run process-staking-rewards
       run: yarn run process-staking-rewards
+    - name: Calculate current epoch
+      if: "${{ github.event.inputs.first_reward_epoch == '' }}"
+      run: |
+        export FIRST_REWARD_EPOCH="$(node .github/workflows/calculate-epoch.js)"
+        jq --arg epoch "$FIRST_REWARD_EPOCH" '.FIRST_REWARD_EPOCH = $epoch' configs/networks/flare.json > configs/networks/flare.json
+    - name: Replace FIRST_REWARD_EPOCH
+      if: "${{ github.event.inputs.first_reward_epoch != '' }}"
+      run: |
+        jq --arg epoch "${{ github.event.inputs.first_reward_epoch }}" '.FIRST_REWARD_EPOCH = $epoch' configs/networks/flare.json > configs/networks/flare.json
+    - name: Print out flare.json
+      run: cat configs/networks/flare.json
     - name: Archive code coverage results
       uses: actions/upload-artifact@v3
       with:
