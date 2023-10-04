@@ -1,8 +1,14 @@
+name: "Rewards"
+
 on:
   schedule:
   - cron:  '0 9 * * 1' # Every Monday at 11:00 +2
   - cron:  '0 6 * * 5' # Every Friday at 08:00 +2
   workflow_dispatch:
+    inputs:
+      name:
+        description: "First reward epoch"
+        type: number
 
 jobs:
   run-script:
@@ -14,3 +20,10 @@ jobs:
         node-version: 20
     - name: Install node modules
       run: yarn install --frozen-lockfile
+    - name: Run process-staking-rewards
+      run: yarn run process-staking-rewards
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v3
+      with:
+        name: staking rewards reports
+        path: generated-files/
