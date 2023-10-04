@@ -43,5 +43,9 @@
       "mocha": "^10.0.0",
       "chai": "^4.3.6",
       "@types/lodash": "^4.14.186"
-   }
+   },
+   "engines": {
+      "node": "^20"
+   },
+   "engineStrict": true
 }
