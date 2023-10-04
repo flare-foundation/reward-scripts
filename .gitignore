@@ -1,0 +1,33 @@
+### VisualStudioCode template
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Typescript
+dist
+
+## Node packages etc
+node_modules/
+
+## yarn
+yarn-error.log
+
+## Logs
+logs
+*.log
+
+## Env
+.env
+
+## Misc
+.DS_Store
+nul
+
+
+.secure*
+
+!.gitignore
+configs/networks/flare.json
+configs/networks/coston2.json
