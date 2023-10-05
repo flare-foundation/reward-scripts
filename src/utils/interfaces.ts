@@ -34,7 +34,7 @@ export interface ActiveNode {
    bondingAddress: string;          // p-chain address that opened stake
    ftsoAddress: string;             // ftso (entity) address
    selfBond: bigint;                // initial stake
-   pChainAddress: string;           // p-chain address corresponding to validator (for group 2 it is same as bonding address)
+   pChainAddress: string[];           // p-chain address corresponding to validator (for group 2 it is same as bonding address)
                                     // used for self-delegations
    cChainAddress?: string           // c-chain address (used for rewarding) corresponding to p-chain address
    selfDelegations: bigint;         // delegations from validator to its node

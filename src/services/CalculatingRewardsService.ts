@@ -133,10 +133,11 @@ export class CalculatingRewardsService {
 					node.delegators = delegators;
 					node.totalStakeAmount = node.selfBond + node.boost + selfDelegation + normalDelegations;
 				}
-				if (node.pChainAddress !== "") {
-					node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress)).call();
-				} else {
+				if (node.pChainAddress.length === 0) {
 					this.logger.error(`FTSO ${node.ftsoAddress} did not provide its p-chain address`);
+				} else {
+					node.pChainAddress.sort((a, b) => a.toLowerCase() > b.toLowerCase() ? 1 : -1);
+					node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0])).call();
 				}
 				if (node.cChainAddress === ZERO_ADDRESS) {
 					this.logger.error(`Validator address ${node.pChainAddress} is not binded`);
@@ -355,18 +356,22 @@ export class CalculatingRewardsService {
 		nodeObj.selfBond = node.weight;
 		nodeObj.ftsoAddress = ftsoAddress;
 		nodeObj.stakeEnd = node.endTime;
+		nodeObj.pChainAddress = [];
 
 		// node is in group 1
 		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000 * 1e9)) {
 			// bind p chain address to node id
-			const pAddr = pChainAddresses.find((obj) => obj.ftsoAddress == nodeObj.ftsoAddress);
-			nodeObj.pChainAddress = pAddr ? pAddr.pChainAddress : "";
+			for (let obj of pChainAddresses) {
+				if (obj.ftsoAddress == nodeObj.ftsoAddress) {
+					nodeObj.pChainAddress.push(obj.pChainAddress);
+				}
+			}
 			nodeObj.fee = defaultFee;
 			nodeObj.group = 1;
 			return nodeObj;
 		}
 		nodeObj.fee = node.feePercentage;
-		nodeObj.pChainAddress = nodeObj.bondingAddress;
+		nodeObj.pChainAddress.push(nodeObj.bondingAddress);
 		nodeObj.group = 2
 		return nodeObj;
 	}
@@ -459,13 +464,9 @@ export class CalculatingRewardsService {
 			if (delegation.nodeID !== node.nodeId) continue;
 
 			// self-delegation
-			if (delegation.inputAddresses[0] === node.pChainAddress) {
+			if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
 				selfDelegations += delegation.weight;
-				// first self-delegation; delegations are sorted by start time, therefore the first one will always be taken
-				if (delegation.startTime < firstDelegationStartTime && delegation.endTime == node.stakeEnd) {
-					BEB = delegation.weight;
-					firstDelegationStartTime = delegation.startTime;
-				}
+				BEB += delegation.weight;
 			}
 			// FNL delegation (boosting)
 			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
@@ -503,7 +504,7 @@ export class CalculatingRewardsService {
 			if (delegation.nodeID !== node.nodeId) continue;
 
 			// self-delegation
-			if (delegation.inputAddresses[0] === node.pChainAddress) {
+			if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
 				selfDelegations += delegation.weight;
 			}
 			// FNL delegation (boosting)
