@@ -115,7 +115,7 @@ export class CalculatingRewardsService {
 
 				if (node.group === 1) {
 					let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder);
-					let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6) * GWEI ?  BigInt(boostingFactor) * selfDelegations - BigInt(10e6) * GWEI : BigInt(0);
+					let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6) * GWEI ? BigInt(boostingFactor) * selfDelegations - BigInt(10e6) * GWEI : BigInt(0);
 					node.boostDelegations = virtualBoost < BigInt(5e6) * GWEI ? virtualBoost : BigInt(5e6) * GWEI;
 					node.boost = node.selfBond + node.boostDelegations;
 					node.BEB = selfDelegations;
@@ -255,8 +255,8 @@ export class CalculatingRewardsService {
 	}
 
 
-	public async getBoostingAddresses(fnlFile: string) {
-		return JSON.parse(fs.readFileSync(fnlFile, 'utf8'));
+	public async getBoostingAddresses(boostingFile: string) {
+		return JSON.parse(fs.readFileSync(boostingFile, 'utf8'));
 	}
 
 	public async getActiveStakes(vpBlock: number, path1: string, path2: string) {
@@ -466,6 +466,10 @@ export class CalculatingRewardsService {
 			if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
 				selfDelegations += delegation.weight;
 			}
+			// boosting delegation
+			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
+				// do nothing
+			}
 			// regular delegation
 			else {
 				regularDelegations += delegation.weight;
@@ -501,7 +505,7 @@ export class CalculatingRewardsService {
 			if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
 				selfDelegations += delegation.weight;
 			}
-			// FNL delegation (boosting)
+			// boosting delegation
 			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
 				boost += delegation.weight;
 			}
