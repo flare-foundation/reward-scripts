@@ -19,6 +19,7 @@ const VALIDATORS_API = 'validators/list';
 const DELEGATORS_API = 'delegators/list';
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DAY_SECONDS = 24 * 60 * 60;
+const GWEI = 1e9;
 
 @Singleton
 @Factory(() => new CalculatingRewardsService())
@@ -113,13 +114,14 @@ export class CalculatingRewardsService {
 				node.eligible = eligible;
 
 				if (node.group === 1) {
-					let [selfDelegations, BEB, normalDelegations, boostDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder);
-					node.boost = node.selfBond + boostDelegations;
-					node.BEB = BEB;
+					let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder);
+					let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6 * GWEI) ?  BigInt(boostingFactor) * selfDelegations - BigInt(10e6 * GWEI) : BigInt(0);
+					node.boostDelegations = virtualBoost < BigInt(5e6 * GWEI) ? virtualBoost : BigInt(5e6 * GWEI);
+					node.boost = node.selfBond + node.boostDelegations;
+					node.BEB = selfDelegations;
 					node.selfDelegations = selfDelegations;
 					node.totalSelfBond = selfDelegations;
 					node.normalDelegations = normalDelegations;
-					node.boostDelegations = boostDelegations;
 					node.delegators = delegators;
 					node.totalStakeAmount = selfDelegations + node.boost + normalDelegations;
 				} else if (node.group === 2) {
@@ -359,7 +361,7 @@ export class CalculatingRewardsService {
 		nodeObj.pChainAddress = [];
 
 		// node is in group 1
-		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000 * 1e9)) {
+		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000 * GWEI)) {
 			// bind p chain address to node id
 			for (let obj of pChainAddresses) {
 				if (obj.ftsoAddress == nodeObj.ftsoAddress) {
@@ -453,24 +455,16 @@ export class CalculatingRewardsService {
 		return activeNodes;
 	}
 
-	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, boostingAddresses: string[], addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, bigint, DelegatorData[]]> {
+	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, boostingAddresses: string[], addressBinder: AddressBinder): Promise<[bigint, bigint, DelegatorData[]]> {
 		let selfDelegations = BigInt(0);
 		let regularDelegations = BigInt(0);
 		let delegators = [] as DelegatorData[];
-		let BEB = BigInt(0);
-		let boostDelegations = BigInt(0);
-		let firstDelegationStartTime = Infinity;
 		for (const delegation of delegations) {
 			if (delegation.nodeID !== node.nodeId) continue;
 
 			// self-delegation
 			if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
 				selfDelegations += delegation.weight;
-				BEB += delegation.weight;
-			}
-			// FNL delegation (boosting)
-			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
-				boostDelegations += delegation.weight;
 			}
 			// regular delegation
 			else {
@@ -492,7 +486,7 @@ export class CalculatingRewardsService {
 				}
 			}
 		}
-		return [selfDelegations, BEB, regularDelegations, boostDelegations, delegators];
+		return [selfDelegations, regularDelegations, delegators];
 	}
 
 	public async nodeGroup2Data(delegations: DelegationData[], boostingAddresses: string[], node: ActiveNode, addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
