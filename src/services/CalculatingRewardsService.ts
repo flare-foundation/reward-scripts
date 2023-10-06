@@ -19,7 +19,7 @@ const VALIDATORS_API = 'validators/list';
 const DELEGATORS_API = 'delegators/list';
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DAY_SECONDS = 24 * 60 * 60;
-const GWEI = 1e9;
+const GWEI = BigInt(1e9);
 
 @Singleton
 @Factory(() => new CalculatingRewardsService())
@@ -115,8 +115,8 @@ export class CalculatingRewardsService {
 
 				if (node.group === 1) {
 					let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder);
-					let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6 * GWEI) ?  BigInt(boostingFactor) * selfDelegations - BigInt(10e6 * GWEI) : BigInt(0);
-					node.boostDelegations = virtualBoost < BigInt(5e6 * GWEI) ? virtualBoost : BigInt(5e6 * GWEI);
+					let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6) * GWEI ?  BigInt(boostingFactor) * selfDelegations - BigInt(10e6) * GWEI : BigInt(0);
+					node.boostDelegations = virtualBoost < BigInt(5e6) * GWEI ? virtualBoost : BigInt(5e6) * GWEI;
 					node.boost = node.selfBond + node.boostDelegations;
 					node.BEB = selfDelegations;
 					node.selfDelegations = selfDelegations;
@@ -179,7 +179,7 @@ export class CalculatingRewardsService {
 				if (entities[i].totalSelfBond < BigInt(minForBEBGwei)) {
 					node.overboost = node.boost;
 				} else {
-					node.overboost = node.boost - node.BEB * BigInt(boostingFactor) > 0 ? node.boost - node.BEB * BigInt(boostingFactor) : BigInt(0);
+					node.overboost = node.boost - node.BEB * BigInt(boostingFactor) > BigInt(0) ? node.boost - node.BEB * BigInt(boostingFactor) : BigInt(0);
 				}
 				node.rewardingWeight = node.totalStakeAmount - node.overboost;
 
@@ -361,7 +361,7 @@ export class CalculatingRewardsService {
 		nodeObj.pChainAddress = [];
 
 		// node is in group 1
-		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000 * GWEI)) {
+		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000) * GWEI) {
 			// bind p chain address to node id
 			for (let obj of pChainAddresses) {
 				if (obj.ftsoAddress == nodeObj.ftsoAddress) {
