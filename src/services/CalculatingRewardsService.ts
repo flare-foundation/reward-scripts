@@ -141,7 +141,7 @@ export class CalculatingRewardsService {
 					node.pChainAddress.sort((a, b) => a.toLowerCase() > b.toLowerCase() ? 1 : -1);
 					node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0])).call();
 				}
-				if (node.cChainAddress === ZERO_ADDRESS) {
+				if (node.cChainAddress === ZERO_ADDRESS && node.eligible) {
 					this.logger.error(`Validator address ${node.pChainAddress} is not binded`);
 				}
 				totalStakeNetwork += node.totalStakeAmount;
@@ -155,7 +155,7 @@ export class CalculatingRewardsService {
 					);
 					// entity has more than four active nodes
 					// nodes are already sorted by start time (increasing)
-					if (entities[i].nodes.length > 4) {
+					if (entities[i].nodes.length > 4 && entities[i].entityAddress !== "") {
 						node.eligible = false;
 						this.logger.error(`Entity ${entities[i].entityAddress} has more than 4 nodes`);
 					}
@@ -518,7 +518,7 @@ export class CalculatingRewardsService {
 					delegators[i].amount += delegation.weight;
 				} else {
 					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
-					if (cAddr === ZERO_ADDRESS) {
+					if (cAddr === ZERO_ADDRESS && node.eligible) {
 						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
 					}
 					delegators.push({
