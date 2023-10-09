@@ -141,7 +141,7 @@ export class CalculatingRewardsService {
 					node.pChainAddress.sort((a, b) => a.toLowerCase() > b.toLowerCase() ? 1 : -1);
 					node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0])).call();
 				}
-				if (node.cChainAddress === ZERO_ADDRESS && node.eligible) {
+				if (node.cChainAddress === ZERO_ADDRESS) {
 					this.logger.error(`Validator address ${node.pChainAddress} is not binded`);
 				}
 				totalStakeNetwork += node.totalStakeAmount;
@@ -200,6 +200,8 @@ export class CalculatingRewardsService {
 
 			// calculated reward amount for each eligible node and for its delegators
 			allActiveNodes = await this.calculateRewardAmounts(allActiveNodes, totalStakeRewarding, rewardAmount);
+			let activeNodesDataJSON = JSON.stringify(allActiveNodes, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
+			fs.writeFileSync(`${generatedFilesPath}/nodes-data-${epoch}.json`, activeNodesDataJSON, "utf8");
 
 			// for the reward epoch create JSON file with rewarded addresses and reward amounts
 			// sum rewards per epoch and address
@@ -219,7 +221,7 @@ export class CalculatingRewardsService {
 		rewardsData.requiredFtsoPerformanceWei = ftsoPerformanceForRewardWei;
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
-		let rewardsDataJSON = JSON.stringify(rewardsData, (_, v) => typeof v === 'bigint' ? v.toString() : v);
+		let rewardsDataJSON = JSON.stringify(rewardsData, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
 		fs.writeFileSync(`${generatedFilesPath}/data.json`, rewardsDataJSON, "utf8");
 
 		let dataRewardManager = {} as DataValidatorRewardManager;
@@ -231,7 +233,7 @@ export class CalculatingRewardsService {
 		});
 		dataRewardManager.addresses = arrayAddresses;
 		dataRewardManager.rewardAmounts = arrayAmounts;
-		let dataForRewardManagerJSON = JSON.stringify(dataRewardManager);
+		let dataForRewardManagerJSON = JSON.stringify(dataRewardManager, null, 2);
 		fs.writeFileSync(`${generatedFilesPath}/data-reward-manager.json`, dataForRewardManagerJSON, "utf8");
 	}
 
@@ -339,6 +341,7 @@ export class CalculatingRewardsService {
 			return obj.nodeId == node.nodeID;
 		})
 		if (ftsoObj === undefined) {
+			this.logger.error(`${node.nodeID} did not provide its FTSO address`)
 			return [false, ""];
 		}
 		// uptime
@@ -451,7 +454,6 @@ export class CalculatingRewardsService {
 				})
 			}
 		});
-		this.logger.info(`nodes: ${JSON.stringify(activeNodes, (_, v) => typeof v === 'bigint' ? v.toString() : v)}`)
 		return activeNodes;
 	}
 
@@ -518,7 +520,7 @@ export class CalculatingRewardsService {
 					delegators[i].amount += delegation.weight;
 				} else {
 					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
-					if (cAddr === ZERO_ADDRESS && node.eligible) {
+					if (cAddr === ZERO_ADDRESS) {
 						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
 					}
 					delegators.push({
@@ -539,50 +541,64 @@ export class CalculatingRewardsService {
 
 		activeNodes.forEach(node => {
 			if (node.eligible) {
-				let address = node.cChainAddress;
-				const index = epochRewardsData.findIndex(validator => validator.address == address);
-				if (index > -1) {
-					epochRewardsData[index].amount += node.validatorRewardAmount;
-				}
-				else {
-					epochRewardsData.push({
-						address: address,
-						amount: node.validatorRewardAmount
-					});
-				}
-				distributed += node.validatorRewardAmount;
-				const i = rewardsData.recipients.findIndex(obj => obj.address == address);
-				if (i > -1) {
-					rewardsData.recipients[i].amount += node.validatorRewardAmount;
+				if (node.validatorRewardAmount === BigInt(0)) {
+					if (node.cChainAddress !== undefined) {
+						this.logger.error(`Entity ${node.ftsoAddress} is eligible but reward amount is 0, ${node.cChainAddress}`);
+					}
+					// else:
+					// validator did not provider its ftso address
+					// should only happen if validator from group did not provide p-chain address and has 0 self-delegations
 				} else {
-					rewardsData.recipients.push({
-						address: address,
-						amount: node.validatorRewardAmount
-					});
-				}
-
-				node.delegators.forEach(delegator => {
-					const index = epochRewardsData.findIndex(rewardedData => rewardedData.address == delegator.pAddress);
+					let address = node.cChainAddress;
+					const index = epochRewardsData.findIndex(validator => validator.address == address);
 					if (index > -1) {
-						epochRewardsData[index].amount += delegator.delegatorRewardAmount;
+						epochRewardsData[index].amount += node.validatorRewardAmount;
 					}
 					else {
 						epochRewardsData.push({
-							address: delegator.cAddress,
-							amount: delegator.delegatorRewardAmount
+							address: address,
+							amount: node.validatorRewardAmount
 						});
 					}
-					distributed += delegator.delegatorRewardAmount;
-					const i = rewardsData.recipients.findIndex(del => del.address === delegator.pAddress);
+					distributed += node.validatorRewardAmount;
+					const i = rewardsData.recipients.findIndex(obj => obj.address == address);
 					if (i > -1) {
-						rewardsData.recipients[i].amount += delegator.delegatorRewardAmount;
-					}
-					else {
+						rewardsData.recipients[i].amount += node.validatorRewardAmount;
+					} else {
 						rewardsData.recipients.push({
-							address: delegator.cAddress,
-							amount: delegator.delegatorRewardAmount
+							address: address,
+							amount: node.validatorRewardAmount
 						});
 					}
+				};
+
+				node.delegators.forEach(delegator => {
+					if (delegator.amount > BigInt(0)) {
+						const index = epochRewardsData.findIndex(rewardedData => rewardedData.address == delegator.pAddress);
+						if (index > -1) {
+							epochRewardsData[index].amount += delegator.delegatorRewardAmount;
+						}
+						else {
+							epochRewardsData.push({
+								address: delegator.cAddress,
+								amount: delegator.delegatorRewardAmount
+							});
+						}
+						distributed += delegator.delegatorRewardAmount;
+						const i = rewardsData.recipients.findIndex(del => del.address === delegator.pAddress);
+						if (i > -1) {
+							rewardsData.recipients[i].amount += delegator.delegatorRewardAmount;
+						}
+						else {
+							rewardsData.recipients.push({
+								address: delegator.cAddress,
+								amount: delegator.delegatorRewardAmount
+							});
+						}
+					} else {
+						this.logger.error(`Delegator ${delegator.cAddress} has reward amount 0`);
+					}
+
 				})
 			}
 		});
@@ -599,7 +615,7 @@ export class CalculatingRewardsService {
 		}
 
 		// write to JSON file
-		let epochRewardsJSON = JSON.stringify(epochRewards, (_, v) => typeof v === 'bigint' ? v.toString() : v);
+		let epochRewardsJSON = JSON.stringify(epochRewards, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
 		fs.writeFileSync(`${filesPath}/epoch-${epoch}.json`, epochRewardsJSON, "utf8");
 
 		return rewardsData;
