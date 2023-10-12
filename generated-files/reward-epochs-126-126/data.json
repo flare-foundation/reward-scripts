@@ -242,7 +242,6 @@
   "uptimeVotingPeriodLengthSeconds": 600,
   "uptimeVotingThreshold": 3,
   "minForBEBGwei": "1000000000000000",
-  "defaultFeePPM": 200000,
   "firstRewardEpoch": 126,
   "numUnrewardedEpochs": 1,
   "rewardAmountEpochWei": "5179462900021549230386701",

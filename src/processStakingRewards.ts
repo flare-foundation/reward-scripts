@@ -28,7 +28,6 @@ let args = yargs
    .option('rps', { alias: 'r', type: 'number', description: 'Request per second' })
    .option('uptimeVotingThreshold', { alias: 't', type: 'number', description: 'Required number of votes for uptime to be considered high enough' })
    .option('minForBEBGwei', { alias: 'm', type: 'string', description: 'Minimal amount (in gwei) of total self-bond to be eligible for boosting' })
-   .option('defaultFeePPM', { alias: 'd', type: 'number', description: 'Default fee (for group 1 nodes)' })
    .option('rewardAmountEpochWei', { alias: 'a', type: 'string', description: 'Reward amount (in wei) to be distributed per reward epoch' })
    .option('apiPath', { alias: 'y', type: 'string', description: 'Api for validators and delegators' })
    .argv;
@@ -52,11 +51,10 @@ async function runProcessCalculateRewards() {
    let rps = args['rps'] ? args['rps'] : configurationService.maxRequestsPerSecond;
    let uptimeVotingThreshold = args['uptimeVotingThreshold'] ? args['uptimeVotingThreshold'] : configurationService.uptimeVotingThreshold;
    let minForBEBGwei = args['minForBEBGwei'] ? args['minForBEBGwei'] : configurationService.minForBEBGwei;
-   let defaultFeePPM = args['defaultFeePPM'] ? args['defaultFeePPM'] : configurationService.defaultFeePPM;
    let rewardAmountEpochWei = args['rewardAmountEpochWei'] ? args['rewardAmountEpochWei'] : configurationService.rewardAmountEpochWei;
    let apiPath = args['apiPath'] ? args['apiPath'] : configurationService.apiPath;
 
-   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformanceWei, boostingFactor, votePowerCapBIPS, numUnrewardedEpochs, uptimeVotigPeriodLengthSeconds, rps, batchSize, uptimeVotingThreshold, minForBEBGwei, defaultFeePPM, rewardAmountEpochWei, apiPath);
+   await calculatingRewardsService.calculateRewards(firstRewardEpoch, requiredFtsoPerformanceWei, boostingFactor, votePowerCapBIPS, numUnrewardedEpochs, uptimeVotigPeriodLengthSeconds, rps, batchSize, uptimeVotingThreshold, minForBEBGwei,rewardAmountEpochWei, apiPath);
 }
 
 runProcessCalculateRewards()

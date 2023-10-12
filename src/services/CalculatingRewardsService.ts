@@ -40,7 +40,7 @@ export class CalculatingRewardsService {
 		return this.loggerService.logger;
 	}
 
-	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForRewardWei: string, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, defaultFeePPM: number, rewardAmountEpochWei: string, apiPath: string) {
+	public async calculateRewards(firstRewardEpoch: number, ftsoPerformanceForRewardWei: string, boostingFactor: number, votePowerCapBIPS: number, numUnrewardedEpochs: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, rewardAmountEpochWei: string, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
 
@@ -110,7 +110,7 @@ export class CalculatingRewardsService {
 				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei);
 
 				// decide to which group node belongs
-				let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses, defaultFeePPM);
+				let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
 				node.eligible = eligible;
 
 				if (node.group === 1) {
@@ -214,7 +214,6 @@ export class CalculatingRewardsService {
 		rewardsData.uptimeVotingPeriodLengthSeconds = uptimeVotingPeriodLengthSeconds;
 		rewardsData.uptimeVotingThreshold = uptimeVotingThreshold;
 		rewardsData.minForBEBGwei = minForBEBGwei;
-		rewardsData.defaultFeePPM = defaultFeePPM;
 		rewardsData.firstRewardEpoch = firstRewardEpoch;
 		rewardsData.numUnrewardedEpochs = numUnrewardedEpochs;
 		rewardsData.rewardAmountEpochWei = rewardAmount.toString();
@@ -354,7 +353,7 @@ export class CalculatingRewardsService {
 		return [BigInt(ftsoPerformance[0]) > BigInt(ftsoPerformanceForReward), ftsoObj.ftsoAddress];
 	}
 
-	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[], defaultFee: number): Promise<ActiveNode> {
+	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[]): Promise<ActiveNode> {
 		let nodeObj = {} as ActiveNode;
 		nodeObj.nodeId = node.nodeID;
 		nodeObj.bondingAddress = node.inputAddresses[0];
@@ -371,7 +370,7 @@ export class CalculatingRewardsService {
 					nodeObj.pChainAddress.push(obj.pChainAddress);
 				}
 			}
-			nodeObj.fee = defaultFee;
+			nodeObj.fee = 200000;
 			nodeObj.group = 1;
 			return nodeObj;
 		}

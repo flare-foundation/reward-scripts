@@ -130,7 +130,6 @@ export interface INetworkConfigJson {
    UPTIME_VOTING_PERIOD_LENGTH_SECONDS: number;
    UPTIME_VOTING_THRESHOLD: number;
    MIN_FOR_BEB_GWEI: string;
-   DEFAULT_FEE_PPM: number;
    REWARD_AMOUNT_EPOCH_WEI: string;
    API_PATH: string;
 }

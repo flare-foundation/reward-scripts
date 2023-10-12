@@ -47,7 +47,6 @@ export class ConfigurationService {
          this.uptimeVotigPeriodLengthSeconds = configFile.UPTIME_VOTING_PERIOD_LENGTH_SECONDS ? configFile.UPTIME_VOTING_PERIOD_LENGTH_SECONDS : 600;
          this.uptimeVotingThreshold = configFile.UPTIME_VOTING_THRESHOLD ? configFile.UPTIME_VOTING_THRESHOLD : undefined;
          this.minForBEBGwei = configFile.MIN_FOR_BEB_GWEI ? configFile.MIN_FOR_BEB_GWEI : "1000000000000000";
-         this.defaultFeePPM = configFile.DEFAULT_FEE_PPM ? configFile.DEFAULT_FEE_PPM : 200000;
          this.rewardAmountEpochWei = configFile.REWARD_AMOUNT_EPOCH_WEI ? configFile.REWARD_AMOUNT_EPOCH_WEI : undefined;
          this.apiPath = configFile.API_PATH ? configFile.API_PATH : undefined;
       }
