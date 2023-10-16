@@ -107,14 +107,14 @@ export class CalculatingRewardsService {
 
 			//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
 			for (const activeNode of activeNodes) {
-				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei);
+				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei, rps);
 
 				// decide to which group node belongs
 				let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
 				node.eligible = eligible;
 
 				if (node.group === 1) {
-					let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder);
+					let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder, rps);
 					let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6) * GWEI ? BigInt(boostingFactor) * selfDelegations - BigInt(10e6) * GWEI : BigInt(0);
 					node.boostDelegations = virtualBoost < BigInt(5e6) * GWEI ? virtualBoost : BigInt(5e6) * GWEI;
 					node.boost = node.selfBond + node.boostDelegations;
@@ -125,7 +125,7 @@ export class CalculatingRewardsService {
 					node.delegators = delegators;
 					node.totalStakeAmount = selfDelegations + node.boost + normalDelegations;
 				} else if (node.group === 2) {
-					let [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(delegations, boostingAddresses, node, addressBinder);
+					let [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(delegations, boostingAddresses, node, addressBinder, rps);
 					node.BEB = node.selfBond;
 					node.boostDelegations = boost;
 					node.boost = boost;
@@ -334,7 +334,7 @@ export class CalculatingRewardsService {
 	}
 
 	// check if node is eligible (high enough ftso performance and uptime) for rewards
-	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string): Promise<[boolean, string]> {
+	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string, rps: number): Promise<[boolean, string]> {
 		// find node's entity/ftso address
 		let ftsoObj = ftsoAddresses.find(obj => {
 			return obj.nodeId == node.nodeID;
@@ -349,6 +349,7 @@ export class CalculatingRewardsService {
 		}
 
 		// ftso rewards
+		await sleepms(1000 / rps);
 		let ftsoPerformance = await ftsoRewardManager.methods.getDataProviderPerformanceInfo(epochNum.toString(), ftsoObj.ftsoAddress).call();
 		return [BigInt(ftsoPerformance[0]) > BigInt(ftsoPerformanceForReward), ftsoObj.ftsoAddress];
 	}
@@ -456,7 +457,7 @@ export class CalculatingRewardsService {
 		return activeNodes;
 	}
 
-	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, boostingAddresses: string[], addressBinder: AddressBinder): Promise<[bigint, bigint, DelegatorData[]]> {
+	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, boostingAddresses: string[], addressBinder: AddressBinder, rps: number): Promise<[bigint, bigint, DelegatorData[]]> {
 		let selfDelegations = BigInt(0);
 		let regularDelegations = BigInt(0);
 		let delegators = [] as DelegatorData[];
@@ -480,6 +481,7 @@ export class CalculatingRewardsService {
 					delegators[i].amount += delegation.weight;
 				} else {
 					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
+					await sleepms(1000 / rps);
 					if (cAddr === ZERO_ADDRESS) {
 						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
 					}
@@ -494,7 +496,7 @@ export class CalculatingRewardsService {
 		return [selfDelegations, regularDelegations, delegators];
 	}
 
-	public async nodeGroup2Data(delegations: DelegationData[], boostingAddresses: string[], node: ActiveNode, addressBinder: AddressBinder): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
+	public async nodeGroup2Data(delegations: DelegationData[], boostingAddresses: string[], node: ActiveNode, addressBinder: AddressBinder, rps: number): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
 		let selfDelegations = BigInt(0);
 		let regularDelegations = BigInt(0);
 		let boost = BigInt(0);
@@ -519,6 +521,7 @@ export class CalculatingRewardsService {
 					delegators[i].amount += delegation.weight;
 				} else {
 					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
+					await sleepms(1000 / rps);
 					if (cAddr === ZERO_ADDRESS) {
 						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
 					}

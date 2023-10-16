@@ -26,6 +26,8 @@ git checkout https://github.com/flare-foundation/reward-scripts.git
 
 If a configuration file doesn't exist or some parameters are missing, (those) parameters will have default values from [configuration service](./src/services/ConfigurationService.ts). If a default value is `undefined` it will be read from the blockchain.
 
+For the fastest execution `RPC` with unlimited number of requests should be used and parameter `MAX_REQUESTS_PER_SECOND` should be set to `Infinity`.
+
 - Install packages
 ```bash
 yarn
