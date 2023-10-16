@@ -36,6 +36,6 @@ yarn process-staking-rewards
 ```
 You can also run it with optional parameters from [file](./src/processProviders.ts) (e.g. `yarn process-staking-rewards -b 8 -f 111`), which will override parameters set in the configuration file.
 
-For each run output of the process is in folder `generated-files/reward-epochs-<FIRST_REWARD_EPOCH>_<LAST-REWARD_EPOCH>`, where `LAST-REWARD-EPOCH` is calculated as `<FIRST_REWARD_EPOCH> - <NUM_UNREWARDED_EPOCHS> + 1`.
+For each run output of the process is in folder `generated-files/reward-epochs-<FIRST_REWARD_EPOCH>_<LAST-REWARD_EPOCH>`, where `LAST-REWARD-EPOCH` is calculated as `<FIRST_REWARD_EPOCH> + <NUM_UNREWARDED_EPOCHS> - 1`.
 
 To verify the official results posted in this repository one needs to update its configuration file with values from file `data.json`.

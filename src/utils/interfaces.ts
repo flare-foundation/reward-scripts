@@ -89,16 +89,15 @@ export interface RewardsData {
 
 export interface RewardingPeriodData {
    recipients: RewardsData[],
-   boostingFactor: number;
-   votePowerCapBIPS: number;
-   uptimeVotingPeriodLengthSeconds: number;
-   uptimeVotingThreshold: number;
-   minForBEBGwei: string;
-   defaultFeePPM: number;
-   rewardAmountEpochWei: string;
-   firstRewardEpoch: number;
-   numUnrewardedEpochs: number;
-   requiredFtsoPerformanceWei: string;
+   BOOSTING_FACTOR: number;
+   VOTE_POWER_CAP_BIPS: number;
+   UPTIME_VOTING_PERIOD_LENGTH_SECONDS: number;
+   UPTIME_VOTING_THRESHOLD: number;
+   MIN_FOR_BEB_GWEI: string;
+   REWARD_AMOUNT_EPOCH_WEI: string;
+   FIRST_REWARD_EPOCH: number;
+   NUM_UNREWARDED_EPOCHS: number;
+   REQUIRED_FTSO_PERFORMANCE_WEI: string;
 }
 
 export interface DataValidatorRewardManager {

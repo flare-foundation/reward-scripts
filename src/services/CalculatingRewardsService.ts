@@ -209,15 +209,15 @@ export class CalculatingRewardsService {
 		}
 
 		// data for config file
-		rewardsData.boostingFactor = boostingFactor;
-		rewardsData.votePowerCapBIPS = votePowerCapBIPS;
-		rewardsData.uptimeVotingPeriodLengthSeconds = uptimeVotingPeriodLengthSeconds;
-		rewardsData.uptimeVotingThreshold = uptimeVotingThreshold;
-		rewardsData.minForBEBGwei = minForBEBGwei;
-		rewardsData.firstRewardEpoch = firstRewardEpoch;
-		rewardsData.numUnrewardedEpochs = numUnrewardedEpochs;
-		rewardsData.rewardAmountEpochWei = rewardAmount.toString();
-		rewardsData.requiredFtsoPerformanceWei = ftsoPerformanceForRewardWei;
+		rewardsData.BOOSTING_FACTOR = boostingFactor;
+		rewardsData.VOTE_POWER_CAP_BIPS = votePowerCapBIPS;
+		rewardsData.UPTIME_VOTING_PERIOD_LENGTH_SECONDS = uptimeVotingPeriodLengthSeconds;
+		rewardsData.UPTIME_VOTING_THRESHOLD = uptimeVotingThreshold;
+		rewardsData.MIN_FOR_BEB_GWEI = minForBEBGwei;
+		rewardsData.NUM_UNREWARDED_EPOCHS = numUnrewardedEpochs;
+		rewardsData.REQUIRED_FTSO_PERFORMANCE_WEI = ftsoPerformanceForRewardWei;
+		rewardsData.FIRST_REWARD_EPOCH = firstRewardEpoch;
+		rewardsData.REWARD_AMOUNT_EPOCH_WEI = rewardAmount.toString();
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
 		let rewardsDataJSON = JSON.stringify(rewardsData, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);

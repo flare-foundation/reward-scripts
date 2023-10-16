@@ -23,8 +23,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240664",
-    "validatorRewardAmount": "141281405079600909240664"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-2EZag8YdrYLHLvbA9CFLPz6MhNU45nyTE",
@@ -63,16 +63,23 @@
     "boostDelegations": "10000000000000000",
     "boost": "10000000000000000",
     "selfDelegations": "0",
-    "normalDelegations": "0",
+    "normalDelegations": "290000000000000",
     "totalSelfBond": "2000000000000000",
-    "delegators": [],
-    "totalStakeAmount": "12000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1guswzmwyk2y0c0vx23ttyqedr0z3zta7mu57v7",
+        "cAddress": "0x2Cd2902dC836DC8CDA9e694BeceA220E63225f14",
+        "amount": "290000000000000",
+        "delegatorRewardAmount": "1752321709470665542413"
+      }
+    ],
+    "totalStakeAmount": "12290000000000000",
     "cChainAddress": "0xb595192f238808EbAC932AA94824B6EEe065AaD1",
     "overboost": "0",
-    "rewardingWeight": "12000000000000000",
-    "cappedWeight": "12000000000000000",
-    "nodeRewardAmount": "94187603386400606160443",
-    "validatorRewardAmount": "94187603386400606160443"
+    "rewardingWeight": "12290000000000000",
+    "cappedWeight": "12290000000000000",
+    "nodeRewardAmount": "92827731937045170328663",
+    "validatorRewardAmount": "91075410227574504786250"
   },
   {
     "nodeId": "NodeID-2q436GJKA5faTceNaAbu7CYxftv3K8fS4",
@@ -98,8 +105,8 @@
     "overboost": "0",
     "rewardingWeight": "7500000000000000",
     "cappedWeight": "7500000000000000",
-    "nodeRewardAmount": "58867252116500378850277",
-    "validatorRewardAmount": "58867252116500378850277"
+    "nodeRewardAmount": "56648331125129274000404",
+    "validatorRewardAmount": "56648331125129274000404"
   },
   {
     "nodeId": "NodeID-3phxSiKoYMj1dNSJysZhHYQKUbLX786jy",
@@ -125,8 +132,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240664",
-    "validatorRewardAmount": "141281405079600909240664"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-3RJrjDMzeZQVDyHDjZ6u1X3Y3WCKY5nbb",
@@ -152,8 +159,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240664",
-    "validatorRewardAmount": "141281405079600909240664"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-4e5tHaeoLvpXjtY5uMXtuYJgEWZ2JiC4D",
@@ -179,38 +186,8 @@
     "overboost": "5000000000000000",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
-  },
-  {
-    "nodeId": "NodeID-4PSbxBdf78AV7WwCyUW88aCq9unG5whJA",
-    "bondingAddress": "flare1u8c9aqeukj2e0dwz3hkwmw0dt8zd3z9vw9uk5h",
-    "selfBond": "16750000000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1696804140,
-    "pChainAddress": [
-      "flare1u8c9aqeukj2e0dwz3hkwmw0dt8zd3z9vw9uk5h"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "16750000000000000",
-    "boostDelegations": "0",
-    "boost": "0",
-    "selfDelegations": "0",
-    "normalDelegations": "16750000000000000",
-    "totalSelfBond": "16750000000000000",
-    "delegators": [
-      {
-        "pAddress": "flare1eu95ksp0m0r3s5f8ntsshskvacqhcq8h8arq5c",
-        "cAddress": "0x0000000000000000000000000000000000000000",
-        "amount": "16750000000000000"
-      }
-    ],
-    "totalStakeAmount": "33500000000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
-    "overboost": "0",
-    "rewardingWeight": "33500000000000000"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-5jV2rg4CGt6ewiDbB9QeWDEptVudskJeY",
@@ -236,8 +213,8 @@
     "overboost": "5000000000000000",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-5p5cZG1uChANjECyfNkz7wswftikMfeSd",
@@ -287,8 +264,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240664",
-    "validatorRewardAmount": "141281405079600909240664"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-66rV9yEWSVGLC8fs9ynKptVf9f6bSbHC8",
@@ -314,8 +291,8 @@
     "overboost": "0",
     "rewardingWeight": "1000000000000000",
     "cappedWeight": "1000000000000000",
-    "nodeRewardAmount": "7848966948866717180036",
-    "validatorRewardAmount": "7848966948866717180036"
+    "nodeRewardAmount": "7553110816683903200053",
+    "validatorRewardAmount": "7553110816683903200053"
   },
   {
     "nodeId": "NodeID-6cnsMcUNTJwCcDuAyPwJqEaVa6yMrk8eq",
@@ -341,8 +318,8 @@
     "overboost": "0",
     "rewardingWeight": "20000000000000000",
     "cappedWeight": "20000000000000000",
-    "nodeRewardAmount": "156979338977334343600738",
-    "validatorRewardAmount": "156979338977334343600738"
+    "nodeRewardAmount": "151062216333678064001079",
+    "validatorRewardAmount": "151062216333678064001079"
   },
   {
     "nodeId": "NodeID-7joNh7X4xsHBSXCpLQig22nSqU6xp41k8",
@@ -368,8 +345,8 @@
     "overboost": "0",
     "rewardingWeight": "19000000000000000",
     "cappedWeight": "19000000000000000",
-    "nodeRewardAmount": "149130372028467626420701",
-    "validatorRewardAmount": "149130372028467626420701"
+    "nodeRewardAmount": "143509105516994160801025",
+    "validatorRewardAmount": "143509105516994160801025"
   },
   {
     "nodeId": "NodeID-7niiMEHRfGLgT6VZ7bwb6Xa6vpGn8upVw",
@@ -395,8 +372,8 @@
     "overboost": "0",
     "rewardingWeight": "9000000000000000",
     "cappedWeight": "9000000000000000",
-    "nodeRewardAmount": "70640702539800454620332",
-    "validatorRewardAmount": "70640702539800454620332"
+    "nodeRewardAmount": "67977997350155128800485",
+    "validatorRewardAmount": "67977997350155128800485"
   },
   {
     "nodeId": "NodeID-8G1uigBjUrTgzxRrsnoNN2CzZtYvLqpLH",
@@ -422,8 +399,32 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
+  },
+  {
+    "nodeId": "NodeID-8qSyua2WVQ4uNRc1wwPKmSUWY421bifiq",
+    "bondingAddress": "flare1dusvfqg6t300p7m2dv4zl6snc57t302svr2kcm",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x2e8320B92B640cF8CBdEaFFBe70d4bC407303b9F",
+    "stakeEnd": 1726358400,
+    "pChainAddress": [
+      "flare1dusvfqg6t300p7m2dv4zl6snc57t302svr2kcm"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "30000000000000000",
+    "cChainAddress": "0xd323321D5Aa605552E9046be59a9eb217c8bc6F1",
+    "overboost": "0",
+    "rewardingWeight": "30000000000000000"
   },
   {
     "nodeId": "NodeID-98RaC6gbJMhin1NXsBFUoicEqiF7VKWbL",
@@ -448,13 +449,13 @@
         "pAddress": "flare172zejcwzkfjusggprlflccxp66x9m2x45knet2",
         "cAddress": "0xeeCB4fd9F4d5011D62b705Ec1756ab3F741A0433",
         "amount": "350000000000000",
-        "delegatorRewardAmount": "2197710745682680810410"
+        "delegatorRewardAmount": "2114871028671492896015"
       },
       {
         "pAddress": "flare1nrc7qdgw0xez70vxjf3qw5l6r67t052esfp96p",
         "cAddress": "0xdc4AC69fA7e54eeF5d5B2B923b288A8B7d80e4F7",
         "amount": "800000000000000",
-        "delegatorRewardAmount": "5023338847274698995225"
+        "delegatorRewardAmount": "4833990922677698048035"
       }
     ],
     "totalStakeAmount": "12650000000000000",
@@ -462,8 +463,8 @@
     "overboost": "2500000000000000",
     "rewardingWeight": "10150000000000000",
     "cappedWeight": "10150000000000000",
-    "nodeRewardAmount": "79667014530997179377375",
-    "validatorRewardAmount": "72445964938039799571740"
+    "nodeRewardAmount": "76664074789341617480547",
+    "validatorRewardAmount": "69715212837992426536497"
   },
   {
     "nodeId": "NodeID-9jaZDNBCn4AwMzRqFBhxfem2ZZtiArRm2",
@@ -489,8 +490,8 @@
     "overboost": "0",
     "rewardingWeight": "6000006000000000",
     "cappedWeight": "6000006000000000",
-    "nodeRewardAmount": "47093848787001996280524",
-    "validatorRewardAmount": "47093848787001996280524"
+    "nodeRewardAmount": "45318710218768319303742",
+    "validatorRewardAmount": "45318710218768319303742"
   },
   {
     "nodeId": "NodeID-9WF8MvjNhmR45AdNjVfAWp27KKq7KCGpm",
@@ -516,8 +517,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240665",
-    "validatorRewardAmount": "141281405079600909240665"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-9Y4mWN6L4MPLA2tvAwMXDJXeAJYfD5Try",
@@ -530,7 +531,7 @@
     ],
     "fee": 75000,
     "group": 2,
-    "eligible": false,
+    "eligible": true,
     "BEB": "1200000000000000",
     "boostDelegations": "6000000000000000",
     "boost": "6000000000000000",
@@ -541,7 +542,10 @@
     "totalStakeAmount": "7200000000000000",
     "cChainAddress": "0x29335d52016Cd67797F3efbC375c0B560C0eC808",
     "overboost": "0",
-    "rewardingWeight": "7200000000000000"
+    "rewardingWeight": "7200000000000000",
+    "cappedWeight": "7200000000000000",
+    "nodeRewardAmount": "54382397880124103040388",
+    "validatorRewardAmount": "54382397880124103040388"
   },
   {
     "nodeId": "NodeID-B6sAUBEYn2fvHMeUnsUkh1yNrvTzKu8gZ",
@@ -567,8 +571,8 @@
     "overboost": "1250000000000000",
     "rewardingWeight": "10500000000000000",
     "cappedWeight": "10500000000000000",
-    "nodeRewardAmount": "82414152963100530390387",
-    "validatorRewardAmount": "82414152963100530390387"
+    "nodeRewardAmount": "79307663575180983600566",
+    "validatorRewardAmount": "79307663575180983600566"
   },
   {
     "nodeId": "NodeID-B9o4BTqdc1qkrAn5BxLHL7pimWf9UwBkd",
@@ -593,7 +597,7 @@
         "pAddress": "flare1x0u4tj5nm2va2j3uxh6evkzesxmdy28zcmfv28",
         "cAddress": "0x38aa2AE6Ee30E16e05F45c04Ce4EaA72590d8Cf1",
         "amount": "1000000000000",
-        "delegatorRewardAmount": "6279173559093373745"
+        "delegatorRewardAmount": "6042488653347122561"
       }
     ],
     "totalStakeAmount": "11251000000000000",
@@ -601,32 +605,8 @@
     "overboost": "3750000000000000",
     "rewardingWeight": "7501000000000000",
     "cappedWeight": "7501000000000000",
-    "nodeRewardAmount": "58875101083449245567457",
-    "validatorRewardAmount": "58868821909890152193712"
-  },
-  {
-    "nodeId": "NodeID-BVGNWYtci8gtwHvFKp46MShLvKHyV2zY6",
-    "bondingAddress": "flare1fwucznpsyef9xfh7dl7ehzhgmx40v70lhxcjkm",
-    "selfBond": "33500000000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1696863601,
-    "pChainAddress": [
-      "flare1fwucznpsyef9xfh7dl7ehzhgmx40v70lhxcjkm"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "33500000000000000",
-    "boostDelegations": "0",
-    "boost": "0",
-    "selfDelegations": "0",
-    "normalDelegations": "0",
-    "totalSelfBond": "33500000000000000",
-    "delegators": [],
-    "totalStakeAmount": "33500000000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
-    "overboost": "0",
-    "rewardingWeight": "33500000000000000"
+    "nodeRewardAmount": "56655884235945957903604",
+    "validatorRewardAmount": "56649841747292610781043"
   },
   {
     "nodeId": "NodeID-C3FRhsMBh3KNLKiVbc8xLY7gnVzmJ7EY9",
@@ -652,8 +632,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-C6i8mruq11VdxGQ7tiUBgrRqoLBot86df",
@@ -680,6 +660,33 @@
     "rewardingWeight": "30000000000000000"
   },
   {
+    "nodeId": "NodeID-CeX1NfNPHCdaJXUVtkLysShaZCtsHRK3D",
+    "bondingAddress": "flare1kdctcmkm97t0hkl7zkghr9k9qu5my76hn24raw",
+    "selfBond": "1250000000000000",
+    "ftsoAddress": "0xc0452CEcee694Ab416d19E95a0907f022DEC5664",
+    "stakeEnd": 1702209570,
+    "pChainAddress": [
+      "flare1kdctcmkm97t0hkl7zkghr9k9qu5my76hn24raw"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1250000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1250000000000000",
+    "delegators": [],
+    "totalStakeAmount": "1250000000000000",
+    "cChainAddress": "0x74e90C9B4384498D907eBa09ff6f92cF11C192da",
+    "overboost": "0",
+    "rewardingWeight": "1250000000000000",
+    "cappedWeight": "1250000000000000",
+    "nodeRewardAmount": "9441388520854879000067",
+    "validatorRewardAmount": "9441388520854879000067"
+  },
+  {
     "nodeId": "NodeID-Cg8PLmdZ9JmEtUBCZhq2jt2JDS5gDaSsQ",
     "bondingAddress": "flare1ca6wl3pl7rtf3m6jelgngs2kcavkdjcpsgvu7f",
     "selfBond": "1000000000000000",
@@ -703,8 +710,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-Ckyh9cpfkkXSo5PYNNFactcrKkY2XhkXR",
@@ -729,7 +736,7 @@
         "pAddress": "flare12l8a6p5eynmuv9nytz4fpzrp3ul8puyef9m2xh",
         "cAddress": "0x0fe456371c268E420F60D46b8695bbF727b77CBb",
         "amount": "250000000000000",
-        "delegatorRewardAmount": "1667905476634177400758"
+        "delegatorRewardAmount": "1605036048545329430012"
       }
     ],
     "totalStakeAmount": "6250000000000000",
@@ -737,8 +744,8 @@
     "overboost": "0",
     "rewardingWeight": "6250000000000000",
     "cappedWeight": "6250000000000000",
-    "nodeRewardAmount": "49056043430416982375230",
-    "validatorRewardAmount": "47388137953782804974472"
+    "nodeRewardAmount": "47206942604274395000337",
+    "validatorRewardAmount": "45601906555729065570325"
   },
   {
     "nodeId": "NodeID-CoNH4gyEwB9gTrEmozwh14Zr8hs6wokRS",
@@ -764,8 +771,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240665",
-    "validatorRewardAmount": "141281405079600909240665"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-CrsvTSFLB8G3ziPaVjgH1pj8NQxSZkECD",
@@ -791,8 +798,8 @@
     "overboost": "2500000000000000",
     "rewardingWeight": "9000000000000000",
     "cappedWeight": "9000000000000000",
-    "nodeRewardAmount": "70640702539800454620332",
-    "validatorRewardAmount": "70640702539800454620332"
+    "nodeRewardAmount": "67977997350155128800485",
+    "validatorRewardAmount": "67977997350155128800485"
   },
   {
     "nodeId": "NodeID-CtSfUZd8nvr4RDaQnKRiP9cae15Nrb1bX",
@@ -803,7 +810,7 @@
     "pChainAddress": [],
     "fee": 200000,
     "group": 1,
-    "eligible": true,
+    "eligible": false,
     "boostDelegations": "0",
     "boost": "10000000000000000",
     "BEB": "0",
@@ -813,10 +820,7 @@
     "delegators": [],
     "totalStakeAmount": "10000000000000000",
     "overboost": "10000000000000000",
-    "rewardingWeight": "0",
-    "cappedWeight": "0",
-    "nodeRewardAmount": "0",
-    "validatorRewardAmount": "0"
+    "rewardingWeight": "0"
   },
   {
     "nodeId": "NodeID-D3QKd6XxLnrKowkziZJSG4RNLtffz8ESk",
@@ -842,38 +846,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
-  },
-  {
-    "nodeId": "NodeID-D7VedkpNRxLuxTFXkTMGyUgbvqPNSTBnD",
-    "bondingAddress": "flare1qq9yhakyf85js8cst6lele3n9csw4uxljm59qa",
-    "selfBond": "16750000000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1697049030,
-    "pChainAddress": [
-      "flare1qq9yhakyf85js8cst6lele3n9csw4uxljm59qa"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "16750000000000000",
-    "boostDelegations": "0",
-    "boost": "0",
-    "selfDelegations": "0",
-    "normalDelegations": "16750000000000000",
-    "totalSelfBond": "16750000000000000",
-    "delegators": [
-      {
-        "pAddress": "flare1wzzp760xrx8ltv6ydlwc77zmtlcj5n43trn70y",
-        "cAddress": "0x0000000000000000000000000000000000000000",
-        "amount": "16750000000000000"
-      }
-    ],
-    "totalStakeAmount": "33500000000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
-    "overboost": "0",
-    "rewardingWeight": "33500000000000000"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-DAVrAR2VCxe7rnmkDaVUbW8jWd9b86cS",
@@ -899,8 +873,8 @@
     "overboost": "0",
     "rewardingWeight": "10500000000000000",
     "cappedWeight": "10500000000000000",
-    "nodeRewardAmount": "82414152963100530390388",
-    "validatorRewardAmount": "82414152963100530390388"
+    "nodeRewardAmount": "79307663575180983600566",
+    "validatorRewardAmount": "79307663575180983600566"
   },
   {
     "nodeId": "NodeID-DcUJTi6u5Xoutgr1A25iMu4Rp5JEbsEqr",
@@ -926,32 +900,8 @@
     "overboost": "0",
     "rewardingWeight": "9000000000000000",
     "cappedWeight": "9000000000000000",
-    "nodeRewardAmount": "70640702539800454620332",
-    "validatorRewardAmount": "70640702539800454620332"
-  },
-  {
-    "nodeId": "NodeID-DN6tMfhpWW5ZxdGPjeYhPVTPP91HtFHYe",
-    "bondingAddress": "flare1jg9ltjjljx6r8ze9qcf8765w76tzz48jwpzxz5",
-    "selfBond": "33499999000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1696863601,
-    "pChainAddress": [
-      "flare1jg9ltjjljx6r8ze9qcf8765w76tzz48jwpzxz5"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "33499999000000000",
-    "boostDelegations": "0",
-    "boost": "0",
-    "selfDelegations": "0",
-    "normalDelegations": "0",
-    "totalSelfBond": "33499999000000000",
-    "delegators": [],
-    "totalStakeAmount": "33499999000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
-    "overboost": "0",
-    "rewardingWeight": "33499999000000000"
+    "nodeRewardAmount": "67977997350155128800485",
+    "validatorRewardAmount": "67977997350155128800485"
   },
   {
     "nodeId": "NodeID-EBcyABp9i2wEgZbhiwnyLaqBwFFTdZXyd",
@@ -977,8 +927,8 @@
     "overboost": "0",
     "rewardingWeight": "15000000000000000",
     "cappedWeight": "15000000000000000",
-    "nodeRewardAmount": "117734504233000757700554",
-    "validatorRewardAmount": "117734504233000757700554"
+    "nodeRewardAmount": "113296662250258548000809",
+    "validatorRewardAmount": "113296662250258548000809"
   },
   {
     "nodeId": "NodeID-ECqqsWu9jpUvZgPyf9yPZZcyWmJjWyN1T",
@@ -1004,8 +954,8 @@
     "overboost": "0",
     "rewardingWeight": "20000000000000000",
     "cappedWeight": "20000000000000000",
-    "nodeRewardAmount": "156979338977334343600739",
-    "validatorRewardAmount": "156979338977334343600739"
+    "nodeRewardAmount": "151062216333678064001079",
+    "validatorRewardAmount": "151062216333678064001079"
   },
   {
     "nodeId": "NodeID-EgJba99Q5iDcL81A27E111WANn9eZNj4v",
@@ -1031,8 +981,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240665",
-    "validatorRewardAmount": "141281405079600909240665"
+    "nodeRewardAmount": "135955994700310257600971",
+    "validatorRewardAmount": "135955994700310257600971"
   },
   {
     "nodeId": "NodeID-EJ7V3trSnp93txcLP3h4ULJvBhvUtP66c",
@@ -1058,8 +1008,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-EqTrzH8b9ax2oYwrKFkXqWAZjuK8uHFxS",
@@ -1085,8 +1035,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200323",
+    "validatorRewardAmount": "45318664900103419200323"
   },
   {
     "nodeId": "NodeID-F297gLgRxBndijAYvvvBGtQTwYCrScMQT",
@@ -1112,8 +1062,8 @@
     "overboost": "0",
     "rewardingWeight": "10500000000000000",
     "cappedWeight": "10500000000000000",
-    "nodeRewardAmount": "82414152963100530390388",
-    "validatorRewardAmount": "82414152963100530390388"
+    "nodeRewardAmount": "79307663575180983600567",
+    "validatorRewardAmount": "79307663575180983600567"
   },
   {
     "nodeId": "NodeID-FDR3CXdwP3H3Zz9QKfL61fk56zkPEgdFV",
@@ -1139,8 +1089,8 @@
     "overboost": "0",
     "rewardingWeight": "20000000000000000",
     "cappedWeight": "20000000000000000",
-    "nodeRewardAmount": "156979338977334343600739",
-    "validatorRewardAmount": "156979338977334343600739"
+    "nodeRewardAmount": "151062216333678064001080",
+    "validatorRewardAmount": "151062216333678064001080"
   },
   {
     "nodeId": "NodeID-FERvNWfCH4mjCSoFnjF4YouDBuYZCpfKm",
@@ -1166,8 +1116,8 @@
     "overboost": "0",
     "rewardingWeight": "7500000000000000",
     "cappedWeight": "7500000000000000",
-    "nodeRewardAmount": "58867252116500378850277",
-    "validatorRewardAmount": "58867252116500378850277"
+    "nodeRewardAmount": "56648331125129274000405",
+    "validatorRewardAmount": "56648331125129274000405"
   },
   {
     "nodeId": "NodeID-FHPDnySFVqde5bGvEXsFnvZGhXwcyRfNY",
@@ -1241,38 +1191,8 @@
     "overboost": "1250000000000000",
     "rewardingWeight": "10500000000000000",
     "cappedWeight": "10500000000000000",
-    "nodeRewardAmount": "82414152963100530390388",
-    "validatorRewardAmount": "82414152963100530390388"
-  },
-  {
-    "nodeId": "NodeID-H7TKshVe5cxKiheViWZHKdRo8e7wMZ6ZP",
-    "bondingAddress": "flare18et9523yzwqkna2z8us2lkmatjrt0muv0g6k5l",
-    "selfBond": "16750000000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1696863601,
-    "pChainAddress": [
-      "flare18et9523yzwqkna2z8us2lkmatjrt0muv0g6k5l"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "16750000000000000",
-    "boostDelegations": "1000000000000",
-    "boost": "1000000000000",
-    "selfDelegations": "0",
-    "normalDelegations": "16750000000000000",
-    "totalSelfBond": "16750000000000000",
-    "delegators": [
-      {
-        "pAddress": "flare1vy4746z2qqxhhn3dmnv5ruegf3ldgql9mvzltq",
-        "cAddress": "0x0000000000000000000000000000000000000000",
-        "amount": "16750000000000000"
-      }
-    ],
-    "totalStakeAmount": "33501000000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
-    "overboost": "0",
-    "rewardingWeight": "33501000000000000"
+    "nodeRewardAmount": "79307663575180983600567",
+    "validatorRewardAmount": "79307663575180983600567"
   },
   {
     "nodeId": "NodeID-HZwFckGTbucqTtE7qcv6z85mnScUfAeW6",
@@ -1298,8 +1218,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240665",
-    "validatorRewardAmount": "141281405079600909240665"
+    "nodeRewardAmount": "135955994700310257600972",
+    "validatorRewardAmount": "135955994700310257600972"
   },
   {
     "nodeId": "NodeID-J4nyqo44xFUxhAi9gDJXAkYyxP5z2a7UG",
@@ -1325,8 +1245,8 @@
     "overboost": "4800000000000000",
     "rewardingWeight": "6240000000000000",
     "cappedWeight": "6240000000000000",
-    "nodeRewardAmount": "48977553760928315203430",
-    "validatorRewardAmount": "48977553760928315203430"
+    "nodeRewardAmount": "47131411496107555968336",
+    "validatorRewardAmount": "47131411496107555968336"
   },
   {
     "nodeId": "NodeID-J8Zbi3b3AjTEUmHdE4KSApEU1U36iaeDS",
@@ -1353,8 +1273,8 @@
     "overboost": "0",
     "rewardingWeight": "18050000000000000",
     "cappedWeight": "18050000000000000",
-    "nodeRewardAmount": "141673853427044245099667",
-    "validatorRewardAmount": "141673853427044245099667"
+    "nodeRewardAmount": "136333650241144452760974",
+    "validatorRewardAmount": "136333650241144452760974"
   },
   {
     "nodeId": "NodeID-J9JZSkVJWCUYZ43n36q4fCixu7Tj4QR1P",
@@ -1380,8 +1300,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200324",
+    "validatorRewardAmount": "45318664900103419200324"
   },
   {
     "nodeId": "NodeID-JA63moobNNMLby4ENNUiJqVJA2cdpks5J",
@@ -1407,8 +1327,8 @@
     "overboost": "5000000000000000",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200324",
+    "validatorRewardAmount": "45318664900103419200324"
   },
   {
     "nodeId": "NodeID-JF4XWnC9PjZVXQuqLcpQvxztdMez3CpkR",
@@ -1434,8 +1354,8 @@
     "overboost": "0",
     "rewardingWeight": "6000006000000000",
     "cappedWeight": "6000006000000000",
-    "nodeRewardAmount": "47093848787001996280525",
-    "validatorRewardAmount": "47093848787001996280525"
+    "nodeRewardAmount": "45318710218768319303743",
+    "validatorRewardAmount": "45318710218768319303743"
   },
   {
     "nodeId": "NodeID-JFiAG1SiqUFh3EnkY8oXcXUg8RuT2guZp",
@@ -1461,8 +1381,8 @@
     "overboost": "0",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080221",
-    "validatorRewardAmount": "47093801693200303080221"
+    "nodeRewardAmount": "45318664900103419200324",
+    "validatorRewardAmount": "45318664900103419200324"
   },
   {
     "nodeId": "NodeID-JHnfNSNgSThSJEFG8aq99FRAE4a7Ko7UP",
@@ -1488,8 +1408,8 @@
     "overboost": "0",
     "rewardingWeight": "9000000000000000",
     "cappedWeight": "9000000000000000",
-    "nodeRewardAmount": "70640702539800454620332",
-    "validatorRewardAmount": "70640702539800454620332"
+    "nodeRewardAmount": "67977997350155128800486",
+    "validatorRewardAmount": "67977997350155128800486"
   },
   {
     "nodeId": "NodeID-JZuVSDnBui1u82RmkbkWKJ1JxfdxuVYR9",
@@ -1515,8 +1435,8 @@
     "overboost": "0",
     "rewardingWeight": "30000000000000000",
     "cappedWeight": "30000000000000000",
-    "nodeRewardAmount": "235469008466001515401110",
-    "validatorRewardAmount": "235469008466001515401110"
+    "nodeRewardAmount": "226593324500517096001620",
+    "validatorRewardAmount": "226593324500517096001620"
   },
   {
     "nodeId": "NodeID-KppZbRMtfNTQZGdmHdkbHTJHgNPBCNxJj",
@@ -1542,8 +1462,8 @@
     "overboost": "0",
     "rewardingWeight": "10200000000000000",
     "cappedWeight": "10200000000000000",
-    "nodeRewardAmount": "80059462878440515236377",
-    "validatorRewardAmount": "80059462878440515236377"
+    "nodeRewardAmount": "77041730330175812640550",
+    "validatorRewardAmount": "77041730330175812640550"
   },
   {
     "nodeId": "NodeID-KRkND3cB1bYaWt71CSQdCUjRSR95d3cNz",
@@ -1569,8 +1489,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240666",
-    "validatorRewardAmount": "141281405079600909240666"
+    "nodeRewardAmount": "135955994700310257600972",
+    "validatorRewardAmount": "135955994700310257600972"
   },
   {
     "nodeId": "NodeID-KtTdea6FeDDy5pERrZKHkkhtJFCbJNv1a",
@@ -1588,46 +1508,23 @@
     "boostDelegations": "15000000000000000",
     "boost": "15000000000000000",
     "selfDelegations": "0",
-    "normalDelegations": "0",
+    "normalDelegations": "608000000000000",
     "totalSelfBond": "3000010000000000",
-    "delegators": [],
-    "totalStakeAmount": "18000010000000000",
-    "cChainAddress": "0x781deF0a0845ac75F10Bb65028EAFEb6E73eece8",
-    "overboost": "0",
-    "rewardingWeight": "18000010000000000",
-    "cappedWeight": "18000010000000000",
-    "nodeRewardAmount": "141281483569270397907837",
-    "validatorRewardAmount": "141281483569270397907837"
-  },
-  {
-    "nodeId": "NodeID-KYJYaFkhkFPCQBFS7KPU6SnHiDQSgaphx",
-    "bondingAddress": "flare100zz8fkssq388gnpqmd9g0rumrnyy9xwn766yf",
-    "selfBond": "33499000000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1697049030,
-    "pChainAddress": [
-      "flare100zz8fkssq388gnpqmd9g0rumrnyy9xwn766yf"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "33499000000000000",
-    "boostDelegations": "0",
-    "boost": "0",
-    "selfDelegations": "0",
-    "normalDelegations": "1000000000000",
-    "totalSelfBond": "33499000000000000",
     "delegators": [
       {
-        "pAddress": "flare1jg9ltjjljx6r8ze9qcf8765w76tzz48jwpzxz5",
-        "cAddress": "0x0000000000000000000000000000000000000000",
-        "amount": "1000000000000"
+        "pAddress": "flare15yhw476z9wvqfyqrhexjz7vw3fle9rjjn9vh0e",
+        "cAddress": "0xf234B4DCd1d51D46f75a60AB4a8C96794eC68Fd2",
+        "amount": "608000000000000",
+        "delegatorRewardAmount": "3673833101235050516507"
       }
     ],
-    "totalStakeAmount": "33500000000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
+    "totalStakeAmount": "18608010000000000",
+    "cChainAddress": "0x781deF0a0845ac75F10Bb65028EAFEb6E73eece8",
     "overboost": "0",
-    "rewardingWeight": "33500000000000000"
+    "rewardingWeight": "18608010000000000",
+    "cappedWeight": "18608010000000000",
+    "nodeRewardAmount": "140548361607962237585637",
+    "validatorRewardAmount": "136874528506727187069130"
   },
   {
     "nodeId": "NodeID-KzPd2Vx5WomGtur91B9K9R7to3mYyYga",
@@ -1653,8 +1550,8 @@
     "overboost": "5000000000000000",
     "rewardingWeight": "6000000000000000",
     "cappedWeight": "6000000000000000",
-    "nodeRewardAmount": "47093801693200303080222",
-    "validatorRewardAmount": "47093801693200303080222"
+    "nodeRewardAmount": "45318664900103419200324",
+    "validatorRewardAmount": "45318664900103419200324"
   },
   {
     "nodeId": "NodeID-LcbbZYhBHn8HVjTzPASuHtFVAckcdctWS",
@@ -1680,8 +1577,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240666",
-    "validatorRewardAmount": "141281405079600909240666"
+    "nodeRewardAmount": "135955994700310257600972",
+    "validatorRewardAmount": "135955994700310257600972"
   },
   {
     "nodeId": "NodeID-LKS1hi95iVbqGDyU1vbkyPLd4wknJfqF9",
@@ -1731,38 +1628,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240666",
-    "validatorRewardAmount": "141281405079600909240666"
-  },
-  {
-    "nodeId": "NodeID-MowuCRtPoNVHHz1CpvUvyDwDrKCWkyxTX",
-    "bondingAddress": "flare1n5x06ja6ce4793xmgen6z8fh7h8q2nj0szf9ml",
-    "selfBond": "16750000000000000",
-    "ftsoAddress": "",
-    "stakeEnd": 1696863601,
-    "pChainAddress": [
-      "flare1n5x06ja6ce4793xmgen6z8fh7h8q2nj0szf9ml"
-    ],
-    "fee": 100000,
-    "group": 2,
-    "eligible": false,
-    "BEB": "16750000000000000",
-    "boostDelegations": "0",
-    "boost": "0",
-    "selfDelegations": "0",
-    "normalDelegations": "16750000000000000",
-    "totalSelfBond": "16750000000000000",
-    "delegators": [
-      {
-        "pAddress": "flare1vjsdyy27097h6nt35eptp000m2vp50trekzu4s",
-        "cAddress": "0x0000000000000000000000000000000000000000",
-        "amount": "16750000000000000"
-      }
-    ],
-    "totalStakeAmount": "33500000000000000",
-    "cChainAddress": "0x0000000000000000000000000000000000000000",
-    "overboost": "0",
-    "rewardingWeight": "33500000000000000"
+    "nodeRewardAmount": "135955994700310257600972",
+    "validatorRewardAmount": "135955994700310257600972"
   },
   {
     "nodeId": "NodeID-MsF6Xc1PsMWtcxVudCepWb5kUeF1EF8RX",
@@ -1788,8 +1655,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240666",
-    "validatorRewardAmount": "141281405079600909240666"
+    "nodeRewardAmount": "135955994700310257600972",
+    "validatorRewardAmount": "135955994700310257600972"
   },
   {
     "nodeId": "NodeID-MWNqxgXd8itY143jaNyq8aMYTeV1RXJgS",
@@ -1839,8 +1706,8 @@
     "overboost": "2500000000000000",
     "rewardingWeight": "9000000000000000",
     "cappedWeight": "9000000000000000",
-    "nodeRewardAmount": "70640702539800454620333",
-    "validatorRewardAmount": "70640702539800454620333"
+    "nodeRewardAmount": "67977997350155128800486",
+    "validatorRewardAmount": "67977997350155128800486"
   },
   {
     "nodeId": "NodeID-NbTToANYcdsreLC5PBcE9gsMBpBY7N7s1",
@@ -1866,8 +1733,8 @@
     "overboost": "3750000000000000",
     "rewardingWeight": "7500000000000000",
     "cappedWeight": "7500000000000000",
-    "nodeRewardAmount": "58867252116500378850277",
-    "validatorRewardAmount": "58867252116500378850277"
+    "nodeRewardAmount": "56648331125129274000405",
+    "validatorRewardAmount": "56648331125129274000405"
   },
   {
     "nodeId": "NodeID-NCBqn9P8oAEkYn6McyQjhF67WarSTttz5",
@@ -1893,8 +1760,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240667",
-    "validatorRewardAmount": "141281405079600909240667"
+    "nodeRewardAmount": "135955994700310257600973",
+    "validatorRewardAmount": "135955994700310257600973"
   },
   {
     "nodeId": "NodeID-NCfvDEdDv8tuVDxWLB1ShJToQ7qAcca2B",
@@ -1944,8 +1811,8 @@
     "overboost": "0",
     "rewardingWeight": "1000010000000000",
     "cappedWeight": "1000010000000000",
-    "nodeRewardAmount": "7849045438536205847208",
-    "validatorRewardAmount": "7849045438536205847208"
+    "nodeRewardAmount": "7553186347792070039086",
+    "validatorRewardAmount": "7553186347792070039086"
   },
   {
     "nodeId": "NodeID-P4T4uKqveVxjZZXVdADHENdnCKnsCFvDE",
@@ -1971,8 +1838,8 @@
     "overboost": "0",
     "rewardingWeight": "18000000000000000",
     "cappedWeight": "18000000000000000",
-    "nodeRewardAmount": "141281405079600909240668",
-    "validatorRewardAmount": "141281405079600909240668"
+    "nodeRewardAmount": "135955994700310257600973",
+    "validatorRewardAmount": "135955994700310257600973"
   },
   {
     "nodeId": "NodeID-P6nNyHc4QwyKoVSS7c9XatGp4Sityq7rM",
@@ -1985,7 +1852,7 @@
     ],
     "fee": 200000,
     "group": 1,
-    "eligible": false,
+    "eligible": true,
     "boostDelegations": "3750000000000000",
     "boost": "13750000000000000",
     "BEB": "2750000000000000",
@@ -1996,7 +1863,34 @@
     "totalStakeAmount": "16500000000000000",
     "cChainAddress": "0x8Ae314214d6dbF6d253918CDA933bC677907992F",
     "overboost": "0",
-    "rewardingWeight": "16500000000000000"
+    "rewardingWeight": "16500000000000000",
+    "cappedWeight": "16500000000000000",
+    "nodeRewardAmount": "124626328475284402800892",
+    "validatorRewardAmount": "124626328475284402800892"
+  },
+  {
+    "nodeId": "NodeID-Q9KeAQKSyxtJj8mfum951Q5akkoFBJLTs",
+    "bondingAddress": "flare1kqhkxvcgfulxu9zc5qr6m9240fvr907kj2zmze",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x08233630C4C9e2c1f865B5519e70047EaBAeFAe2",
+    "stakeEnd": 1727798400,
+    "pChainAddress": [
+      "flare1kqhkxvcgfulxu9zc5qr6m9240fvr907kj2zmze"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": false,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "30000000000000000",
+    "cChainAddress": "0xB5De21C6E3eC3aF93917DDD17de558A9BDfbbB35",
+    "overboost": "0",
+    "rewardingWeight": "30000000000000000"
   },
   {
     "nodeId": "NodeID-s16BotZkrwu9pfqjmD8vUAsjYtk83dDv",
