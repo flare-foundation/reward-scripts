@@ -1,0 +1,14 @@
+{
+    "NETWORK": "flare",
+    "RPC": "https://flare-api.flare.network/ext/C/rpc",
+    "MAX_BLOCKS_FOR_EVENT_READS": 30,
+    "MAX_REQUESTS_PER_SECOND": 3,
+    "API_PATH": "https://flare-p-chain-indexer.flare.network",
+    "BOOSTING_FACTOR": 5,
+    "VOTE_POWER_CAP_BIPS": 500,
+    "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 600,
+    "UPTIME_VOTING_THRESHOLD": 3,
+    "MIN_FOR_BEB_GWEI": "1000000000000000",
+    "NUM_UNREWARDED_EPOCHS": 1,
+    "FIRST_REWARD_EPOCH": 129
+ }
