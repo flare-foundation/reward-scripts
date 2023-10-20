@@ -575,30 +575,31 @@ export class CalculatingRewardsService {
 				};
 
 				node.delegators.forEach(delegator => {
+					let delegatorRewardingAddress = delegator.cAddress;
 					if (delegator.amount > BigInt(0)) {
-						const index = epochRewardsData.findIndex(rewardedData => rewardedData.address == delegator.pAddress);
+						const index = epochRewardsData.findIndex(rewardedData => rewardedData.address == delegatorRewardingAddress);
 						if (index > -1) {
 							epochRewardsData[index].amount += delegator.delegatorRewardAmount;
 						}
 						else {
 							epochRewardsData.push({
-								address: delegator.cAddress,
+								address: delegatorRewardingAddress,
 								amount: delegator.delegatorRewardAmount
 							});
 						}
 						distributed += delegator.delegatorRewardAmount;
-						const i = rewardsData.recipients.findIndex(del => del.address === delegator.pAddress);
+						const i = rewardsData.recipients.findIndex(del => del.address === delegatorRewardingAddress);
 						if (i > -1) {
 							rewardsData.recipients[i].amount += delegator.delegatorRewardAmount;
 						}
 						else {
 							rewardsData.recipients.push({
-								address: delegator.cAddress,
+								address: delegatorRewardingAddress,
 								amount: delegator.delegatorRewardAmount
 							});
 						}
 					} else {
-						this.logger.error(`Delegator ${delegator.cAddress} has reward amount 0`);
+						this.logger.error(`Delegator ${delegatorRewardingAddress} has reward amount 0`);
 					}
 
 				})
