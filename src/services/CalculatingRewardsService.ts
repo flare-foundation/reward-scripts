@@ -107,11 +107,14 @@ export class CalculatingRewardsService {
 
 			//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
 			for (const activeNode of activeNodes) {
-				let [eligible, ftsoAddress] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei, rps);
+				let [eligible, ftsoAddress, nonEligibilityReason] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, epoch, ftsoPerformanceForRewardWei, rps);
 
 				// decide to which group node belongs
 				let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
 				node.eligible = eligible;
+				if (!node.eligible) {
+					node.nonEligibilityReason = nonEligibilityReason;
+				}
 
 				if (node.group === 1) {
 					let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder, rps);
@@ -334,24 +337,32 @@ export class CalculatingRewardsService {
 	}
 
 	// check if node is eligible (high enough ftso performance and uptime) for rewards
-	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string, rps: number): Promise<[boolean, string]> {
+	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string, rps: number): Promise<[boolean, string, string]> {
+
+		let nonEligibilityReason: string;
 		// find node's entity/ftso address
 		let ftsoObj = ftsoAddresses.find(obj => {
 			return obj.nodeId == node.nodeID;
 		})
 		if (ftsoObj === undefined) {
-			this.logger.error(`${node.nodeID} did not provide its FTSO address`)
-			return [false, ""];
+			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
+			nonEligibilityReason = "didn't provide its FTSO address";
+			return [false, "", nonEligibilityReason];
 		}
 		// uptime
 		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
-			return [false, ftsoObj.ftsoAddress];
+			nonEligibilityReason = "not high enough uptime";
+			return [false, ftsoObj.ftsoAddress, nonEligibilityReason];
 		}
 
 		// ftso rewards
 		await sleepms(1000 / rps);
 		let ftsoPerformance = await ftsoRewardManager.methods.getDataProviderPerformanceInfo(epochNum.toString(), ftsoObj.ftsoAddress).call();
-		return [BigInt(ftsoPerformance[0]) > BigInt(ftsoPerformanceForReward), ftsoObj.ftsoAddress];
+		if (BigInt(ftsoPerformance[0]) <= BigInt(ftsoPerformanceForReward)) {
+			nonEligibilityReason = "not high enough FTSO performance";
+			return [false, ftsoObj.ftsoAddress, nonEligibilityReason];
+		}
+		return [true, ftsoObj.ftsoAddress, nonEligibilityReason];
 	}
 
 	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[]): Promise<ActiveNode> {
@@ -549,7 +560,7 @@ export class CalculatingRewardsService {
 					}
 					// else:
 					// validator did not provider its ftso address
-					// should only happen if validator from group did not provide p-chain address and has 0 self-delegations
+					// should only happen if validator from group 1 did not provide p-chain address and has 0 self-delegations
 				} else {
 					let address = node.cChainAddress;
 					const index = epochRewardsData.findIndex(validator => validator.address == address);

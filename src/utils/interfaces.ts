@@ -55,6 +55,7 @@ export interface ActiveNode {
    eligible: boolean;               // is node eligible for reward
    totalSelfBond: bigint;           // group 1: self-delegations; group 2: initial stake (self-bond) + self-delegations
    group: number;                   // group to which node belongs
+   nonEligibilityReason: string;    // reason why node is not eligible for reward
 }
 
 export interface Entity {
