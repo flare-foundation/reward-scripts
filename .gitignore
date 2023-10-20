@@ -29,4 +29,10 @@ nul
 .secure*
 
 !.gitignore
-configs/networks/coston2.json
+
+configs/networks/*
+!configs/networks/flare.json
+
+deploys/*
+!deploys/flare.json
+!deploys/coston2.json
