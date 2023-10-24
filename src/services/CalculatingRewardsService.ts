@@ -556,7 +556,7 @@ export class CalculatingRewardsService {
 			if (node.eligible) {
 				if (node.validatorRewardAmount === BigInt(0)) {
 					if (node.cChainAddress !== undefined) {
-						this.logger.error(`Entity ${node.ftsoAddress} is eligible but reward amount is 0}`);
+						this.logger.error(`Entity ${node.ftsoAddress} is eligible but reward amount is 0`);
 					}
 					// else:
 					// validator did not provider its ftso address

@@ -1,0 +1,282 @@
+{
+  "rewardEpoch": 130,
+  "distributedAmount": "5179462900021549230386701",
+  "rewardedAddresses": [
+    {
+      "address": "0xaDEDCd23941E479b4736B38e271Eb926596BBe3d",
+      "amount": "116406196982351447726540"
+    },
+    {
+      "address": "0xb595192f238808EbAC932AA94824B6EEe065AaD1",
+      "amount": "77979217956288542038145"
+    },
+    {
+      "address": "0x2Cd2902dC836DC8CDA9e694BeceA220E63225f14",
+      "amount": "1500346538883640881809"
+    },
+    {
+      "address": "0x5ae2F4DEBCE13c568A460152345650eCD44e2C85",
+      "amount": "48673957865981565072988"
+    },
+    {
+      "address": "0x0e486101Ea1D9791f64B9184228aaFfA04dE0f98",
+      "amount": "2999076325031415771289"
+    },
+    {
+      "address": "0xB514d30ab6D6AaA7E71ED6bBA5C9Ed6d49F54973",
+      "amount": "19401032830391907954423"
+    },
+    {
+      "address": "0x5406C889F64c0191C26D2774F3F4992d042E4f6A",
+      "amount": "116406196982351447726540"
+    },
+    {
+      "address": "0xF3F551cBe72A32649c721939DE3b6C1B3bD50Ccd",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0xdd7B2Bac728f027f23aDD7128711ecB60f761aD5",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0xf5520b813E7825845a59744144c64D4032688c9D",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0x15C978f2364C54d3db744E6a07863A2a3f3E8d5C",
+      "amount": "116406196982351447726540"
+    },
+    {
+      "address": "0xbc1682730aE5BD0Aed7d210da330Ed581D9F2c4D",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0x4705B22512229FC92B50d6d263Ae16e57a6E51ea",
+      "amount": "129340218869279386362822"
+    },
+    {
+      "address": "0x82ebF2f88E70f74B9943E4b6510225d0102589dC",
+      "amount": "122873207925815417044681"
+    },
+    {
+      "address": "0x5f3CF159075EabB0f5Db4B07230C4F7E8fC4D90f",
+      "amount": "58203098491175723863270"
+    },
+    {
+      "address": "0xBb8496071EDDbed07e8ad1763BDe62718a22E2Bd",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0x438331baa70e55A89cC03E6430AC40F426C6e7c7",
+      "amount": "59690511008172436806442"
+    },
+    {
+      "address": "0xeeCB4fd9F4d5011D62b705Ec1756ab3F741A0433",
+      "amount": "1810763064169911409079"
+    },
+    {
+      "address": "0xdc4AC69fA7e54eeF5d5B2B923b288A8B7d80e4F7",
+      "amount": "4138887003816940363611"
+    },
+    {
+      "address": "0x3D1d7F2E99E669BC6E2823F2bD57C811dbFDBfC1",
+      "amount": "38802104462849476692662"
+    },
+    {
+      "address": "0x365623E776bC0C4dA02ecc097690F5455C3149e9",
+      "amount": "116663260667354140506935"
+    },
+    {
+      "address": "0x29335d52016Cd67797F3efbC375c0B560C0eC808",
+      "amount": "46562478792940579090616"
+    },
+    {
+      "address": "0x216f3f9476cC26ec95AafB2A494e23979d0494e8",
+      "amount": "67903614906371677840481"
+    },
+    {
+      "address": "0x33901732fC71E4c8f243d88365895ca6E31133fC",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0x74e90C9B4384498D907eBa09ff6f92cF11C192da",
+      "amount": "48502582075979769886058"
+    },
+    {
+      "address": "0x1E8F916CE03F4ce86186531a8994d366581Ed4be",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0xF9cb594530F5C7E74AB36C493c00a1eC7547C302",
+      "amount": "39044578571163714758277"
+    },
+    {
+      "address": "0x0fe456371c268E420F60D46b8695bbF727b77CBb",
+      "amount": "1374239825486093480105"
+    },
+    {
+      "address": "0x14D781a056283CB79ef249ad63Cf5a2442EB1430",
+      "amount": "116406196982351447726540"
+    },
+    {
+      "address": "0x25daBfcb1a2560a8FC3e243Ef3C02608Ef2D0d8F",
+      "amount": "58203098491175723863270"
+    },
+    {
+      "address": "0xb745Da5E25F90cA62B0ea4CFF9f4ab60Ec4eD86a",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0xD8Bc3f71bCa357F97d930E472c19AbBCAdab3BEb",
+      "amount": "67903614906371677840482"
+    },
+    {
+      "address": "0x7A757589e26a495e5C535dE440A01cf009bCEcDe",
+      "amount": "58203098491175723863270"
+    },
+    {
+      "address": "0x68B8d806394B87D025aebAA889bF9d20BaD2dE67",
+      "amount": "97005164151959539772117"
+    },
+    {
+      "address": "0x9Fd5cccC7f75409F78f9FBb865C2bd14424D5486",
+      "amount": "172753392672971881674890"
+    },
+    {
+      "address": "0xc9F314887750169424bd78770ccfd5AAC87A4b5F",
+      "amount": "397705652196769799539320"
+    },
+    {
+      "address": "0xD448D833dd419944008133C69550FBc2e429f5cD",
+      "amount": "116406196982351447726540"
+    },
+    {
+      "address": "0xcA90FAE4b7dF747245C7676f2f3672fD64578BF1",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0x1C602a30335187A97D8061Ffffd4522796DE82bF",
+      "amount": "38802065660783815908846"
+    },
+    {
+      "address": "0x24BaF5b2Fa77dE48823dB563C8cc4c5C811665Ad",
+      "amount": "67903614906371677840482"
+    },
+    {
+      "address": "0x86878fD2a6E2cbc427E1882c053732985E105b0A",
+      "amount": "129340218869279386362823"
+    },
+    {
+      "address": "0x0A255b5642B3FB56B355A8bd3B265783805c9999",
+      "amount": "48502582075979769886058"
+    },
+    {
+      "address": "0x668d3BdB1848a90c412e4dC8D0ffe019670c5AD0",
+      "amount": "67903614906371677840482"
+    },
+    {
+      "address": "0xD49E9e23De39c3852c1980659D82D057e791F491",
+      "amount": "116472160493974780213585"
+    },
+    {
+      "address": "0xd50Af27dFbD6709549dEE4e895B02C935FCDC3Da",
+      "amount": "263854046493329948181"
+    },
+    {
+      "address": "0xD38FC64Ca0868BFA2f5bF528EF5D4f17Fb6A859e",
+      "amount": "40354148287215168545200"
+    },
+    {
+      "address": "0x4EEE5c3d3De96418BeF8f4dAFAF24bE5bDe24dA2",
+      "amount": "116406196982351447726540"
+    },
+    {
+      "address": "0x9C1d660Ee6F1b6f0773163126A04cA53CD6635C5",
+      "amount": "38802065660783815908847"
+    },
+    {
+      "address": "0xD77C2505eF64C02e62eE0bA4f1f6528CcfF3a568",
+      "amount": "38802065660783815908847"
+    },
+    {
+      "address": "0x40b40bb3561A027c00e8D0d078723186137f259b",
+      "amount": "38802104462849476692662"
+    },
+    {
+      "address": "0xab1ec664f738214844eA4666245f92534827EA60",
+      "amount": "38802065660783815908847"
+    },
+    {
+      "address": "0x576982fdca921513fbFe3fF31c0Ca31dad7b1d80",
+      "amount": "58203098491175723863270"
+    },
+    {
+      "address": "0x849a5C52e1CA4AB0407E5BE3030cC420E7222F13",
+      "amount": "194010328303919079544235"
+    },
+    {
+      "address": "0xa41d19F4258a388c639B7CcD938FCE3fb7D05e86",
+      "amount": "65963511623332487045039"
+    },
+    {
+      "address": "0x9Ba3d6247b9C541c54627a5dAbC8e5e9dD51587d",
+      "amount": "116406196982351447726541"
+    },
+    {
+      "address": "0x781deF0a0845ac75F10Bb65028EAFEb6E73eece8",
+      "amount": "117192650183186101035320"
+    },
+    {
+      "address": "0xf234B4DCd1d51D46f75a60AB4a8C96794eC68Fd2",
+      "amount": "3145554122900874676344"
+    },
+    {
+      "address": "0x5F4E1FB306d4c071b962afcAeD7beE2287E84679",
+      "amount": "38802065660783815908847"
+    },
+    {
+      "address": "0xb6379cD18Bd767a56e323A2E6d33e709dA5b945C",
+      "amount": "116406196982351447726541"
+    },
+    {
+      "address": "0x4db34eC67d015Fa0cDA7966eccaBcC168B107682",
+      "amount": "162810751368052636686407"
+    },
+    {
+      "address": "0xB259BD09CD9105D632cdE9856000878Ba56a3939",
+      "amount": "116406196982351447726541"
+    },
+    {
+      "address": "0xda8E7b8B9EcDc48531697Dc5179F250F1f8645a6",
+      "amount": "58203098491175723863270"
+    },
+    {
+      "address": "0xE96aA06057e3628864eB0fd497eE9a1f80956C80",
+      "amount": "48502582075979769886059"
+    },
+    {
+      "address": "0xe96821B10436625dC28d80b2ADEf90F62B6745C3",
+      "amount": "116406196982351447726541"
+    },
+    {
+      "address": "0x61564978e1012Fb81eAC3054B198ab2326E8FDf4",
+      "amount": "6467075613573403957834"
+    },
+    {
+      "address": "0x6D4e76A03B1Ee140c8eBF47C6B165C10B04168B0",
+      "amount": "116406196982351447726541"
+    },
+    {
+      "address": "0x8Ae314214d6dbF6d253918CDA933bC677907992F",
+      "amount": "6467010943463969318141"
+    },
+    {
+      "address": "0xB5De21C6E3eC3aF93917DDD17de558A9BDfbbB35",
+      "amount": "194010328303919079544237"
+    },
+    {
+      "address": "0xD7f5b619441fAfE525Ea3aBeBCd4a961C1227426",
+      "amount": "194010328303919079544237"
+    }
+  ]
+}
