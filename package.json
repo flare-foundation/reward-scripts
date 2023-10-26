@@ -6,6 +6,7 @@
 
    "scripts": {
       "process-staking-rewards": "yarn ts-node src/processStakingRewards.ts",
+      "sum-staking-rewards": "yarn ts-node src/sumStakingRewards.ts",
       "build": "npm-run-all yarn tsc",
       "--- development scripts ---": "",
       "sync": "ts-node ./src/scripts/sync-artifacts.ts",

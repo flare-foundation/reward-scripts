@@ -635,6 +635,43 @@ export class CalculatingRewardsService {
 		return rewardsData;
 	}
 
+	public async sumRewards(firstRewardEpoch: number, numberOfEpochs: number) {
+		let rewardsData: RewardsData[] = [];
+		for (let epoch = firstRewardEpoch; epoch < firstRewardEpoch + numberOfEpochs; epoch++ ) {
+			const filesPath = `generated-files/reward-epochs-${epoch}-${epoch}`;
+			const json = JSON.parse(fs.readFileSync(`${filesPath}/data-reward-manager.json`, 'utf8'));
+			const addresses: string[] = json.addresses;
+			const rewardAmounts: string[] = json.rewardAmounts;
+
+			for(let i = 0; i < addresses.length; i++) {
+				const address = addresses[i];
+				const index = rewardsData.findIndex(rewardedData => rewardedData.address == address);
+				if (index > -1) {
+					rewardsData[index].amount += BigInt(rewardAmounts[i]);
+				}
+				else {
+					rewardsData.push({
+						address: address,
+						amount: BigInt(rewardAmounts[i])
+					});
+				}
+			}
+		}
+		let dataRewardManager = {} as DataValidatorRewardManager;
+		let arrayAddresses = rewardsData.map(recipient => {
+			return recipient.address;
+		});
+		let arrayAmounts = rewardsData.map(recipient => {
+			return recipient.amount.toString();
+		});
+		dataRewardManager.addresses = arrayAddresses;
+		dataRewardManager.rewardAmounts = arrayAmounts;
+		let epochRewardsJSON = JSON.stringify(dataRewardManager, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
+		const generatedFilesPath = "generated-files/validator-rewards"
+		fs.mkdirSync(generatedFilesPath, { recursive: true });
+		fs.writeFileSync(`${generatedFilesPath}/epochs-${firstRewardEpoch}-${firstRewardEpoch + numberOfEpochs - 1}.json`, epochRewardsJSON, "utf8");
+	}
+
 }
 
 
