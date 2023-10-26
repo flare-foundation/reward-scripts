@@ -96,7 +96,7 @@ export interface RewardingPeriodData {
    UPTIME_VOTING_THRESHOLD: number;
    MIN_FOR_BEB_GWEI: string;
    REWARD_AMOUNT_EPOCH_WEI: string;
-   FIRST_REWARD_EPOCH: number;
+   REWARD_EPOCH: number;
    NUM_UNREWARDED_EPOCHS: number;
    REQUIRED_FTSO_PERFORMANCE_WEI: string;
 }
@@ -122,11 +122,11 @@ export interface INetworkConfigJson {
    RPC: string;
    MAX_BLOCKS_FOR_EVENT_READS?: number;
    MAX_REQUESTS_PER_SECOND?: number | string;
-   FIRST_REWARD_EPOCH: number;
+   REWARD_EPOCH: number;
    REQUIRED_FTSO_PERFORMANCE_WEI: string;
    BOOSTING_FACTOR: number;
    VOTE_POWER_CAP_BIPS: number;
-   NUM_UNREWARDED_EPOCHS: number;
+   NUM_EPOCHS: number;
    UPTIME_VOTING_PERIOD_LENGTH_SECONDS: number;
    UPTIME_VOTING_THRESHOLD: number;
    MIN_FOR_BEB_GWEI: string;
