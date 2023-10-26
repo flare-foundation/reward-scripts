@@ -66,7 +66,7 @@ export class CalculatingRewardsService {
 		}
 
 		if (rewardEpoch === undefined) {
-			rewardEpoch = parseInt(await ftsoRewardManager.methods.getCurrentRewardEpoch().call()) - rewardEpoch;
+			rewardEpoch = parseInt(await ftsoRewardManager.methods.getCurrentRewardEpoch().call()) - 1;
 		}
 
 		const generatedFilesPath = `generated-files/reward-epoch-${rewardEpoch}`

@@ -106,11 +106,6 @@ export interface DataValidatorRewardManager {
    rewardAmounts: string[]
 }
 
-export interface UptimeVoteData {
-   epochId: number;
-   nodeIds: string[];
-}
-
 export interface UptimeVote {
    voter: string;
    nodeIds: string[];

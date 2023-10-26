@@ -4,6 +4,7 @@
     "MAX_BLOCKS_FOR_EVENT_READS": 30,
     "MAX_REQUESTS_PER_SECOND": 3,
     "API_PATH": "https://flare-p-chain-indexer.flare.network",
+    "NUM_EPOCHS": "4",
     "BOOSTING_FACTOR": 5,
     "VOTE_POWER_CAP_BIPS": 500,
     "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 600,
