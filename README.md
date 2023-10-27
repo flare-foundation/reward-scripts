@@ -12,7 +12,7 @@ git checkout https://github.com/flare-foundation/reward-scripts.git
    - `RPC`: RPC URL for the network
    - `MAX_BLOCKS_FOR_EVENT_READS`: how many blocks can be read with a single web3 API call (e.g. `getAllEvents`)
    - `MAX_REQUESTS_PER_SECOND`: how many requests per second can be made
-   - `FIRST_REWARD_EPOCH`: first reward epoch for which rewards will be calculated
+   - `REWARD_EPOCH`: reward epoch for which rewards are calculated
    - `NUM_UNREWARDED_EPOCHS`: number of reward epochs to calculate rewards for
    - `REQUIRED_FTSO_PERFORMANCE_WEI`: the amount of FTSO rewards that an FTSO provider needs to receive in a given epoch for its node to be eligible to receive staking rewards
    - `BOOSTING_FACTOR`: factor of boosting eligibility bond (BEB) validator received as a boost
@@ -22,6 +22,7 @@ git checkout https://github.com/flare-foundation/reward-scripts.git
    - `UPTIME_VOTING_THRESHOLD`: number of votes a node needs to receive to be eligible for a reward
    - `API_PATH`: path to APIs which list active validators and delegators
    - `REWARD_AMOUNT_EPOCH_WEI`: reward amount to distribute in a given reward epoch
+   - `NUM_EPOCHS`: number of epochs for which to sum reward amounts
 
 
 If a configuration file doesn't exist or some parameters are missing, (those) parameters will have default values from [configuration service](./src/services/ConfigurationService.ts). If a default value is `undefined` it will be read from the blockchain.
@@ -38,6 +39,15 @@ yarn process-staking-rewards
 ```
 You can also run it with optional parameters from [file](./src/processProviders.ts) (e.g. `yarn process-staking-rewards -b 8 -f 111`), which will override parameters set in the configuration file.
 
-For each run output of the process is in folder `generated-files/reward-epochs-<FIRST_REWARD_EPOCH>_<LAST-REWARD_EPOCH>`, where `LAST-REWARD-EPOCH` is calculated as `<FIRST_REWARD_EPOCH> + <NUM_UNREWARDED_EPOCHS> - 1`.
+For each run output of the process is in folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
 
 To verify the official results posted in this repository one needs to update its configuration file with values from file `data.json`.
+
+### Data for distributing rewards
+Rewards will be distributed every four reward epochs, which means that every 14 days reward amounts from the past four reward epochs will be summed. This is achieved by running the process
+```bash
+yarn sum-staking-rewards
+```
+where the parameter `REWARD_EPOCH` specifies the latest reward epoch for which reward data is summed, and the parameter `NUM_EPOCHS` specifies the number of reward epochs for which reward data is summed.
+
+Output of the process is a file `epochs-<REWARD_EPOCH-NUM_EPOCHS+1>-<REWARD_EPOCH>`, which is located in the folder `generated-files/validator-rewards`.
