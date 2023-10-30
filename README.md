@@ -48,6 +48,6 @@ Rewards will be distributed every four reward epochs, which means that every 14 
 ```bash
 yarn sum-staking-rewards
 ```
-where the parameter `REWARD_EPOCH` specifies the latest reward epoch for which reward data is summed, and the parameter `NUM_EPOCHS` specifies the number of reward epochs for which reward data is summed.
+The config's file parameter `REWARD_EPOCH` specifies the latest reward epoch for which reward data is summed, and the parameter `NUM_EPOCHS` specifies the number of reward epochs for which reward data is summed.
 
 Output of the process is a file `epochs-<REWARD_EPOCH-NUM_EPOCHS+1>-<REWARD_EPOCH>`, which is located in the folder `generated-files/validator-rewards`.
