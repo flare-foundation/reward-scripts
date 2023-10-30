@@ -1,0 +1,3952 @@
+[
+  {
+    "nodeId": "NodeID-2a7BPY7UeJv2njMuyUHfBSTeQCYZj6bwV",
+    "bondingAddress": "flare1uz66xddzplexwfdsxrzxsnlwlucyfsuax00crd",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0xfe532cB6Fb3C47940aeA7BeAd4d61C5e041D950e",
+    "stakeEnd": 1711537200,
+    "pChainAddress": [
+      "flare1uz66xddzplexwfdsxrzxsnlwlucyfsuax00crd"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "25250000000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare17lg7042fcsqdv6anw42x3eavulqds507qftcy4",
+        "cAddress": "0x54a6742a4d90F0640Fc06EE20D5A0b377421D4cF",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "839121806994952485678"
+      },
+      {
+        "pAddress": "flare1vxsy2wcatnsepxp05snzjrgzwsmmusetuf937c",
+        "cAddress": "0xff71960A8a2597fbD18F81A79D5171CBf27C5665",
+        "amount": "25000000000000000",
+        "delegatorRewardAmount": "83912180699495248567851"
+      }
+    ],
+    "totalStakeAmount": "28250000000000000",
+    "cChainAddress": "0xaDEDCd23941E479b4736B38e271Eb926596BBe3d",
+    "overboost": "0",
+    "rewardingWeight": "28250000000000000",
+    "cappedWeight": "28250000000000000",
+    "nodeRewardAmount": "118525955238037038602087",
+    "validatorRewardAmount": "33774652731546837548558"
+  },
+  {
+    "nodeId": "NodeID-2hCHs6H4Vde8mdGGKidMvT4Fjit7goCBT",
+    "bondingAddress": "flare1sv39x5grnctjjjjc79n3ah88wdky45pj2jf8ws",
+    "selfBond": "2000000000000000",
+    "ftsoAddress": "0xB6d68Ea6C4dE734Ec481F92AFD1C35F712441b73",
+    "stakeEnd": 1703935636,
+    "pChainAddress": [
+      "flare1sv39x5grnctjjjjc79n3ah88wdky45pj2jf8ws"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "2000000000000000",
+    "boostDelegations": "10000000000000000",
+    "boost": "10000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "290000000000000",
+    "totalSelfBond": "2000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1guswzmwyk2y0c0vx23ttyqedr0z3zta7mu57v7",
+        "cAddress": "0x2Cd2902dC836DC8CDA9e694BeceA220E63225f14",
+        "amount": "290000000000000",
+        "delegatorRewardAmount": "973381296114144883388"
+      }
+    ],
+    "totalStakeAmount": "12290000000000000",
+    "cChainAddress": "0xb595192f238808EbAC932AA94824B6EEe065AaD1",
+    "overboost": "0",
+    "rewardingWeight": "12290000000000000",
+    "cappedWeight": "12290000000000000",
+    "nodeRewardAmount": "51564035039839830244943",
+    "validatorRewardAmount": "50590653743725685361555"
+  },
+  {
+    "nodeId": "NodeID-2q436GJKA5faTceNaAbu7CYxftv3K8fS4",
+    "bondingAddress": "flare1s880acgq84yjqm29zdjjygnu3yfl54gd8djxu7",
+    "selfBond": "1250000000000000",
+    "ftsoAddress": "0x8863eAD675DfF5Cf260D5FdC079d50996D1F3cd4",
+    "stakeEnd": 1701619200,
+    "pChainAddress": [
+      "flare1s880acgq84yjqm29zdjjygnu3yfl54gd8djxu7"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1250000000000000",
+    "boostDelegations": "6250000000000000",
+    "boost": "6250000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "826490000000000",
+    "totalSelfBond": "1250000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1a0urfpade4npyq5qvlcsscfzsqtqhg88ka57cy",
+        "cAddress": "0x0e486101Ea1D9791f64B9184228aaFfA04dE0f98",
+        "amount": "265000000000000",
+        "delegatorRewardAmount": "1000652754841480839171"
+      },
+      {
+        "pAddress": "flare1uzyaffltxv58nytpjc275d9zfuc36evs727vfg",
+        "cAddress": "0xF1a61E37036c6f3d6d520392f0CC314c6f43Daf3",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "188802406573864309277"
+      },
+      {
+        "pAddress": "flare1xrugjtyt0kmzuzd59cewwv7pezt7m75yxwxx4g",
+        "cAddress": "0x9A594945cd5e2F6256A066B99c7Bb5Cd153e3c83",
+        "amount": "511490000000000",
+        "delegatorRewardAmount": "1931410858769317111050"
+      }
+    ],
+    "totalStakeAmount": "8326490000000000",
+    "cChainAddress": "0x5ae2F4DEBCE13c568A460152345650eCD44e2C85",
+    "overboost": "0",
+    "rewardingWeight": "8326490000000000",
+    "cappedWeight": "8326490000000000",
+    "nodeRewardAmount": "34934696673627009612385",
+    "validatorRewardAmount": "31813830653442347352887"
+  },
+  {
+    "nodeId": "NodeID-3phxSiKoYMj1dNSJysZhHYQKUbLX786jy",
+    "bondingAddress": "flare1ysd4vw287u88nu0f0vh3zrxg4ett3ansnn0v8v",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0x9269fb79B098AB314de8A1E2AFb8705678520443",
+    "stakeEnd": 1703957112,
+    "pChainAddress": [
+      "flare1ysd4vw287u88nu0f0vh3zrxg4ett3ansnn0v8v"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "1975877000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10dzk76xp85hhlptrg5xu4nffa30msxk22h6jmr",
+        "cAddress": "0xb4f6420de02Bef9ecb29D1f48Ab751BE7085f14e",
+        "amount": "150000000000000",
+        "delegatorRewardAmount": "503473084196971491407"
+      },
+      {
+        "pAddress": "flare1a06sztf08x57zg4g22qryr0r98tu9tkjd0eyfm",
+        "cAddress": "0x8374AB8d7406456abF882964ccfb0fEceb1064E8",
+        "amount": "325836000000000",
+        "delegatorRewardAmount": "1093664372416029352494"
+      },
+      {
+        "pAddress": "flare1c7wwsa7zs6knkdl674yg3k53zz8uxlx6dhc9d2",
+        "cAddress": "0x6FEa53ABc9d6f313415f31B60e1e5c1e9c4eDB13",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1l7rj62dl92dhkr6x62r9gtherkptg8uzayh90h",
+        "cAddress": "0x6B8E39953D551f5ea8844265c9119329c29D02AF",
+        "amount": "50041000000000",
+        "delegatorRewardAmount": "167961977375337669343"
+      },
+      {
+        "pAddress": "flare1n3dvgk66d2slrjnza6amwgn25nqnclv662q30q",
+        "cAddress": "0x103Ca065dB4Ed55AFC29724FA2fDaddC71A0Fc0f",
+        "amount": "500000000000000",
+        "delegatorRewardAmount": "1678243613989904971357"
+      },
+      {
+        "pAddress": "flare1pmu9ewm75dm0pgyu7rc5yy3nnl62ztgew28ky7",
+        "cAddress": "0x6A72bB44A97eE50B86af12F855A78f6dEFafe7c2",
+        "amount": "350000000000000",
+        "delegatorRewardAmount": "1174770529792933479950"
+      },
+      {
+        "pAddress": "flare1qf5m74ca7grnc4nfl9cmlaataqk8rx3qynxava",
+        "cAddress": "0x566aC8156424095572740C7Acf77B0E876c882B0",
+        "amount": "500000000000000",
+        "delegatorRewardAmount": "1678243613989904971358"
+      },
+      {
+        "pAddress": "flare1u8dy2lcs2tu0rhm30ep7xrvh5xur0lsjzjrr3d",
+        "cAddress": "0xD9168612ABb5DB0b2A0325a618A51Bb3B0D9eEf5",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497136"
+      }
+    ],
+    "totalStakeAmount": "19975877000000000",
+    "cChainAddress": "0xB514d30ab6D6AaA7E71ED6bBA5C9Ed6d49F54973",
+    "overboost": "0",
+    "rewardingWeight": "19975877000000000",
+    "cappedWeight": "19975877000000000",
+    "nodeRewardAmount": "83810970022744552373789",
+    "validatorRewardAmount": "77178964108185489443609"
+  },
+  {
+    "nodeId": "NodeID-3RJrjDMzeZQVDyHDjZ6u1X3Y3WCKY5nbb",
+    "bondingAddress": "flare1p4f43v84c99wgscr559rmx3nvwntn73kw496gt",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0x00c0fFEf480E392f5Fe7af592214855Ff872fa80",
+    "stakeEnd": 1704970822,
+    "pChainAddress": [
+      "flare1p4f43v84c99wgscr559rmx3nvwntn73kw496gt"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "104250000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1t6xuce8wrk8zws8u6uwn6p5wy9xderynt6afgx",
+        "cAddress": "0xF818815f63EEe37F83713cEdaea7214657CD6d06",
+        "amount": "104250000000000",
+        "delegatorRewardAmount": "349913793516895186528"
+      }
+    ],
+    "totalStakeAmount": "3104250000000000",
+    "cChainAddress": "0x5406C889F64c0191C26D2774F3F4992d042E4f6A",
+    "overboost": "0",
+    "rewardingWeight": "3104250000000000",
+    "cappedWeight": "3104250000000000",
+    "nodeRewardAmount": "13024219346820406268337",
+    "validatorRewardAmount": "12674305553303511081809"
+  },
+  {
+    "nodeId": "NodeID-3v6zserYt9MD58FCmsPo2Qto5AwYAkm6s",
+    "bondingAddress": "flare1yrrllyc8s9u8sts8advj3vefqh6rshk95r0a2e",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "",
+    "stakeEnd": 1702897200,
+    "pChainAddress": [
+      "flare1yrrllyc8s9u8sts8advj3vefqh6rshk95r0a2e"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "didn't provide its FTSO address",
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "3348322000000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1z23xasnlj0f6ervqfncqmfuzzn79uzqvx2fms9",
+        "cAddress": "0xB0B5B54c231D6d903945a76A60660A40E60377bb",
+        "amount": "217480000000000"
+      },
+      {
+        "pAddress": "flare1t6xuce8wrk8zws8u6uwn6p5wy9xderynt6afgx",
+        "cAddress": "0xF818815f63EEe37F83713cEdaea7214657CD6d06",
+        "amount": "55190000000000"
+      },
+      {
+        "pAddress": "flare1834qzvmuayrjm2d0tu4dmnxfv8ge5ayr8xvtwu",
+        "cAddress": "0xe1b658c58Ad1Cb40C17F06434AA57b7107BCe880",
+        "amount": "54900000000000"
+      },
+      {
+        "pAddress": "flare1l74czt90lmjj6jcusylt89a9a3pmxfkkqtm0c2",
+        "cAddress": "0xe43291170B70d81Fe609835Eb7950A1DE1949cB2",
+        "amount": "50000000000000"
+      },
+      {
+        "pAddress": "flare1l53zs5tnpjw0zkjkzkrsyvhnrgn2dz845uf57f",
+        "cAddress": "0x0c677843e9B7f393745156D3F5938446E74a63Dd",
+        "amount": "200000000000000"
+      },
+      {
+        "pAddress": "flare1ep5lscw9xsypm7w8gzwll772u9wj05avej379e",
+        "cAddress": "0xE4a33FFEDFC22Fc155e19043175B3AacA80150A2",
+        "amount": "59999000000000"
+      },
+      {
+        "pAddress": "flare1ln9a0jxwevu5dj3w8lemq7p20c2jv6qrtw9j4k",
+        "cAddress": "0x32E4805550A638a1012b83D01AE0c32487b55605",
+        "amount": "62300000000000"
+      },
+      {
+        "pAddress": "flare13sf8e3l538ctaswfaxz69zg5gg88exse0wj8sg",
+        "cAddress": "0xE2034C641B062C9aA8e4a69953a9830a7F1C6aEc",
+        "amount": "1650000000000000"
+      },
+      {
+        "pAddress": "flare1elj8jm0sdtgj9e5lv9aaas5v6hmdqeyr6ermun",
+        "cAddress": "0x69FFF2BA938D791203EC341CFF4725A38D83B45A",
+        "amount": "98900000000000"
+      },
+      {
+        "pAddress": "flare1e38au5fy5gsj590n3qllxv6yrw3z3kdvme2q33",
+        "cAddress": "0x867995b09F4762D9f522b0Ad556322c849283666",
+        "amount": "95151000000000"
+      },
+      {
+        "pAddress": "flare1c7wwsa7zs6knkdl674yg3k53zz8uxlx6dhc9d2",
+        "cAddress": "0x6FEa53ABc9d6f313415f31B60e1e5c1e9c4eDB13",
+        "amount": "100000000000000"
+      },
+      {
+        "pAddress": "flare1nf344fx9gh7vsg0ga9pxhw9maa7zeacvj2n7na",
+        "cAddress": "0xdBB250f58B6B35400BaeCa1f89aE3b2249868af9",
+        "amount": "111630000000000"
+      },
+      {
+        "pAddress": "flare1mx5g7pun645hk5ar2h8nfra0rmc8je474nvxlv",
+        "cAddress": "0xA5f4892106142837200642d36fa9E85DBDC73aba",
+        "amount": "50000000000000"
+      },
+      {
+        "pAddress": "flare1cz8j0p6fk9pqj5mg5xmps7l5hlrz9xya4lqmku",
+        "cAddress": "0xca9e0DE866B06c9E99e923deC2dCe66Cde7823B5",
+        "amount": "89420000000000"
+      },
+      {
+        "pAddress": "flare130wt558svdw2m6edchp5xgvd7gwy7cgjtje2a7",
+        "cAddress": "0x68d6Ca2e15852219bb1CC0b59a23ebBaa5337953",
+        "amount": "50002000000000"
+      },
+      {
+        "pAddress": "flare1mzdrxc84r4uw2dvvv0teqh62xheyyz89mrceq5",
+        "cAddress": "0x41E36254A4b8D40C17D9f3619575f6c8266302D9",
+        "amount": "50400000000000"
+      },
+      {
+        "pAddress": "flare1fvjm59ela9tjywxus7lyt7s0ckcmdz7zscq3du",
+        "cAddress": "0x3dEB9c06423f14a7bBD3057D84032bFAa02fF82D",
+        "amount": "52950000000000"
+      },
+      {
+        "pAddress": "flare1vlvl35qfulspx79jqcyvfgawdxvxqhcahpj7kk",
+        "cAddress": "0xDD26F7b5f4b58be6e6C0F208D9E615A8e8B4c5A0",
+        "amount": "300000000000000"
+      }
+    ],
+    "totalStakeAmount": "33348322000000000",
+    "cChainAddress": "0xe2971Ed07292585801Bb9e1733dD4E0D7d5Dd363",
+    "overboost": "0",
+    "rewardingWeight": "33348322000000000"
+  },
+  {
+    "nodeId": "NodeID-4e5tHaeoLvpXjtY5uMXtuYJgEWZ2JiC4D",
+    "bondingAddress": "flare102av4l7pej3sek5va99r4dngev4c7t598rsm3a",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0xA9C69eb9De79188A9ABa46c5336607F88A80eC89",
+    "stakeEnd": 1699441200,
+    "pChainAddress": [
+      "flare1s5e3wmra32hm0t7tc57ryk7yj3t6h9amh4rfhk"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1000000000000000",
+    "selfDelegations": "1000000000000000",
+    "totalSelfBond": "1000000000000000",
+    "normalDelegations": "0",
+    "delegators": [],
+    "totalStakeAmount": "11000000000000000",
+    "cChainAddress": "0xF3F551cBe72A32649c721939DE3b6C1B3bD50Ccd",
+    "overboost": "5000000000000000",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570354",
+    "validatorRewardAmount": "25173654209848574570354"
+  },
+  {
+    "nodeId": "NodeID-4h6PNpK5oo9pjmE8zKSbm31S2LStg4tyF",
+    "bondingAddress": "flare14dqj5g8cwxpnegzckyvuyferwe9w2ywl6ekr3x",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0xdd7B2Bac728f027f23aDD7128711ecB60f761aD5",
+    "stakeEnd": 1702651789,
+    "pChainAddress": [
+      "flare14dqj5g8cwxpnegzckyvuyferwe9w2ywl6ekr3x"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough uptime",
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0xdd7B2Bac728f027f23aDD7128711ecB60f761aD5",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000"
+  },
+  {
+    "nodeId": "NodeID-5jV2rg4CGt6ewiDbB9QeWDEptVudskJeY",
+    "bondingAddress": "flare1n2t5dxej43wv0yasz2vl5q9plmcya5xd0d02z4",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x64D998BC81424131E5aF05071263fDeBD1a82986",
+    "stakeEnd": 1699268400,
+    "pChainAddress": [
+      "flare19dc6w5s84wddducwhxjl9lw3vawcpcnjvqm6wj"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1000000000000000",
+    "selfDelegations": "1000000000000000",
+    "totalSelfBond": "1000000000000000",
+    "normalDelegations": "0",
+    "delegators": [],
+    "totalStakeAmount": "11000000000000000",
+    "cChainAddress": "0xf5520b813E7825845a59744144c64D4032688c9D",
+    "overboost": "5000000000000000",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570354",
+    "validatorRewardAmount": "25173654209848574570354"
+  },
+  {
+    "nodeId": "NodeID-5V2bQbryZTU4pAe59KNHNBru1BwEfcXqg",
+    "bondingAddress": "flare1xsuurmk7pyf59uez6kcl3em92hey4aeh49w2j0",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0xDe40311b4b538392e0e7dCC134426C397c956cA9",
+    "stakeEnd": 1704196800,
+    "pChainAddress": [
+      "flare1xsuurmk7pyf59uez6kcl3em92hey4aeh49w2j0"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "37571960476453935",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare102rqulun05s9lv6m9lh9tnwgwhz9ucen662p26",
+        "cAddress": "0x35650B764Cf76aae899A099D68920ab7f348c466",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "839121806994952485678"
+      },
+      {
+        "pAddress": "flare106gzjtexfr5m2efmm9ptapl0fnjrjmktcpmjzx",
+        "cAddress": "0x62e05C02fd3E2Aa9374dC9FB8d3a619efe540BdD",
+        "amount": "10505360000000000",
+        "delegatorRewardAmount": "35261106665329976179790"
+      },
+      {
+        "pAddress": "flare10l55r0ygdukq23dgeypptq8q5gwag8xyj44n3j",
+        "cAddress": "0x2E077Aa5333234e805595474a80589ca124aA38C",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1006946168393942982814"
+      },
+      {
+        "pAddress": "flare1hja09gf0manhh6akam8k75hf78aqktmh5j7p46",
+        "cAddress": "0x6FeB3B40617f17Af52Ac8252845643857787eD8c",
+        "amount": "216600476453935",
+        "delegatorRewardAmount": "727016732791974381814"
+      },
+      {
+        "pAddress": "flare1tt4yeejfsp4wk4rhdqrua4s5j3s2kuhph895ke",
+        "cAddress": "0xD6f26F1f62b7F5f8A97FB059Db71929460a6ad1a",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1006946168393942982814"
+      },
+      {
+        "pAddress": "flare1v3klq5h3r3lng0udxfcuw8lcjmrtpwlgmetyvv",
+        "cAddress": "0xc506a2E354BC10649907a2086dAE2BEED3E760fE",
+        "amount": "26000000000000000",
+        "delegatorRewardAmount": "87268667927475058510566"
+      }
+    ],
+    "totalStakeAmount": "40571960476453935",
+    "cChainAddress": "0x15C978f2364C54d3db744E6a07863A2a3f3E8d5C",
+    "overboost": "0",
+    "rewardingWeight": "40571960476453935",
+    "cappedWeight": "40571960476453935",
+    "nodeRewardAmount": "170224083941649096689521",
+    "validatorRewardAmount": "44114278472269249166045"
+  },
+  {
+    "nodeId": "NodeID-66rV9yEWSVGLC8fs9ynKptVf9f6bSbHC8",
+    "bondingAddress": "flare15t8hn6pmv6fd6r4g8z5xqdrhd00v9ddmuh84y4",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0xf8B1Dcf2594AfD082aae088661bF574CB9BbDC61",
+    "stakeEnd": 1702162800,
+    "pChainAddress": [
+      "flare15t8hn6pmv6fd6r4g8z5xqdrhd00v9ddmuh84y4"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0xbc1682730aE5BD0Aed7d210da330Ed581D9F2c4D",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570354",
+    "validatorRewardAmount": "25173654209848574570354"
+  },
+  {
+    "nodeId": "NodeID-6cnsMcUNTJwCcDuAyPwJqEaVa6yMrk8eq",
+    "bondingAddress": "flare1qygynyjrumj76cm4rplk8qgeh96qxha2dtry2k",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0xAF7504242064532CbD3370aD7591452B1D09BBdc",
+    "stakeEnd": 1698836400,
+    "pChainAddress": [
+      "flare1shr6l602f2cyg8fda4w50n2u02qscx7xnd6f2g"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "5000000000000000",
+    "selfDelegations": "5000000000000000",
+    "totalSelfBond": "5000000000000000",
+    "normalDelegations": "0",
+    "delegators": [],
+    "totalStakeAmount": "20000000000000000",
+    "cChainAddress": "0x4705B22512229FC92B50d6d263Ae16e57a6E51ea",
+    "overboost": "0",
+    "rewardingWeight": "20000000000000000",
+    "cappedWeight": "20000000000000000",
+    "nodeRewardAmount": "83912180699495248567849",
+    "validatorRewardAmount": "83912180699495248567849"
+  },
+  {
+    "nodeId": "NodeID-7joNh7X4xsHBSXCpLQig22nSqU6xp41k8",
+    "bondingAddress": "flare1yy8k3ejh39de9qr6kfygsccuv6esfpqmk6xysd",
+    "selfBond": "4000000000000000",
+    "ftsoAddress": "0xCaA49C97318b6Bb62b7F9241891D70F87FC05D35",
+    "stakeEnd": 1703264266,
+    "pChainAddress": [
+      "flare1yy8k3ejh39de9qr6kfygsccuv6esfpqmk6xysd"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "4000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "1458400000000000",
+    "totalSelfBond": "4000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare18g9x334mvfa82pan6q4hyxt7mkk4y7rdj798wj",
+        "cAddress": "0x66B474b3392e2bfc1C72528A14187a4C09937B54",
+        "amount": "93400000000000",
+        "delegatorRewardAmount": "313495907093314248649"
+      },
+      {
+        "pAddress": "flare1e9ahmxyn6dsurf3f03dggxsygjr05cg5up42jd",
+        "cAddress": "0x714783a6e709b878F9181CE43222683Fd32EacCd",
+        "amount": "1365000000000000",
+        "delegatorRewardAmount": "4581605066192440571806"
+      }
+    ],
+    "totalStakeAmount": "20458400000000000",
+    "cChainAddress": "0x82ebF2f88E70f74B9943E4b6510225d0102589dC",
+    "overboost": "0",
+    "rewardingWeight": "20458400000000000",
+    "cappedWeight": "20458400000000000",
+    "nodeRewardAmount": "85835447881127679665024",
+    "validatorRewardAmount": "80940346907841924844569"
+  },
+  {
+    "nodeId": "NodeID-7niiMEHRfGLgT6VZ7bwb6Xa6vpGn8upVw",
+    "bondingAddress": "flare15er27a84wdxzan3lsh83l8gg4sglekwwjxr0qn",
+    "selfBond": "1500000000000000",
+    "ftsoAddress": "0xB95f930711DA83226416FFaAB084249B2e01e1F2",
+    "stakeEnd": 1701734400,
+    "pChainAddress": [
+      "flare15er27a84wdxzan3lsh83l8gg4sglekwwjxr0qn"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1500000000000000",
+    "boostDelegations": "7500000000000000",
+    "boost": "7500000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "511600000000000",
+    "totalSelfBond": "1500000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1hftc2u5etzf6l7vn29zq4vpms6j5nqmc4wm7wl",
+        "cAddress": "0x4cAEe43a1f663805Fc028E6e17C0239DECadae12",
+        "amount": "511600000000000",
+        "delegatorRewardAmount": "1931826224063779612530"
+      }
+    ],
+    "totalStakeAmount": "9511600000000000",
+    "cChainAddress": "0x5f3CF159075EabB0f5Db4B07230C4F7E8fC4D90f",
+    "overboost": "0",
+    "rewardingWeight": "9511600000000000",
+    "cappedWeight": "9511600000000000",
+    "nodeRewardAmount": "39906954897065950313898",
+    "validatorRewardAmount": "37975128673002170701368"
+  },
+  {
+    "nodeId": "NodeID-8G1uigBjUrTgzxRrsnoNN2CzZtYvLqpLH",
+    "bondingAddress": "flare13ce7xsgh2je7ajcc9zzmmasgt0gm97569wehsp",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0x5E2aFfA528DB55feE8cf8cCC41d0A5bb8BaCedC3",
+    "stakeEnd": 1701660600,
+    "pChainAddress": [
+      "flare13ce7xsgh2je7ajcc9zzmmasgt0gm97569wehsp"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0xBb8496071EDDbed07e8ad1763BDe62718a22E2Bd",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570354",
+    "validatorRewardAmount": "25173654209848574570354"
+  },
+  {
+    "nodeId": "NodeID-8qSyua2WVQ4uNRc1wwPKmSUWY421bifiq",
+    "bondingAddress": "flare1dusvfqg6t300p7m2dv4zl6snc57t302svr2kcm",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x2e8320B92B640cF8CBdEaFFBe70d4bC407303b9F",
+    "stakeEnd": 1726358400,
+    "pChainAddress": [
+      "flare1dusvfqg6t300p7m2dv4zl6snc57t302svr2kcm"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "680599970000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare13lpkwvap0pwgq0rmjcprcyn7f7ly8ul2zp5m3f",
+        "cAddress": "0xFd898F214F726160E909bA60867CaF3a9A33f2AA",
+        "amount": "320000000000000",
+        "delegatorRewardAmount": "1208335402072731579377"
+      },
+      {
+        "pAddress": "flare14nsq3n9t92p77tnux733dspa5hqk6he2kx6wg5",
+        "cAddress": "0x2CaAc2e246A77A0b77E574B2bB53F8FFC90A60A4",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "188802406573864309277"
+      },
+      {
+        "pAddress": "flare15szqu4exxp36v6pkg37sps5c8a9xpcnfdplscu",
+        "cAddress": "0xeebD184C57f0203cd7Ab193De56f070933Db628E",
+        "amount": "50500000000000",
+        "delegatorRewardAmount": "190690430639602952370"
+      },
+      {
+        "pAddress": "flare18jcgzupqznxv3a0thkfkuqdty9kukalmfzn559",
+        "cAddress": "0x24C8F0F88e7a9dB02affDFAd8Cee8Bdf9E0b8212",
+        "amount": "110000000000000",
+        "delegatorRewardAmount": "415365294462501480411"
+      },
+      {
+        "pAddress": "flare1tq0ns22vcnk6rz7veh72e9g5a3v3qvlazu59p8",
+        "cAddress": "0xfa5954297C3D30dFbcF2ad4dD674A981c551FE1D",
+        "amount": "99999970000000",
+        "delegatorRewardAmount": "377604699866284674237"
+      },
+      {
+        "pAddress": "flare1zdu3me55ew8775nrsg2exz46xhnh7mruzfct9p",
+        "cAddress": "0xb78Ad2F2DDE461e22C5be18815fa539AFbacf852",
+        "amount": "50100000000000",
+        "delegatorRewardAmount": "189180011387012037897"
+      }
+    ],
+    "totalStakeAmount": "30680599970000000",
+    "cChainAddress": "0xd323321D5Aa605552E9046be59a9eb217c8bc6F1",
+    "overboost": "0",
+    "rewardingWeight": "30680599970000000",
+    "cappedWeight": "30680599970000000",
+    "nodeRewardAmount": "128723802432578425111295",
+    "validatorRewardAmount": "126153824187576428077726"
+  },
+  {
+    "nodeId": "NodeID-98RaC6gbJMhin1NXsBFUoicEqiF7VKWbL",
+    "bondingAddress": "flare13yt3jfxhczfmn7t9054868jknymrwjevk30rge",
+    "selfBond": "2250000000000000",
+    "ftsoAddress": "0x96616c93747baBE136bB56310bE2AE665b18dA63",
+    "stakeEnd": 1703415600,
+    "pChainAddress": [
+      "flare13yt3jfxhczfmn7t9054868jknymrwjevk30rge"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "2250000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "2131870992923573",
+    "totalSelfBond": "2250000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare172zejcwzkfjusggprlflccxp66x9m2x45knet2",
+        "cAddress": "0xeeCB4fd9F4d5011D62b705Ec1756ab3F741A0433",
+        "amount": "350000000000000",
+        "delegatorRewardAmount": "1174770529792933479950"
+      },
+      {
+        "pAddress": "flare1nrc7qdgw0xez70vxjf3qw5l6r67t052esfp96p",
+        "cAddress": "0xdc4AC69fA7e54eeF5d5B2B923b288A8B7d80e4F7",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1u5kku76v6kg2uwtglwwahnzzpumgqdcrccrjkd",
+        "cAddress": "0x3598775513E42a39b08521a48DdD6172D9e73e66",
+        "amount": "1731870992923573",
+        "delegatorRewardAmount": "5813002868256684580068"
+      }
+    ],
+    "totalStakeAmount": "4381870992923573",
+    "cChainAddress": "0x438331baa70e55A89cC03E6430AC40F426C6e7c7",
+    "overboost": "0",
+    "rewardingWeight": "4381870992923573",
+    "cappedWeight": "4381870992923573",
+    "nodeRewardAmount": "18384617528003976160323",
+    "validatorRewardAmount": "11229019768555367603170"
+  },
+  {
+    "nodeId": "NodeID-9jaZDNBCn4AwMzRqFBhxfem2ZZtiArRm2",
+    "bondingAddress": "flare1lrpxldsg9zf5yep0as934azpynfcw8d4q8patj",
+    "selfBond": "1000001000000000",
+    "ftsoAddress": "0x670a7Fd22cAa9C2Fb5B798078d084B29AB4bC63C",
+    "stakeEnd": 1702170000,
+    "pChainAddress": [
+      "flare1lrpxldsg9zf5yep0as934azpynfcw8d4q8patj"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000001000000000",
+    "boostDelegations": "5000005000000000",
+    "boost": "5000005000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000001000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000006000000000",
+    "cChainAddress": "0x3D1d7F2E99E669BC6E2823F2bD57C811dbFDBfC1",
+    "overboost": "0",
+    "rewardingWeight": "6000006000000000",
+    "cappedWeight": "6000006000000000",
+    "nodeRewardAmount": "25173679383502784418929",
+    "validatorRewardAmount": "25173679383502784418929"
+  },
+  {
+    "nodeId": "NodeID-9WF8MvjNhmR45AdNjVfAWp27KKq7KCGpm",
+    "bondingAddress": "flare1w69rq8dwpyrrw7xkkasm34phunw927c0cj546w",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0x3fE77e9be1ECcDe815311f9bcc40814F4eC6AE09",
+    "stakeEnd": 1701539541,
+    "pChainAddress": [
+      "flare1w69rq8dwpyrrw7xkkasm34phunw927c0cj546w"
+    ],
+    "fee": 150000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "987500000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1a0urfpade4npyq5qvlcsscfzsqtqhg88ka57cy",
+        "cAddress": "0x0e486101Ea1D9791f64B9184228aaFfA04dE0f98",
+        "amount": "265000000000000",
+        "delegatorRewardAmount": "945060935128065236995"
+      },
+      {
+        "pAddress": "flare1l69tzjtsvm9qzn0h56hgaxe58rqanthpgpf6ar",
+        "cAddress": "0x5A12A94690a4fE3E469fdb9B93e053896250B529",
+        "amount": "60000000000000",
+        "delegatorRewardAmount": "213976060783712883848"
+      },
+      {
+        "pAddress": "flare1pmu9ewm75dm0pgyu7rc5yy3nnl62ztgew28ky7",
+        "cAddress": "0x6A72bB44A97eE50B86af12F855A78f6dEFafe7c2",
+        "amount": "350000000000000",
+        "delegatorRewardAmount": "1248193687904991822447"
+      },
+      {
+        "pAddress": "flare1y7vhmmnrfldatpzxkzslyywlzd2cdj0mtyne4y",
+        "cAddress": "0x1e0F37e94e6619D73E13e23f1b1741ec2450894f",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "891566919932137016033"
+      },
+      {
+        "pAddress": "flare1ynlke89j2n5cn5lsqudkc4m9zw2sc6uv5j8ny7",
+        "cAddress": "0x0FF757bd9be08e7f06602281218885f48Cee64ca",
+        "amount": "62500000000000",
+        "delegatorRewardAmount": "222891729983034254009"
+      }
+    ],
+    "totalStakeAmount": "18987500000000000",
+    "cChainAddress": "0x365623E776bC0C4dA02ecc097690F5455C3149e9",
+    "overboost": "0",
+    "rewardingWeight": "18987500000000000",
+    "cappedWeight": "18987500000000000",
+    "nodeRewardAmount": "79664126551583301609102",
+    "validatorRewardAmount": "76142437217851360395770"
+  },
+  {
+    "nodeId": "NodeID-9Y4mWN6L4MPLA2tvAwMXDJXeAJYfD5Try",
+    "bondingAddress": "flare1zwaukw7v9gh2u665lzfpus6vtjwq28dxdvfxyy",
+    "selfBond": "1200000000000000",
+    "ftsoAddress": "0x3D985CFF3C4680428d5ce093dBc4919a57F6E2f6",
+    "stakeEnd": 1701559399,
+    "pChainAddress": [
+      "flare1zwaukw7v9gh2u665lzfpus6vtjwq28dxdvfxyy"
+    ],
+    "fee": 75000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1200000000000000",
+    "boostDelegations": "6000000000000000",
+    "boost": "6000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "4488485000000000",
+    "totalSelfBond": "1200000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10ds9nsmt2hexa2ttvt42qksrpyvwzjgtevalsj",
+        "cAddress": "0x95ecb8Bf03fF4bBBe2472AFE6E8060449a9dB7E9",
+        "amount": "66666000000000",
+        "delegatorRewardAmount": "258726636531205448647"
+      },
+      {
+        "pAddress": "flare19xx8mvhx526qmp7r4lrgdnr7c9mgu27kcjc85f",
+        "cAddress": "0x6f6dC162C2F34AC24a6BEA79A13390F94aA4D70E",
+        "amount": "504980000000000",
+        "delegatorRewardAmount": "1959796251695438866258"
+      },
+      {
+        "pAddress": "flare1gf2uf0pxmxw4tw7pp0wekptwum55paaq4n044y",
+        "cAddress": "0xC32e4ba7CC06087E9E30b70f20f50A69ad072FdC",
+        "amount": "3144980000000000",
+        "delegatorRewardAmount": "12205473515103808716393"
+      },
+      {
+        "pAddress": "flare1n8rc3yxrh9meufpp83q8p3e3jtsmyg09ewryzv",
+        "cAddress": "0xd7962565297829Eb764a6Cbf588a1A67465e61BC",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "194046917867582762313"
+      },
+      {
+        "pAddress": "flare1qys08ulxehtqa996z7qe4l8lh629gutmkwskhf",
+        "cAddress": "0xf0b9867f88E18AE597ECF1bED1f757f6a133ce1C",
+        "amount": "121859000000000",
+        "delegatorRewardAmount": "472927267288515356654"
+      },
+      {
+        "pAddress": "flare1svq56nchvewcm3ej32um4llam2t0yg0zug0fm8",
+        "cAddress": "0x53b968F7DA3a0838C7Ca6a986005C1cA25A56A3a",
+        "amount": "600000000000000",
+        "delegatorRewardAmount": "2328563014410993147759"
+      }
+    ],
+    "totalStakeAmount": "11688485000000000",
+    "cChainAddress": "0x29335d52016Cd67797F3efbC375c0B560C0eC808",
+    "overboost": "0",
+    "rewardingWeight": "11688485000000000",
+    "cappedWeight": "11688485000000000",
+    "nodeRewardAmount": "49040313271166986022829",
+    "validatorRewardAmount": "31620779668269441724805"
+  },
+  {
+    "nodeId": "NodeID-B6sAUBEYn2fvHMeUnsUkh1yNrvTzKu8gZ",
+    "bondingAddress": "flare16ylzyt6rasm9m0ukec3nejmndfmdln6zppcu8v",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x112B1130BD78B5A520adeace6130151E07a270a7",
+    "stakeEnd": 1699268400,
+    "pChainAddress": [
+      "flare1em9dh4ez6vlvhqukqxe3y2cl2flgg37heatqrw"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1750000000000000",
+    "selfDelegations": "1750000000000000",
+    "totalSelfBond": "1750000000000000",
+    "normalDelegations": "0",
+    "delegators": [],
+    "totalStakeAmount": "11750000000000000",
+    "cChainAddress": "0x216f3f9476cC26ec95AafB2A494e23979d0494e8",
+    "overboost": "1250000000000000",
+    "rewardingWeight": "10500000000000000",
+    "cappedWeight": "10500000000000000",
+    "nodeRewardAmount": "44053894867235005498121",
+    "validatorRewardAmount": "44053894867235005498121"
+  },
+  {
+    "nodeId": "NodeID-B9o4BTqdc1qkrAn5BxLHL7pimWf9UwBkd",
+    "bondingAddress": "flare1h6psvqnxsptc92e3yvl8sgf6lnm0ve2jlmqsfv",
+    "selfBond": "1250000000000000",
+    "ftsoAddress": "0xb0421af2cFfB21D8a0Be4087448146E4f9cbD306",
+    "stakeEnd": 1703614825,
+    "pChainAddress": [
+      "flare1h6psvqnxsptc92e3yvl8sgf6lnm0ve2jlmqsfv"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1250000000000000",
+    "boostDelegations": "6250000000000000",
+    "boost": "6250000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "3243361079948029",
+    "totalSelfBond": "1250000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10ds9nsmt2hexa2ttvt42qksrpyvwzjgtevalsj",
+        "cAddress": "0x95ecb8Bf03fF4bBBe2472AFE6E8060449a9dB7E9",
+        "amount": "66666000000000",
+        "delegatorRewardAmount": "251734024733064760846"
+      },
+      {
+        "pAddress": "flare13haljy46jm8q8ftrk65466csjl0ucl5jmfgv3p",
+        "cAddress": "0x5d50d545b1339c6f0998925522184512294166a8",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "377604813147728618555"
+      },
+      {
+        "pAddress": "flare14fcaf6u90zmhqfgqgxw00h3eke3f5q65jgvxyp",
+        "cAddress": "0xAfA47cD5aF5b817fDc0CDDBd6251D399002FB2D3",
+        "amount": "63602000000000",
+        "delegatorRewardAmount": "240164213258218355973"
+      },
+      {
+        "pAddress": "flare164he4e39v7e0zd7p5vllwv7haed382jun6wyzp",
+        "cAddress": "0x2272749a22B91072ADff3B007453876d01CfB4fa",
+        "amount": "50100000000000",
+        "delegatorRewardAmount": "189180011387012037896"
+      },
+      {
+        "pAddress": "flare16gv6q37f9dj9v64gzzlyfx09xnfs4vlxgywv6s",
+        "cAddress": "0x81834cd729A10F61529A701F99E28C702d501F4d",
+        "amount": "500010000000000",
+        "delegatorRewardAmount": "1888061826219957865638"
+      },
+      {
+        "pAddress": "flare17lg7042fcsqdv6anw42x3eavulqds507qftcy4",
+        "cAddress": "0x54a6742a4d90F0640Fc06EE20D5A0b377421D4cF",
+        "amount": "500300000000000",
+        "delegatorRewardAmount": "1889156880178086278632"
+      },
+      {
+        "pAddress": "flare1j5czmyd85dd8eda0sytvmxw7rvpfqsa0mt4axq",
+        "cAddress": "0xfB39d91229191761aFD60264BA961e90B8e70F1B",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "188802406573864309277"
+      },
+      {
+        "pAddress": "flare1mqz8cpj80avygmjcxjxzhat6d36qsyt5uxfr9m",
+        "cAddress": "0x088A894e57f20e6A3ad7Ee28f4eA2ee54E63335a",
+        "amount": "275850000000000",
+        "delegatorRewardAmount": "1041622877068009394285"
+      },
+      {
+        "pAddress": "flare1pv7leychd3746f99a3gu9ylsukz0xs0vqjm8ms",
+        "cAddress": "0xD6985937246420Da0795f70298Cd0456065BF19c",
+        "amount": "50001000000000",
+        "delegatorRewardAmount": "188806182621995786563"
+      },
+      {
+        "pAddress": "flare1s08l3rszdzyh4urgychlpvv052ca5jc7azvxt2",
+        "cAddress": "0xBcF69959358270123dE7DF7ddD7332e69b07F83d",
+        "amount": "230149000000000",
+        "delegatorRewardAmount": "869053701411365938319"
+      },
+      {
+        "pAddress": "flare1sa2w3paqszhv4rgd7jgch9qjhahszf4sdd7sxf",
+        "cAddress": "0x8DEEF493D3592c3504a54988f6b204E94788ad61",
+        "amount": "100991992170398",
+        "delegatorRewardAmount": "381350623329200084140"
+      },
+      {
+        "pAddress": "flare1sr4fppqdfjkqz6g7f7xutpt9fcn7l0hcxz77se",
+        "cAddress": "0xdc842A58250b1FF72dC6A64aa3bC46FbEc7FE2de",
+        "amount": "50100105740163",
+        "delegatorRewardAmount": "189180410666956956150"
+      },
+      {
+        "pAddress": "flare1t6xuce8wrk8zws8u6uwn6p5wy9xderynt6afgx",
+        "cAddress": "0xF818815f63EEe37F83713cEdaea7214657CD6d06",
+        "amount": "105583000000000",
+        "delegatorRewardAmount": "398686489865766307329"
+      },
+      {
+        "pAddress": "flare1tptlc86tyu6n4d673d5q78hwpq4ec23gut448s",
+        "cAddress": "0x98D358a69538a279e90fb00847df06553BD51f6a",
+        "amount": "1000000991626663",
+        "delegatorRewardAmount": "3776051875907294129764"
+      },
+      {
+        "pAddress": "flare1u3l8cgpkzz7sxqdvtaswv2w0v3qef9u6x5a6aa",
+        "cAddress": "0x6F07B9907CAc249C19515e90Edb1cCc0B97C9EA4",
+        "amount": "100006990410805",
+        "delegatorRewardAmount": "377631209275387097438"
+      }
+    ],
+    "totalStakeAmount": "10743361079948029",
+    "cChainAddress": "0xB5027c6924e1699Ce333b700dE63274aBf1650BE",
+    "overboost": "0",
+    "rewardingWeight": "10743361079948029",
+    "cappedWeight": "10743361079948029",
+    "nodeRewardAmount": "45074942813026171458281",
+    "validatorRewardAmount": "32827855267382263537476"
+  },
+  {
+    "nodeId": "NodeID-C3FRhsMBh3KNLKiVbc8xLY7gnVzmJ7EY9",
+    "bondingAddress": "flare16l73k2h57xtup0r5g3687jwwrk8ddsz0eta9pf",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0x4c1F288cAFECbbDac653C2170337c38e62c400E9",
+    "stakeEnd": 1702203922,
+    "pChainAddress": [
+      "flare16l73k2h57xtup0r5g3687jwwrk8ddsz0eta9pf"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0x33901732fC71E4c8f243d88365895ca6E31133fC",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570354",
+    "validatorRewardAmount": "25173654209848574570354"
+  },
+  {
+    "nodeId": "NodeID-C6i8mruq11VdxGQ7tiUBgrRqoLBot86df",
+    "bondingAddress": "flare1f5f4wcwtr5x76ay2f95cn5fzhtft6hx40cggzy",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x0000000000000000000000000000000000000000",
+    "stakeEnd": 1707206400,
+    "pChainAddress": [
+      "flare1f5f4wcwtr5x76ay2f95cn5fzhtft6hx40cggzy"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough FTSO performance",
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "611485000000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare19dnpm3463uu3uuz4u2gmsj5m8zvfc9p29za355",
+        "cAddress": "0xd9774194893eeF49a98D0EE9cD8E14c2f4744c15",
+        "amount": "100000000000000"
+      },
+      {
+        "pAddress": "flare1ks7yywvh2wvgstw8xk3h0hfmfqmy7z6xztlafl",
+        "cAddress": "0x22529183E1Fd1939E7d79d835497ED2C22C48195",
+        "amount": "54975000000000"
+      },
+      {
+        "pAddress": "flare13lpkwvap0pwgq0rmjcprcyn7f7ly8ul2zp5m3f",
+        "cAddress": "0xFd898F214F726160E909bA60867CaF3a9A33f2AA",
+        "amount": "300000000000000"
+      },
+      {
+        "pAddress": "flare1e85rk34kv7mxzjjx2h50xqs3jsemazd90p4tfq",
+        "cAddress": "0x46CD3972a275f4733CBaAa44a53B089A668f1920",
+        "amount": "52500000000000"
+      },
+      {
+        "pAddress": "flare1vk9lx6r0xw4xanuswda3hz3wvzwrlvych7uth5",
+        "cAddress": "0xe9Ebc2812d615BE535C5162382Fe2b4e56997B79",
+        "amount": "54010000000000"
+      },
+      {
+        "pAddress": "flare13lcwckz83n2m8pkmpmkzklpf5drzleve3mr228",
+        "cAddress": "0xf5460a9225f258C080B506841be032539D95830f",
+        "amount": "50000000000000"
+      }
+    ],
+    "totalStakeAmount": "30611485000000000",
+    "cChainAddress": "0xdCdb8D770E222DAa75b01CA47862A3d6D72d62C2",
+    "overboost": "0",
+    "rewardingWeight": "30611485000000000"
+  },
+  {
+    "nodeId": "NodeID-CeX1NfNPHCdaJXUVtkLysShaZCtsHRK3D",
+    "bondingAddress": "flare1kdctcmkm97t0hkl7zkghr9k9qu5my76hn24raw",
+    "selfBond": "1250000000000000",
+    "ftsoAddress": "0xc0452CEcee694Ab416d19E95a0907f022DEC5664",
+    "stakeEnd": 1702209570,
+    "pChainAddress": [
+      "flare1kdctcmkm97t0hkl7zkghr9k9qu5my76hn24raw"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1250000000000000",
+    "boostDelegations": "6250000000000000",
+    "boost": "6250000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "200000000000000",
+    "totalSelfBond": "1250000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1zkdh2gwujv05jjnfhru4u8hu324jtkfh3y57rs",
+        "cAddress": "0xee200d26F7eeE486eE58F2e5c4F67ac650b06086",
+        "amount": "200000000000000",
+        "delegatorRewardAmount": "671297445595961988543"
+      }
+    ],
+    "totalStakeAmount": "7700000000000000",
+    "cChainAddress": "0x74e90C9B4384498D907eBa09ff6f92cF11C192da",
+    "overboost": "0",
+    "rewardingWeight": "7700000000000000",
+    "cappedWeight": "7700000000000000",
+    "nodeRewardAmount": "32306189569305670698622",
+    "validatorRewardAmount": "31634892123709708710079"
+  },
+  {
+    "nodeId": "NodeID-Cg8PLmdZ9JmEtUBCZhq2jt2JDS5gDaSsQ",
+    "bondingAddress": "flare1ca6wl3pl7rtf3m6jelgngs2kcavkdjcpsgvu7f",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0x1E8F916CE03F4ce86186531a8994d366581Ed4be",
+    "stakeEnd": 1701554255,
+    "pChainAddress": [
+      "flare1ca6wl3pl7rtf3m6jelgngs2kcavkdjcpsgvu7f"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0x1E8F916CE03F4ce86186531a8994d366581Ed4be",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570354",
+    "validatorRewardAmount": "25173654209848574570354"
+  },
+  {
+    "nodeId": "NodeID-Ckyh9cpfkkXSo5PYNNFactcrKkY2XhkXR",
+    "bondingAddress": "flare178j3uxpsnz4xcwhg56qvrgmks789tpan44838h",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0xb6deD9D9CA19af10C67f9A8be8ca75e38E166faA",
+    "stakeEnd": 1701525660,
+    "pChainAddress": [
+      "flare178j3uxpsnz4xcwhg56qvrgmks789tpan44838h"
+    ],
+    "fee": 150000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "250000000000000",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare12l8a6p5eynmuv9nytz4fpzrp3ul8puyef9m2xh",
+        "cAddress": "0x0fe456371c268E420F60D46b8695bbF727b77CBb",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "891566919932137016034"
+      }
+    ],
+    "totalStakeAmount": "6250000000000000",
+    "cChainAddress": "0xF9cb594530F5C7E74AB36C493c00a1eC7547C302",
+    "overboost": "0",
+    "rewardingWeight": "6250000000000000",
+    "cappedWeight": "6250000000000000",
+    "nodeRewardAmount": "26222556468592265177453",
+    "validatorRewardAmount": "25330989548660128161419"
+  },
+  {
+    "nodeId": "NodeID-CoNH4gyEwB9gTrEmozwh14Zr8hs6wokRS",
+    "bondingAddress": "flare1shkl5wxpzmr75ax843cgzuy30xdq307j956lnk",
+    "selfBond": "4000000000000000",
+    "ftsoAddress": "0xC522E6A633545872f1afc0cdD7b2D96d97E3dE67",
+    "stakeEnd": 1703786400,
+    "pChainAddress": [
+      "flare1shkl5wxpzmr75ax843cgzuy30xdq307j956lnk"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "4000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "40199298000000000",
+    "totalSelfBond": "4000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare150p9azwsqrylzhym72hw0jqcmqh29g7acf0ps2",
+        "cAddress": "0xa75b157988771fA1871cd22fA48f885ecd893191",
+        "amount": "50300000000000",
+        "delegatorRewardAmount": "168831307567384440118"
+      },
+      {
+        "pAddress": "flare17xxmggk5wv638m4cckxymewz33a8k6v4k0p3mr",
+        "cAddress": "0x75E18112e6B6fb57DDA4BF95379ab5466a865d71",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1pr4f2m4a3ga2t58u2m9f5h76uvqdw0vjl8nc0d",
+        "cAddress": "0x6c7f7757E8587E4068B8Cb9f713852eF2Ae3abaf",
+        "amount": "40000000000000000",
+        "delegatorRewardAmount": "134259489119192397708562"
+      },
+      {
+        "pAddress": "flare1tptlc86tyu6n4d673d5q78hwpq4ec23gut448s",
+        "cAddress": "0x98D358a69538a279e90fb00847df06553BD51f6a",
+        "amount": "98998000000000",
+        "delegatorRewardAmount": "332285522595545224709"
+      }
+    ],
+    "totalStakeAmount": "44199298000000000",
+    "cChainAddress": "0x14D781a056283CB79ef249ad63Cf5a2442EB1430",
+    "overboost": "0",
+    "rewardingWeight": "44199298000000000",
+    "cappedWeight": "44199298000000000",
+    "nodeRewardAmount": "185442974028341947051723",
+    "validatorRewardAmount": "50514543717587629181199"
+  },
+  {
+    "nodeId": "NodeID-CrsvTSFLB8G3ziPaVjgH1pj8NQxSZkECD",
+    "bondingAddress": "flare1n2t5dxej43wv0yasz2vl5q9plmcya5xd0d02z4",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0xdd33Ba13F32C90D678422251B52B005335fB7A4c",
+    "stakeEnd": 1699873200,
+    "pChainAddress": [
+      "flare1ejn0t8mu5kpcj2cccduhxateg5mkd57pn63hz3"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1500000000000000",
+    "selfDelegations": "1500000000000000",
+    "totalSelfBond": "1500000000000000",
+    "normalDelegations": "65913430228157798",
+    "delegators": [
+      {
+        "pAddress": "flare14a5qm6vrckfqp4f6ejw6f2ayz4qmkxsmpa5e6w",
+        "cAddress": "0x8D5E25849Cb9d018BA24Ca76F45842B6e2922EcE",
+        "amount": "50995000000000",
+        "delegatorRewardAmount": "170428060706209836203"
+      },
+      {
+        "pAddress": "flare14ruz425fk7qkcge9xh53nf0pdlrulg42zzs286",
+        "cAddress": "0xC13D2523fEeC7c5c917010fBe83994886b1F1F02",
+        "amount": "140000000000000",
+        "delegatorRewardAmount": "467887606605929543455"
+      },
+      {
+        "pAddress": "flare150p9azwsqrylzhym72hw0jqcmqh29g7acf0ps2",
+        "cAddress": "0xa75b157988771fA1871cd22fA48f885ecd893191",
+        "amount": "401220000000000",
+        "delegatorRewardAmount": "1340899039445936081607"
+      },
+      {
+        "pAddress": "flare1579rde49qa8vt9e0aqrlq6pqmre3rvx0h4kwaa",
+        "cAddress": "0xD975aa5716C7e137c6403C4cBAf32fdBBD83E768",
+        "amount": "20000000000000000",
+        "delegatorRewardAmount": "66841086657989934779295"
+      },
+      {
+        "pAddress": "flare16flqgj6t72mprayk8v2lghklrdga6f53dfel43",
+        "cAddress": "0x78C9f20356148e96AC45c917DEdA8A28Bb8280AB",
+        "amount": "124302388385502",
+        "delegatorRewardAmount": "415425335693523038092"
+      },
+      {
+        "pAddress": "flare18jcgzupqznxv3a0thkfkuqdty9kukalmfzn559",
+        "cAddress": "0x24C8F0F88e7a9dB02affDFAd8Cee8Bdf9E0b8212",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "334205433289949673896"
+      },
+      {
+        "pAddress": "flare1cd8ckszma59a02eelmu4gvulkzt4vjlapg5uyt",
+        "cAddress": "0x309ACbbB8f25b007ED61507c4c090EAE3be9aEA5",
+        "amount": "53000000000000",
+        "delegatorRewardAmount": "177128879643673327165"
+      },
+      {
+        "pAddress": "flare1h288wtgadl34r9c74xvdselsxvvaeaexw22lfv",
+        "cAddress": "0x96C781236C5f3E7Ab9a6fc2e160eAE02E0B607BA",
+        "amount": "95000000000000",
+        "delegatorRewardAmount": "317495161625452190201"
+      },
+      {
+        "pAddress": "flare1j4ulq4fk2aak93qftnmej649w56ce5dx3qh8sd",
+        "cAddress": "0x187a9e4f8dd811cfca029B1898125De594b3994E",
+        "amount": "1904604000000000",
+        "delegatorRewardAmount": "6365290050657713087019"
+      },
+      {
+        "pAddress": "flare1jpgckvq9r8je7u3kvweh204a8pwwsdzy5x8dx4",
+        "cAddress": "0xf76411F55773c6649682B983526D2E54E77cBf4e",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167102716644974836948"
+      },
+      {
+        "pAddress": "flare1kuqv3y9nn8vcc36aftmtv5n00s0ak0knp2fjva",
+        "cAddress": "0xA464F5CC5942fD0479b68a85fBA8B9C0e66B82a6",
+        "amount": "58653839772296",
+        "delegatorRewardAmount": "196024319352194677989"
+      },
+      {
+        "pAddress": "flare1q0dts0zp2nvd8c4wpnfg5nzrplln9ctdrydgcz",
+        "cAddress": "0xF555324e7f9fe9c66b53785560048F8b330cFD52",
+        "amount": "1084000000000000",
+        "delegatorRewardAmount": "3622786896863054465037"
+      },
+      {
+        "pAddress": "flare1rw9mgeh7u2wfl73e2kmfvdwg3q7ujmfk8056aq",
+        "cAddress": "0x616763f6CD5D5b38420BcB87EF116F88691A4f3d",
+        "amount": "242940000000000",
+        "delegatorRewardAmount": "811918679634603737764"
+      },
+      {
+        "pAddress": "flare1thrv5jn50yccl29tzpwlreha95z8udc6gud580",
+        "cAddress": "0xEB26dD0d4e25509851096BB9d55892681917a3bB",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1002616299869849021689"
+      },
+      {
+        "pAddress": "flare1v3klq5h3r3lng0udxfcuw8lcjmrtpwlgmetyvv",
+        "cAddress": "0xc506a2E354BC10649907a2086dAE2BEED3E760fE",
+        "amount": "40000000000000000",
+        "delegatorRewardAmount": "133682173315979869558596"
+      },
+      {
+        "pAddress": "flare1vyu9ttrgjh4ur6lvk2pszd9ha00c4lt0jgdg60",
+        "cAddress": "0x3188745522E82EA184c1198D5B0919184A9E2B73",
+        "amount": "208240000000000",
+        "delegatorRewardAmount": "695949394282991200922"
+      },
+      {
+        "pAddress": "flare1xtkl05vskywfa9wpr6q8eczwzvu40j8dpxqlme",
+        "cAddress": "0xaA4a6da407361e7cB9Aa5AF7A3812E81e528c4EB",
+        "amount": "1000000000000000",
+        "delegatorRewardAmount": "3342054332899496738965"
+      },
+      {
+        "pAddress": "flare1y07tkfn2n3g2tnzglc0vfgtkv05c27vy0vcprc",
+        "cAddress": "0x78fC9784DB70Df8a0AfeF193706FCBaf3D21ED4c",
+        "amount": "50475000000000",
+        "delegatorRewardAmount": "168690192453102097899"
+      },
+      {
+        "pAddress": "flare1yekwr2hmkdtgd5havsdulfasc2mlde5a3e4v4p",
+        "cAddress": "0x8B8258ca1023c370d63030A8231EbC6CeD706dB3",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167102716644974836949"
+      }
+    ],
+    "totalStakeAmount": "77413430228157798",
+    "cChainAddress": "0x25daBfcb1a2560a8FC3e243Ef3C02608Ef2D0d8F",
+    "overboost": "2500000000000000",
+    "rewardingWeight": "74913430228157798",
+    "cappedWeight": "74591302478176719",
+    "nodeRewardAmount": "312955942607973629225466",
+    "validatorRewardAmount": "92669677517690196495775"
+  },
+  {
+    "nodeId": "NodeID-CtSfUZd8nvr4RDaQnKRiP9cae15Nrb1bX",
+    "bondingAddress": "flare1njkr3hlgge6wswrcsle2qpn4ufwagrqatfd7d0",
+    "selfBond": "2850000000000000",
+    "ftsoAddress": "0x02a256FF137D680aC591f1959D64a8669006c95c",
+    "stakeEnd": 1706272256,
+    "pChainAddress": [
+      "flare1njkr3hlgge6wswrcsle2qpn4ufwagrqatfd7d0"
+    ],
+    "fee": 150000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "2850000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "50000000000000",
+    "totalSelfBond": "2850000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare12j0zhymmdsydy258ku8vc5zlycu63evacm4mwk",
+        "cAddress": "0x3148dB2D64e894fedaE3eCe2f731Ea6280260148",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "178313383986427403207"
+      }
+    ],
+    "totalStakeAmount": "2900000000000000",
+    "cChainAddress": "0x14C1901AFb6CD6a6e55072578a48B7E4eAaB9da1",
+    "overboost": "0",
+    "rewardingWeight": "2900000000000000",
+    "cappedWeight": "2900000000000000",
+    "nodeRewardAmount": "12167266201426811042338",
+    "validatorRewardAmount": "11988952817440383639131"
+  },
+  {
+    "nodeId": "NodeID-D3QKd6XxLnrKowkziZJSG4RNLtffz8ESk",
+    "bondingAddress": "flare1p4wgms0x27halpaa6atw09eph3ck3z4t7hdtdz",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0xb084575CaCedf7DEdd78329656715651F8f66712",
+    "stakeEnd": 1703094763,
+    "pChainAddress": [
+      "flare1p4wgms0x27halpaa6atw09eph3ck3z4t7hdtdz"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "519574993268453",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare12j0zhymmdsydy258ku8vc5zlycu63evacm4mwk",
+        "cAddress": "0x3148dB2D64e894fedaE3eCe2f731Ea6280260148",
+        "amount": "73784993268453",
+        "delegatorRewardAmount": "247658387522138746577"
+      },
+      {
+        "pAddress": "flare1npj9uu4zs3zgct9w6v2ypk6c08fc3klw554ewu",
+        "cAddress": "0xe880676b5D1b309c04C9F7c272711DD58A065E59",
+        "amount": "110000000000000",
+        "delegatorRewardAmount": "369213595077779093698"
+      },
+      {
+        "pAddress": "flare1tt4yeejfsp4wk4rhdqrua4s5j3s2kuhph895ke",
+        "cAddress": "0xD6f26F1f62b7F5f8A97FB059Db71929460a6ad1a",
+        "amount": "335790000000000",
+        "delegatorRewardAmount": "1127074846283340380665"
+      }
+    ],
+    "totalStakeAmount": "6519574993268453",
+    "cChainAddress": "0xb745Da5E25F90cA62B0ea4CFF9f4ab60Ec4eD86a",
+    "overboost": "0",
+    "rewardingWeight": "6519574993268453",
+    "cappedWeight": "6519574993268453",
+    "nodeRewardAmount": "27353587745952647346529",
+    "validatorRewardAmount": "25609640917069389125589"
+  },
+  {
+    "nodeId": "NodeID-DAVrAR2VCxe7rnmkDaVUbW8jWd9b86cS",
+    "bondingAddress": "flare1jllppy0yxf2m7dwfsrzqmwql2zq4vnwkjrwtal",
+    "selfBond": "1750000000000000",
+    "ftsoAddress": "0x9b42B895D2A10D048eaf4996fDf93aEBf59167BF",
+    "stakeEnd": 1701536311,
+    "pChainAddress": [
+      "flare1jllppy0yxf2m7dwfsrzqmwql2zq4vnwkjrwtal"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1750000000000000",
+    "boostDelegations": "8750000000000000",
+    "boost": "8750000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1750000000000000",
+    "delegators": [],
+    "totalStakeAmount": "10500000000000000",
+    "cChainAddress": "0xD8Bc3f71bCa357F97d930E472c19AbBCAdab3BEb",
+    "overboost": "0",
+    "rewardingWeight": "10500000000000000",
+    "cappedWeight": "10500000000000000",
+    "nodeRewardAmount": "44053894867235005498121",
+    "validatorRewardAmount": "44053894867235005498121"
+  },
+  {
+    "nodeId": "NodeID-DcUJTi6u5Xoutgr1A25iMu4Rp5JEbsEqr",
+    "bondingAddress": "flare1h5pjqy7skze3urx0x5mj2595z8q4l4hfej8xeh",
+    "selfBond": "1500000000000000",
+    "ftsoAddress": "0xD1eDC6Dd3Ba8b0881A44002Ac501a69E924b8F00",
+    "stakeEnd": 1701637200,
+    "pChainAddress": [
+      "flare1h5pjqy7skze3urx0x5mj2595z8q4l4hfej8xeh"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1500000000000000",
+    "boostDelegations": "7500000000000000",
+    "boost": "7500000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1500000000000000",
+    "delegators": [],
+    "totalStakeAmount": "9000000000000000",
+    "cChainAddress": "0x7A757589e26a495e5C535dE440A01cf009bCEcDe",
+    "overboost": "0",
+    "rewardingWeight": "9000000000000000",
+    "cappedWeight": "9000000000000000",
+    "nodeRewardAmount": "37760481314772861855532",
+    "validatorRewardAmount": "37760481314772861855532"
+  },
+  {
+    "nodeId": "NodeID-EBcyABp9i2wEgZbhiwnyLaqBwFFTdZXyd",
+    "bondingAddress": "flare18mjhtldw6qy34n20kcg4ewm9urs92zxn9nfppw",
+    "selfBond": "2500000000000000",
+    "ftsoAddress": "0xeFb939Ebe430efD987c2650367a1b2c9f070d3f1",
+    "stakeEnd": 1701680400,
+    "pChainAddress": [
+      "flare18mjhtldw6qy34n20kcg4ewm9urs92zxn9nfppw"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "2500000000000000",
+    "boostDelegations": "12500000000000000",
+    "boost": "12500000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "2500000000000000",
+    "delegators": [],
+    "totalStakeAmount": "15000000000000000",
+    "cChainAddress": "0x68B8d806394B87D025aebAA889bF9d20BaD2dE67",
+    "overboost": "0",
+    "rewardingWeight": "15000000000000000",
+    "cappedWeight": "15000000000000000",
+    "nodeRewardAmount": "62934135524621436425887",
+    "validatorRewardAmount": "62934135524621436425887"
+  },
+  {
+    "nodeId": "NodeID-ECqqsWu9jpUvZgPyf9yPZZcyWmJjWyN1T",
+    "bondingAddress": "flare1vckhzfqx2pu4cqghn9n3qwq6hjx5e37a8wzdjk",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x111246F191a2A20012723369d3CEc77777E774E9",
+    "stakeEnd": 1699614000,
+    "pChainAddress": [
+      "flare1cx435kekyg54cw985tdatm7ucprmfzhgmuzt9j"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "5000000000000000",
+    "selfDelegations": "5000000000000000",
+    "totalSelfBond": "5000000000000000",
+    "normalDelegations": "62278857898683085",
+    "delegators": [
+      {
+        "pAddress": "flare10wac60z9q327jp0wu3syf83w0sumjzjq0awfrn",
+        "cAddress": "0xC54d87737CA5b11CA372972e5D1A5cB6FEe26A31",
+        "amount": "1483333000000000",
+        "delegatorRewardAmount": "4513271566157594186389"
+      },
+      {
+        "pAddress": "flare12raqg59aq5rugcwxk3xkt8zm66d9pm9j686wth",
+        "cAddress": "0xE3f7cdB87DdCAe894b258f3a5691992ea6Da68e2",
+        "amount": "230200000000000",
+        "delegatorRewardAmount": "700419335732083208360"
+      },
+      {
+        "pAddress": "flare15m29qhn4pmtt532cfk2g2g886d5nt7usqquzxe",
+        "cAddress": "0xD6fDfdBBa8FF86B25139544aa974924D548A791e",
+        "amount": "174756628497441",
+        "delegatorRewardAmount": "531724246945942952625"
+      },
+      {
+        "pAddress": "flare166qu6093h0tyuxcpqgyzu2uwn8w2400nrju4le",
+        "cAddress": "0xc9F314887750169424bd78770ccfd5AAC87A4b5F",
+        "amount": "39000000000000000",
+        "delegatorRewardAmount": "118663571214384209930731"
+      },
+      {
+        "pAddress": "flare177exqjgpmfwk0g96ppvfg8jkue5e2u2cah9tdq",
+        "cAddress": "0xf46646c309A3cc3Cf60289B4B873C73Be0f28C52",
+        "amount": "50055994776038",
+        "delegatorRewardAmount": "152303156431108441129"
+      },
+      {
+        "pAddress": "flare17n32gz8n3ne6e0j3mv650y8hjyeg9zg9erw7r0",
+        "cAddress": "0xF9ea0909E6458FcCEB85bE1dc9598aD2250FaabC",
+        "amount": "900000000000000",
+        "delegatorRewardAmount": "2738390104947327921478"
+      },
+      {
+        "pAddress": "flare192e6geqnhtkkpslfjd6h5st8gv98l8pn7cgkc9",
+        "cAddress": "0xeD715C373413Af09f50C7f1e6A5Aa24aAC191a63",
+        "amount": "126831640641661",
+        "delegatorRewardAmount": "385905010808177607810"
+      },
+      {
+        "pAddress": "flare1a8vzkkhtxqgsqd87kcxcnpx443lc78yqshs2gy",
+        "cAddress": "0x9473E8F15d5b1eb421B8FC306DDBf5ce8aFac360",
+        "amount": "472233000000000",
+        "delegatorRewardAmount": "1436842416032879451492"
+      },
+      {
+        "pAddress": "flare1aqngyqk7jn99xk7cg5xqd2f7ndmh36q56kfd4c",
+        "cAddress": "0xa355ac3fF2261c1BafAb285d9d111F8EB4cb639f",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "152132783608184884526"
+      },
+      {
+        "pAddress": "flare1cdd5hww6vzk76pfr5f2mu695lm9q5uh0dh3nsc",
+        "cAddress": "0x38276CB699c0BfA3CA3246cbF35FcfD89bEb226a",
+        "amount": "500006000000000",
+        "delegatorRewardAmount": "1521346092015881827452"
+      },
+      {
+        "pAddress": "flare1dnzneejwl8mgvmsf5s9qjstdrtqm3auxn8g9dw",
+        "cAddress": "0x827DBbe748a492B242a9a189ac578eF8876Ee635",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "152132783608184884526"
+      },
+      {
+        "pAddress": "flare1dpp9a85lwv8nxnjfd8vdmxd7t33nnqkmsc5z8v",
+        "cAddress": "0xED24af78D2402ca46aD6d9374Fb719f1F234d773",
+        "amount": "50002000000000",
+        "delegatorRewardAmount": "152138868919529211921"
+      },
+      {
+        "pAddress": "flare1f2ql635c0qawggfhela6sk3q73ej94lr7lhcd3",
+        "cAddress": "0x48840C8772Cb31Ae8875759cC9f48d42587c51E4",
+        "amount": "10993285687915860",
+        "delegatorRewardAmount": "33448783054053188766226"
+      },
+      {
+        "pAddress": "flare1gsfgyh3nl6829ya4cev2xr0h9q38j64wg42rqt",
+        "cAddress": "0xf88ED04c5556853862b79F37bB3C062dB8b5ebA6",
+        "amount": "100001000000000",
+        "delegatorRewardAmount": "304268609872041932750"
+      },
+      {
+        "pAddress": "flare1jlc68kc075jz42sd7vas3vyyk335vkssxdsvkl",
+        "cAddress": "0x593a4655A2c722C4a972b90F30Dd440ede75AC81",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "152132783608184884526"
+      },
+      {
+        "pAddress": "flare1l905wde6hueecjpln258d6wzhngn44g2z7vdvv",
+        "cAddress": "0x58721075CB34CEcDFe0729A1b71f94F7BE0B9Ef8",
+        "amount": "54000000000000",
+        "delegatorRewardAmount": "164303406296839675288"
+      },
+      {
+        "pAddress": "flare1muqq8nldg7ye2uz9mlm0j6tfhn2q5x40ua05kh",
+        "cAddress": "0x5267317E729A6A80431f798213Abd0Fe45BA31b5",
+        "amount": "117400000000000",
+        "delegatorRewardAmount": "357207775912018108868"
+      },
+      {
+        "pAddress": "flare1nah4qckyzj70463htmvuw5s588zdv9v5yq8ft9",
+        "cAddress": "0x3eF2f9885D5F97415762dEd87F45Aa766551C916",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "152132783608184884526"
+      },
+      {
+        "pAddress": "flare1pkgcyfvggfjlzkqr9rpntqlwe7pd2pc5atfmy0",
+        "cAddress": "0x2a3F4974B20E541B0666603ad193292FE751E081",
+        "amount": "2559999998649125",
+        "delegatorRewardAmount": "7789198516628818606628"
+      },
+      {
+        "pAddress": "flare1r5tf45n98v2l6c8ucq5h80d7ql8ckkgpxj9nck",
+        "cAddress": "0x20B981Bd35c7BfBcad97E98831E96402e0FD5cd0",
+        "amount": "79330000000000",
+        "delegatorRewardAmount": "241373874472746137789"
+      },
+      {
+        "pAddress": "flare1rw9mgeh7u2wfl73e2kmfvdwg3q7ujmfk8056aq",
+        "cAddress": "0x616763f6CD5D5b38420BcB87EF116F88691A4f3d",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "304265567216369769053"
+      },
+      {
+        "pAddress": "flare1sapgt3v876g4vtw4fek4mur7fe2ajr0q9gyj4q",
+        "cAddress": "0xb11169064e8787676dD90aA41baD267e26419212",
+        "amount": "54995000000000",
+        "delegatorRewardAmount": "167330848690642554490"
+      },
+      {
+        "pAddress": "flare1syc8y6a9dveg6ak0xqwdt82dyd5uk7ulupsq50",
+        "cAddress": "0x9bB00529c014baa1C4C5A22f877cbe05945cBbd9",
+        "amount": "856797000000000",
+        "delegatorRewardAmount": "2606938251942839690155"
+      },
+      {
+        "pAddress": "flare1uzyaffltxv58nytpjc275d9zfuc36evs727vfg",
+        "cAddress": "0xF1a61E37036c6f3d6d520392f0CC314c6f43Daf3",
+        "amount": "51000000000000",
+        "delegatorRewardAmount": "155175439280348582217"
+      },
+      {
+        "pAddress": "flare1w9y2lca2pw7fc9mf9kza94rua2fyudk7zny4ee",
+        "cAddress": "0xFd641E7680DD5e192A5C8b57E1f3FAD6f8eBFeD1",
+        "amount": "1456900948202960",
+        "delegatorRewardAmount": "4432847933830405771744"
+      },
+      {
+        "pAddress": "flare1xw0fgcygfanrvhlzac0nrph53v304g4zp7c6fj",
+        "cAddress": "0x76a040eF4EEDB261fD4ac89F78879aDAE3aCf9Ce",
+        "amount": "51000000000000",
+        "delegatorRewardAmount": "155175439280348582217"
+      },
+      {
+        "pAddress": "flare1zpckmkvyjauf5z5qaehczsg0azx7xwrpc72xys",
+        "cAddress": "0xfC17314c081F859c5988aeF0558F1aee757C27A3",
+        "amount": "2616730000000000",
+        "delegatorRewardAmount": "7961808377020912657749"
+      }
+    ],
+    "totalStakeAmount": "82278857898683085",
+    "cChainAddress": "0x9Fd5cccC7f75409F78f9FBb865C2bd14424D5486",
+    "overboost": "0",
+    "rewardingWeight": "82278857898683085",
+    "cappedWeight": "74585784685156216",
+    "nodeRewardAmount": "312932792105723686154118",
+    "validatorRewardAmount": "123439671864418691041453"
+  },
+  {
+    "nodeId": "NodeID-EgJba99Q5iDcL81A27E111WANn9eZNj4v",
+    "bondingAddress": "flare102av4l7pej3sek5va99r4dngev4c7t598rsm3a",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x9A46864A3b0a7805B266C445289C3fAD1E48f18e",
+    "stakeEnd": 1700046000,
+    "pChainAddress": [
+      "flare1yj0wy43kjezuy0z0kn3jvl4damxqy5wt8nqe3q"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "3000000000000000",
+    "selfDelegations": "3000000000000000",
+    "totalSelfBond": "3000000000000000",
+    "normalDelegations": "37514477543311163",
+    "delegators": [
+      {
+        "pAddress": "flare1090kxyzjkgmqeuf9pm2jualfszm9dkvq3shuty",
+        "cAddress": "0x75a00b502F2D257BcF7A464A87A436C6031e23a3",
+        "amount": "101000000000000",
+        "delegatorRewardAmount": "339005210025960804214"
+      },
+      {
+        "pAddress": "flare10cqnqvvysah95e8tt747x062k66pah0qmgamce",
+        "cAddress": "0xAAD7e3c1a7315b415e40E3A530C8511AB535cf4f",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare10z4pkvu0w0rq642pldhv8vfh8a8802ch35tg7p",
+        "cAddress": "0x72F1C8601C30C6f42CA8b0E85D1b2F87626A0deb",
+        "amount": "30859050000000000",
+        "delegatorRewardAmount": "103578007192590354012709"
+      },
+      {
+        "pAddress": "flare12kawtvzuhmvy3ku9fyvzg7gl37cvjs4n0mvmwc",
+        "cAddress": "0xD1477F85033114e9E765e0FCAEa7469cA2c24596",
+        "amount": "50010000000000",
+        "delegatorRewardAmount": "167857926271270295235"
+      },
+      {
+        "pAddress": "flare139jh9fepca2l96rrcr0ujmxu34wy86t3nywzrq",
+        "cAddress": "0x57c16A5E1E784817429833A85968FB7867e96F6B",
+        "amount": "50480000000000",
+        "delegatorRewardAmount": "169435475268420805908"
+      },
+      {
+        "pAddress": "flare16uqz0l2t9f25evhksk48sgsgfn6n933x0swvs8",
+        "cAddress": "0x102D6e74f3309fE16a363EaB63DAd5c4cFCB5B87",
+        "amount": "148600000000000",
+        "delegatorRewardAmount": "498774002077799757487"
+      },
+      {
+        "pAddress": "flare17lg7042fcsqdv6anw42x3eavulqds507qftcy4",
+        "cAddress": "0x54a6742a4d90F0640Fc06EE20D5A0b377421D4cF",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "839121806994952485678"
+      },
+      {
+        "pAddress": "flare1806epe5fd3wn6mmad6q9wh8ywjg6prxsrs2wkt",
+        "cAddress": "0xAf9eDa301aFB2Af1b585ac1D291321440ff5b59A",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare18cdsln5ycln3z8h0ccyy0e26c94a2s9j8xjlw0",
+        "cAddress": "0x71Ec9bbeB46f2989B82D92eA199EDCcDaFaC924B",
+        "amount": "50015000000000",
+        "delegatorRewardAmount": "167874708707410194284"
+      },
+      {
+        "pAddress": "flare1adqhf7nr3n7kakm4rusp64e76dqlhxpf2pm9sa",
+        "cAddress": "0x2Aa3277ec16c8DbEF7F03642467743B0CC1123ca",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1006946168393942982814"
+      },
+      {
+        "pAddress": "flare1cl2y6p83tnsycyu0fvkkyzvzzfamf4sarlyyyk",
+        "cAddress": "0x5cA3c8f3eB2b4638BEaC0015f6eaf2779Eb3Cbd4",
+        "amount": "101000000000000",
+        "delegatorRewardAmount": "339005210025960804214"
+      },
+      {
+        "pAddress": "flare1clrcfusmh2us7f0tf39pzxygts878rsyqahgct",
+        "cAddress": "0xCC6cfe4707a28732DEc8a73EfB82496d8342143e",
+        "amount": "60000000000000",
+        "delegatorRewardAmount": "201389233678788596562"
+      },
+      {
+        "pAddress": "flare1cw2xum8a6vjex4sk8xvtgarqqfrw59cysg3atp",
+        "cAddress": "0xe89fcf937bB05b1562b667B55280c307DCf23c74",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1fj8zkw2acfnlalg7lsny50606zs92rqtpe5gt4",
+        "cAddress": "0x34832AE97498b79315b3b4EAB1158b301662887E",
+        "amount": "53700000000000",
+        "delegatorRewardAmount": "180243364142515793923"
+      },
+      {
+        "pAddress": "flare1fkwjsvnlzhaw2uljhrzyg02ujdyqsk5ksv8rqu",
+        "cAddress": "0x9eBd9026C69B5d0Eb9B8b5678A77e6d4279D13C5",
+        "amount": "99500000000000",
+        "delegatorRewardAmount": "333970479183991089300"
+      },
+      {
+        "pAddress": "flare1h2agvvr5asvarzj0ystqtx0hafzmlr2frdaxcn",
+        "cAddress": "0x5564a764a2C4Acf9D96FEf7D682f700D3eEb23e0",
+        "amount": "80000000000000",
+        "delegatorRewardAmount": "268518978238384795417"
+      },
+      {
+        "pAddress": "flare1hwgweu0925k7uqyzsdsch25csnmaf5wdqysuw4",
+        "cAddress": "0x8D43B0d92a76012F6677fe31fe79F479Dc0eA727",
+        "amount": "1499000000000000",
+        "delegatorRewardAmount": "5031374354741735104130"
+      },
+      {
+        "pAddress": "flare1j72fcwsvl4qndj0pl2s6ygkss7spee2wfm3e6d",
+        "cAddress": "0xD7da0ba6e9a929Ac20F68300d5be53e4E1921c86",
+        "amount": "50010000000000",
+        "delegatorRewardAmount": "167857926271270295235"
+      },
+      {
+        "pAddress": "flare1kd5jd28r4ezp0kq6da2v30xayv5zx34zx3xm07",
+        "cAddress": "0x2176cef1967d4C38e1593b31569d704f20a45d98",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1mpwzh7gg4jm8r9yelepxnkh2t87nlca4pmfzku",
+        "cAddress": "0x69a0AD23226ceA4B9200953ff0D78F96a16E139B",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1mrlpw4sesa3eqkj506pvfu9s9z0evxyk6u2zq6",
+        "cAddress": "0x4D67Bd05069Df84544b0CCB13aEe0F8ceB4a2e48",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1n8rc3yxrh9meufpp83q8p3e3jtsmyg09ewryzv",
+        "cAddress": "0xd7962565297829Eb764a6Cbf588a1A67465e61BC",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1nah4qckyzj70463htmvuw5s588zdv9v5yq8ft9",
+        "cAddress": "0x3eF2f9885D5F97415762dEd87F45Aa766551C916",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1nps3cshfvts3fpxunnpm88qtzl4x2d08wfmc7l",
+        "cAddress": "0x229ceEDC4c6C8a517CbDb157516Ac0F4a33284C5",
+        "amount": "50025000000000",
+        "delegatorRewardAmount": "167908273579689992384"
+      },
+      {
+        "pAddress": "flare1p04d3pvw5c2sws5exs9ltpya3vc5xd7q9a0vqn",
+        "cAddress": "0x8d04383B83aeCC0Ab9d81FdbC79a231bdf4c76f5",
+        "amount": "50050000000000",
+        "delegatorRewardAmount": "167992185760389487632"
+      },
+      {
+        "pAddress": "flare1pmu9ewm75dm0pgyu7rc5yy3nnl62ztgew28ky7",
+        "cAddress": "0x6A72bB44A97eE50B86af12F855A78f6dEFafe7c2",
+        "amount": "350000000000000",
+        "delegatorRewardAmount": "1174770529792933479950"
+      },
+      {
+        "pAddress": "flare1pv7leychd3746f99a3gu9ylsukz0xs0vqjm8ms",
+        "cAddress": "0xD6985937246420Da0795f70298Cd0456065BF19c",
+        "amount": "500000000000000",
+        "delegatorRewardAmount": "1678243613989904971358"
+      },
+      {
+        "pAddress": "flare1qte99sc63pqgyp7vntsf72wx3zmd9ujjhja6dq",
+        "cAddress": "0xeD9e0F2b5e9516faD3b6E6080B8e1cb3EA373139",
+        "amount": "68700000000000",
+        "delegatorRewardAmount": "230590672562212943064"
+      },
+      {
+        "pAddress": "flare1r5urr33g4cuu35mhrv7fjwex3g6qwvvkftlvnp",
+        "cAddress": "0x88eC6EC5e613A97760e1e292fC5943173A0a5a75",
+        "amount": "55980000000000",
+        "delegatorRewardAmount": "187896155022309760593"
+      },
+      {
+        "pAddress": "flare1syc59zjl7y4eenvty8d8d24mhpzc4h52f6szla",
+        "cAddress": "0x20D4a8FC06cDCB7CacB50bC30c6FF875dD59D583",
+        "amount": "272005000000000",
+        "delegatorRewardAmount": "912981308446648203468"
+      },
+      {
+        "pAddress": "flare1tpzs0jzplw6gycqe95kxtyakrdlxkq7ytsvkyc",
+        "cAddress": "0x95E8529DB693260Cf8D621A1B8Fb19a48c5fa47d",
+        "amount": "143400000000000",
+        "delegatorRewardAmount": "481320268492304745785"
+      },
+      {
+        "pAddress": "flare1uzpyezdz0nav88nzsan9gltc7kr5svkvd0jwl0",
+        "cAddress": "0x10312E61155af679e3497e3a65A7db6f3e82C70d",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1uzyaffltxv58nytpjc275d9zfuc36evs727vfg",
+        "cAddress": "0xF1a61E37036c6f3d6d520392f0CC314c6f43Daf3",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1v8rujnjf8h4pxxan59eynu6e3krw74fqh3gw05",
+        "cAddress": "0x1AB55F8386582D350C94516A8865F85fb860d8D0",
+        "amount": "180000000000000",
+        "delegatorRewardAmount": "604167701036365789689"
+      },
+      {
+        "pAddress": "flare1xtkl05vskywfa9wpr6q8eczwzvu40j8dpxqlme",
+        "cAddress": "0xaA4a6da407361e7cB9Aa5AF7A3812E81e528c4EB",
+        "amount": "1063566543311163",
+        "delegatorRewardAmount": "3569847518730553969895"
+      },
+      {
+        "pAddress": "flare1yrau8uvxelqlzj8c9eqrh0zwdkvd3rrud0pwe9",
+        "cAddress": "0x05169ee328477948c7556c7025cDF1e9880AAb79",
+        "amount": "50386000000000",
+        "delegatorRewardAmount": "169119965468990703773"
+      },
+      {
+        "pAddress": "flare1z995dqg776rfta3qe6dcvfv9kzndlt0x5xptuu",
+        "cAddress": "0x0eF8e7DEbC9f80A9f43585Fa6524f18508eCebA7",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497136"
+      },
+      {
+        "pAddress": "flare1zvs29y49wgdru44huszh77zsfju5hw9ajjnvpc",
+        "cAddress": "0x0315247F4A36402bA199A76B3Ed68068833220bc",
+        "amount": "428000000000000",
+        "delegatorRewardAmount": "1436576533575358655486"
+      }
+    ],
+    "totalStakeAmount": "55514477543311163",
+    "cChainAddress": "0xD448D833dd419944008133C69550FBc2e429f5cD",
+    "overboost": "0",
+    "rewardingWeight": "55514477543311163",
+    "cappedWeight": "55514477543311163",
+    "nodeRewardAmount": "232917043552619868696905",
+    "validatorRewardAmount": "107000178814160552708232"
+  },
+  {
+    "nodeId": "NodeID-EJ7V3trSnp93txcLP3h4ULJvBhvUtP66c",
+    "bondingAddress": "flare1lmrlqgckv2amas34xl2f2ms0prz8kuld6qetrq",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0x4CfB79399cd840414a2BeF2c7C7A0cE3b9b0F89d",
+    "stakeEnd": 1701633164,
+    "pChainAddress": [
+      "flare1lmrlqgckv2amas34xl2f2ms0prz8kuld6qetrq"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "2558990000000000",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10dzk76xp85hhlptrg5xu4nffa30msxk22h6jmr",
+        "cAddress": "0xb4f6420de02Bef9ecb29D1f48Ab751BE7085f14e",
+        "amount": "150000000000000",
+        "delegatorRewardAmount": "503473084196971491407"
+      },
+      {
+        "pAddress": "flare17kvyeuzhqcd0nqg7m45q6kdpz083tyu6v8aq36",
+        "cAddress": "0x5349F727e21379898bc0C0f8DD2E38290e9DB795",
+        "amount": "58000000000000",
+        "delegatorRewardAmount": "194676259222828976677"
+      },
+      {
+        "pAddress": "flare1n8rc3yxrh9meufpp83q8p3e3jtsmyg09ewryzv",
+        "cAddress": "0xd7962565297829Eb764a6Cbf588a1A67465e61BC",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1tptlc86tyu6n4d673d5q78hwpq4ec23gut448s",
+        "cAddress": "0x98D358a69538a279e90fb00847df06553BD51f6a",
+        "amount": "2000990000000000",
+        "delegatorRewardAmount": "6716297378315319897272"
+      },
+      {
+        "pAddress": "flare1vjs8a7u6qqmg2gpa09nta95u8w02qy9nyppgle",
+        "cAddress": "0x8c04bDdd121Ba9cFC331c730f906A1c8F092B3F0",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1y7vhmmnrfldatpzxkzslyywlzd2cdj0mtyne4y",
+        "cAddress": "0x1e0F37e94e6619D73E13e23f1b1741ec2450894f",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "839121806994952485680"
+      }
+    ],
+    "totalStakeAmount": "8558990000000000",
+    "cChainAddress": "0xcA90FAE4b7dF747245C7676f2f3672fD64578BF1",
+    "overboost": "0",
+    "rewardingWeight": "8558990000000000",
+    "cappedWeight": "8558990000000000",
+    "nodeRewardAmount": "35910175774258641876987",
+    "validatorRewardAmount": "27320958522730588031681"
+  },
+  {
+    "nodeId": "NodeID-EqTrzH8b9ax2oYwrKFkXqWAZjuK8uHFxS",
+    "bondingAddress": "flare13dn2jp5clcldshmr704slvxr36393uumez9ekt",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0xad918962795547a8c997F96f7BAbB822612a5FfE",
+    "stakeEnd": 1701734400,
+    "pChainAddress": [
+      "flare13dn2jp5clcldshmr704slvxr36393uumez9ekt"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0x1C602a30335187A97D8061Ffffd4522796DE82bF",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570355",
+    "validatorRewardAmount": "25173654209848574570355"
+  },
+  {
+    "nodeId": "NodeID-F297gLgRxBndijAYvvvBGtQTwYCrScMQT",
+    "bondingAddress": "flare14p76vuk4pcatwpsanjxusx8y2ad55ea5y2u8je",
+    "selfBond": "1750000000000000",
+    "ftsoAddress": "0x729589694a78FF2D8BACf75b7AC4389bd53ee533",
+    "stakeEnd": 1702479000,
+    "pChainAddress": [
+      "flare14p76vuk4pcatwpsanjxusx8y2ad55ea5y2u8je"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1750000000000000",
+    "boostDelegations": "8750000000000000",
+    "boost": "8750000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1750000000000000",
+    "delegators": [],
+    "totalStakeAmount": "10500000000000000",
+    "cChainAddress": "0x24BaF5b2Fa77dE48823dB563C8cc4c5C811665Ad",
+    "overboost": "0",
+    "rewardingWeight": "10500000000000000",
+    "cappedWeight": "10500000000000000",
+    "nodeRewardAmount": "44053894867235005498121",
+    "validatorRewardAmount": "44053894867235005498121"
+  },
+  {
+    "nodeId": "NodeID-FDR3CXdwP3H3Zz9QKfL61fk56zkPEgdFV",
+    "bondingAddress": "flare1wx4gn6uct28pfxzcqzltqkjnus0r7srxrh4ta7",
+    "selfBond": "5000000000000000",
+    "ftsoAddress": "0xAf05Ac13F4a4e754a496B46bbd611F5FFDb42606",
+    "stakeEnd": 1703340000,
+    "pChainAddress": [
+      "flare1wx4gn6uct28pfxzcqzltqkjnus0r7srxrh4ta7"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "5000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "40587014080000000",
+    "totalSelfBond": "5000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10ds9nsmt2hexa2ttvt42qksrpyvwzjgtevalsj",
+        "cAddress": "0x95ecb8Bf03fF4bBBe2472AFE6E8060449a9dB7E9",
+        "amount": "66666000000000",
+        "delegatorRewardAmount": "251734024733064760846"
+      },
+      {
+        "pAddress": "flare166qu6093h0tyuxcpqgyzu2uwn8w2400nrju4le",
+        "cAddress": "0xc9F314887750169424bd78770ccfd5AAC87A4b5F",
+        "amount": "34000000000000000",
+        "delegatorRewardAmount": "128385636470227730308811"
+      },
+      {
+        "pAddress": "flare16gv6q37f9dj9v64gzzlyfx09xnfs4vlxgywv6s",
+        "cAddress": "0x81834cd729A10F61529A701F99E28C702d501F4d",
+        "amount": "500000000000000",
+        "delegatorRewardAmount": "1888024065738643092776"
+      },
+      {
+        "pAddress": "flare1hftc2u5etzf6l7vn29zq4vpms6j5nqmc4wm7wl",
+        "cAddress": "0x4cAEe43a1f663805Fc028E6e17C0239DECadae12",
+        "amount": "499900000000000",
+        "delegatorRewardAmount": "1887646460925495364158"
+      },
+      {
+        "pAddress": "flare1hwgweu0925k7uqyzsdsch25csnmaf5wdqysuw4",
+        "cAddress": "0x8D43B0d92a76012F6677fe31fe79F479Dc0eA727",
+        "amount": "1500025000000000",
+        "delegatorRewardAmount": "5664166598419216210484"
+      },
+      {
+        "pAddress": "flare1sa2w3paqszhv4rgd7jgch9qjhahszf4sdd7sxf",
+        "cAddress": "0x8DEEF493D3592c3504a54988f6b204E94788ad61",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "188802406573864309277"
+      },
+      {
+        "pAddress": "flare1zz9qxsgsrx895p0z7zycfu364nwcw2mqnu2lp2",
+        "cAddress": "0xDF54B322123811D5aaFeF1e588e345BA5aE51cC9",
+        "amount": "3970423080000000",
+        "delegatorRewardAmount": "14992508652408291566888"
+      }
+    ],
+    "totalStakeAmount": "60587014080000000",
+    "cChainAddress": "0x86878fD2a6E2cbc427E1882c053732985E105b0A",
+    "overboost": "0",
+    "rewardingWeight": "60587014080000000",
+    "cappedWeight": "60587014080000000",
+    "nodeRewardAmount": "254199423676191143693671",
+    "validatorRewardAmount": "100940904997164838080431"
+  },
+  {
+    "nodeId": "NodeID-FERvNWfCH4mjCSoFnjF4YouDBuYZCpfKm",
+    "bondingAddress": "flare1daqetq0w8dclhf2g5d8u6zv9xklgcc2jw67ed0",
+    "selfBond": "1250000000000000",
+    "ftsoAddress": "0x9C44c70180642cF4Cfd06d77b84Bb8F864ea5697",
+    "stakeEnd": 1701714900,
+    "pChainAddress": [
+      "flare1daqetq0w8dclhf2g5d8u6zv9xklgcc2jw67ed0"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1250000000000000",
+    "boostDelegations": "6250000000000000",
+    "boost": "6250000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1250000000000000",
+    "delegators": [],
+    "totalStakeAmount": "7500000000000000",
+    "cChainAddress": "0x0A255b5642B3FB56B355A8bd3B265783805c9999",
+    "overboost": "0",
+    "rewardingWeight": "7500000000000000",
+    "cappedWeight": "7500000000000000",
+    "nodeRewardAmount": "31467067762310718212943",
+    "validatorRewardAmount": "31467067762310718212943"
+  },
+  {
+    "nodeId": "NodeID-FHPDnySFVqde5bGvEXsFnvZGhXwcyRfNY",
+    "bondingAddress": "flare187fvmuqnuus2e33x66cxtjttgk9xalx2g2yg53",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x6df84895f1f1f6F6767C59324F94089d4097051A",
+    "stakeEnd": 1709654400,
+    "pChainAddress": [
+      "flare187fvmuqnuus2e33x66cxtjttgk9xalx2g2yg53"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "75000000000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1lz4f86whu0557g0en8d3vr06utyw09dlemw87q",
+        "cAddress": "0xA26bcd1311eC75F5c4C3B7EDf0A09995071b6719",
+        "amount": "75000000000000",
+        "delegatorRewardAmount": "283203609860796463917"
+      }
+    ],
+    "totalStakeAmount": "30075000000000000",
+    "cChainAddress": "0x36A65098AF668a74F42c9b5551911B43DB4489A2",
+    "overboost": "0",
+    "rewardingWeight": "30075000000000000",
+    "cappedWeight": "30075000000000000",
+    "nodeRewardAmount": "126182941726865980033904",
+    "validatorRewardAmount": "125899738117005183569987"
+  },
+  {
+    "nodeId": "NodeID-FUA8LX6gJhNmiJVT5eycNsd2jKBHL7FBY",
+    "bondingAddress": "flare18hpr5trmxtw7rv63675wa77xgk5ncpcz3et59q",
+    "selfBond": "29999988000000000",
+    "ftsoAddress": "0x9Dfc1c62B7F7a3D4D412Fc502Cba37157446aEe9",
+    "stakeEnd": 1703638800,
+    "pChainAddress": [
+      "flare18hpr5trmxtw7rv63675wa77xgk5ncpcz3et59q"
+    ],
+    "fee": 1000000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough FTSO performance",
+    "BEB": "29999988000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "150001078648519",
+    "totalSelfBond": "29999988000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10zss4ray8md9m546q3dqku60g2kp580ltv4gy5",
+        "cAddress": "0xac0523a8B5eA747d93803746F5779763231640f0",
+        "amount": "50001078648519"
+      },
+      {
+        "pAddress": "flare1lz4f86whu0557g0en8d3vr06utyw09dlemw87q",
+        "cAddress": "0xA26bcd1311eC75F5c4C3B7EDf0A09995071b6719",
+        "amount": "100000000000000"
+      }
+    ],
+    "totalStakeAmount": "30149989078648519",
+    "cChainAddress": "0xbf5Bd740B48428C41E9353Abdd95C5866FabbE87",
+    "overboost": "0",
+    "rewardingWeight": "30149989078648519"
+  },
+  {
+    "nodeId": "NodeID-FXJQRCN2nEqBYVsorBS5WHriwihjzv7G6",
+    "bondingAddress": "flare1z9n28pv9m82a5t3rklxmcx3av536cnfr4g80kz",
+    "selfBond": "1750000000000000",
+    "ftsoAddress": "0x9b5F4A2177135A2A6DC83893D5d58e684419aB24",
+    "stakeEnd": 1705356000,
+    "pChainAddress": [
+      "flare1z9n28pv9m82a5t3rklxmcx3av536cnfr4g80kz"
+    ],
+    "fee": 150000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1750000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "50100000000000",
+    "totalSelfBond": "1750000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare164he4e39v7e0zd7p5vllwv7haed382jun6wyzp",
+        "cAddress": "0x2272749a22B91072ADff3B007453876d01CfB4fa",
+        "amount": "50100000000000",
+        "delegatorRewardAmount": "178670010754400258014"
+      }
+    ],
+    "totalStakeAmount": "1800100000000000",
+    "cChainAddress": "0x668d3BdB1848a90c412e4dC8D0ffe019670c5AD0",
+    "overboost": "0",
+    "rewardingWeight": "1800100000000000",
+    "cappedWeight": "1800100000000000",
+    "nodeRewardAmount": "7552515823858069847349",
+    "validatorRewardAmount": "7373845813103669589335"
+  },
+  {
+    "nodeId": "NodeID-HZwFckGTbucqTtE7qcv6z85mnScUfAeW6",
+    "bondingAddress": "flare1qygynyjrumj76cm4rplk8qgeh96qxha2dtry2k",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x4990320858AE3528B645C60059281a66C3488888",
+    "stakeEnd": 1699441200,
+    "pChainAddress": [
+      "flare12f943yd8auj7xhxn4xcht9vfpf8wvcm4952gvc"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "3000000000000000",
+    "selfDelegations": "3000000000000000",
+    "totalSelfBond": "3000000000000000",
+    "normalDelegations": "51000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1nmpmjwv8jt93ewuwxrg0hl9rw8a8ahexdrhvgj",
+        "cAddress": "0xd50Af27dFbD6709549dEE4e895B02C935FCDC3Da",
+        "amount": "51000000000000",
+        "delegatorRewardAmount": "171180848626970307079"
+      }
+    ],
+    "totalStakeAmount": "18051000000000000",
+    "cChainAddress": "0xD49E9e23De39c3852c1980659D82D057e791F491",
+    "overboost": "0",
+    "rewardingWeight": "18051000000000000",
+    "cappedWeight": "18051000000000000",
+    "nodeRewardAmount": "75734938690329436594913",
+    "validatorRewardAmount": "75563757841702466287834"
+  },
+  {
+    "nodeId": "NodeID-J4nyqo44xFUxhAi9gDJXAkYyxP5z2a7UG",
+    "bondingAddress": "flare16ylzyt6rasm9m0ukec3nejmndfmdln6zppcu8v",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x085841B253590281cc5c5222b09D4e59a605E774",
+    "stakeEnd": 1699873200,
+    "pChainAddress": [
+      "flare1hp5zept5qgd4xlwa6hen09m00uspkdq6ku7zwr"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1040000000000000",
+    "selfDelegations": "1040000000000000",
+    "totalSelfBond": "1040000000000000",
+    "normalDelegations": "56531589888783645",
+    "delegators": [
+      {
+        "pAddress": "flare12g5rgag2hgzshgtj6vc79wcq34f5cns8zhr5q9",
+        "cAddress": "0x962D880d4D1DeDb248e08807dCE9aeE84fD4D132",
+        "amount": "129470000000000",
+        "delegatorRewardAmount": "434564401406545993283"
+      },
+      {
+        "pAddress": "flare15r02gk26zfy744lvm9ezv6m8nj3j0vn9nfksrm",
+        "cAddress": "0xE84d4C5765ea094aBB2b6dF49f73e03f8f2571a2",
+        "amount": "550010000000000",
+        "delegatorRewardAmount": "1846101540261175266592"
+      },
+      {
+        "pAddress": "flare1ean79r8g48gls72w43d6kckny58v6pzdy6hedp",
+        "cAddress": "0x2222A442b18Cc3Ff723c996C4FEc9714D964fFc8",
+        "amount": "299995000000000",
+        "delegatorRewardAmount": "1006929385957803083764"
+      },
+      {
+        "pAddress": "flare1fgxmygk6ewleq7jenywl77wr054kg3yag6zxst",
+        "cAddress": "0x2C639908d20641473D17CfD713152Bf74003203F",
+        "amount": "50001000000000",
+        "delegatorRewardAmount": "167827717886218476945"
+      },
+      {
+        "pAddress": "flare1h2agvvr5asvarzj0ystqtx0hafzmlr2frdaxcn",
+        "cAddress": "0x5564a764a2C4Acf9D96FEf7D682f700D3eEb23e0",
+        "amount": "50001000000000",
+        "delegatorRewardAmount": "167827717886218476945"
+      },
+      {
+        "pAddress": "flare1hm52vwupra60qa983z78e6v0nal7awt2ehavee",
+        "cAddress": "0x4dC712FA269b43951Da24C265f502355df87351B",
+        "amount": "113250000000000",
+        "delegatorRewardAmount": "380122178568713476012"
+      },
+      {
+        "pAddress": "flare1mpwzh7gg4jm8r9yelepxnkh2t87nlca4pmfzku",
+        "cAddress": "0x69a0AD23226ceA4B9200953ff0D78F96a16E139B",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1nah4qckyzj70463htmvuw5s588zdv9v5yq8ft9",
+        "cAddress": "0x3eF2f9885D5F97415762dEd87F45Aa766551C916",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1swxh62arzh6j67glrkm7td5x7u7j004g20jjkm",
+        "cAddress": "0xb136c72b7857eb75d5242e0A38EF992f441dCda4",
+        "amount": "50240994741407",
+        "delegatorRewardAmount": "168633257170533389687"
+      },
+      {
+        "pAddress": "flare1vsh3ppy8jkurzswce4mnq35j8f6tfn6vn23wvy",
+        "cAddress": "0xdd5B75CA22a81f4a9f4C0dDDDD9CcCb9BD9cf11A",
+        "amount": "133624000000000",
+        "delegatorRewardAmount": "448507249351574123785"
+      },
+      {
+        "pAddress": "flare1vxsy2wcatnsepxp05snzjrgzwsmmusetuf937c",
+        "cAddress": "0xff71960A8a2597fbD18F81A79D5171CBf27C5665",
+        "amount": "55000000000000000",
+        "delegatorRewardAmount": "184606797538889546849277"
+      },
+      {
+        "pAddress": "flare1xtkl05vskywfa9wpr6q8eczwzvu40j8dpxqlme",
+        "cAddress": "0xaA4a6da407361e7cB9Aa5AF7A3812E81e528c4EB",
+        "amount": "54997894042238",
+        "delegatorRewardAmount": "184599728918558728905"
+      }
+    ],
+    "totalStakeAmount": "67571589888783645",
+    "cChainAddress": "0xD38FC64Ca0868BFA2f5bF528EF5D4f17Fb6A859e",
+    "overboost": "4800000000000000",
+    "rewardingWeight": "62771589888783645",
+    "cappedWeight": "62771589888783645",
+    "nodeRewardAmount": "263365049677111103627498",
+    "validatorRewardAmount": "73617490238016234768033"
+  },
+  {
+    "nodeId": "NodeID-J8Zbi3b3AjTEUmHdE4KSApEU1U36iaeDS",
+    "bondingAddress": "flare18s4u5fq8a74qqexew9jps736hw36fsccfe3y4e",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0xF0F095bbd5e2E33e9c1703cdEDd0015280406E90",
+    "stakeEnd": 1699009200,
+    "pChainAddress": [
+      "flare1ewq55d8gwfd7dy06fe9wu34ge8dklhljk65dhx",
+      "flare1x678p78s7wugfnz6rcd0wp0h76l7pxh9f29488"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "3000000000000000",
+    "selfDelegations": "3000000000000000",
+    "totalSelfBond": "3000000000000000",
+    "normalDelegations": "0",
+    "delegators": [],
+    "totalStakeAmount": "18000000000000000",
+    "cChainAddress": "0x4EEE5c3d3De96418BeF8f4dAFAF24bE5bDe24dA2",
+    "overboost": "0",
+    "rewardingWeight": "18000000000000000",
+    "cappedWeight": "18000000000000000",
+    "nodeRewardAmount": "75520962629545723711065",
+    "validatorRewardAmount": "75520962629545723711065"
+  },
+  {
+    "nodeId": "NodeID-J9JZSkVJWCUYZ43n36q4fCixu7Tj4QR1P",
+    "bondingAddress": "flare19jsd4uuq8r74qpyyddf2veadymlmv8mgs2j9qd",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0x58048528D3d3aea14Ec95eb5e98b18dE51780e27",
+    "stakeEnd": 1701605700,
+    "pChainAddress": [
+      "flare19jsd4uuq8r74qpyyddf2veadymlmv8mgs2j9qd"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "549990000000000",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare12tej7n94wnjn5rmrva7dswfy8hx27s94avylad",
+        "cAddress": "0x4147dbe9b6C20AEBBB65B1E93f4ebCC31Ddba2e1",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "188802406573864309277"
+      },
+      {
+        "pAddress": "flare16gv6q37f9dj9v64gzzlyfx09xnfs4vlxgywv6s",
+        "cAddress": "0x81834cd729A10F61529A701F99E28C702d501F4d",
+        "amount": "499990000000000",
+        "delegatorRewardAmount": "1887986305257328319916"
+      }
+    ],
+    "totalStakeAmount": "6549990000000000",
+    "cChainAddress": "0x9C1d660Ee6F1b6f0773163126A04cA53CD6635C5",
+    "overboost": "0",
+    "rewardingWeight": "6549990000000000",
+    "cappedWeight": "6549990000000000",
+    "nodeRewardAmount": "27481197222994344158346",
+    "validatorRewardAmount": "25404408511163151529153"
+  },
+  {
+    "nodeId": "NodeID-JA63moobNNMLby4ENNUiJqVJA2cdpks5J",
+    "bondingAddress": "flare102av4l7pej3sek5va99r4dngev4c7t598rsm3a",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0xAc2884A4479Bf7c21AA0462d52bc9c76c3a9A3dD",
+    "stakeEnd": 1698836400,
+    "pChainAddress": [
+      "flare1cw3nqzapn0qvzkl0l9l6kz52pesn6d24s7rt2y"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1000000000000000",
+    "selfDelegations": "1000000000000000",
+    "totalSelfBond": "1000000000000000",
+    "normalDelegations": "0",
+    "delegators": [],
+    "totalStakeAmount": "11000000000000000",
+    "cChainAddress": "0xD77C2505eF64C02e62eE0bA4f1f6528CcfF3a568",
+    "overboost": "5000000000000000",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570355",
+    "validatorRewardAmount": "25173654209848574570355"
+  },
+  {
+    "nodeId": "NodeID-JF4XWnC9PjZVXQuqLcpQvxztdMez3CpkR",
+    "bondingAddress": "flare1jydtvp2t78fue2cjn4d65gmwj8j52mekfwgfa2",
+    "selfBond": "1000001000000000",
+    "ftsoAddress": "0xC8c1F188a891b8627e2cBcdc8a67A2Ed01aB8f10",
+    "stakeEnd": 1701721386,
+    "pChainAddress": [
+      "flare1jydtvp2t78fue2cjn4d65gmwj8j52mekfwgfa2"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000001000000000",
+    "boostDelegations": "5000005000000000",
+    "boost": "5000005000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000001000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000006000000000",
+    "cChainAddress": "0x40b40bb3561A027c00e8D0d078723186137f259b",
+    "overboost": "0",
+    "rewardingWeight": "6000006000000000",
+    "cappedWeight": "6000006000000000",
+    "nodeRewardAmount": "25173679383502784418929",
+    "validatorRewardAmount": "25173679383502784418929"
+  },
+  {
+    "nodeId": "NodeID-JFiAG1SiqUFh3EnkY8oXcXUg8RuT2guZp",
+    "bondingAddress": "flare19allkky9drhqdfad6asdwmar2qudncaq5jzc70",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0xF33A0Ac50f2E85737af577ea68583f264C7A1f78",
+    "stakeEnd": 1701668760,
+    "pChainAddress": [
+      "flare19allkky9drhqdfad6asdwmar2qudncaq5jzc70"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0xab1ec664f738214844eA4666245f92534827EA60",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570355",
+    "validatorRewardAmount": "25173654209848574570355"
+  },
+  {
+    "nodeId": "NodeID-JHnfNSNgSThSJEFG8aq99FRAE4a7Ko7UP",
+    "bondingAddress": "flare1p9crt0tnvmsljspl8tee75748wzfj4lexdgpa3",
+    "selfBond": "1500000000000000",
+    "ftsoAddress": "0xC7cF3238D2ca63d01Ad4d42B4cCB9dB8b0adE702",
+    "stakeEnd": 1701530719,
+    "pChainAddress": [
+      "flare1p9crt0tnvmsljspl8tee75748wzfj4lexdgpa3"
+    ],
+    "fee": 190000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1500000000000000",
+    "boostDelegations": "7500000000000000",
+    "boost": "7500000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1500000000000000",
+    "delegators": [],
+    "totalStakeAmount": "9000000000000000",
+    "cChainAddress": "0x576982fdca921513fbFe3fF31c0Ca31dad7b1d80",
+    "overboost": "0",
+    "rewardingWeight": "9000000000000000",
+    "cappedWeight": "9000000000000000",
+    "nodeRewardAmount": "37760481314772861855532",
+    "validatorRewardAmount": "37760481314772861855532"
+  },
+  {
+    "nodeId": "NodeID-JZuVSDnBui1u82RmkbkWKJ1JxfdxuVYR9",
+    "bondingAddress": "flare1adfgsj6qh5ceagjvhmqta9xasp4csfx74r38lm",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0xbF55a6eb78487F49197806025CA82DdaF633204e",
+    "stakeEnd": 1701536161,
+    "pChainAddress": [
+      "flare1adfgsj6qh5ceagjvhmqta9xasp4csfx74r38lm"
+    ],
+    "fee": 190000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "15180631872705006",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10t4ycddc4qhf97gfvanz7jhlycpxtg5dvscnaq",
+        "cAddress": "0xa8cE6b189c4C25F4Aa419F586605E06913486A87",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878349"
+      },
+      {
+        "pAddress": "flare124uwmmmzr0l8xmp655qkecmyx75jw6acshdf4g",
+        "cAddress": "0xE2a22E1249ebB1E669A394Cf9530636dB584AaE4",
+        "amount": "50134000000000",
+        "delegatorRewardAmount": "170377557321134039063"
+      },
+      {
+        "pAddress": "flare12g5rgag2hgzshgtj6vc79wcq34f5cns8zhr5q9",
+        "cAddress": "0x962D880d4D1DeDb248e08807dCE9aeE84fD4D132",
+        "amount": "208980000000000",
+        "delegatorRewardAmount": "710206684664510940351"
+      },
+      {
+        "pAddress": "flare12r7dwdy4572cutmcw957sy5h8carff99fkwfds",
+        "cAddress": "0x577528229Fc69Ca5e6ECa869B78B21a7df2f1baA",
+        "amount": "272250000000000",
+        "delegatorRewardAmount": "925226193415222047615"
+      },
+      {
+        "pAddress": "flare130wt558svdw2m6edchp5xgvd7gwy7cgjtje2a7",
+        "cAddress": "0x68d6Ca2e15852219bb1CC0b59a23ebBaa5337953",
+        "amount": "50001000000000",
+        "delegatorRewardAmount": "169925564359796207907"
+      },
+      {
+        "pAddress": "flare135fcxsetw4589a8nqt8pe6vrsfxc8twmfvafun",
+        "cAddress": "0xe9a384877965A0D264C9D7D7aC5c1cA4aC6B6742",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878349"
+      },
+      {
+        "pAddress": "flare13m93jzwhdwacpltdkjkymddvdm3ps440cmv28v",
+        "cAddress": "0xC8cc4be2125D3a30B535C657f0bF6f743BF347B8",
+        "amount": "55000000000000",
+        "delegatorRewardAmount": "186914382508125666184"
+      },
+      {
+        "pAddress": "flare15r02gk26zfy744lvm9ezv6m8nj3j0vn9nfksrm",
+        "cAddress": "0xE84d4C5765ea094aBB2b6dF49f73e03f8f2571a2",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1019532995498867270099"
+      },
+      {
+        "pAddress": "flare163rtff80utjgphgc92enl9fhg6v7nu2em60rrm",
+        "cAddress": "0x2D018190cC024772139db0e54f7A7d04055d3fed",
+        "amount": "55700000000000",
+        "delegatorRewardAmount": "189293292830956356481"
+      },
+      {
+        "pAddress": "flare173xs7w57s4wermcrfkghg6cd07zf49h9cu622e",
+        "cAddress": "0x46aD6B9F0C0E341003391a40E80c0C71e833a7c9",
+        "amount": "54900000000000",
+        "delegatorRewardAmount": "186574538176292710428"
+      },
+      {
+        "pAddress": "flare17ex39tgfw44tx6s6aptr0d7xpn3gq8julqayug",
+        "cAddress": "0x935B13d4B687cAEBb7212Cd5093e8dc4e4755151",
+        "amount": "54950000000000",
+        "delegatorRewardAmount": "186744460342209188306"
+      },
+      {
+        "pAddress": "flare17yz2pzv37pjags7fw6k8zd62wf82z2z4mgu7qa",
+        "cAddress": "0xA7B685e40A92110DAfa356E62F472a1417bD80b3",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "339844331832955756699"
+      },
+      {
+        "pAddress": "flare185f0qejufqyky89u29hszqsqnkrr9ndupkhnf6",
+        "cAddress": "0x6D95A377035D30077EF615CBF079BB1071f2Ca3a",
+        "amount": "5012677000000000",
+        "delegatorRewardAmount": "17035298657594251636269"
+      },
+      {
+        "pAddress": "flare186kcrtx4s4wpmpg54yk23l83kykhwym9jaz78y",
+        "cAddress": "0x393e986Bbf905C8aFa33B5aB60AbB0Ab95d58B3e",
+        "amount": "63047000000000",
+        "delegatorRewardAmount": "214261655890723615926"
+      },
+      {
+        "pAddress": "flare18tnmd4e39r34cnruzrry6apg6nqnuuvrh5qg2a",
+        "cAddress": "0x7786c364aC316e5f8777F0B37c4703D6046fD0f9",
+        "amount": "50005000000000",
+        "delegatorRewardAmount": "169939158133069526137"
+      },
+      {
+        "pAddress": "flare19dnpm3463uu3uuz4u2gmsj5m8zvfc9p29za355",
+        "cAddress": "0xd9774194893eeF49a98D0EE9cD8E14c2f4744c15",
+        "amount": "433451992347687",
+        "delegatorRewardAmount": "1473062027210631401914"
+      },
+      {
+        "pAddress": "flare19q83ghqse0fuynzw8htn6ctjllyzca0ruatu3e",
+        "cAddress": "0xfb8c502171DD7646264D788d02905853AF856C2D",
+        "amount": "50400000000000",
+        "delegatorRewardAmount": "171281543243809701376"
+      },
+      {
+        "pAddress": "flare1a05xe3ajme5yzny5lft5r30th24nqc44494wf2",
+        "cAddress": "0xF9Ff9318878893db3D66f83E3345DAf4EcD0720E",
+        "amount": "117000000000000",
+        "delegatorRewardAmount": "397617868244558235338"
+      },
+      {
+        "pAddress": "flare1a4kfwhqu2ezrsk0k4me05pyynuxfchdqls48t9",
+        "cAddress": "0x288E99A1CBE0046501c6dc420A13e33DAF64Fc9F",
+        "amount": "94007000000000",
+        "delegatorRewardAmount": "319477461026206718200"
+      },
+      {
+        "pAddress": "flare1adz8c2c8w38jwrw2dj80qc0wedpy9v8qzj9x0k",
+        "cAddress": "0x78981E2451A96A7B2Cf52f1f980573e455ea10Fb",
+        "amount": "94000000000000",
+        "delegatorRewardAmount": "319453671922978411297"
+      },
+      {
+        "pAddress": "flare1ch5987r2a06we6xp0uxvz84z5eecvstfnrzc3k",
+        "cAddress": "0xEA1E5B7D968AfddaeF42CC303E9bbd5eE364CcC5",
+        "amount": "249200000000000",
+        "delegatorRewardAmount": "846892074927725745696"
+      },
+      {
+        "pAddress": "flare1cy94mpumw5rmr7gl5un4rvm9wyp5le7eumxn3t",
+        "cAddress": "0x21DD18ccd1cd6295Ba2Cebbc67435ADd5B59f3A1",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878349"
+      },
+      {
+        "pAddress": "flare1d7vw83hyq2m7yzlkacxtuxpfu3jnmv9d4czl9z",
+        "cAddress": "0xCe9839f96e0c60664ca482Cb2e2A4A633Ed3E13f",
+        "amount": "97600341321116",
+        "delegatorRewardAmount": "331689227829430893526"
+      },
+      {
+        "pAddress": "flare1e38au5fy5gsj590n3qllxv6yrw3z3kdvme2q33",
+        "cAddress": "0x867995b09F4762D9f522b0Ad556322c849283666",
+        "amount": "97867000000000",
+        "delegatorRewardAmount": "332595452234958810409"
+      },
+      {
+        "pAddress": "flare1ep5lscw9xsypm7w8gzwll772u9wj05avej379e",
+        "cAddress": "0xE4a33FFEDFC22Fc155e19043175B3AacA80150A2",
+        "amount": "70000994247383",
+        "delegatorRewardAmount": "237894411176444552688"
+      },
+      {
+        "pAddress": "flare1epha472j22q68c3dptg9y0py6v596hvc5dvf42",
+        "cAddress": "0xB2b72e2c3d424E682De98E5170374924d939BA74",
+        "amount": "250000000000000",
+        "delegatorRewardAmount": "849610829582389391749"
+      },
+      {
+        "pAddress": "flare1eugequrz69c9dxcnlfsdp36sdgcwydgu8vqrrm",
+        "cAddress": "0xB0a73769cdF036621e2693a24126bee273CDEb6C",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "339844331832955756699"
+      },
+      {
+        "pAddress": "flare1euw5tqyx54g2gf3er5j6224zrd0n3xzvd2g955",
+        "cAddress": "0x782986D08DA356EcaD5baFA9748E7720E290A435",
+        "amount": "425792046441349",
+        "delegatorRewardAmount": "1447030135226471178829"
+      },
+      {
+        "pAddress": "flare1exkfypj4te6c9vmjqg5g7hwsmj33pluthl46uh",
+        "cAddress": "0x128dcba22a1bC55ae7C19A0B66ca9AA43b0912b0",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878349"
+      },
+      {
+        "pAddress": "flare1eydtm97g0ew89j80cp29q9dufu86h3twjwz8gd",
+        "cAddress": "0x11A658A638daE0119D97Fd298dF2ed7a83312c55",
+        "amount": "71369318465505",
+        "delegatorRewardAmount": "242544583472829779697"
+      },
+      {
+        "pAddress": "flare1f6mungt73f842l6mpzsxsga76mduhe69y82xd6",
+        "cAddress": "0x8eacA10294e028ff67fD7ecA8119681FC021d9DE",
+        "amount": "88000000000000",
+        "delegatorRewardAmount": "299063012013001065895"
+      },
+      {
+        "pAddress": "flare1f7j5x0699nnkwg2ep4j9y63s4hepgqae7r7865",
+        "cAddress": "0x4E7D9aA171D6eaec73D4efb7024fE221CA75923d",
+        "amount": "1000000000000000",
+        "delegatorRewardAmount": "3398443318329557567000"
+      },
+      {
+        "pAddress": "flare1gdvtg9rtwkat83tsu57qvl4kna3n789qc02mpu",
+        "cAddress": "0x124368F3083fCB5012d080f3c751A5F1D1852850",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "339844331832955756700"
+      },
+      {
+        "pAddress": "flare1grm20cxmr234rzy2fjvt7ndu3p9ld3lv2r8h23",
+        "cAddress": "0x91Dbd83084912d742b7f3f55af44ABC0e7bE99f0",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878350"
+      },
+      {
+        "pAddress": "flare1gu7uwuddzxypwfzddrerq5zpdvunpn4q75xzw3",
+        "cAddress": "0xc73e6f582e1334afEA258c4B267eabC6f7a0002a",
+        "amount": "50005000000000",
+        "delegatorRewardAmount": "169939158133069526137"
+      },
+      {
+        "pAddress": "flare1h2agvvr5asvarzj0ystqtx0hafzmlr2frdaxcn",
+        "cAddress": "0x5564a764a2C4Acf9D96FEf7D682f700D3eEb23e0",
+        "amount": "50001000000000",
+        "delegatorRewardAmount": "169925564359796207907"
+      },
+      {
+        "pAddress": "flare1k8n8el7uxsvm0zw34yz999djrfmaqxfy5kwsj9",
+        "cAddress": "0x04B2a86e54d2846217Fa73d4F5973eF1C3A8d997",
+        "amount": "139000000000000",
+        "delegatorRewardAmount": "472383621247808501813"
+      },
+      {
+        "pAddress": "flare1ky4ledelpks5jswgadjkape4dmkyg9dkngsnja",
+        "cAddress": "0xdACA079ED1f553b10AAAdeD8e4D81959c84B899C",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878350"
+      },
+      {
+        "pAddress": "flare1l53zs5tnpjw0zkjkzkrsyvhnrgn2dz845uf57f",
+        "cAddress": "0x0c677843e9B7f393745156D3F5938446E74a63Dd",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1019532995498867270100"
+      },
+      {
+        "pAddress": "flare1mjtzwa6xdl370le677wmntd3etku4fau8njtge",
+        "cAddress": "0xDa72f7fee2D64D4cB097DD809a0C099D5507C629",
+        "amount": "50450000000000",
+        "delegatorRewardAmount": "171451465409726179255"
+      },
+      {
+        "pAddress": "flare1mpwzh7gg4jm8r9yelepxnkh2t87nlca4pmfzku",
+        "cAddress": "0x69a0AD23226ceA4B9200953ff0D78F96a16E139B",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878350"
+      },
+      {
+        "pAddress": "flare1mrlpw4sesa3eqkj506pvfu9s9z0evxyk6u2zq6",
+        "cAddress": "0x4D67Bd05069Df84544b0CCB13aEe0F8ceB4a2e48",
+        "amount": "50018000000000",
+        "delegatorRewardAmount": "169983337896207810386"
+      },
+      {
+        "pAddress": "flare1mx5g7pun645hk5ar2h8nfra0rmc8je474nvxlv",
+        "cAddress": "0xA5f4892106142837200642d36fa9E85DBDC73aba",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878350"
+      },
+      {
+        "pAddress": "flare1mz36w7kljd985vw8q20369xt32hsmeedxq5g5j",
+        "cAddress": "0x373480045956352CA5e55B097E31454Eb41Cfae9",
+        "amount": "50244000000000",
+        "delegatorRewardAmount": "170751386086150290396"
+      },
+      {
+        "pAddress": "flare1nennsg9gweqcwjue36zz0347see2xtp340le38",
+        "cAddress": "0xe8D1af512b66755CBD84Ae5B12351aa42ba4950d",
+        "amount": "626536179881966",
+        "delegatorRewardAmount": "2129247694211593120482"
+      },
+      {
+        "pAddress": "flare1nf344fx9gh7vsg0ga9pxhw9maa7zeacvj2n7na",
+        "cAddress": "0xdBB250f58B6B35400BaeCa1f89aE3b2249868af9",
+        "amount": "51002000000000",
+        "delegatorRewardAmount": "173327406121444095032"
+      },
+      {
+        "pAddress": "flare1qpj5dv3lkq5sjzmy6k4f6pe7ymwwwh0lwg87hp",
+        "cAddress": "0xCf43EbeC1e67ec39349ABFb53EbA381ab8CdD7e3",
+        "amount": "51000000000000",
+        "delegatorRewardAmount": "173320609234807435917"
+      },
+      {
+        "pAddress": "flare1r2hqfw2800l40ax5z823ha88ttc5ywkucyxd29",
+        "cAddress": "0x8CC3BD77a757E5d001e31A1A1381c76292eAD5d2",
+        "amount": "52150000000000",
+        "delegatorRewardAmount": "177228819050886427119"
+      },
+      {
+        "pAddress": "flare1rydje44phd3dtxqx2fa5nxar5xgrw0dgu4c9ez",
+        "cAddress": "0x808B68bAA713f6F7c9955361880C8e4c6C654A7e",
+        "amount": "300000000000000",
+        "delegatorRewardAmount": "1019532995498867270100"
+      },
+      {
+        "pAddress": "flare1sk4cs2uretvl8u96n8n5ejvqvy5lgu0n7hm4jm",
+        "cAddress": "0xCfc80C230274C6612fE3f5573E6594CEEe81F952",
+        "amount": "700000000000000",
+        "delegatorRewardAmount": "2378910322830690296900"
+      },
+      {
+        "pAddress": "flare1sksev5rjynllnaahu4vmgl6mgh48d7xm9a9u7z",
+        "cAddress": "0xC5e877A660db9828138572CA1c186a67eB2F9bD4",
+        "amount": "700000000000000",
+        "delegatorRewardAmount": "2378910322830690296900"
+      },
+      {
+        "pAddress": "flare1tpne3w5nrnv9453c7lq4xs7h65uv9k49gkd4rh",
+        "cAddress": "0x412BB0E5539a3693F0ACF1c6B53Fe0D4e3820895",
+        "amount": "53600000000000",
+        "delegatorRewardAmount": "182156561862464285591"
+      },
+      {
+        "pAddress": "flare1um843qcylt929qzs4kqfjy0ujafpgysr3gnx7k",
+        "cAddress": "0x9907317F1DF977dC15B37dB7383007974972a520",
+        "amount": "117490000000000",
+        "delegatorRewardAmount": "399283105470539718547"
+      },
+      {
+        "pAddress": "flare1vlvl35qfulspx79jqcyvfgawdxvxqhcahpj7kk",
+        "cAddress": "0xDD26F7b5f4b58be6e6C0F208D9E615A8e8B4c5A0",
+        "amount": "77300000000000",
+        "delegatorRewardAmount": "262699668506874799929"
+      },
+      {
+        "pAddress": "flare1wa2f5k52y7gyya5v5kdzpxeaevksx69n848fht",
+        "cAddress": "0x0daDF2598246852Dee2AdaCC4Ba0cC8860367442",
+        "amount": "149998000000000",
+        "delegatorRewardAmount": "509759700862796975935"
+      },
+      {
+        "pAddress": "flare1xdv6v0375ja6nhh4er0cl0x9psdqmjl5mvflan",
+        "cAddress": "0xFC52eB2F4e9cdE061C2097Dd59Bf19765727504E",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "169922165916477878350"
+      },
+      {
+        "pAddress": "flare1y3rfyfmgq8mhzxjgm3tf23333vuwan7x7dhh4v",
+        "cAddress": "0x502b4D04583A984768CCa991fA4c23c5a61Cb103",
+        "amount": "255000000000000",
+        "delegatorRewardAmount": "866603046174037179585"
+      },
+      {
+        "pAddress": "flare1yvj8g4yh2pzvnv3hlg3juy8fgxy4g0j5g6m0u5",
+        "cAddress": "0xE13dC5D5A1B994AEffce78EE47eB503550613cB1",
+        "amount": "1000005000000000",
+        "delegatorRewardAmount": "3398460310546149214790"
+      },
+      {
+        "pAddress": "flare1zp3sv9ez4n3sr6alt0sludpkalgrcxz0nq2ne7",
+        "cAddress": "0x2509993Fb67886D15F6944dBD59B308794e049e0",
+        "amount": "190000000000000",
+        "delegatorRewardAmount": "645704230482615937731"
+      },
+      {
+        "pAddress": "flare1zpuxkh65k8ct6hfdm49g7jarplwmwdpxy2tgz8",
+        "cAddress": "0x62d036575F13bf15c1053067acF7F145351368dC",
+        "amount": "50500000000000",
+        "delegatorRewardAmount": "171621387575642657134"
+      }
+    ],
+    "totalStakeAmount": "45180631872705006",
+    "cChainAddress": "0x849a5C52e1CA4AB0407E5BE3030cC420E7222F13",
+    "overboost": "0",
+    "rewardingWeight": "45180631872705006",
+    "cappedWeight": "45180631872705006",
+    "nodeRewardAmount": "189560267290989843631170",
+    "validatorRewardAmount": "137969750335174797299860"
+  },
+  {
+    "nodeId": "NodeID-KppZbRMtfNTQZGdmHdkbHTJHgNPBCNxJj",
+    "bondingAddress": "flare1w72rqysqcayy4rpprjvla3jv3ljke2vqkwj7kf",
+    "selfBond": "1700000000000000",
+    "ftsoAddress": "0xa41d19F4258a388c639B7CcD938FCE3fb7D05e86",
+    "stakeEnd": 1701728031,
+    "pChainAddress": [
+      "flare1w72rqysqcayy4rpprjvla3jv3ljke2vqkwj7kf"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1700000000000000",
+    "boostDelegations": "8500000000000000",
+    "boost": "8500000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1700000000000000",
+    "delegators": [],
+    "totalStakeAmount": "10200000000000000",
+    "cChainAddress": "0xa41d19F4258a388c639B7CcD938FCE3fb7D05e86",
+    "overboost": "0",
+    "rewardingWeight": "10200000000000000",
+    "cappedWeight": "10200000000000000",
+    "nodeRewardAmount": "42795212156742576769603",
+    "validatorRewardAmount": "42795212156742576769603"
+  },
+  {
+    "nodeId": "NodeID-KRkND3cB1bYaWt71CSQdCUjRSR95d3cNz",
+    "bondingAddress": "flare18ukwkqu2fdzdd0xpvkea93fvhj7jkej7yg2w7j",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0x47B6EfFE71ABD4e8CdCC56f2341BEb404f804b87",
+    "stakeEnd": 1704211200,
+    "pChainAddress": [
+      "flare18ukwkqu2fdzdd0xpvkea93fvhj7jkej7yg2w7j"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "4723984000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10mytqph0ucm9y5pjc7x6gs7qsgtznfv7907tc9",
+        "cAddress": "0x2b9E7ebb86a17726ebc7b6B5a52710a5d57970F7",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "335648722797980994271"
+      },
+      {
+        "pAddress": "flare10wac60z9q327jp0wu3syf83w0sumjzjq0awfrn",
+        "cAddress": "0xC54d87737CA5b11CA372972e5D1A5cB6FEe26A31",
+        "amount": "3558384000000000",
+        "delegatorRewardAmount": "11943670448247708023194"
+      },
+      {
+        "pAddress": "flare1hfchcfl8eakrw52f8njtj6wffqgg4vha84zl30",
+        "cAddress": "0x44a584B709eCD27369a7484d48bF64eae2FafE85",
+        "amount": "317600000000000",
+        "delegatorRewardAmount": "1066020343606387637806"
+      },
+      {
+        "pAddress": "flare1hmqwchwpw7m0g4ffukmjfvyu89vhzfsm79hjje",
+        "cAddress": "0x15b3321504Acc5e6D34ff7Fc79fFfae4F5fD3390",
+        "amount": "98000000000000",
+        "delegatorRewardAmount": "328935748342021374386"
+      },
+      {
+        "pAddress": "flare1nf344fx9gh7vsg0ga9pxhw9maa7zeacvj2n7na",
+        "cAddress": "0xdBB250f58B6B35400BaeCa1f89aE3b2249868af9",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1tt4yeejfsp4wk4rhdqrua4s5j3s2kuhph895ke",
+        "cAddress": "0xD6f26F1f62b7F5f8A97FB059Db71929460a6ad1a",
+        "amount": "600000000000000",
+        "delegatorRewardAmount": "2013892336787885965630"
+      }
+    ],
+    "totalStakeAmount": "22723984000000000",
+    "cChainAddress": "0x9Ba3d6247b9C541c54627a5dAbC8e5e9dD51587d",
+    "overboost": "0",
+    "rewardingWeight": "22723984000000000",
+    "cappedWeight": "22723984000000000",
+    "nodeRewardAmount": "95340952581021941826592",
+    "validatorRewardAmount": "79484960619840967334170"
+  },
+  {
+    "nodeId": "NodeID-KtTdea6FeDDy5pERrZKHkkhtJFCbJNv1a",
+    "bondingAddress": "flare1u8x2r8t9544dp7p7xs9hgp6amakhpmqskp4fz4",
+    "selfBond": "3000010000000000",
+    "ftsoAddress": "0xe3a76233885E355cFaF141D7dd3D92705C9db4D5",
+    "stakeEnd": 1703946124,
+    "pChainAddress": [
+      "flare1u8x2r8t9544dp7p7xs9hgp6amakhpmqskp4fz4"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000010000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "608000000000000",
+    "totalSelfBond": "3000010000000000",
+    "delegators": [
+      {
+        "pAddress": "flare15yhw476z9wvqfyqrhexjz7vw3fle9rjjn9vh0e",
+        "cAddress": "0xf234B4DCd1d51D46f75a60AB4a8C96794eC68Fd2",
+        "amount": "608000000000000",
+        "delegatorRewardAmount": "2040744234611724445171"
+      }
+    ],
+    "totalStakeAmount": "18608010000000000",
+    "cChainAddress": "0x781deF0a0845ac75F10Bb65028EAFEb6E73eece8",
+    "overboost": "0",
+    "rewardingWeight": "18608010000000000",
+    "cappedWeight": "18608010000000000",
+    "nodeRewardAmount": "78071934878900729015152",
+    "validatorRewardAmount": "76031190644289004569981"
+  },
+  {
+    "nodeId": "NodeID-KzPd2Vx5WomGtur91B9K9R7to3mYyYga",
+    "bondingAddress": "flare18s4u5fq8a74qqexew9jps736hw36fsccfe3y4e",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x9e55a49D251324B1623dc2A81894D1AfBfB8bbdC",
+    "stakeEnd": 1699614000,
+    "pChainAddress": [
+      "flare1dkeqvpd68stg3rgclmayr900jtmxqx9yp2y29d"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "0",
+    "boost": "10000000000000000",
+    "BEB": "1000000000000000",
+    "selfDelegations": "1000000000000000",
+    "totalSelfBond": "1000000000000000",
+    "normalDelegations": "48146016307696657",
+    "delegators": [
+      {
+        "pAddress": "flare120egt2pcdxz9djvnf8fgqlw263f0wsek3ryrrz",
+        "cAddress": "0x84b10467cE6D0705aAc767eE8119af7C99CE102c",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare12g5rgag2hgzshgtj6vc79wcq34f5cns8zhr5q9",
+        "cAddress": "0x962D880d4D1DeDb248e08807dCE9aeE84fD4D132",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare15r02gk26zfy744lvm9ezv6m8nj3j0vn9nfksrm",
+        "cAddress": "0xE84d4C5765ea094aBB2b6dF49f73e03f8f2571a2",
+        "amount": "650000315202548",
+        "delegatorRewardAmount": "2181717756160203051457"
+      },
+      {
+        "pAddress": "flare16nnksgv3hcvys6jeu8g254t7z3pfqwmckzgu8f",
+        "cAddress": "0xf1e2e296920FA6F6f8892Bd3cAFd79aCFDC4d62d",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "335648722797980994271"
+      },
+      {
+        "pAddress": "flare17ex39tgfw44tx6s6aptr0d7xpn3gq8julqayug",
+        "cAddress": "0x935B13d4B687cAEBb7212Cd5093e8dc4e4755151",
+        "amount": "435000000000000",
+        "delegatorRewardAmount": "1460071944171217325080"
+      },
+      {
+        "pAddress": "flare1aqngyqk7jn99xk7cg5xqd2f7ndmh36q56kfd4c",
+        "cAddress": "0xa355ac3fF2261c1BafAb285d9d111F8EB4cb639f",
+        "amount": "449999998649125",
+        "delegatorRewardAmount": "1510419248056719790124"
+      },
+      {
+        "pAddress": "flare1jdyjk8sxyck76wymvfxt48797wdgh8g5qjvwtx",
+        "cAddress": "0xeeE0509853A980313ed99245B970367c79Ec07CD",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1muqq8nldg7ye2uz9mlm0j6tfhn2q5x40ua05kh",
+        "cAddress": "0x5267317E729A6A80431f798213Abd0Fe45BA31b5",
+        "amount": "200000000000000",
+        "delegatorRewardAmount": "671297445595961988542"
+      },
+      {
+        "pAddress": "flare1nljqfgcsl6cq3tcwz6s3g9uanhgj5yls2vq7ry",
+        "cAddress": "0x04CA5b4d18029DE724c00aDC8F7c320CcE2F2407",
+        "amount": "87275000000000",
+        "delegatorRewardAmount": "292937422821937912750"
+      },
+      {
+        "pAddress": "flare1pr4f2m4a3ga2t58u2m9f5h76uvqdw0vjl8nc0d",
+        "cAddress": "0x6c7f7757E8587E4068B8Cb9f713852eF2Ae3abaf",
+        "amount": "35000000000000000",
+        "delegatorRewardAmount": "117477052979293347994993"
+      },
+      {
+        "pAddress": "flare1r8fdw058svaur3lqqk3cz6m77heekm52qa6dxl",
+        "cAddress": "0x5085caFc65BC110904d7e4b980396C5484D1cc6C",
+        "amount": "432900000000000",
+        "delegatorRewardAmount": "1453023320992459724200"
+      },
+      {
+        "pAddress": "flare1rsya3j4w9c90h427jzalqzmz09xy0evnuc8fmg",
+        "cAddress": "0x795EF8125697b5a8C037A957566f7bCe93076007",
+        "amount": "10536160993844984",
+        "delegatorRewardAmount": "35364489807779749713826"
+      },
+      {
+        "pAddress": "flare1rw9mgeh7u2wfl73e2kmfvdwg3q7ujmfk8056aq",
+        "cAddress": "0x616763f6CD5D5b38420BcB87EF116F88691A4f3d",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497136"
+      },
+      {
+        "pAddress": "flare1yk602m068g7awlerschj4f8rek2sv5ssssgvpt",
+        "cAddress": "0x5395e03bFCd429140e255cCe6cb0FC0241E682Bb",
+        "amount": "54680000000000",
+        "delegatorRewardAmount": "183532721625936007668"
+      }
+    ],
+    "totalStakeAmount": "59146016307696657",
+    "cChainAddress": "0x5F4E1FB306d4c071b962afcAeD7beE2287E84679",
+    "overboost": "5000000000000000",
+    "rewardingWeight": "54146016307696657",
+    "cappedWeight": "54146016307696657",
+    "nodeRewardAmount": "227175515228462920184670",
+    "validatorRewardAmount": "65574026413571443693218"
+  },
+  {
+    "nodeId": "NodeID-LcbbZYhBHn8HVjTzPASuHtFVAckcdctWS",
+    "bondingAddress": "flare1dcl0rtm5yqhr6ws37cp72z8rzh4vcjec52gecg",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0x35149714467F2FE71b46eEb4d11689ED8728Bd25",
+    "stakeEnd": 1703862000,
+    "pChainAddress": [
+      "flare1dcl0rtm5yqhr6ws37cp72z8rzh4vcjec52gecg"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "100000000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare15xgrpc2uy297ftmxpgjxmfajlgfffepy0877cj",
+        "cAddress": "0xbe303CC50e4A001e74ac26E186365B8488d52195",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "335648722797980994272"
+      }
+    ],
+    "totalStakeAmount": "3100000000000000",
+    "cChainAddress": "0xb6379cD18Bd767a56e323A2E6d33e709dA5b945C",
+    "overboost": "0",
+    "rewardingWeight": "3100000000000000",
+    "cappedWeight": "3100000000000000",
+    "nodeRewardAmount": "13006388008421763528016",
+    "validatorRewardAmount": "12670739285623782533744"
+  },
+  {
+    "nodeId": "NodeID-LxpVHRQAYXPRf7q5oz1iT4N1z9XHz5rHU",
+    "bondingAddress": "flare19s68tl9mmy5cm7pj5h870k9yswlln8w8qclj48",
+    "selfBond": "29999987000000000",
+    "ftsoAddress": "0xf26Be97eB0d7a9fBf8d67f813D3Be411445885ce",
+    "stakeEnd": 1702562141,
+    "pChainAddress": [
+      "flare19s68tl9mmy5cm7pj5h870k9yswlln8w8qclj48"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough FTSO performance",
+    "BEB": "29999987000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "117650000000000",
+    "totalSelfBond": "29999987000000000",
+    "delegators": [
+      {
+        "pAddress": "flare14nrslwvtp3zmy40qt0m0w779mxgjmh6pgpya5c",
+        "cAddress": "0xD75E9A391Dc8C8bFDe14810C80e9cad0a1cBc7AF",
+        "amount": "50000000000000"
+      },
+      {
+        "pAddress": "flare1fgxmygk6ewleq7jenywl77wr054kg3yag6zxst",
+        "cAddress": "0x2C639908d20641473D17CfD713152Bf74003203F",
+        "amount": "67650000000000"
+      }
+    ],
+    "totalStakeAmount": "30117637000000000",
+    "cChainAddress": "0x00dF1CFA708C7DA792e60efD271872EAEB111AAE",
+    "overboost": "0",
+    "rewardingWeight": "30117637000000000"
+  },
+  {
+    "nodeId": "NodeID-MN7sJduRdGUs3aWyYUmym2CFVsptzgKcJ",
+    "bondingAddress": "flare1vckhzfqx2pu4cqghn9n3qwq6hjx5e37a8wzdjk",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x3D2c08eD9B2333cbce2b8A219e02F4Aa31ebcCd3",
+    "stakeEnd": 1699009200,
+    "pChainAddress": [
+      "flare1hs5xs2dgpnw29weylxqkhdnzuc0lzt8n63cc4q"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "3000000000000000",
+    "selfDelegations": "3000000000000000",
+    "totalSelfBond": "3000000000000000",
+    "normalDelegations": "41000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare166qu6093h0tyuxcpqgyzu2uwn8w2400nrju4le",
+        "cAddress": "0xc9F314887750169424bd78770ccfd5AAC87A4b5F",
+        "amount": "41000000000000000",
+        "delegatorRewardAmount": "137615976347172207651275"
+      }
+    ],
+    "totalStakeAmount": "59000000000000000",
+    "cChainAddress": "0x4db34eC67d015Fa0cDA7966eccaBcC168B107682",
+    "overboost": "0",
+    "rewardingWeight": "59000000000000000",
+    "cappedWeight": "59000000000000000",
+    "nodeRewardAmount": "247540933063510983275158",
+    "validatorRewardAmount": "109924956716338775623883"
+  },
+  {
+    "nodeId": "NodeID-MsF6Xc1PsMWtcxVudCepWb5kUeF1EF8RX",
+    "bondingAddress": "flare1n2t5dxej43wv0yasz2vl5q9plmcya5xd0d02z4",
+    "selfBond": "10000000000000000",
+    "ftsoAddress": "0x07702A7494F760B0b3642463BdD2B7A13cFDDbb2",
+    "stakeEnd": 1700046000,
+    "pChainAddress": [
+      "flare1jpdvx863w5nsyz9s5etfczz84z2mprwer8xmzn"
+    ],
+    "fee": 200000,
+    "group": 1,
+    "eligible": true,
+    "boostDelegations": "5000000000000000",
+    "boost": "15000000000000000",
+    "BEB": "3000000000000000",
+    "selfDelegations": "3000000000000000",
+    "totalSelfBond": "3000000000000000",
+    "normalDelegations": "11446739994775408",
+    "delegators": [
+      {
+        "pAddress": "flare10cqnqvvysah95e8tt747x062k66pah0qmgamce",
+        "cAddress": "0xAAD7e3c1a7315b415e40E3A530C8511AB535cf4f",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare10l55r0ygdukq23dgeypptq8q5gwag8xyj44n3j",
+        "cAddress": "0x2E077Aa5333234e805595474a80589ca124aA38C",
+        "amount": "200810994775408",
+        "delegatorRewardAmount": "674019539201577295000"
+      },
+      {
+        "pAddress": "flare10wac60z9q327jp0wu3syf83w0sumjzjq0awfrn",
+        "cAddress": "0xC54d87737CA5b11CA372972e5D1A5cB6FEe26A31",
+        "amount": "3563333000000000",
+        "delegatorRewardAmount": "11960281703538980102601"
+      },
+      {
+        "pAddress": "flare1cd8ckszma59a02eelmu4gvulkzt4vjlapg5uyt",
+        "cAddress": "0x309ACbbB8f25b007ED61507c4c090EAE3be9aEA5",
+        "amount": "53000000000000",
+        "delegatorRewardAmount": "177893823082929926963"
+      },
+      {
+        "pAddress": "flare1drh5tcwf27ax6agvktxs9fzh0dr2kgzkcdwkj7",
+        "cAddress": "0x6243B425a072fe84bb5df42a7d267Dc3aCBa2C3A",
+        "amount": "500000000000000",
+        "delegatorRewardAmount": "1678243613989904971357"
+      },
+      {
+        "pAddress": "flare1fkwjsvnlzhaw2uljhrzyg02ujdyqsk5ksv8rqu",
+        "cAddress": "0x9eBd9026C69B5d0Eb9B8b5678A77e6d4279D13C5",
+        "amount": "1000000000000000",
+        "delegatorRewardAmount": "3356487227979809942714"
+      },
+      {
+        "pAddress": "flare1hftc2u5etzf6l7vn29zq4vpms6j5nqmc4wm7wl",
+        "cAddress": "0x4cAEe43a1f663805Fc028E6e17C0239DECadae12",
+        "amount": "1000000000000000",
+        "delegatorRewardAmount": "3356487227979809942714"
+      },
+      {
+        "pAddress": "flare1j4ulq4fk2aak93qftnmej649w56ce5dx3qh8sd",
+        "cAddress": "0x187a9e4f8dd811cfca029B1898125De594b3994E",
+        "amount": "1904596000000000",
+        "delegatorRewardAmount": "6392752148461434097654"
+      },
+      {
+        "pAddress": "flare1jpgckvq9r8je7u3kvweh204a8pwwsdzy5x8dx4",
+        "cAddress": "0xf76411F55773c6649682B983526D2E54E77cBf4e",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "167824361398990497135"
+      },
+      {
+        "pAddress": "flare1qe4npc5pj8ds30ycgdhxuwu9kel8dh9x08xjst",
+        "cAddress": "0x76fB4200Ef295671Acb30B0Eec73996F2D1F2BeC",
+        "amount": "2470990000000000",
+        "delegatorRewardAmount": "8293846375465830570349"
+      },
+      {
+        "pAddress": "flare1ql0t4qq94u80gz0ax40arflye32c8h8jcdrhr7",
+        "cAddress": "0xE4E66e92a269ef297Ea2E3bedB8d17CfA0bAEbB2",
+        "amount": "500000000000000",
+        "delegatorRewardAmount": "1678243613989904971357"
+      },
+      {
+        "pAddress": "flare1sa2w3paqszhv4rgd7jgch9qjhahszf4sdd7sxf",
+        "cAddress": "0x8DEEF493D3592c3504a54988f6b204E94788ad61",
+        "amount": "100015000000000",
+        "delegatorRewardAmount": "335699070106400691420"
+      },
+      {
+        "pAddress": "flare1wzzgp7r3chp9lcxl53x8rypn9trskn0af5fth6",
+        "cAddress": "0x9f73c40fAaa9B3f45581f66423b9D9A94C1F2bD9",
+        "amount": "53995000000000",
+        "delegatorRewardAmount": "181233527874769837858"
+      }
+    ],
+    "totalStakeAmount": "29446739994775408",
+    "cChainAddress": "0xB259BD09CD9105D632cdE9856000878Ba56a3939",
+    "overboost": "0",
+    "rewardingWeight": "29446739994775408",
+    "cappedWeight": "29446739994775408",
+    "nodeRewardAmount": "123547008372632390391386",
+    "validatorRewardAmount": "85126171778163057047129"
+  },
+  {
+    "nodeId": "NodeID-MWNqxgXd8itY143jaNyq8aMYTeV1RXJgS",
+    "bondingAddress": "flare1j67sqxpslhpaf89mz88p9y39w0u0hu98khjyhe",
+    "selfBond": "29900000000000000",
+    "ftsoAddress": "0xB53F6CFaB63CAbFc255c702ebeB273510DB541d7",
+    "stakeEnd": 1701601806,
+    "pChainAddress": [
+      "flare1j67sqxpslhpaf89mz88p9y39w0u0hu98khjyhe"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough FTSO performance",
+    "BEB": "29900000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "106500000000000",
+    "totalSelfBond": "29900000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1cjrgep0m86hutw0lr6atmer86f6wcdyg724qy3",
+        "cAddress": "0x287FEf7835D2D3BF4e0b5254Ebec7A07d01cFF8f",
+        "amount": "56500000000000"
+      },
+      {
+        "pAddress": "flare1fgxmygk6ewleq7jenywl77wr054kg3yag6zxst",
+        "cAddress": "0x2C639908d20641473D17CfD713152Bf74003203F",
+        "amount": "50000000000000"
+      }
+    ],
+    "totalStakeAmount": "30006500000000000",
+    "cChainAddress": "0x8807340C9e57C66A178501Eb726f7878ff2FA985",
+    "overboost": "0",
+    "rewardingWeight": "30006500000000000"
+  },
+  {
+    "nodeId": "NodeID-MzMscku8ayAd2pBEmH8xWiAXBwtPgS2S5",
+    "bondingAddress": "flare1sr5f7kstvp4qnk789nd9rgwut960aauf0tua50",
+    "selfBond": "1500000000000000",
+    "ftsoAddress": "0xa288054b230DCbb8689Ac229D6DBd7Df39203181",
+    "stakeEnd": 1704067199,
+    "pChainAddress": [
+      "flare1sr5f7kstvp4qnk789nd9rgwut960aauf0tua50"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1500000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "100000000000000",
+    "normalDelegations": "0",
+    "totalSelfBond": "1600000000000000",
+    "delegators": [],
+    "totalStakeAmount": "1600000000000000",
+    "cChainAddress": "0xda8E7b8B9EcDc48531697Dc5179F250F1f8645a6",
+    "overboost": "0",
+    "rewardingWeight": "1600000000000000",
+    "cappedWeight": "1600000000000000",
+    "nodeRewardAmount": "6712974455959619885428",
+    "validatorRewardAmount": "6712974455959619885428"
+  },
+  {
+    "nodeId": "NodeID-NbTToANYcdsreLC5PBcE9gsMBpBY7N7s1",
+    "bondingAddress": "flare1tyc9lm0tlye8yc5qej64meuk7x2e7y0er7q4wv",
+    "selfBond": "1250000000000000",
+    "ftsoAddress": "0x4A74e79738009711a6ddB6653614d43ba9F431b9",
+    "stakeEnd": 1704129010,
+    "pChainAddress": [
+      "flare1tyc9lm0tlye8yc5qej64meuk7x2e7y0er7q4wv"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1250000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "82750000000000",
+    "totalSelfBond": "1250000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1q5p740t404raz589k3u3y65k0uxq3rjegfxgjd",
+        "cAddress": "0xe20949F9230810555221d2FEe7107C39FC664AcD",
+        "amount": "82750000000000",
+        "delegatorRewardAmount": "277749318115329272760"
+      }
+    ],
+    "totalStakeAmount": "1332750000000000",
+    "cChainAddress": "0xE96aA06057e3628864eB0fd497eE9a1f80956C80",
+    "overboost": "0",
+    "rewardingWeight": "1332750000000000",
+    "cappedWeight": "1332750000000000",
+    "nodeRewardAmount": "5591697941362614626440",
+    "validatorRewardAmount": "5313948623247285353680"
+  },
+  {
+    "nodeId": "NodeID-NCBqn9P8oAEkYn6McyQjhF67WarSTttz5",
+    "bondingAddress": "flare1ga50gf0da5wk0ddglazf279nhpvg62ee5w4tec",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0x4E94Dbff86b7f1F5ac9FD849E8101A4d52E947eC",
+    "stakeEnd": 1701710446,
+    "pChainAddress": [
+      "flare1ga50gf0da5wk0ddglazf279nhpvg62ee5w4tec"
+    ],
+    "fee": 150000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "1009805000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare150p9azwsqrylzhym72hw0jqcmqh29g7acf0ps2",
+        "cAddress": "0xa75b157988771fA1871cd22fA48f885ecd893191",
+        "amount": "299800000000000",
+        "delegatorRewardAmount": "1069167050382618709627"
+      },
+      {
+        "pAddress": "flare1c9q4w8dh4dp8u9urshat04t0uhq6gsrasfwanz",
+        "cAddress": "0x55F446942dFC92B889Ae4D4eC71862937f6F7f95",
+        "amount": "50005000000000",
+        "delegatorRewardAmount": "178331215324826045947"
+      },
+      {
+        "pAddress": "flare1ejs047fckm9epxu24qfpjkgtte49w2md79dwkd",
+        "cAddress": "0xebCC41f91E258C485c49E4C291771399aA4241CD",
+        "amount": "150001000000000",
+        "delegatorRewardAmount": "534943718226961938168"
+      },
+      {
+        "pAddress": "flare1hfchcfl8eakrw52f8njtj6wffqgg4vha84zl30",
+        "cAddress": "0x44a584B709eCD27369a7484d48bF64eae2FafE85",
+        "amount": "310000000000000",
+        "delegatorRewardAmount": "1105542980715849899881"
+      },
+      {
+        "pAddress": "flare1nx2qfjxsxgf582jjrdrrwnjuts5xvkmpe8huk0",
+        "cAddress": "0xC77eea5eE92BbE1b22Da3417710B2dbDbDe5C8E1",
+        "amount": "50000000000000",
+        "delegatorRewardAmount": "178313383986427403207"
+      },
+      {
+        "pAddress": "flare1u5kku76v6kg2uwtglwwahnzzpumgqdcrccrjkd",
+        "cAddress": "0x3598775513E42a39b08521a48DdD6172D9e73e66",
+        "amount": "149999000000000",
+        "delegatorRewardAmount": "534936585691602481073"
+      }
+    ],
+    "totalStakeAmount": "19009805000000000",
+    "cChainAddress": "0xe96821B10436625dC28d80b2ADEf90F62B6745C3",
+    "overboost": "0",
+    "rewardingWeight": "19009805000000000",
+    "cappedWeight": "19009805000000000",
+    "nodeRewardAmount": "79757709611108413685068",
+    "validatorRewardAmount": "76156474676780127207165"
+  },
+  {
+    "nodeId": "NodeID-NCfvDEdDv8tuVDxWLB1ShJToQ7qAcca2B",
+    "bondingAddress": "flare13jp378fxuancqvrwjsqxmu5cp2crrck003udsn",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x0000000000000000000000000000000000000000",
+    "stakeEnd": 1707822000,
+    "pChainAddress": [
+      "flare13jp378fxuancqvrwjsqxmu5cp2crrck003udsn"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough FTSO performance",
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "451672000000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare18ps7xddrhx0rr83qlxncvvq9u6j6jx6d8r8h5v",
+        "cAddress": "0x38cc5D8D56734017c11A9A491e8A594F3b1a4959",
+        "amount": "50005000000000"
+      },
+      {
+        "pAddress": "flare13lpkwvap0pwgq0rmjcprcyn7f7ly8ul2zp5m3f",
+        "cAddress": "0xFd898F214F726160E909bA60867CaF3a9A33f2AA",
+        "amount": "300000000000000"
+      },
+      {
+        "pAddress": "flare1eqzuwaevrzvrqrr9vpgl4netjeyhsyc42yw052",
+        "cAddress": "0x1a2a9b74544E379D2922dacfCA9b13DFC586C46B",
+        "amount": "51667000000000"
+      },
+      {
+        "pAddress": "flare1fkymtpqn98hrp40u3ggwxmsfhn629rwu7a7wvc",
+        "cAddress": "0xC17c9EfCEd463F740B34b55A623181cc19B5F848",
+        "amount": "50000000000000"
+      }
+    ],
+    "totalStakeAmount": "30451672000000000",
+    "cChainAddress": "0x40653f79D831B40f4d5658B10E3CEC1FA28a5e32",
+    "overboost": "0",
+    "rewardingWeight": "30451672000000000"
+  },
+  {
+    "nodeId": "NodeID-Nwi6MgscyMFQciLyabSFWpWHBQATBVGfk",
+    "bondingAddress": "flare1adejuls4uy2qqrfr8pgx5mshyw97p2zrwkp2dw",
+    "selfBond": "1000010000000000",
+    "ftsoAddress": "0x9225db8B30A59D8Dd15448E2E5918BD160262b5D",
+    "stakeEnd": 1703348759,
+    "pChainAddress": [
+      "flare1adejuls4uy2qqrfr8pgx5mshyw97p2zrwkp2dw"
+    ],
+    "fee": 1000000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000010000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000010000000000",
+    "delegators": [],
+    "totalStakeAmount": "1000010000000000",
+    "cChainAddress": "0x61564978e1012Fb81eAC3054B198ab2326E8FDf4",
+    "overboost": "0",
+    "rewardingWeight": "1000010000000000",
+    "cappedWeight": "1000010000000000",
+    "nodeRewardAmount": "4195650991065112176016",
+    "validatorRewardAmount": "4195650991065112176016"
+  },
+  {
+    "nodeId": "NodeID-P4T4uKqveVxjZZXVdADHENdnCKnsCFvDE",
+    "bondingAddress": "flare15gt756hh9cqj4c63l6cv7fx3yczarlz7kgmumq",
+    "selfBond": "3000000000000000",
+    "ftsoAddress": "0xD3956F862a4960bB4937e596a2BaeCFfCbb4b3e0",
+    "stakeEnd": 1701650796,
+    "pChainAddress": [
+      "flare15gt756hh9cqj4c63l6cv7fx3yczarlz7kgmumq"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "3000000000000000",
+    "boostDelegations": "15000000000000000",
+    "boost": "15000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "27000000000000000",
+    "totalSelfBond": "3000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare1vxsy2wcatnsepxp05snzjrgzwsmmusetuf937c",
+        "cAddress": "0xff71960A8a2597fbD18F81A79D5171CBf27C5665",
+        "amount": "27000000000000000",
+        "delegatorRewardAmount": "90625155155454868453280"
+      }
+    ],
+    "totalStakeAmount": "45000000000000000",
+    "cChainAddress": "0x6D4e76A03B1Ee140c8eBF47C6B165C10B04168B0",
+    "overboost": "0",
+    "rewardingWeight": "45000000000000000",
+    "cappedWeight": "45000000000000000",
+    "nodeRewardAmount": "188802406573864309277664",
+    "validatorRewardAmount": "98177251418409440824384"
+  },
+  {
+    "nodeId": "NodeID-P6nNyHc4QwyKoVSS7c9XatGp4Sityq7rM",
+    "bondingAddress": "flare1g2s5u5kckvysvfs4m0yclrtm0ctvmwxkfjf0pj",
+    "selfBond": "1000000000000000",
+    "ftsoAddress": "0x4429306b301a0EB573Fa5758BB40AA581255c624",
+    "stakeEnd": 1703082616,
+    "pChainAddress": [
+      "flare1g2s5u5kckvysvfs4m0yclrtm0ctvmwxkfjf0pj"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "1000000000000000",
+    "boostDelegations": "5000000000000000",
+    "boost": "5000000000000000",
+    "selfDelegations": "0",
+    "normalDelegations": "0",
+    "totalSelfBond": "1000000000000000",
+    "delegators": [],
+    "totalStakeAmount": "6000000000000000",
+    "cChainAddress": "0x8Ae314214d6dbF6d253918CDA933bC677907992F",
+    "overboost": "0",
+    "rewardingWeight": "6000000000000000",
+    "cappedWeight": "6000000000000000",
+    "nodeRewardAmount": "25173654209848574570355",
+    "validatorRewardAmount": "25173654209848574570355"
+  },
+  {
+    "nodeId": "NodeID-Q9KeAQKSyxtJj8mfum951Q5akkoFBJLTs",
+    "bondingAddress": "flare1kqhkxvcgfulxu9zc5qr6m9240fvr907kj2zmze",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0x08233630C4C9e2c1f865B5519e70047EaBAeFAe2",
+    "stakeEnd": 1727798400,
+    "pChainAddress": [
+      "flare1kqhkxvcgfulxu9zc5qr6m9240fvr907kj2zmze"
+    ],
+    "fee": 200000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "1303298000000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare10q6n64cfrljar7l8k6ttenx6ddst5a64yln9gj",
+        "cAddress": "0xaC63105423eEB4bE0467677E4667E54A7772B0C1",
+        "amount": "58000000000000",
+        "delegatorRewardAmount": "194676259222828976677"
+      },
+      {
+        "pAddress": "flare12p2cr4hnyfsvp2demsfz28rdwdu9utl5dz7m88",
+        "cAddress": "0x2Ac1200E5cdbb166d940BBF401808C3119372Bb0",
+        "amount": "55998000000000",
+        "delegatorRewardAmount": "187956571792413397172"
+      },
+      {
+        "pAddress": "flare14ljmkyq50z6a9xuymtm4xujl429s5lucw2r8yk",
+        "cAddress": "0xd6b0d50c06f00D68c6c525F2c046e5Fe7B9A5041",
+        "amount": "125800000000000",
+        "delegatorRewardAmount": "422246093279860090793"
+      },
+      {
+        "pAddress": "flare1fkwjsvnlzhaw2uljhrzyg02ujdyqsk5ksv8rqu",
+        "cAddress": "0x9eBd9026C69B5d0Eb9B8b5678A77e6d4279D13C5",
+        "amount": "1000000000000000",
+        "delegatorRewardAmount": "3356487227979809942715"
+      },
+      {
+        "pAddress": "flare1kudtxulejhvuae4rg5uqgc8pl2kvpfrsxaw3qn",
+        "cAddress": "0xd80bBB3688bE2b7FCaEE36a6dAA552E38E3F7a09",
+        "amount": "63500000000000",
+        "delegatorRewardAmount": "213136938976717931363"
+      }
+    ],
+    "totalStakeAmount": "31303298000000000",
+    "cChainAddress": "0xB5De21C6E3eC3aF93917DDD17de558A9BDfbbB35",
+    "overboost": "0",
+    "rewardingWeight": "31303298000000000",
+    "cappedWeight": "31303298000000000",
+    "nodeRewardAmount": "131336399913307410775175",
+    "validatorRewardAmount": "126961896822055780436455"
+  },
+  {
+    "nodeId": "NodeID-s16BotZkrwu9pfqjmD8vUAsjYtk83dDv",
+    "bondingAddress": "flare1296uk26exmrjaxvnd669ra092r0t4h7ggtl32r",
+    "selfBond": "29999995000000000",
+    "ftsoAddress": "0xB1Aa0F2691Db6bBb2969EfC7BE70787F58DD2461",
+    "stakeEnd": 1701881312,
+    "pChainAddress": [
+      "flare1296uk26exmrjaxvnd669ra092r0t4h7ggtl32r"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": false,
+    "nonEligibilityReason": "not high enough uptime",
+    "BEB": "29999995000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "101000000000000",
+    "totalSelfBond": "29999995000000000",
+    "delegators": [
+      {
+        "pAddress": "flare12zes6ydqahvlghc06mfe58amp9fe4an45u69h0",
+        "cAddress": "0x0E69c8aE1339e0A3675c1656e71536874C6Efb7d",
+        "amount": "51000000000000"
+      },
+      {
+        "pAddress": "flare10fx2k2flay58g7g9j8r5qwygh4q8udr33uafu4",
+        "cAddress": "0xC81FF57E8efC7E801A7625494f18923E67C6FDDb",
+        "amount": "50000000000000"
+      }
+    ],
+    "totalStakeAmount": "30100995000000000",
+    "cChainAddress": "0x7b0b9b23f70e0fB6100b408d03d10E9BF4888397",
+    "overboost": "0",
+    "rewardingWeight": "30100995000000000"
+  },
+  {
+    "nodeId": "NodeID-xi5DWBUKqBJUWvHiDEr9hpVNLGbxRtu2",
+    "bondingAddress": "flare1jjastkh4pyv8pem0gzqrhkhhcst9860a5mcp4w",
+    "selfBond": "30000000000000000",
+    "ftsoAddress": "0xe08898B7B8b18dBCdDcC6339c8b9c19EFfA81413",
+    "stakeEnd": 1704466800,
+    "pChainAddress": [
+      "flare1jjastkh4pyv8pem0gzqrhkhhcst9860a5mcp4w"
+    ],
+    "fee": 100000,
+    "group": 2,
+    "eligible": true,
+    "BEB": "30000000000000000",
+    "boostDelegations": "0",
+    "boost": "0",
+    "selfDelegations": "0",
+    "normalDelegations": "1220305000000000",
+    "totalSelfBond": "30000000000000000",
+    "delegators": [
+      {
+        "pAddress": "flare145clg83wssyxrtyjsxv8jhz2efl2h0ptxzq3fe",
+        "cAddress": "0xb4038A4B5f31bAedD9aaBf818639e164a465c34f",
+        "amount": "59990000000000",
+        "delegatorRewardAmount": "226525127407322398271"
+      },
+      {
+        "pAddress": "flare18jcgzupqznxv3a0thkfkuqdty9kukalmfzn559",
+        "cAddress": "0x24C8F0F88e7a9dB02affDFAd8Cee8Bdf9E0b8212",
+        "amount": "290000000000000",
+        "delegatorRewardAmount": "1095053958128412993810"
+      },
+      {
+        "pAddress": "flare19dnpm3463uu3uuz4u2gmsj5m8zvfc9p29za355",
+        "cAddress": "0xd9774194893eeF49a98D0EE9cD8E14c2f4744c15",
+        "amount": "100000000000000",
+        "delegatorRewardAmount": "377604813147728618555"
+      },
+      {
+        "pAddress": "flare1c7wwsa7zs6knkdl674yg3k53zz8uxlx6dhc9d2",
+        "cAddress": "0x6FEa53ABc9d6f313415f31B60e1e5c1e9c4eDB13",
+        "amount": "123870000000000",
+        "delegatorRewardAmount": "467739082046091439804"
+      },
+      {
+        "pAddress": "flare1eqzuwaevrzvrqrr9vpgl4netjeyhsyc42yw052",
+        "cAddress": "0x1a2a9b74544E379D2922dacfCA9b13DFC586C46B",
+        "amount": "170000000000000",
+        "delegatorRewardAmount": "641928182351138651544"
+      },
+      {
+        "pAddress": "flare1l53zs5tnpjw0zkjkzkrsyvhnrgn2dz845uf57f",
+        "cAddress": "0x0c677843e9B7f393745156D3F5938446E74a63Dd",
+        "amount": "206450000000000",
+        "delegatorRewardAmount": "779565136743485733008"
+      },
+      {
+        "pAddress": "flare1n4yy6g9u0zwharw9dtg4cuw0jh0q67rca0w6yx",
+        "cAddress": "0x31020689920A94A7Bb8Bd6B843fBA902Ae28D87c",
+        "amount": "269995000000000",
+        "delegatorRewardAmount": "1019514115258209883670"
+      }
+    ],
+    "totalStakeAmount": "31220305000000000",
+    "cChainAddress": "0xD7f5b619441fAfE525Ea3aBeBCd4a961C1227426",
+    "overboost": "0",
+    "rewardingWeight": "31220305000000000",
+    "cappedWeight": "31220305000000000",
+    "nodeRewardAmount": "130988193732667750316957",
+    "validatorRewardAmount": "126380263317585360598295"
+  }
+]
