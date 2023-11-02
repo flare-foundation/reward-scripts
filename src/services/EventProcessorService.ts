@@ -43,7 +43,7 @@ export class EventProcessorService {
                         endBlock = lastBlock;
                     }
                     // https://flare-api.flare.network has rate limit 200 rpm
-                    await sleepms(1000 / rps);
+                    await sleepms(2000 / rps);
                     let contractEventBatches = await this.contractService.getEventsFromBlockForContract(
                         "PChainStakeMirrorMultiSigVoting",
                         nextBlockToProcess,

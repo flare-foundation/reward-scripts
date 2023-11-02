@@ -43,6 +43,7 @@ export class CalculatingRewardsService {
 	public async calculateRewards(rewardEpoch: number, ftsoPerformanceForRewardWei: string, boostingFactor: number, votePowerCapBIPS: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, rewardAmountEpochWei: string, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
+		this.logger.info(rps)
 
 		// contracts
 		let ftsoManager = await this.contractService.ftsoManager();
@@ -62,10 +63,12 @@ export class CalculatingRewardsService {
 
 		// uptime voting threshold
 		if (uptimeVotingThreshold === undefined) {
+			await sleepms(1000 / rps);
 			uptimeVotingThreshold = parseInt(await pChainStakeMirrorMultiSigVoting.methods.getVotingThreshold().call());
 		}
 
 		if (rewardEpoch === undefined) {
+			await sleepms(1000 / rps);
 			rewardEpoch = parseInt(await ftsoRewardManager.methods.getCurrentRewardEpoch().call()) - 1;
 		}
 
@@ -74,6 +77,7 @@ export class CalculatingRewardsService {
 
 		let rewardAmount: bigint;
 
+		await sleepms(1000 / rps);
 		let nextRewardEpochData = await ftsoManager.methods.getRewardEpochData((rewardEpoch + 1).toString()).call();
 		let ftsoVpBlock = parseInt(nextRewardEpochData[0]);
 		let nextRewardEpochStartBlock = parseInt(nextRewardEpochData[1]);
@@ -136,6 +140,7 @@ export class CalculatingRewardsService {
 				this.logger.error(`FTSO ${node.ftsoAddress} did not provide its p-chain address`);
 			} else {
 				node.pChainAddress.sort((a, b) => a.toLowerCase() > b.toLowerCase() ? 1 : -1);
+				await sleepms(1000 / rps);
 				node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0])).call();
 			}
 			if (node.cChainAddress === ZERO_ADDRESS) {
@@ -202,7 +207,7 @@ export class CalculatingRewardsService {
 
 		// for the reward epoch create JSON file with rewarded addresses and reward amounts
 		// sum rewards per epoch and address
-		let rewardsData = await this.writeRewardedAddressesToJSON(allActiveNodes, rewardAmount, rewardEpoch, generatedFilesPath);
+		let rewardsData = await this.writeRewardedAddressesToJSON(allActiveNodes, rewardAmount);
 
 		let fullData = {
 			recipients: rewardsData
@@ -475,8 +480,8 @@ export class CalculatingRewardsService {
 				if (i > -1) {
 					delegators[i].amount += delegation.weight;
 				} else {
-					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
 					await sleepms(1000 / rps);
+					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
 					if (cAddr === ZERO_ADDRESS) {
 						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
 					}
@@ -515,8 +520,8 @@ export class CalculatingRewardsService {
 				if (i > -1) {
 					delegators[i].amount += delegation.weight;
 				} else {
-					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
 					await sleepms(1000 / rps);
+					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
 					if (cAddr === ZERO_ADDRESS) {
 						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
 					}
@@ -531,7 +536,7 @@ export class CalculatingRewardsService {
 		return [selfDelegations, regularDelegations, boost, delegators];
 	}
 
-	public async writeRewardedAddressesToJSON(activeNodes: ActiveNode[], availableRewardAmount: bigint, epoch: number, filesPath: string): Promise<RewardsData[]> {
+	public async writeRewardedAddressesToJSON(activeNodes: ActiveNode[], availableRewardAmount: bigint): Promise<RewardsData[]> {
 
 		let epochRewardsData = [] as RewardsData[];
 		let distributed = BigInt(0);
