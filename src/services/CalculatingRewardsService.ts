@@ -43,7 +43,6 @@ export class CalculatingRewardsService {
 	public async calculateRewards(rewardEpoch: number, ftsoPerformanceForRewardWei: string, boostingFactor: number, votePowerCapBIPS: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, rewardAmountEpochWei: string, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
-		this.logger.info(rps)
 
 		// contracts
 		let ftsoManager = await this.contractService.ftsoManager();
@@ -598,6 +597,7 @@ export class CalculatingRewardsService {
 	public async sumRewards(lastRewardEpoch: number, numberOfEpochs: number) {
 		let rewardsData: RewardsData[] = [];
 		let firstRewardEpoch = lastRewardEpoch - numberOfEpochs + 1;
+		this.logger.info(`^Rsumming rewards for epochs ${firstRewardEpoch}-${lastRewardEpoch}`);
 		for (let epoch = firstRewardEpoch; epoch < firstRewardEpoch + numberOfEpochs; epoch++) {
 			const filesPath = `generated-files/reward-epoch-${epoch}`;
 			const json = JSON.parse(fs.readFileSync(`${filesPath}/data.json`, 'utf8')) as RewardingPeriodData;
