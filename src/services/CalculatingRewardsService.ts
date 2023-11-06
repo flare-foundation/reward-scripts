@@ -104,11 +104,12 @@ export class CalculatingRewardsService {
 
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
 		for (const activeNode of activeNodes) {
-			let [eligible, ftsoAddress, nonEligibilityReason] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, rewardEpoch, ftsoPerformanceForRewardWei, rps);
+			let [eligible, ftsoAddress, nonEligibilityReason, ftsoName] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, rewardEpoch, ftsoPerformanceForRewardWei, rps);
 
 			// decide to which group node belongs
 			let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
 			node.eligible = eligible;
+			node.ftsoName = ftsoName;
 			if (!node.eligible) {
 				node.nonEligibilityReason = nonEligibilityReason;
 			}
@@ -230,7 +231,7 @@ export class CalculatingRewardsService {
 
 	public async getFtsoAddress(ftsoAddressFile: string) {
 		let rawData = fs.readFileSync(ftsoAddressFile, "utf8");
-		const parsed: { nodeId: string, ftsoAddress: string }[] = parseCsv(rawData, {
+		const parsed: { nodeId: string, ftsoAddress: string, ftsoName: string }[] = parseCsv(rawData, {
 			columns: true,
 			skip_empty_lines: true,
 			delimiter: ',',
@@ -239,7 +240,8 @@ export class CalculatingRewardsService {
 			(it: any, i: number) => {
 				return {
 					nodeId: it["Node ID"],
-					ftsoAddress: it["FTSO address"]
+					ftsoAddress: it["FTSO address"],
+					ftsoName: it["Name"]
 				}
 			}
 		);
@@ -325,7 +327,7 @@ export class CalculatingRewardsService {
 	}
 
 	// check if node is eligible (high enough ftso performance and uptime) for rewards
-	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string, rps: number): Promise<[boolean, string, string]> {
+	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string, rps: number): Promise<[boolean, string, string, string]> {
 
 		let nonEligibilityReason: string;
 		// find node's entity/ftso address
@@ -335,12 +337,12 @@ export class CalculatingRewardsService {
 		if (ftsoObj === undefined) {
 			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
 			nonEligibilityReason = "didn't provide its FTSO address";
-			return [false, "", nonEligibilityReason];
+			return [false, "", nonEligibilityReason, ""];
 		}
 		// uptime
 		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
 			nonEligibilityReason = "not high enough uptime";
-			return [false, ftsoObj.ftsoAddress, nonEligibilityReason];
+			return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
 		}
 
 		// ftso rewards
@@ -348,9 +350,9 @@ export class CalculatingRewardsService {
 		let ftsoPerformance = await ftsoRewardManager.methods.getDataProviderPerformanceInfo(epochNum.toString(), ftsoObj.ftsoAddress).call();
 		if (BigInt(ftsoPerformance[0]) <= BigInt(ftsoPerformanceForReward)) {
 			nonEligibilityReason = "not high enough FTSO performance";
-			return [false, ftsoObj.ftsoAddress, nonEligibilityReason];
+			return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
 		}
-		return [true, ftsoObj.ftsoAddress, nonEligibilityReason];
+		return [true, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
 	}
 
 	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[]): Promise<ActiveNode> {

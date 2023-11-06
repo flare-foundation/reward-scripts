@@ -56,6 +56,7 @@ export interface ActiveNode {
    totalSelfBond: bigint;           // group 1: self-delegations; group 2: initial stake (self-bond) + self-delegations
    group: number;                   // group to which node belongs
    nonEligibilityReason: string;    // reason why node is not eligible for reward
+   ftsoName: string;                // name of an FTSO provider
 }
 
 export interface Entity {
@@ -76,6 +77,7 @@ export interface DelegatorData {
 export interface FtsoData {
    nodeId: string;
    ftsoAddress: string;
+   ftsoName: string;
 }
 
 export interface PAddressData {
