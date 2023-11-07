@@ -10,7 +10,7 @@ if [ -z $2 ]; then
     JQQUERY='{ addresses: [ .recipients[] | .address ], rewardAmounts: [ .recipients[] | .amount ] }'
     jq "$JQQUERY" "$DATAFILE" > "$REWARDMANAGERFILE"
 else
-    JQQUERY='{ recipients: [ .rewardAmounts as $amounts | .addresses | to_entries | .[] | { address: .value, amount: $amounts[.key] } ], REWARD_AMOUNT_EPOCH_WEI: .rewardAmounts | [ .[] | tonumber ] | add | tostring }'
+    JQQUERY='{ recipients: [ .rewardAmounts as $amounts | .addresses | to_entries | .[] | { address: .value, amount: $amounts[.key] } ] }'
     JQSRC="generated-files/validator-rewards/epochs-${1}-${2}.json"
     JQDEST="generated-files/validator-rewards/epochs-${1}-${2}.normalized.json"
     jq "$JQQUERY" "$JQSRC" > "$JQDEST"

@@ -27,7 +27,7 @@
       <div class="content">
         <div class="payoutjson">
           <div class="payouttotal">
-            Total payout: <div><code>{{ data_data.REWARD_AMOUNT_EPOCH_WEI }}</code></div> WEI
+            Total payout: <div><code>{{ totalPayoutWEI }}</code></div> WEI
           </div>
           <div class="payoutbtn">
             <input
@@ -239,6 +239,8 @@ createApp({
         return 0
       }))
 
+    const totalPayoutWEI = computed(() => data_reward_manager.value.rewardAmounts.reduce((v, n) => v + BigInt(n), BigInt(0)))
+
     function copyDataRewardsManager () {
       payoutjsoninput.value.select()
       payoutjsoninput.value.setSelectionRange(0, payoutjsoninput.value.value.length + 10)
@@ -269,6 +271,7 @@ createApp({
       code_commit_hash,
       code_commit_hash_short,
       payoutjsoninput,
+      totalPayoutWEI,
       copyDataRewardsManager,
       toggleSort,
     }
