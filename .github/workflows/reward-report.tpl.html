@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reward report for epoch {{EPOCH_START}}-{{EPOCH_END}}</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+      <div class="nav">
+        <div class="logo">
+          <img src="data:image/png;base64,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" alt="Flare logo">
+          <span>Epoch {{EPOCH_START}}-{{EPOCH_END}}</span>
+        </div>
+        <div class="data">
+          <div>
+            <span>Date generated</span>
+            <span>{{ generated_date.toLocaleString() }}</span>
+          </div>
+          <div>
+            <span>Commit</span>
+            <a :href="`https://github.com/aljazs-flare/flare-reward-scripts-tests/tree/${code_commit_hash}`">{{ code_commit_hash_short }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="payoutjson">
+          <div class="payouttotal">
+            Total payout: <div><code>{{ totalPayoutWEI }}</code></div> WEI
+          </div>
+          <div class="payoutbtn">
+            <input
+              type="text"
+              :value="JSON.stringify(data_reward_manager)"
+              style="display:none"
+              ref="payoutjsoninput"
+            >
+            <button @click="copyDataRewardsManager">
+              COPY PAYOUT JSON
+            </button>
+          </div>
+        </div>
+        <div class="payouts">
+          <div class="table">
+            <div style="grid-row: 1;" class="head mr" @click="toggleSort('address')">
+              <span>Address</span>
+              <div class="sort">
+                <svg :class="{ visible: (data_data_sortby=='address' && data_data_sortorder==-1) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>
+                <svg :class="{ visible: (data_data_sortby=='address' && data_data_sortorder==1) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+              </div>
+            </div>
+            <div style="grid-row: 1;" class="head mr ml" @click="toggleSort('amount_wei')">
+              <span>Payout WEI</span>
+              <div class="sort">
+                <svg :class="{ visible: (data_data_sortby=='amount_wei' && data_data_sortorder==-1) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>
+                <svg :class="{ visible: (data_data_sortby=='amount_wei' && data_data_sortorder==1) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+              </div>
+            </div>
+            <div style="grid-row: 1;grid-column:span 3;" class="head mr ml" @click="toggleSort('amount_flr')">
+              <span>Payout FLR</span>
+              <div class="sort">
+                <svg :class="{ visible: (data_data_sortby=='amount_flr' && data_data_sortorder==-1) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>
+                <svg :class="{ visible: (data_data_sortby=='amount_flr' && data_data_sortorder==1) }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+              </div>
+            </div>
+            <template v-for="(item, i) in data_data_computed_sorted" :id="item.address">
+              <code :style="{ 'grid-row': i+2 }" class="mr">{{ item.address }}</code>
+              <code :style="{ 'grid-row': i+2 }" class="ml mr">{{ item.amount_wei_str }}</code>
+              <code :style="{ 'grid-row': i+2 }" class="ml txtr">{{ item.amount_flr_0 }}</code>
+              <code :style="{ 'grid-row': i+2 }">.</code>
+              <code :style="{ 'grid-row': i+2 }" class="txtl mr">{{ item.amount_flr_1 }}</code>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+<style>
+body,
+html {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  font-family: monospace, system-ui;
+}
+#app {
+  display: grid;
+}
+a {
+  color: #E62058;
+  text-decoration: none;
+}
+a:hover,
+a:active {
+  color: #d84e75;
+}
+.txtl {
+  text-align: left;
+}
+.txtr {
+  text-align: right;
+}
+.mr {
+  margin-right: .5rem;
+}
+.ml {
+  margin-left: .5rem;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  padding: 24px;
+  background-color: #242425;
+  color: #fff;
+}
+.nav .logo {
+  margin: auto 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 1rem;
+}
+.nav .logo span {
+  margin: auto;
+  font-size: large;
+}
+.nav .data {
+  grid-column: 3;
+  display: grid;
+  column-gap: 1rem;
+  grid-template-columns: auto auto auto;
+}
+.nav .data div {
+  display: grid;
+  grid-template-rows: auto auto;
+}
+.nav .data div span:first-child {
+  font-size: x-small;
+}
+
+.content {
+  margin: 2rem auto;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 3rem;
+}
+
+.payoutjson {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: end;
+  column-gap: 2rem;
+}
+.payoutjson .payouttotal {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  column-gap: 0.5em;
+}
+.payoutjson .payoutbtn button {
+  cursor: pointer;
+}
+
+.payouts .table {
+  padding: 0 1rem;
+  text-align: right;
+  display: grid;
+  grid-auto-columns: auto;
+}
+.payouts .table .head {
+  display: grid;
+  column-gap: .5rem;
+  grid-template-columns: 1fr auto;
+  cursor: pointer;
+  border-bottom: 1px solid #4d4d4d;
+  margin-bottom: .5rem;
+  padding-bottom: .5rem;
+}
+.payouts .table .head span {
+  margin: auto 0;
+}
+.payouts .table .head .sort {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+.payouts .table .head .sort svg {
+  width: 1rem;
+  height: 1rem;
+  opacity: .2;
+}
+.payouts .table .head .sort svg.visible {
+  opacity: 1;
+}
+</style>
+<script>
+  const { createApp, ref, computed } = Vue
+
+createApp({
+  setup() {
+
+    const data_reward_manager = ref(JSON.parse(`{{DATA_REWARD_MANAGER}}`))
+    const data_data = ref(JSON.parse(`{{DATA_DATA}}`))
+    const data_data_sortby = ref("amount_wei")
+    const data_data_sortorder = ref(1)
+    const generated_date = new Date(Number.parseInt(`{{GENERATEDAT_UNIX_TIMESTAMP}}000`))
+    const code_commit_hash = "{{CODE_COMMIT_HASH}}"
+    const code_commit_hash_short = "{{CODE_COMMIT_HASH_SHORT}}"
+    const payoutjsoninput = ref()
+
+    const data_data_computed = computed(
+      () => data_data.value.recipients.filter(el => {
+        return !!el.address && !!el.amount
+      }).map(item => ({
+        address: item.address,
+        amount: BigInt(item.amount),
+      })).reduce((value, item) => {
+        const index = value.findIndex(el => el.address == item.address)
+        if (index === -1) value.push({ address: item.address, amount: item.amount})
+        else value[index].amount += item.amount
+        return value
+      }, []).map(item => {
+        const amount_flr = parseInt(item.amount) * Math.pow(10, -18)
+        const amount_flr_s = String(amount_flr).split(".")
+
+        return {
+          address: item.address,
+          amount_wei: item.amount,
+          amount_wei_str: item.amount.toString(),
+          amount_flr: amount_flr,
+          amount_flr_0: amount_flr_s[0],
+          amount_flr_1: amount_flr_s[1],
+        }
+      })
+    )
+
+    const data_data_computed_sorted = computed(() => data_data_computed.value.sort((previous, next) => {
+        if (previous[data_data_sortby.value] < next[data_data_sortby.value]) return 1 * data_data_sortorder.value
+        if (previous[data_data_sortby.value] > next[data_data_sortby.value]) return -1 * data_data_sortorder.value
+        return 0
+      }))
+
+    const totalPayoutWEI = computed(() => data_reward_manager.value.rewardAmounts.reduce((v, n) => v + BigInt(n), BigInt(0)))
+
+    function copyDataRewardsManager () {
+      payoutjsoninput.value.select()
+      payoutjsoninput.value.setSelectionRange(0, payoutjsoninput.value.value.length + 10)
+      navigator.clipboard.writeText(payoutjsoninput.value.value)
+    }
+
+    function toggleSort (property) {
+      if (data_data_sortby.value === property) {
+        switch (data_data_sortorder.value) {
+          case 0: data_data_sortorder.value = 1; break;
+          case 1: data_data_sortorder.value = -1; break;
+          case -1: data_data_sortorder.value = 0; break;
+          default: data_data_sortorder.value = 0; break;
+        }
+      }
+      else data_data_sortorder.value = 1
+      data_data_sortby.value = property
+    }
+ 
+    return {
+      data_reward_manager,
+      data_data,
+      data_data_computed,
+      data_data_computed_sorted,
+      data_data_sortby,
+      data_data_sortorder,
+      generated_date,
+      code_commit_hash,
+      code_commit_hash_short,
+      payoutjsoninput,
+      totalPayoutWEI,
+      copyDataRewardsManager,
+      toggleSort,
+    }
+  }
+}).mount('#app')
+
+</script>
+</html>
