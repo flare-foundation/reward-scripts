@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       first_reward_epoch:
-        description: "First reward epoch"
+        description: "Reward epoch (Last epoch if of-four)"
         type: number
 
 jobs:
@@ -20,24 +20,81 @@ jobs:
       with:
         node-version: 20
     - name: Install jq
-      run: apt update -y && apt install jq -y
+      run: sudo apt update -y && sudo apt install jq moreutils -y
     - name: Install node modules
       run: yarn install --frozen-lockfile
-    - name: Calculate current epoch
-      if: "${{ github.event.inputs.first_reward_epoch == '' }}"
+    - name: Calculate epoch vars
       run: |
-        export FIRST_REWARD_EPOCH="$(node .github/workflows/calculate-epoch.js)"
-        jq --arg epoch "$FIRST_REWARD_EPOCH" '.FIRST_REWARD_EPOCH = $epoch' configs/networks/flare.json > configs/networks/flare.json
-    - name: Replace FIRST_REWARD_EPOCH
-      if: "${{ github.event.inputs.first_reward_epoch != '' }}"
+        export REWARD_EPOCH_DEFINED="${{ github.event.inputs.first_reward_epoch }}"
+        export REWARD_EPOCH_CALCULATED="$(node .github/workflows/get-current-reward-epoch.js)"
+        export USE_REWARD_EPOCH="${REWARD_EPOCH_DEFINED:-$REWARD_EPOCH_CALCULATED}"
+        echo "USE_REWARD_EPOCH=$USE_REWARD_EPOCH" >> "$GITHUB_ENV"
+
+        export USE_FIRST_REWARD_EPOCH="$((${USE_REWARD_EPOCH} - 3))"
+        echo "USE_FIRST_REWARD_EPOCH=${USE_FIRST_REWARD_EPOCH}" >> "$GITHUB_ENV"
+
+        echo "EPOCH_OF4_if0=$(( $(( $USE_REWARD_EPOCH - 1 )) % 4 ))" >> "$GITHUB_ENV"
+
+    - name: Generate .html report for epoch ${{ env.USE_REWARD_EPOCH }}
+      if: env.EPOCH_OF4_if0 != 0
       run: |
-        jq --arg epoch "${{ github.event.inputs.first_reward_epoch }}" '.FIRST_REWARD_EPOCH = $epoch' configs/networks/flare.json > configs/networks/flare.json
-    - name: Print out flare.json
-      run: cat configs/networks/flare.json
-    - name: Run process-staking-rewards
-      run: yarn run process-staking-rewards
-    - name: Archive code coverage results
+        jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
+        jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
+        yarn run process-staking-rewards
+        .github/workflows/generate-report-html.sh ${USE_REWARD_EPOCH}
+        
+    - name: Create combined report [epoch ${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}]
+      if: env.EPOCH_OF4_if0 == 0
+      run: |
+        jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
+        for EPOCH in {${{ env.USE_FIRST_REWARD_EPOCH }}..${{ env.USE_REWARD_EPOCH }}}; do
+          jq --raw-output --monochrome-output --argjson epoch "$EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
+          yarn run process-staking-rewards
+          .github/workflows/generate-report-html.sh "${EPOCH}"
+        done
+
+        jq --raw-output --monochrome-output '.NUM_EPOCHS = 4' configs/networks/flare.json | sponge configs/networks/flare.json
+        jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
+        yarn sum-staking-rewards
+
+        .github/workflows/generate-report-html.sh ${{ env.USE_FIRST_REWARD_EPOCH }} ${{ env.USE_REWARD_EPOCH }}
+
+
+    - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: staking rewards reports
-        path: generated-files/
+        name: staking-rewards-reports
+        path: |
+          generated-files/*
+          reward-report-*
+
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: process-staking-rewards
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: staking-rewards-reports
+        path: ./pages
+    - name: Generate index.html
+      run: |
+        cd ./pages
+        echo "<ul>" >> ../index.html
+        for i in $(find ./); do echo "<li><a href=\"./$i\">$i</a></li>" >> ../index.html; done
+        echo "</ul>" >> ../index.html
+        echo "<a href=\"https://github.com/flare-foundation/reward-scripts\">flare-foundation/reward-scripts</a>" >> ../index.html
+        mv ../index.html .
+    - uses: actions/configure-pages@v3
+    - uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
