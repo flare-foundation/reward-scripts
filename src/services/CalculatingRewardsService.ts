@@ -214,14 +214,19 @@ export class CalculatingRewardsService {
 		} as RewardingPeriodData;
 
 		// data for config file
-		fullData.BOOSTING_FACTOR = boostingFactor;
-		fullData.VOTE_POWER_CAP_BIPS = votePowerCapBIPS;
-		fullData.UPTIME_VOTING_PERIOD_LENGTH_SECONDS = uptimeVotingPeriodLengthSeconds;
-		fullData.UPTIME_VOTING_THRESHOLD = uptimeVotingThreshold;
-		fullData.MIN_FOR_BEB_GWEI = minForBEBGwei;
-		fullData.REQUIRED_FTSO_PERFORMANCE_WEI = ftsoPerformanceForRewardWei;
-		fullData.REWARD_EPOCH = rewardEpoch;
-		fullData.REWARD_AMOUNT_EPOCH_WEI = rewardAmount.toString();
+		fullData.configFileData = {
+			BOOSTING_FACTOR: boostingFactor,
+			VOTE_POWER_CAP_BIPS: votePowerCapBIPS,
+			UPTIME_VOTING_PERIOD_LENGTH_SECONDS: uptimeVotingPeriodLengthSeconds,
+			UPTIME_VOTING_THRESHOLD: uptimeVotingThreshold,
+			MIN_FOR_BEB_GWEI: minForBEBGwei,
+			REQUIRED_FTSO_PERFORMANCE_WEI: ftsoPerformanceForRewardWei,
+			REWARD_EPOCH: rewardEpoch,
+			REWARD_AMOUNT_EPOCH_WEI: rewardAmount.toString()
+		};
+
+		fullData.stakingVotePowerBlock = stakingVpBlock;
+		fullData.stakingVPBlockTimestamp = (await this.contractService.web3.eth.getBlock(stakingVpBlock)).timestamp as number;
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
 		let fullDataJSON = JSON.stringify(fullData, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);

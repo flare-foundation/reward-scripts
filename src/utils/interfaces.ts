@@ -92,6 +92,11 @@ export interface RewardsData {
 
 export interface RewardingPeriodData {
    recipients: RewardsData[],
+   configFileData: ConfigFileData,
+   stakingVotePowerBlock: number,
+   stakingVPBlockTimestamp: number
+}
+export interface ConfigFileData {
    BOOSTING_FACTOR: number;
    VOTE_POWER_CAP_BIPS: number;
    UPTIME_VOTING_PERIOD_LENGTH_SECONDS: number;
@@ -99,7 +104,6 @@ export interface RewardingPeriodData {
    MIN_FOR_BEB_GWEI: string;
    REWARD_AMOUNT_EPOCH_WEI: string;
    REWARD_EPOCH: number;
-   NUM_UNREWARDED_EPOCHS: number;
    REQUIRED_FTSO_PERFORMANCE_WEI: string;
 }
 

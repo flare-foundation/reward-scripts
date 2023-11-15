@@ -13,7 +13,6 @@ git checkout https://github.com/flare-foundation/reward-scripts.git
    - `MAX_BLOCKS_FOR_EVENT_READS`: how many blocks can be read with a single web3 API call (e.g. `getAllEvents`)
    - `MAX_REQUESTS_PER_SECOND`: how many requests per second can be made
    - `REWARD_EPOCH`: reward epoch for which rewards are calculated
-   - `NUM_UNREWARDED_EPOCHS`: number of reward epochs to calculate rewards for
    - `REQUIRED_FTSO_PERFORMANCE_WEI`: the amount of FTSO rewards that an FTSO provider needs to receive in a given epoch for its node to be eligible to receive staking rewards
    - `BOOSTING_FACTOR`: factor of boosting eligibility bond (BEB) validator received as a boost
    - `MIN_FOR_BEB_GWEI`: minimum total self-bond needed to be eligible to receive a boost
@@ -41,7 +40,7 @@ You can also run it with optional parameters from [file](./src/processProviders.
 
 For each run output of the process is in folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
 
-To verify the official results posted in this repository one needs to update its configuration file with values from file `data.json`.
+To verify the official results posted in this repository one needs to update its configuration file with values from the `configFileData` object of a `data.json` file for some reward epoch.
 
 ### Data for distributing rewards
 Rewards will be distributed every four reward epochs, which means that every 14 days reward amounts from the past four reward epochs will be summed. This is achieved by running the process
