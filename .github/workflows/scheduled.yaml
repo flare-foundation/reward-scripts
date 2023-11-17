@@ -36,23 +36,15 @@ jobs:
         echo "EPOCH_OF4_if0=$(( $(( $USE_REWARD_EPOCH - 1 )) % 4 ))" >> "$GITHUB_ENV"
 
     - name: Generate .html report for epoch ${{ env.USE_REWARD_EPOCH }}
-      if: env.EPOCH_OF4_if0 != 0
       run: |
         jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
         jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
         yarn run process-staking-rewards
         .github/workflows/generate-report-html.sh ${USE_REWARD_EPOCH}
-        
+
     - name: Create combined report [epoch ${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}]
       if: env.EPOCH_OF4_if0 == 0
       run: |
-        jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
-        for EPOCH in {${{ env.USE_FIRST_REWARD_EPOCH }}..${{ env.USE_REWARD_EPOCH }}}; do
-          jq --raw-output --monochrome-output --argjson epoch "$EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
-          yarn run process-staking-rewards
-          .github/workflows/generate-report-html.sh "${EPOCH}"
-        done
-
         jq --raw-output --monochrome-output '.NUM_EPOCHS = 4' configs/networks/flare.json | sponge configs/networks/flare.json
         jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
         yarn sum-staking-rewards
