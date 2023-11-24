@@ -36,3 +36,5 @@ configs/networks/*
 deploys/*
 !deploys/flare.json
 !deploys/coston2.json
+
+src/utils/data-utils.ts
