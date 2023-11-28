@@ -9,7 +9,7 @@ on:
         type: number
 
 jobs:
-  process-staking-rewards:
+  generate-reports:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
 
   deploy-pages:
     runs-on: ubuntu-latest
-    needs: process-staking-rewards
+    needs: generate-reports
     if: github.ref == 'refs/heads/main'
     permissions:
       pages: write
