@@ -39,7 +39,7 @@ jobs:
         echo "USE_FIRST_REWARD_EPOCH=${USE_FIRST_REWARD_EPOCH}" >> "$GITHUB_ENV"
 
         echo "EPOCH_OF4_if0=$(( $(( $USE_REWARD_EPOCH - 1 )) % 4 ))" >> "$GITHUB_ENV"
-    
+
     - name: Set reward amount wei overwrite
       if: github.event.inputs.reward_amount_epoch_wei == ''
       run: jq --raw-output --monochrome-output --argjson amount "${{ github.event.inputs.reward_amount_epoch_wei }}" '.REWARD_AMOUNT_EPOCH_WEI = $amunt' configs/networks/flare.json | sponge configs/networks/flare.json
@@ -56,7 +56,7 @@ jobs:
         jq --raw-output --monochrome-output '.NUM_EPOCHS = 4' configs/networks/flare.json | sponge configs/networks/flare.json
         jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
         yarn sum-staking-rewards
-    
+
     - name: Commit generated-files
       run: |
         git config --global user.name 'Reward scripts automation'
@@ -65,14 +65,15 @@ jobs:
         if [ "$EPOCH_OF4_if0" -eq 0 ]; then git add generated-files/validator-rewards/epochs-${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}.json; fi
         git commit -m "Processed staking rewards for epoch ${{ env.USE_REWARD_EPOCH }}"
         git push
-        
-
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: staking-rewards-reports
+        name: staking-rewards
         path: |
           generated-files/reward-epoch-${{ env.USE_REWARD_EPOCH }}
           generated-files/validator-rewards/epochs-${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}.json
 
+    - name: Trigger "generate report" workflow
+      run: gh workflow run generate-report.yaml -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
+      
