@@ -23,6 +23,8 @@ jobs:
         node-version: 20
     - name: Install jq
       run: sudo apt update -y && sudo apt install jq moreutils -y
+    - name: Install node modules
+      run: yarn install --frozen-lockfile
     - name: Calculate epoch vars
       run: |
         export REWARD_EPOCH_DEFINED="${{ github.event.inputs.first_reward_epoch }}"
