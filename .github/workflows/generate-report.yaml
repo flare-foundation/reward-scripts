@@ -1,7 +1,6 @@
 name: "Generate report"
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       first_reward_epoch:
