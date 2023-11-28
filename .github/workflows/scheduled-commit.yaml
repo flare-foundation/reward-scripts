@@ -41,7 +41,7 @@ jobs:
         echo "EPOCH_OF4_if0=$(( $(( $USE_REWARD_EPOCH - 1 )) % 4 ))" >> "$GITHUB_ENV"
 
     - name: Set reward amount wei overwrite
-      if: github.event.inputs.reward_amount_epoch_wei == ''
+      if: github.event.inputs.reward_amount_epoch_wei != ''
       run: jq --raw-output --monochrome-output --argjson amount "${{ github.event.inputs.reward_amount_epoch_wei }}" '.REWARD_AMOUNT_EPOCH_WEI = $amunt' configs/networks/flare.json | sponge configs/networks/flare.json
 
     - name: Process staking rewards for ${{ env.USE_REWARD_EPOCH }}
