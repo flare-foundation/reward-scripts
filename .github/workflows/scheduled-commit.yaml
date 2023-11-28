@@ -37,13 +37,13 @@ jobs:
 
         echo "EPOCH_OF4_if0=$(( $(( $USE_REWARD_EPOCH - 1 )) % 4 ))" >> "$GITHUB_ENV"
 
-    - name: Generate .html report for epoch ${{ env.USE_REWARD_EPOCH }}
+    - name: Process staking rewards for ${{ env.USE_REWARD_EPOCH }}
       run: |
         jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
         jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
         yarn run process-staking-rewards
 
-    - name: Create combined report [epoch ${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}]
+    - name: Combine rewards for [epoch ${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}]
       if: env.EPOCH_OF4_if0 == 0
       run: |
         jq --raw-output --monochrome-output '.NUM_EPOCHS = 4' configs/networks/flare.json | sponge configs/networks/flare.json
