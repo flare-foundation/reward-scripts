@@ -38,10 +38,6 @@ const BgGray = '\x1b[100m';
 export class ColorConsole extends Transport {
    instance = 0;
 
-   lastLog: string = '';
-   lastLog2: string = '';
-   duplicate = 0;
-
    mode: '' | 'sticky' | 'forgettable' = '';
 
    terminal: Terminal;
@@ -120,31 +116,7 @@ export class ColorConsole extends Transport {
             this.mode = '';
          }
 
-         if (this.lastLog === text) {
-            this.duplicate++;
-            process.stdout.write(
-               '\r' + BgGray + FgBlack + info.timestamp.substring(11, 11 + 11) + Reset + mem + ` ` + BgWhite + FgBlack + ` ${this.duplicate} ` + Reset
-            );
-         } else if (this.lastLog2 === text) {
-            this.duplicate++;
-            process.stdout.write(
-               '\r' + BgGray + FgBlack + info.timestamp.substring(11, 11 + 11) + Reset + mem + ` ` + BgWhite + FgBlack + ` ${this.duplicate}+ ` + Reset
-            );
-         } else {
-            try {
-               if (this.duplicate > 0) {
-                  console.log(``);
-               }
-               this.lastLog2 = this.lastLog;
-               this.lastLog = text;
-               this.duplicate = 0;
-
-               //            |           |
-               // "2022-01-10T13:13:07.712Z"
-
-               console.log(BgGray + FgBlack + info.timestamp.substring(11, 11 + 11) + Reset + mem + ` ` + color + processColors(text, color) + Reset);
-            } catch {}
-         }
+         console.log(BgGray + FgBlack + info.timestamp.substring(11, 11 + 11) + Reset + mem + ` ` + color + processColors(text, color) + Reset);
       }
 
       if (callback) {
