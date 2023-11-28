@@ -56,6 +56,7 @@ jobs:
         git config --global user.email 'flare-foundation-reward-scripts-automation@users.noreply.github.com'
         git add generated-files/reward-epoch-${{ env.USE_REWARD_EPOCH }}
         if [ "$EPOCH_OF4_if0" -eq 0 ]; then git add generated-files/validator-rewards/epochs-${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}.json; fi
+        git commit -m "Processed staking rewards for epoch ${{ env.USE_REWARD_EPOCH }}"
         git push
         
 
