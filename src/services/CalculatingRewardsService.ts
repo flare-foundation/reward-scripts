@@ -103,6 +103,8 @@ export class CalculatingRewardsService {
 		let allActiveNodes = [] as ActiveNode[];
 
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
+		let numberOfProcessedNodes = 0;
+		this.logger.info(`^Rprocessing nodes data started`);
 		for (const activeNode of activeNodes) {
 			let [eligible, ftsoAddress, nonEligibilityReason, ftsoName] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, rewardEpoch, ftsoPerformanceForRewardWei, rps);
 
@@ -173,8 +175,13 @@ export class CalculatingRewardsService {
 				})
 			}
 			allActiveNodes.push(node);
+			numberOfProcessedNodes++;
+			if (numberOfProcessedNodes % 3 === 0) {
+				this.logger.info(`${numberOfProcessedNodes} nodes processed`);
+			}
 		}
 
+		this.logger.info(`^Rcalculating rewards started`);
 		// after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
 		allActiveNodes.forEach(node => {
 			const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
