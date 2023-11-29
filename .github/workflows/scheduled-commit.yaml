@@ -75,5 +75,7 @@ jobs:
           generated-files/validator-rewards/epochs-${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}.json
 
     - name: Trigger "generate report" workflow
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: gh workflow run generate-report.yaml -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
       
