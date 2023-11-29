@@ -1,0 +1,76 @@
+name: "Generate report"
+
+on:
+  workflow_dispatch:
+    inputs:
+      first_reward_epoch:
+        description: "Reward epoch (Last epoch if of-four)"
+        type: number
+
+jobs:
+  generate-reports:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 20
+    - name: Install jq
+      run: sudo apt update -y && sudo apt install jq moreutils -y
+    - name: Install node modules
+      run: yarn install --frozen-lockfile
+    - name: Calculate epoch vars
+      run: |
+        export REWARD_EPOCH_DEFINED="${{ github.event.inputs.first_reward_epoch }}"
+        export REWARD_EPOCH_CALCULATED="$(node .github/workflows/get-current-reward-epoch.js)"
+        export USE_REWARD_EPOCH="${REWARD_EPOCH_DEFINED:-$REWARD_EPOCH_CALCULATED}"
+        echo "USE_REWARD_EPOCH=$USE_REWARD_EPOCH" >> "$GITHUB_ENV"
+        echo "USE_FIRST_REWARD_EPOCH=$((${USE_REWARD_EPOCH} - 3))" >> "$GITHUB_ENV"
+        echo "EPOCH_OF4_if0=$(( $(( $USE_REWARD_EPOCH - 1 )) % 4 ))" >> "$GITHUB_ENV"
+
+    - name: Generate .html report for epoch ${{ env.USE_REWARD_EPOCH }}
+      run: |
+        .github/workflows/generate-report-html.sh ${USE_REWARD_EPOCH}
+    - name: Create combined report [epoch ${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}]
+      if: env.EPOCH_OF4_if0 == 0
+      run: |
+        .github/workflows/generate-report-html.sh ${{ env.USE_FIRST_REWARD_EPOCH }} ${{ env.USE_REWARD_EPOCH }}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: staking-rewards-reports
+        path: |
+          reward-report-*
+
+  deploy-pages:
+    runs-on: ubuntu-latest
+    needs: generate-reports
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: staking-rewards-reports
+        path: ./pages
+    - name: Generate index.html
+      run: |
+        cd ./pages
+        echo "<ul>" >> ../index.html
+        for i in $(find ./ -type f); do echo "<li><a href=\"./$i\">$i</a></li>" >> ../index.html; done
+        echo "</ul>" >> ../index.html
+        echo "<a href=\"https://github.com/flare-foundation/reward-scripts\">flare-foundation/reward-scripts</a>" >> ../index.html
+        mv ../index.html .
+    - uses: actions/configure-pages@v3
+    - uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./pages
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
+
