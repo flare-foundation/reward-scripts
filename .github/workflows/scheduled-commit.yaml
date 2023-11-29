@@ -81,7 +81,7 @@ jobs:
           generated-files/validator-rewards/epochs-${{ env.USE_FIRST_REWARD_EPOCH }}-${{ env.USE_REWARD_EPOCH }}.json
 
     - name: Trigger "generate report" workflow
-      if: github.event.inputs.trigger_generate_report_workflow == 'true'
+      if: github.event.inputs.trigger_generate_report_workflow == 'true' or github.event.inputs.trigger_generate_report_workflow == ''
       env:
         GH_TOKEN: ${{ github.token }}
       run: gh workflow run 77667675 -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
