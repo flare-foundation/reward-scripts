@@ -13,8 +13,7 @@ on:
         description: "Reward amount (in wei)"
         type: number
 
-permissions:
-  contents: write
+permissions: write-all
 
 jobs:
   process-staking-rewards:
@@ -76,5 +75,5 @@ jobs:
     - name: Trigger "generate report" workflow
       env:
         GH_TOKEN: ${{ github.token }}
-      run: gh workflow run generate-report.yaml -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
+      run: gh workflow run 77667675 -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
       
