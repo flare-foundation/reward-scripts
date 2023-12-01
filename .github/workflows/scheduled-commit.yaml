@@ -84,4 +84,4 @@ jobs:
       if: github.event.inputs.trigger_generate_report_workflow == 'true' || github.event.inputs.trigger_generate_report_workflow == ''
       env:
         GH_TOKEN: ${{ github.token }}
-      run: gh workflow run 77667675 -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
+      run: gh workflow run "Generate report" -f first_reward_epoch=${{ env.USE_REWARD_EPOCH }}
