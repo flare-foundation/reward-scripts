@@ -78,6 +78,7 @@ export interface FtsoData {
    nodeId: string;
    ftsoAddress: string;
    ftsoName: string;
+   firstEpoch: number;
 }
 
 export interface PAddressData {

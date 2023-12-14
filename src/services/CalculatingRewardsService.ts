@@ -252,7 +252,8 @@ export class CalculatingRewardsService {
 				return {
 					nodeId: it["Node ID"],
 					ftsoAddress: it["FTSO address"],
-					ftsoName: it["Name"]
+					ftsoName: it["Name"],
+					firstEpoch: it["First epoch"]
 				}
 			}
 		);
@@ -345,7 +346,7 @@ export class CalculatingRewardsService {
 		let ftsoObj = ftsoAddresses.find(obj => {
 			return obj.nodeId == node.nodeID;
 		})
-		if (ftsoObj === undefined) {
+		if (ftsoObj === undefined || ftsoObj.firstEpoch > epochNum) {
 			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
 			nonEligibilityReason = "didn't provide its FTSO address";
 			return [false, "", nonEligibilityReason, ""];
