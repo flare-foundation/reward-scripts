@@ -556,7 +556,8 @@ export class CalculatingRewardsService {
 
 		activeNodes.forEach(node => {
 			if (node.eligible) {
-				if (node.validatorRewardAmount === BigInt(0)) {
+				let validatorRewardAmount = node.validatorRewardAmount
+				if (validatorRewardAmount === BigInt(0)) {
 					if (node.cChainAddress !== undefined) {
 						this.logger.error(`Entity ${node.ftsoAddress} is eligible but reward amount is 0`);
 					}
@@ -567,31 +568,32 @@ export class CalculatingRewardsService {
 					let address = node.cChainAddress;
 					const index = epochRewardsData.findIndex(validator => validator.address == address);
 					if (index > -1) {
-						epochRewardsData[index].amount += node.validatorRewardAmount;
+						epochRewardsData[index].amount += validatorRewardAmount;
 					}
 					else {
 						epochRewardsData.push({
 							address: address,
-							amount: node.validatorRewardAmount
+							amount: validatorRewardAmount
 						});
 					}
-					distributed += node.validatorRewardAmount;
+					distributed += validatorRewardAmount;
 				};
 
 				node.delegators.forEach(delegator => {
 					let delegatorRewardingAddress = delegator.cAddress;
-					if (delegator.amount > BigInt(0)) {
+					let delegatorRewardAmount = delegator.delegatorRewardAmount;
+					if (delegatorRewardAmount > BigInt(0)) {
 						const index = epochRewardsData.findIndex(rewardedData => rewardedData.address == delegatorRewardingAddress);
 						if (index > -1) {
-							epochRewardsData[index].amount += delegator.delegatorRewardAmount;
+							epochRewardsData[index].amount += delegatorRewardAmount;
 						}
 						else {
 							epochRewardsData.push({
 								address: delegatorRewardingAddress,
-								amount: delegator.delegatorRewardAmount
+								amount: delegatorRewardAmount
 							});
 						}
-						distributed += delegator.delegatorRewardAmount;
+						distributed += delegatorRewardAmount;
 					} else {
 						this.logger.error(`Delegator ${delegatorRewardingAddress} has reward amount 0`);
 					}
