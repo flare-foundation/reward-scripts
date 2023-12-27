@@ -391,7 +391,7 @@
     "fee": 200000,
     "group": 2,
     "eligible": false,
-    "ftsoName": "InGen",
+    "ftsoName": "FTSO.Asia",
     "nonEligibilityReason": "not high enough uptime",
     "BEB": "1000000000000000",
     "boostDelegations": "5000000000000000",
