@@ -633,6 +633,7 @@ export class CalculatingRewardsService {
 				}
 			}
 		}
+		rewardsData.sort((a, b) => a.address.toLowerCase() > b.address.toLowerCase() ? 1 : -1);
 		let dataRewardManager = {} as DataValidatorRewardManager;
 		let arrayAddresses = rewardsData.map(recipient => {
 			return recipient.address;
