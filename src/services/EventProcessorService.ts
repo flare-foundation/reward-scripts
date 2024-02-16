@@ -27,7 +27,7 @@ export class EventProcessorService {
         let endBlock = 0;
         let nextBlockToProcessTs = (await this.contractService.web3.eth.getBlock(nextBlockToProcess)).timestamp as number;
         let votingEndTs = votingStartTs + votingLength;
-        let lastBlock = await this.contractService.web3.eth.getBlockNumber();
+        let lastBlock = await this.contractService.web3.eth.getBlockNumber() - 1;
         let lastBlockTs = (await this.contractService.web3.eth.getBlock(lastBlock)).timestamp as number
         // votes casted outside of voting period are not relevant, so we don't need to read those events
         if (lastBlockTs < votingEndTs) {
@@ -37,11 +37,9 @@ export class EventProcessorService {
         while (nextBlockToProcessTs < votingEndTs) {
             try {
                 this.logger.info(`Next block ${nextBlockToProcess}`);
+
                 if (rps != Infinity) {
-                    endBlock = nextBlockToProcess + batchSize - 1;
-                    if (endBlock >= lastBlock) {
-                        endBlock = lastBlock;
-                    }
+                    endBlock = Math.min(nextBlockToProcess + batchSize - 1, lastBlock);
                     // https://flare-api.flare.network has rate limit 200 rpm
                     await sleepms(2000 / rps);
                     let contractEventBatches = await this.contractService.getEventsFromBlockForContract(
@@ -50,21 +48,18 @@ export class EventProcessorService {
                         endBlock,
                         false
                     );
-                    nextBlockToProcess = endBlock;
+                    nextBlockToProcess = endBlock + 1;
                     await this.contractService.processEvents(contractEventBatches, epochId, votingStartTs, votingEndTs);
                 }
                 else {
-                    endBlock = nextBlockToProcess + 30 * batchSize - 1;
-                    if (endBlock >= lastBlock) {
-                        endBlock = lastBlock;
-                    }
+                    endBlock = Math.min(nextBlockToProcess + 30 * batchSize - 1, lastBlock);
                     let contractEventBatches = await this.contractService.processBatches(
                         "PChainStakeMirrorMultiSigVoting",
                         nextBlockToProcess,
                         endBlock,
                         batchSize
                     );
-                    nextBlockToProcess = endBlock;
+                    nextBlockToProcess = endBlock + 1;
                     await this.contractService.processEvents(contractEventBatches, epochId, votingStartTs, votingEndTs);
                 }
                 nextBlockToProcessTs = (await this.contractService.web3.eth.getBlock(nextBlockToProcess)).timestamp as number;
