@@ -404,7 +404,6 @@ export class CalculatingRewardsService {
 			} else { // rewarding weight == overboost
 				e.capFactor = BigInt(0);
 			}
-
 		})
 
 		// total capped rewarding weight of eligible nodes

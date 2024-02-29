@@ -156,10 +156,10 @@ export class ContractService {
          } as ContractEventBatch;
       }
 
-      while (next < endBlock) {
+      while (next <= endBlock) {
          let end = Math.min(next + batchSize - 1, endBlock);
          batchPromises.push(this.getEventsFromBlockForContract(contractName, next, end, true));
-         next = end;
+         next = end + 1;
       }
 
       let result = await Promise.all(batchPromises);

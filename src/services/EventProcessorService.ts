@@ -34,7 +34,7 @@ export class EventProcessorService {
             this.logger.error(`Voting period did not yet end`);
             return;
         }
-        while (nextBlockToProcessTs < votingEndTs) {
+        while (nextBlockToProcessTs <= votingEndTs) {
             try {
                 this.logger.info(`Next block ${nextBlockToProcess}`);
 
