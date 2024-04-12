@@ -22,6 +22,7 @@ fi
 
 rm -f "$REPORTHTML"
 cp "${SCRIPTDIR}/reward-report.tpl.html" "$REPORTHTML"
+cp "${SCRIPTDIR}/reward-report.vue.prod.js" "${ROOTDIR}/reward-report.vue.prod.js"
 
 CODE_COMMIT_HASH="$(git rev-parse HEAD)"
 CODE_COMMIT_HASH_SHORT="$(git rev-parse --short HEAD)"
