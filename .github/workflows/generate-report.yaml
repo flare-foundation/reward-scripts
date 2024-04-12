@@ -62,7 +62,7 @@ jobs:
       run: |
         cd ./pages
         echo "<ul>" >> ../index.html
-        for i in $(find ./ -type f); do echo "<li><a href=\"./$i\">$i</a></li>" >> ../index.html; done
+        for i in $(find ./ -type f -path './reward-report*.html'); do echo "<li><a href=\"./$i\">$i</a></li>" >> ../index.html; done
         echo "</ul>" >> ../index.html
         echo "<a href=\"https://github.com/flare-foundation/reward-scripts\">flare-foundation/reward-scripts</a>" >> ../index.html
         mv ../index.html .

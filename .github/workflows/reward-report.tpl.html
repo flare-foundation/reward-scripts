@@ -193,13 +193,15 @@ a:active {
 }
 </style>
 <script>
-  const { createApp, ref, computed } = Vue
+const { createApp, ref, computed, onMounted } = Vue
 
 createApp({
   setup() {
 
-    const data_reward_manager = ref(JSON.parse(`{{DATA_REWARD_MANAGER}}`))
-    const data_data = ref(JSON.parse(`{{DATA_DATA}}`))
+    const data_reward_manager = ref({})
+    const epoch_start = "{{EPOCH_START}}"
+    const epoch_end = "{{EPOCH_END}}"
+    const data_data = ref({})
     const data_data_sortby = ref("amount_wei")
     const data_data_sortorder = ref(1)
     const generated_date = new Date(Number.parseInt(`{{GENERATEDAT_UNIX_TIMESTAMP}}000`))
@@ -208,7 +210,7 @@ createApp({
     const payoutjsoninput = ref()
 
     const data_data_computed = computed(
-      () => data_data.value.recipients.filter(el => {
+      () => data_data.value.recipients?.filter(el => {
         return !!el.address && !!el.amount
       }).map(item => ({
         address: item.address,
@@ -233,13 +235,13 @@ createApp({
       })
     )
 
-    const data_data_computed_sorted = computed(() => data_data_computed.value.sort((previous, next) => {
+    const data_data_computed_sorted = computed(() => data_data_computed.value?.sort((previous, next) => {
         if (previous[data_data_sortby.value] < next[data_data_sortby.value]) return 1 * data_data_sortorder.value
         if (previous[data_data_sortby.value] > next[data_data_sortby.value]) return -1 * data_data_sortorder.value
         return 0
       }))
 
-    const totalPayoutWEI = computed(() => data_reward_manager.value.rewardAmounts.reduce((v, n) => v + BigInt(n), BigInt(0)))
+    const totalPayoutWEI = computed(() => data_reward_manager.value.rewardAmounts?.reduce((v, n) => v + BigInt(n), BigInt(0)))
 
     function copyDataRewardsManager () {
       payoutjsoninput.value.select()
@@ -259,6 +261,26 @@ createApp({
       else data_data_sortorder.value = 1
       data_data_sortby.value = property
     }
+
+    async function fetchDataFile (suffix) {
+      const fileprefix = `./reward-report-` + (epoch_start == epoch_end ? `${epoch_start}` : `${epoch_start}-${epoch_end}`)
+      const req = await fetch(`${fileprefix}.${suffix}`)
+      const res = await req.json()
+      return res
+    }
+
+    onMounted(async () => {
+      try {
+        const data = await Promise.all([
+          fetchDataFile("reward-manager.json"),
+          fetchDataFile("data.json")
+        ])
+        data_reward_manager.value = data[0]
+        data_data.value = data[1]
+      } catch (error) {
+        console.error(error)
+      }
+    })
  
     return {
       data_reward_manager,
