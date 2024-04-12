@@ -41,7 +41,7 @@ jobs:
       with:
         name: staking-rewards-reports
         path: |
-          reward-report-*
+          reward-report*
 
   deploy-pages:
     runs-on: ubuntu-latest
