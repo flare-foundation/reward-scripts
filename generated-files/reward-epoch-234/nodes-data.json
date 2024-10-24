@@ -9992,7 +9992,7 @@
       },
       {
         "pAddress": "flare160em3r0xqr3n8layv07tamsndqh35lwyhwsyhh",
-        "cAddress": "0x0000000000000000000000000000000000000000",
+        "cAddress": "0x88CCFE640E679B44E9Fad383F12625ad05d961D1",
         "amount": "200000000000000",
         "delegatorRewardAmount": "194592612443180211431"
       },
@@ -11727,7 +11727,7 @@
       },
       {
         "pAddress": "flare1exmphdsuf4jc4wtge4w5tvpcxxg072z8mfdxkk",
-        "cAddress": "0x0000000000000000000000000000000000000000",
+        "cAddress": "0x393a912aB3c2Df78Fd4EF433772de1A2de49FdA2",
         "amount": "140040000000000",
         "delegatorRewardAmount": "123160425547809844750"
       },
@@ -12636,7 +12636,7 @@
       },
       {
         "pAddress": "flare160em3r0xqr3n8layv07tamsndqh35lwyhwsyhh",
-        "cAddress": "0x0000000000000000000000000000000000000000",
+        "cAddress": "0x88CCFE640E679B44E9Fad383F12625ad05d961D1",
         "amount": "186325110950628",
         "delegatorRewardAmount": "171958787451238749333"
       },
@@ -14643,7 +14643,7 @@
       },
       {
         "pAddress": "flare1d9phj0844543e82k8sjn8he605mhd2ud7dd7yq",
-        "cAddress": "0x0000000000000000000000000000000000000000",
+        "cAddress": "0x8681B9982806909127D49d46347bF2769A2E3e8E",
         "amount": "7053908090000000",
         "delegatorRewardAmount": "6863192015835917792369"
       },
