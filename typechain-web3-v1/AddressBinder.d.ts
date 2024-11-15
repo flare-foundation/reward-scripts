@@ -49,6 +49,15 @@ export interface AddressBinder extends BaseContract {
       _pAddress: string | number[],
       _cAddress: string
     ): NonPayableTransactionObject<void>;
+
+    registerPublicKey(
+      _publicKey: string | number[]
+    ): NonPayableTransactionObject<{
+      _pAddress: string;
+      _cAddress: string;
+      0: string;
+      1: string;
+    }>;
   };
   events: {
     AddressesRegistered(cb?: Callback<AddressesRegistered>): EventEmitter;

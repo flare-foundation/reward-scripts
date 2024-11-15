@@ -29,34 +29,37 @@ export interface DelegationData {
    txID: string;
 }
 
-export interface ActiveNode {
+export interface NodeInitialData {
    nodeId: string;
    bondingAddress: string;          // p-chain address that opened stake
    ftsoAddress: string;             // ftso (entity) address
    selfBond: bigint;                // initial stake
    pChainAddress: string[];           // p-chain address corresponding to validator (for group 2 it is same as bonding address)
-                                    // used for self-delegations
+   // used for self-delegations
    cChainAddress?: string           // c-chain address (used for rewarding) corresponding to p-chain address
    selfDelegations: bigint;         // delegations from validator to its node
    boost: bigint;                   // group 1: initial stake (self-bond) + FNL delegations; group 2: FNL delegations
    normalDelegations: bigint;       // normal delegations (i.e. excluding FNL delegations and self-delegations)
    boostDelegations: bigint;        // delegations made from boosting (FNl) addresses
    totalStakeAmount: bigint;        // group1: total weight = self-bond + self-delegations + (normal) delegations + boost
-                                    // group2: total weight = self-delegations + (normal) delegations + boost
+   // group2: total weight = self-delegations + (normal) delegations + boost
    delegators: DelegatorData[];     // data about normal delegators
    fee: number;                     // node's fee (in PPM)
    BEB: bigint;                     // boosting eligibility bond
-   overboost: bigint;
-   rewardingWeight: bigint;         // adjusted total weight (total stake amount) for the purpose of rewarding
    cappedWeight: bigint;            // capped weight for the purpose of distribution of reward amount between nodes
    stakeEnd: number;                // end time of node's stake
    nodeRewardAmount: bigint;        // reward amount for a node (distributed between validator and (normal) delegators)
    validatorRewardAmount: bigint;   // reward amount that validator receives
-   eligible: boolean;               // is node eligible for reward
    totalSelfBond: bigint;           // group 1: self-delegations; group 2: initial stake (self-bond) + self-delegations
-   group: number;                   // group to which node belongs
    nonEligibilityReason: string;    // reason why node is not eligible for reward
    ftsoName: string;                // name of an FTSO provider
+   uptimeEligible: boolean;         // does node has high enough uptime to be considered for reward
+}
+
+export interface NodeData extends NodeInitialData {
+   eligible: boolean;               // is node eligible for reward
+   overboost: bigint;
+   rewardingWeight: bigint;         // adjusted total weight (total stake amount) for the purpose of rewarding
 }
 
 export interface Entity {
@@ -81,11 +84,6 @@ export interface FtsoData {
    firstEpoch: number;
 }
 
-export interface PAddressData {
-   ftsoAddress: string;
-   pChainAddress: string;
-}
-
 export interface RewardsData {
    address: string;
    amount: bigint;
@@ -105,7 +103,6 @@ export interface ConfigFileData {
    MIN_FOR_BEB_GWEI: string;
    REWARD_AMOUNT_EPOCH_WEI: string;
    REWARD_EPOCH: number;
-   REQUIRED_FTSO_PERFORMANCE_WEI: string;
 }
 
 export interface DataValidatorRewardManager {

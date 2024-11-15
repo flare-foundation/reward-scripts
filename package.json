@@ -5,7 +5,8 @@
    "main": "index.js",
 
    "scripts": {
-      "process-staking-rewards": "yarn ts-node src/processStakingRewards.ts",
+      "prepare-initial-data": "yarn ts-node src/prepareInitialData.ts",
+      "calculate-staking-rewards": "yarn ts-node src/calculateRewards.ts",
       "sum-staking-rewards": "yarn ts-node src/sumStakingRewards.ts",
       "build": "npm-run-all yarn tsc",
       "--- development scripts ---": "",

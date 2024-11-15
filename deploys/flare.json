@@ -23,5 +23,10 @@
       "name": "AddressBinder",
       "contractName": "AddressBinder.sol",
       "address": "0x57c5149c6cdC7bA379aFAe28e6497Ae26c252738"
+   },
+   {
+      "name": "FlareSystemsManager",
+      "contractName": "FlareSystemsManager.sol",
+      "address": "0x89e50DC0380e597ecE79c8494bAAFD84537AD0D4"
    }
 ]

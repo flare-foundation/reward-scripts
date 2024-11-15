@@ -1,18 +1,17 @@
 import { Factory, Inject, Singleton } from 'typescript-ioc';
 import { AttLogger } from '../logger/logger';
-import { DelegationData, DelegatorData, ActiveNode, Entity, FtsoData, NodeData, PAddressData, RewardsData, UptimeVote, RewardingPeriodData, DataValidatorRewardManager } from '../utils/interfaces';
+import { DelegationData, DelegatorData, NodeInitialData, Entity, FtsoData, NodeData, RewardsData, UptimeVote, RewardingPeriodData, DataValidatorRewardManager } from '../utils/interfaces';
 import { nodeIdToBytes20, pAddressToBytes20, sleepms } from '../utils/utils';
 import { ConfigurationService } from './ConfigurationService';
 import { ContractService } from './ContractService';
 import { LoggerService } from './LoggerService';
 import * as fs from 'fs';
-import { parse } from 'json2csv';
 import axios from 'axios';
-import { FtsoRewardManager } from '../../typechain-web3-v1/FtsoRewardManager';
 import { EventProcessorService } from './EventProcessorService';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
 import { FtsoManager } from '../../typechain-web3-v1/FtsoManager';
+import { bigIntReplacer, bigIntReviver } from '../utils/big-number-serialization';
 // import { parse } from 'csv-parse';
 const parseCsv = require('csv-parse/lib/sync');
 const VALIDATORS_API = 'validators/list';
@@ -40,25 +39,22 @@ export class CalculatingRewardsService {
 		return this.loggerService.logger;
 	}
 
-	public async calculateRewards(rewardEpoch: number, ftsoPerformanceForRewardWei: string, boostingFactor: number, votePowerCapBIPS: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, minForBEBGwei: string, rewardAmountEpochWei: string, apiPath: string) {
+	public async prepareInitialData(rewardEpoch: number, uptimeVotingPeriodLengthSeconds: number, rps: number, batchSize: number, uptimeVotingThreshold: number, apiPath: string) {
 		await this.contractService.waitForInitialization();
 		this.logger.info(`waiting for network connection...`);
 
 		// contracts
-		let ftsoManager = await this.contractService.ftsoManager();
-		let ftsoRewardManager = await this.contractService.ftsoRewardManager();
-		let validatorRewardManager = await this.contractService.validatorRewardManager();
-		let pChainStakeMirrorMultiSigVoting = await this.contractService.pChainStakeMirrorMultiSigVoting();
-		let addressBinder = await this.contractService.addressBinder();
+		const ftsoManager = await this.contractService.ftsoManager();
+		const flareSystemsManager = await this.contractService.flareSystemsManager();
+		const ftsoRewardManager = await this.contractService.ftsoRewardManager();
+		const pChainStakeMirrorMultiSigVoting = await this.contractService.pChainStakeMirrorMultiSigVoting();
+		const addressBinder = await this.contractService.addressBinder();
 
 		// boosting addresses
 		let boostingAddresses = await this.getBoostingAddresses("boosting-addresses.json");
 
-		// ftso (entity) address for a node
+		// ftso address for a node
 		let ftsoAddresses = await this.getFtsoAddress("ftso-address.csv") as FtsoData[];
-
-		// p chain address for Group1 node
-		let pChainAddresses = await this.getPChainAddresses("p-chain-address.csv");
 
 		// uptime voting threshold
 		if (uptimeVotingThreshold === undefined) {
@@ -74,14 +70,14 @@ export class CalculatingRewardsService {
 		const generatedFilesPath = `generated-files/reward-epoch-${rewardEpoch}`
 		fs.mkdirSync(generatedFilesPath, { recursive: true });
 
-		let rewardAmount: bigint;
-
 		await sleepms(1000 / rps);
-		let nextRewardEpochData = await ftsoManager.methods.getRewardEpochData((rewardEpoch + 1).toString()).call();
-		let ftsoVpBlock = parseInt(nextRewardEpochData[0]);
-		let nextRewardEpochStartBlock = parseInt(nextRewardEpochData[1]);
-		let nextRewardEpochStartTs = parseInt(nextRewardEpochData[2]); // rewardEpochEndTs
-		let stakingVpBlock = nextRewardEpochStartBlock - 2 * (nextRewardEpochStartBlock - ftsoVpBlock);
+		const nextRewardEpochData = await flareSystemsManager.methods.getRewardEpochStartInfo((rewardEpoch + 1).toString()).call();
+		let nextRewardEpochData1 = await ftsoManager.methods.getRewardEpochData((rewardEpoch + 1).toString()).call();
+		const ftsoVpBlock = parseInt(await flareSystemsManager.methods.getVotePowerBlock(rewardEpoch + 1).call());
+		const nextRewardEpochStartBlock = parseInt(nextRewardEpochData[1]);
+		const nextRewardEpochStartTs = parseInt(nextRewardEpochData[0]); // rewardEpochEndTs
+		// const stakingVpBlock = ftsoVpBlock;
+		let stakingVpBlock = nextRewardEpochStartBlock - 2 * (parseInt(nextRewardEpochData1[1]) - parseInt(nextRewardEpochData1[0]));
 
 		//// get list of nodes with sufficient uptime
 		await this.contractService.resetUptimeArray();
@@ -97,48 +93,31 @@ export class CalculatingRewardsService {
 		let delegations = await this.getActiveStakes(stakingVpBlock, apiPath, DELEGATORS_API) as DelegationData[];
 		delegations.sort((a, b) => a.startTime - b.startTime || a.txID.toLowerCase().localeCompare(b.txID.toLowerCase()));
 
-		// total stake (self-bonds + delegations) of the network at staking VP block
-		let totalStakeNetwork = BigInt(0);
-		let entities = [] as Entity[];
-		let allActiveNodes = [] as ActiveNode[];
+		let allActiveNodes = [] as NodeInitialData[];
 
 		const processedNodesInterval = setInterval(() => this.logger.info(`${allActiveNodes.length} nodes processed so far`), 15000);
 
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
 		this.logger.info(`^Rprocessing nodes data started`);
 		for (const activeNode of activeNodes) {
-			let [eligible, ftsoAddress, nonEligibilityReason, ftsoName] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, rewardEpoch, ftsoPerformanceForRewardWei, rps);
+
+			// let [eligible, ftsoAddress, nonEligibilityReason, ftsoName] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, rewardEpoch, ftsoPerformanceForRewardWei, rps);
+			let [uptime, ftsoName, ftsoAddress] = await this.checkUptime(activeNode, eligibleNodesUptime, ftsoAddresses);
 
 			// decide to which group node belongs
-			let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
-			node.eligible = eligible;
+			let node = await this.initialNodeData(activeNode, ftsoAddress, boostingAddresses);
+			node.uptimeEligible = uptime;
 			node.ftsoName = ftsoName;
-			if (!node.eligible) {
-				node.nonEligibilityReason = nonEligibilityReason;
-			}
 
-			if (node.group === 1) {
-				let [selfDelegations, normalDelegations, delegators] = await this.nodeGroup1Data(delegations, node, boostingAddresses, addressBinder, rps);
-				let virtualBoost = BigInt(boostingFactor) * selfDelegations > BigInt(10e6) * GWEI ? BigInt(boostingFactor) * selfDelegations - BigInt(10e6) * GWEI : BigInt(0);
-				node.boostDelegations = virtualBoost < BigInt(5e6) * GWEI ? virtualBoost : BigInt(5e6) * GWEI;
-				node.boost = node.selfBond + node.boostDelegations;
-				node.BEB = selfDelegations;
-				node.selfDelegations = selfDelegations;
-				node.totalSelfBond = selfDelegations;
-				node.normalDelegations = normalDelegations;
-				node.delegators = delegators;
-				node.totalStakeAmount = selfDelegations + node.boost + normalDelegations;
-			} else if (node.group === 2) {
-				let [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(delegations, boostingAddresses, node, addressBinder, rps);
-				node.BEB = node.selfBond;
-				node.boostDelegations = boost;
-				node.boost = boost;
-				node.selfDelegations = selfDelegation;
-				node.normalDelegations = normalDelegations;
-				node.totalSelfBond = selfDelegation + node.selfBond;
-				node.delegators = delegators;
-				node.totalStakeAmount = node.selfBond + node.boost + selfDelegation + normalDelegations;
-			}
+			let [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(delegations, boostingAddresses, node, addressBinder, rps);
+			node.BEB = node.selfBond;
+			node.boostDelegations = boost;
+			node.boost = boost;
+			node.selfDelegations = selfDelegation;
+			node.normalDelegations = normalDelegations;
+			node.totalSelfBond = selfDelegation + node.selfBond;
+			node.delegators = delegators;
+			node.totalStakeAmount = node.selfBond + node.boost + selfDelegation + normalDelegations;
 			if (node.pChainAddress.length === 0) {
 				this.logger.error(`FTSO ${node.ftsoAddress} did not provide its p-chain address`);
 			} else {
@@ -147,8 +126,32 @@ export class CalculatingRewardsService {
 				node.cChainAddress = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0])).call();
 			}
 			if (node.cChainAddress === ZERO_ADDRESS) {
-				this.logger.error(`Validator address ${node.pChainAddress} is not binded`);
+				this.logger.error(`Validator address ${node.pChainAddress} is not bound`);
 			}
+			allActiveNodes.push(node);
+		}
+		clearInterval(processedNodesInterval);
+		// save initial data which will be used for deciding if node is eligible for reward
+		let initialNodesDataJSON = JSON.stringify(allActiveNodes, bigIntReplacer, 2);
+		fs.writeFileSync(`${generatedFilesPath}/initial-nodes-data.json`, initialNodesDataJSON, "utf8");
+		const tempData = {
+			uptimeVotingPeriodLengthSeconds: uptimeVotingPeriodLengthSeconds,
+			uptimeVotingThreshold: uptimeVotingThreshold,
+			stakingVpBlock: stakingVpBlock
+		}
+		fs.writeFileSync(`${generatedFilesPath}/temp-data.json`, JSON.stringify(tempData, bigIntReplacer, 2), "utf8");
+	}
+
+	public async calculateRewards(rewardEpoch: number, boostingFactor: number, minForBEBGwei: string, votePowerCapBIPS: number, rewardAmountEpochWei: string) {
+		this.logger.info(`^Rcalculating rewards started`);
+		// fetch updated nodes data file
+		let activeNodes = JSON.parse(fs.readFileSync(`generated-files/reward-epoch-${rewardEpoch}/nodes-data-test.json`, 'utf8'), bigIntReviver) as NodeData[];
+
+		// total stake (self-bonds + delegations) of the network at staking VP block
+		let totalStakeNetwork = BigInt(0);
+		let entities = [] as Entity[];
+
+		for (let node of activeNodes) {
 			totalStakeNetwork += node.totalStakeAmount;
 
 			// add node to its entity
@@ -160,10 +163,11 @@ export class CalculatingRewardsService {
 				);
 				// entity has more than four active nodes
 				// nodes are already sorted by start time (increasing)
-				if (entities[i].nodes.length > 4 && entities[i].entityAddress !== "") {
-					node.eligible = false;
-					this.logger.error(`Entity ${entities[i].entityAddress} has more than 4 nodes`);
-				}
+				// if (entities[i].nodes.length > 4 && entities[i].entityAddress !== "") {
+				// 	node.eligible = false;
+				// 	this.logger.error(`Entity ${entities[i].entityAddress} has more than 4 nodes`);
+				// }
+				// this condition will already be taken care of in the other script
 			} else {
 				let nodes = [
 					node.nodeId
@@ -175,14 +179,10 @@ export class CalculatingRewardsService {
 					nodes: nodes
 				})
 			}
-			allActiveNodes.push(node);
 		}
 
-		clearInterval(processedNodesInterval);
-
-		this.logger.info(`^Rcalculating rewards started`);
 		// after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
-		allActiveNodes.forEach(node => {
+		activeNodes.forEach(node => {
 			const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
 			if (entities[i].totalSelfBond < BigInt(minForBEBGwei)) {
 				node.overboost = node.boost;
@@ -195,50 +195,56 @@ export class CalculatingRewardsService {
 			entities[i].totalStakeRewarding += node.rewardingWeight;
 		});
 
+
 		//// calculate total stake amount and cap vote power (and then adjust total stake amount of network used for rewarding)
 		let totalStakeRewarding = BigInt(0);
-		[allActiveNodes, totalStakeRewarding, entities] = await this.getTotalStakeAndCapVP(allActiveNodes, votePowerCapBIPS, totalStakeNetwork, entities);
+		[activeNodes, totalStakeRewarding, entities] = await this.getTotalStakeAndCapVP(activeNodes, votePowerCapBIPS, totalStakeNetwork, entities);
 
+		let rewardAmount: bigint;
 		// reward amount available for distribution
 		if (rewardAmountEpochWei === undefined) {
+			const validatorRewardManager = await this.contractService.validatorRewardManager();
+			const ftsoManager = await this.contractService.ftsoManager();
 			rewardAmount = await this.getRewardAmount(validatorRewardManager, ftsoManager);
 		} else {
 			rewardAmount = BigInt(rewardAmountEpochWei);
 		}
 
 		// calculated reward amount for each eligible node and for its delegators
-		allActiveNodes = await this.calculateRewardAmounts(allActiveNodes, totalStakeRewarding, rewardAmount);
-		let activeNodesDataJSON = JSON.stringify(allActiveNodes, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
-		fs.writeFileSync(`${generatedFilesPath}/nodes-data.json`, activeNodesDataJSON, "utf8");
+		activeNodes = await this.calculateRewardAmounts(activeNodes, totalStakeRewarding, rewardAmount);
+		let activeNodesDataJSON = JSON.stringify(activeNodes, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
+		const generatedFilesPath = `generated-files/reward-epoch-${rewardEpoch}`
+		fs.writeFileSync(`${generatedFilesPath}/nodes-data-test.json`, activeNodesDataJSON, "utf8");
 
 		// for the reward epoch create JSON file with rewarded addresses and reward amounts
 		// sum rewards per epoch and address
-		let rewardsData = await this.writeRewardedAddressesToJSON(allActiveNodes, rewardAmount);
+		let rewardsData = await this.writeRewardedAddressesToJSON(activeNodes, rewardAmount);
 
 		let fullData = {
 			recipients: rewardsData
 		} as RewardingPeriodData;
 
+		// read temp data
+		let tempData = JSON.parse(fs.readFileSync(`${generatedFilesPath}/temp-data.json`, 'utf8'));
+
 		// data for config file
 		fullData.configFileData = {
 			BOOSTING_FACTOR: boostingFactor,
 			VOTE_POWER_CAP_BIPS: votePowerCapBIPS,
-			UPTIME_VOTING_PERIOD_LENGTH_SECONDS: uptimeVotingPeriodLengthSeconds,
-			UPTIME_VOTING_THRESHOLD: uptimeVotingThreshold,
+			UPTIME_VOTING_PERIOD_LENGTH_SECONDS: tempData.uptimeVotingPeriodLengthSeconds,
+			UPTIME_VOTING_THRESHOLD: tempData.uptimeVotingThreshold,
 			MIN_FOR_BEB_GWEI: minForBEBGwei,
-			REQUIRED_FTSO_PERFORMANCE_WEI: ftsoPerformanceForRewardWei,
 			REWARD_EPOCH: rewardEpoch,
 			REWARD_AMOUNT_EPOCH_WEI: rewardAmount.toString()
 		};
 
-		fullData.stakingVotePowerBlock = stakingVpBlock;
-		fullData.stakingVPBlockTimestamp = (await this.contractService.web3.eth.getBlock(stakingVpBlock)).timestamp as number;
+		fullData.stakingVotePowerBlock = tempData.stakingVpBlock;
+		fullData.stakingVPBlockTimestamp = (await this.contractService.web3.eth.getBlock(tempData.stakingVpBlock)).timestamp as number;
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
 		let fullDataJSON = JSON.stringify(fullData, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
-		fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
+		fs.writeFileSync(`${generatedFilesPath}/data-test.json`, fullDataJSON, "utf8");
 	}
-
 
 	public async getFtsoAddress(ftsoAddressFile: string) {
 		let rawData = fs.readFileSync(ftsoAddressFile, "utf8");
@@ -338,63 +344,30 @@ export class CalculatingRewardsService {
 		return eligibleNodesUptime;
 	}
 
-	// check if node is eligible (high enough ftso performance and uptime) for rewards
-	public async isEligibleForReward(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[], ftsoRewardManager: FtsoRewardManager, epochNum: number, ftsoPerformanceForReward: string, rps: number): Promise<[boolean, string, string, string]> {
-
-		let nonEligibilityReason: string;
+	// check if node has high enough uptime
+	public async checkUptime(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[]): Promise<[boolean, string, string]> {
 		// find node's entity/ftso address
 		let ftsoObj = ftsoAddresses.find(obj => {
 			return obj.nodeId == node.nodeID;
 		})
-		if (ftsoObj === undefined || ftsoObj.firstEpoch > epochNum) {
-			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
-			nonEligibilityReason = "didn't provide its FTSO address";
-			return [false, "", nonEligibilityReason, ""];
-		}
-		// uptime
-		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
-			nonEligibilityReason = "not high enough uptime";
-			return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
-		}
-
-		// ftso rewards
-		await sleepms(1000 / rps);
-		let ftsoPerformance = await ftsoRewardManager.methods.getDataProviderPerformanceInfo(epochNum.toString(), ftsoObj.ftsoAddress).call();
-		if (BigInt(ftsoPerformance[0]) <= BigInt(ftsoPerformanceForReward)) {
-			nonEligibilityReason = "not high enough FTSO performance";
-			return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
-		}
-		return [true, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
+		const uptimeEligible = eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID)) ? true : false;
+		return [uptimeEligible, ftsoObj.ftsoName, ftsoObj.ftsoAddress];
 	}
 
-	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[]): Promise<ActiveNode> {
-		let nodeObj = {} as ActiveNode;
+	public async initialNodeData(node: NodeData, ftsoAddress: string, boostingAddresses: string[]): Promise<NodeInitialData> {
+		let nodeObj = {} as NodeInitialData;
 		nodeObj.nodeId = node.nodeID;
 		nodeObj.bondingAddress = node.inputAddresses[0];
 		nodeObj.selfBond = node.weight;
 		nodeObj.ftsoAddress = ftsoAddress;
 		nodeObj.stakeEnd = node.endTime;
 		nodeObj.pChainAddress = [];
-
-		// node is in group 1
-		if (boostingAddresses.includes(node.inputAddresses[0]) && node.weight == BigInt(10000000) * GWEI) {
-			// bind p chain address to node id
-			for (let obj of pChainAddresses) {
-				if (obj.ftsoAddress == nodeObj.ftsoAddress) {
-					nodeObj.pChainAddress.push(obj.pChainAddress);
-				}
-			}
-			nodeObj.fee = 200000;
-			nodeObj.group = 1;
-			return nodeObj;
-		}
 		nodeObj.fee = node.feePercentage;
 		nodeObj.pChainAddress.push(nodeObj.bondingAddress);
-		nodeObj.group = 2
 		return nodeObj;
 	}
 
-	public async getTotalStakeAndCapVP(activeNodes: ActiveNode[], votePowerCapFactor: number, totalStakeNetwork: bigint, entities: Entity[]): Promise<[ActiveNode[], bigint, Entity[]]> {
+	public async getTotalStakeAndCapVP(activeNodes: NodeData[], votePowerCapFactor: number, totalStakeNetwork: bigint, entities: Entity[]): Promise<[NodeData[], bigint, Entity[]]> {
 
 		// cap factor for entity
 		entities.forEach(e => {
@@ -426,7 +399,7 @@ export class CalculatingRewardsService {
 		return BigInt(totals[5]) * BigInt(epochDurationSeconds) / BigInt(DAY_SECONDS);
 	}
 
-	public async calculateRewardAmounts(activeNodes: ActiveNode[], totalStakeAmount: bigint, availableRewardAmount: bigint): Promise<ActiveNode[]> {
+	public async calculateRewardAmounts(activeNodes: NodeData[], totalStakeAmount: bigint, availableRewardAmount: bigint): Promise<NodeData[]> {
 
 		// sort lexicographically by nodeID
 		activeNodes.sort((a, b) => a.nodeId.toLowerCase() > b.nodeId.toLowerCase() ? 1 : -1);
@@ -469,46 +442,7 @@ export class CalculatingRewardsService {
 		return activeNodes;
 	}
 
-	public async nodeGroup1Data(delegations: DelegationData[], node: ActiveNode, boostingAddresses: string[], addressBinder: AddressBinder, rps: number): Promise<[bigint, bigint, DelegatorData[]]> {
-		let selfDelegations = BigInt(0);
-		let regularDelegations = BigInt(0);
-		let delegators = [] as DelegatorData[];
-		for (const delegation of delegations) {
-			if (delegation.nodeID !== node.nodeId) continue;
-
-			// self-delegation
-			if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
-				selfDelegations += delegation.weight;
-			}
-			// boosting delegation
-			else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
-				// do nothing
-			}
-			// regular delegation
-			else {
-				regularDelegations += delegation.weight;
-				// check if delegator already delegated to the node
-				const i = delegators.findIndex(del => del.pAddress == delegation.inputAddresses[0]);
-				if (i > -1) {
-					delegators[i].amount += delegation.weight;
-				} else {
-					await sleepms(1000 / rps);
-					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
-					if (cAddr === ZERO_ADDRESS) {
-						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
-					}
-					delegators.push({
-						pAddress: delegation.inputAddresses[0],
-						cAddress: cAddr,
-						amount: delegation.weight
-					});
-				}
-			}
-		}
-		return [selfDelegations, regularDelegations, delegators];
-	}
-
-	public async nodeGroup2Data(delegations: DelegationData[], boostingAddresses: string[], node: ActiveNode, addressBinder: AddressBinder, rps: number): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
+	public async nodeGroup2Data(delegations: DelegationData[], boostingAddresses: string[], node: NodeInitialData, addressBinder: AddressBinder, rps: number): Promise<[bigint, bigint, bigint, DelegatorData[]]> {
 		let selfDelegations = BigInt(0);
 		let regularDelegations = BigInt(0);
 		let boost = BigInt(0);
@@ -535,7 +469,7 @@ export class CalculatingRewardsService {
 					await sleepms(1000 / rps);
 					let cAddr = await addressBinder.methods.pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0])).call();
 					if (cAddr === ZERO_ADDRESS) {
-						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not binded`);
+						this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not bound`);
 					}
 					delegators.push({
 						pAddress: delegation.inputAddresses[0],
@@ -548,7 +482,7 @@ export class CalculatingRewardsService {
 		return [selfDelegations, regularDelegations, boost, delegators];
 	}
 
-	public async writeRewardedAddressesToJSON(activeNodes: ActiveNode[], availableRewardAmount: bigint): Promise<RewardsData[]> {
+	public async writeRewardedAddressesToJSON(activeNodes: NodeData[], availableRewardAmount: bigint): Promise<RewardsData[]> {
 
 		let epochRewardsData = [] as RewardsData[];
 		let distributed = BigInt(0);

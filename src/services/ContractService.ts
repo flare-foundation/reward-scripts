@@ -11,6 +11,7 @@ import { FtsoRewardManager } from '../../typechain-web3-v1/FtsoRewardManager';
 import { PChainStakeMirrorMultiSigVoting } from '../../typechain-web3-v1/PChainStakeMirrorMultiSigVoting';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
+import { FlareSystemsManager } from '../../typechain-web3-v1/FlareSystemsManager';
 
 @Singleton
 @Factory(() => new ContractService())
@@ -112,7 +113,9 @@ export class ContractService {
       return (await this.getContract('AddressBinder')) as AddressBinder;
    }
 
-
+   public async flareSystemsManager(): Promise<FlareSystemsManager> {
+      return (await this.getContract('FlareSystemsManager')) as FlareSystemsManager;
+   }
 
    public async getEventsFromBlockForContract(contractName: string, startBlock: number, endBlock: number, inf = false, maxDelay = 150): Promise<ContractEventBatch> {
       let contract = await this.getContract(contractName);
