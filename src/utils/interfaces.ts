@@ -118,6 +118,24 @@ export interface UptimeVote {
    nodeIds: string[];
 }
 
+export enum ClaimType {
+   DIRECT,
+   FEE,
+   WNAT,
+   MIRROR,
+   CCHAIN,
+ }
+export interface IRewardClaim {
+   beneficiary: string;
+   amount: bigint;
+   claimType: ClaimType;
+   rewardEpochId: number;
+ }
+ export interface IRewardClaimWithProof {
+   merkleProof: string[];
+   body: IRewardClaim;
+ }
+
 // Config file exports
 export interface INetworkConfigJson {
    NETWORK: string;
