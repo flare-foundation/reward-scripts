@@ -1,6 +1,6 @@
 import { refreshArtifacts } from '../utils/artifact-utils';
 
-const contractToSync = ['FtsoManager', 'FtsoRewardManager', 'PChainStakeMirrorMultiSigVoting', 'AddressBinder', 'ValidatorRewardManager'];
+const contractToSync = ['FlareSystemsManager', 'PChainStakeMirrorMultiSigVoting', 'AddressBinder', 'ValidatorRewardManager'];
 
 refreshArtifacts(contractToSync)
    .then(() => process.exit(0))

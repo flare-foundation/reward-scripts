@@ -1,15 +1,5 @@
 [
    {
-      "name": "FtsoRewardManager",
-      "contractName": "FtsoRewardManager.sol",
-      "address": "0x85627d71921AE25769f5370E482AdA5E1e418d37"
-   },
-   {
-      "name": "FtsoManager",
-      "contractName": "FtsoManager.sol",
-      "address": "0x2E99a4543F9ea708Cf8CCaC447515e61706D9DE9"
-   },
-   {
       "name": "PChainStakeMirrorMultiSigVoting",
       "contractName": "PChainStakeMirrorMultiSigVoting.sol",
       "address": "0x12b3079D5b65a17EFD1665d9731FB0Adb46F14e4"
@@ -23,5 +13,10 @@
       "name": "AddressBinder",
       "contractName": "AddressBinder.sol",
       "address": "0x57c5149c6cdC7bA379aFAe28e6497Ae26c252738"
+   },
+   {
+      "name": "FlareSystemsManager",
+      "contractName": "FlareSystemsManager.sol",
+      "address": "0x89e50DC0380e597ecE79c8494bAAFD84537AD0D4"
    }
 ]

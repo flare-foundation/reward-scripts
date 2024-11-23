@@ -11,6 +11,7 @@ import { FtsoRewardManager } from '../../typechain-web3-v1/FtsoRewardManager';
 import { PChainStakeMirrorMultiSigVoting } from '../../typechain-web3-v1/PChainStakeMirrorMultiSigVoting';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
+import { FlareSystemsManager } from '../../typechain-web3-v1/FlareSystemsManager';
 
 @Singleton
 @Factory(() => new ContractService())
@@ -92,12 +93,8 @@ export class ContractService {
    }
 
    /// Specific contracts - add them manually here
-   public async ftsoManager(): Promise<FtsoManager> {
-      return (await this.getContract('FtsoManager')) as FtsoManager;
-   }
-
-   public async ftsoRewardManager(): Promise<FtsoRewardManager> {
-      return (await this.getContract('FtsoRewardManager')) as FtsoRewardManager;
+   public async flareSystemsManager(): Promise<FlareSystemsManager> {
+      return (await this.getContract('FlareSystemsManager')) as FlareSystemsManager;
    }
 
    public async validatorRewardManager(): Promise<ValidatorRewardManager> {
