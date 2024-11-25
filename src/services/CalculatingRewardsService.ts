@@ -345,9 +345,13 @@ export class CalculatingRewardsService {
 
 		let nonEligibilityReason: string;
 		// find node's entity/ftso address
-		const ftsoObj = ftsoAddresses.find(obj => {
+		const ftsoObjs = ftsoAddresses.filter(obj => {
 			return obj.nodeId == node.nodeID;
 		})
+		// sort by first epoch in descending order
+		ftsoObjs.sort((a, b) => b.firstEpoch - a.firstEpoch);
+		// if there is more than one ftso address for a node, take the first one (the one with the latest first epoch)
+		const ftsoObj = ftsoObjs[0];
 		if (ftsoObj === undefined || ftsoObj.firstEpoch > epochNum) {
 			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
 			nonEligibilityReason = "didn't provide its FTSO address";
