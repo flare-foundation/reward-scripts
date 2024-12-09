@@ -115,8 +115,12 @@ export class CalculatingRewardsService {
 			let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
 			node.eligible = eligible;
 			node.ftsoName = ftsoName;
+			node.uptimeEligible = true;
 			if (!node.eligible) {
 				node.nonEligibilityReason = nonEligibilityReason;
+				if (node.nonEligibilityReason === "not high enough FTSO performance") {
+					node.uptimeEligible = false;
+				}
 			}
 
 			if (node.group === 1) {
