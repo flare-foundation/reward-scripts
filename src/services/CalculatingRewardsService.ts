@@ -101,7 +101,7 @@ export class CalculatingRewardsService {
 		const processedNodesInterval = setInterval(() => this.logger.info(`${allActiveNodes.length} nodes processed so far`), 15000);
 
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
-		this.logger.info(`^Rprocessing nodes data started`);
+		this.logger.info(`^Gprocessing nodes data started`);
 		// get ftso v2 performance data
 		let res = await axios.get(`https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/flare/${rewardEpoch}/reward-distribution-data.json`);
 		let data = res.data.rewardClaims.filter(
@@ -118,7 +118,7 @@ export class CalculatingRewardsService {
 			node.uptimeEligible = true;
 			if (!node.eligible) {
 				node.nonEligibilityReason = nonEligibilityReason;
-				if (node.nonEligibilityReason === "not high enough FTSO performance") {
+				if (node.nonEligibilityReason === "not high enough uptime") {
 					node.uptimeEligible = false;
 				}
 			}
@@ -186,7 +186,7 @@ export class CalculatingRewardsService {
 
 		clearInterval(processedNodesInterval);
 
-		this.logger.info(`^Rcalculating rewards started`);
+		this.logger.info(`^Gcalculating rewards started`);
 		// after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
 		allActiveNodes.forEach(node => {
 			const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
@@ -608,7 +608,7 @@ export class CalculatingRewardsService {
 						}
 						distributed += delegatorRewardAmount;
 					} else {
-						this.logger.error(`Delegator ${delegatorRewardingAddress} has reward amount 0`);
+						this.logger.info(`^YDelegator ${delegatorRewardingAddress} has reward amount 0`);
 					}
 
 				})
