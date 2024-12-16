@@ -76,8 +76,8 @@ export class CalculatingRewardsService {
 		const ftsoVpBlock = parseInt(await flareSystemsManager.methods.getVotePowerBlock(rewardEpoch + 1).call());
 		const nextRewardEpochStartBlock = parseInt(nextRewardEpochData[1]);
 		const nextRewardEpochStartTs = parseInt(nextRewardEpochData[0]); // rewardEpochEndTs
-		// const stakingVpBlock = ftsoVpBlock;
-		let stakingVpBlock = nextRewardEpochStartBlock - 2 * (parseInt(nextRewardEpochData1[1]) - parseInt(nextRewardEpochData1[0]));
+		const stakingVpBlock = ftsoVpBlock;
+		// let stakingVpBlock = nextRewardEpochStartBlock - 2 * (parseInt(nextRewardEpochData1[1]) - parseInt(nextRewardEpochData1[0]));
 
 		//// get list of nodes with sufficient uptime
 		await this.contractService.resetUptimeArray();
