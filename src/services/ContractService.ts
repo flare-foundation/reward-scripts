@@ -93,12 +93,8 @@ export class ContractService {
    }
 
    /// Specific contracts - add them manually here
-   public async ftsoManager(): Promise<FtsoManager> {
-      return (await this.getContract('FtsoManager')) as FtsoManager;
-   }
-
-   public async ftsoRewardManager(): Promise<FtsoRewardManager> {
-      return (await this.getContract('FtsoRewardManager')) as FtsoRewardManager;
+   public async flareSystemsManager(): Promise<FlareSystemsManager> {
+      return (await this.getContract('FlareSystemsManager')) as FlareSystemsManager;
    }
 
    public async validatorRewardManager(): Promise<ValidatorRewardManager> {

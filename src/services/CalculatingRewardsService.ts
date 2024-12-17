@@ -1,6 +1,6 @@
 import { Factory, Inject, Singleton } from 'typescript-ioc';
 import { AttLogger } from '../logger/logger';
-import { DelegationData, DelegatorData, NodeInitialData, Entity, FtsoData, NodeData, RewardsData, UptimeVote, RewardingPeriodData, DataValidatorRewardManager } from '../utils/interfaces';
+import { DelegationData, DelegatorData, NodeInitialData, Entity, FtsoData, NodeData, RewardsData, UptimeVote, RewardingPeriodData, DataValidatorRewardManager, ClaimType } from '../utils/interfaces';
 import { nodeIdToBytes20, pAddressToBytes20, sleepms } from '../utils/utils';
 import { ConfigurationService } from './ConfigurationService';
 import { ContractService } from './ContractService';
@@ -10,7 +10,7 @@ import axios from 'axios';
 import { EventProcessorService } from './EventProcessorService';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
-import { FtsoManager } from '../../typechain-web3-v1/FtsoManager';
+import { FlareSystemsManager } from '../../typechain-web3-v1/FlareSystemsManager';
 import { bigIntReplacer, bigIntReviver } from '../utils/big-number-serialization';
 // import { parse } from 'csv-parse';
 const parseCsv = require('csv-parse/lib/sync');
@@ -44,9 +44,7 @@ export class CalculatingRewardsService {
 		this.logger.info(`waiting for network connection...`);
 
 		// contracts
-		const ftsoManager = await this.contractService.ftsoManager();
 		const flareSystemsManager = await this.contractService.flareSystemsManager();
-		const ftsoRewardManager = await this.contractService.ftsoRewardManager();
 		const pChainStakeMirrorMultiSigVoting = await this.contractService.pChainStakeMirrorMultiSigVoting();
 		const addressBinder = await this.contractService.addressBinder();
 
@@ -64,33 +62,30 @@ export class CalculatingRewardsService {
 
 		if (rewardEpoch === undefined) {
 			await sleepms(1000 / rps);
-			rewardEpoch = parseInt(await ftsoRewardManager.methods.getCurrentRewardEpoch().call()) - 1;
+			rewardEpoch = parseInt(await flareSystemsManager.methods.getCurrentRewardEpoch().call()) - 1;
 		}
 
 		const generatedFilesPath = `generated-files/reward-epoch-${rewardEpoch}`
 		fs.mkdirSync(generatedFilesPath, { recursive: true });
 
 		await sleepms(1000 / rps);
-		const nextRewardEpochData = await flareSystemsManager.methods.getRewardEpochStartInfo((rewardEpoch + 1).toString()).call();
-		let nextRewardEpochData1 = await ftsoManager.methods.getRewardEpochData((rewardEpoch + 1).toString()).call();
-		const ftsoVpBlock = parseInt(await flareSystemsManager.methods.getVotePowerBlock(rewardEpoch + 1).call());
+		const nextRewardEpochData = await flareSystemsManager.methods.getRewardEpochStartInfo(rewardEpoch + 1).call();
 		const nextRewardEpochStartBlock = parseInt(nextRewardEpochData[1]);
 		const nextRewardEpochStartTs = parseInt(nextRewardEpochData[0]); // rewardEpochEndTs
-		const stakingVpBlock = ftsoVpBlock;
-		// let stakingVpBlock = nextRewardEpochStartBlock - 2 * (parseInt(nextRewardEpochData1[1]) - parseInt(nextRewardEpochData1[0]));
+		const stakingVpBlock = Number(await flareSystemsManager.methods.getVotePowerBlock(rewardEpoch + 1).call());
 
 		//// get list of nodes with sufficient uptime
 		await this.contractService.resetUptimeArray();
 		await this.eventProcessorService.processEvents(nextRewardEpochStartBlock, rps, batchSize, uptimeVotingPeriodLengthSeconds, nextRewardEpochStartTs, rewardEpoch);
-		let uptimeVotingData = await this.contractService.getUptimeVotingData();
-		let eligibleNodesUptime = await this.getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
+		const uptimeVotingData = await this.contractService.getUptimeVotingData();
+		const eligibleNodesUptime = await this.getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
 
 		// get active nodes at staking vote power block
-		let activeNodes = await this.getActiveStakes(stakingVpBlock, apiPath, VALIDATORS_API) as NodeData[];
+		const activeNodes = await this.getActiveStakes(stakingVpBlock, apiPath, VALIDATORS_API) as NodeData[];
 		activeNodes.sort((a, b) => a.startTime - b.startTime || a.nodeID.toLowerCase().localeCompare(b.nodeID.toLowerCase()));
 
 		// get delegations active at staking vp block
-		let delegations = await this.getActiveStakes(stakingVpBlock, apiPath, DELEGATORS_API) as DelegationData[];
+		const delegations = await this.getActiveStakes(stakingVpBlock, apiPath, DELEGATORS_API) as DelegationData[];
 		delegations.sort((a, b) => a.startTime - b.startTime || a.txID.toLowerCase().localeCompare(b.txID.toLowerCase()));
 
 		let allActiveNodes = [] as NodeInitialData[];
@@ -98,7 +93,13 @@ export class CalculatingRewardsService {
 		const processedNodesInterval = setInterval(() => this.logger.info(`${allActiveNodes.length} nodes processed so far`), 15000);
 
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
-		this.logger.info(`^Rprocessing nodes data started`);
+		this.logger.info(`^Gprocessing nodes data started`);
+		// get ftso v2 performance data
+		let res = await axios.get(`https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/flare/${rewardEpoch}/reward-distribution-data.json`);
+		let data = res.data.rewardClaims.filter(
+			claimWithProof =>
+				claimWithProof.body.claimType == ClaimType.WNAT
+		);
 		for (const activeNode of activeNodes) {
 
 			// let [eligible, ftsoAddress, nonEligibilityReason, ftsoName] = await this.isEligibleForReward(activeNode, eligibleNodesUptime, ftsoAddresses, ftsoRewardManager, rewardEpoch, ftsoPerformanceForRewardWei, rps);
@@ -143,6 +144,8 @@ export class CalculatingRewardsService {
 	}
 
 	public async calculateRewards(rewardEpoch: number, boostingFactor: number, minForBEBGwei: string, votePowerCapBIPS: number, rewardAmountEpochWei: string) {
+		const flareSystemsManager = await this.contractService.flareSystemsManager();
+		const validatorRewardManager = await this.contractService.validatorRewardManager();
 		this.logger.info(`^Rcalculating rewards started`);
 		// fetch updated nodes data file
 		let activeNodes = JSON.parse(fs.readFileSync(`generated-files/reward-epoch-${rewardEpoch}/nodes-data-test.json`, 'utf8'), bigIntReviver) as NodeData[];
@@ -203,9 +206,7 @@ export class CalculatingRewardsService {
 		let rewardAmount: bigint;
 		// reward amount available for distribution
 		if (rewardAmountEpochWei === undefined) {
-			const validatorRewardManager = await this.contractService.validatorRewardManager();
-			const ftsoManager = await this.contractService.ftsoManager();
-			rewardAmount = await this.getRewardAmount(validatorRewardManager, ftsoManager);
+			rewardAmount = await this.getRewardAmount(validatorRewardManager, flareSystemsManager);
 		} else {
 			rewardAmount = BigInt(rewardAmountEpochWei);
 		}
@@ -347,9 +348,13 @@ export class CalculatingRewardsService {
 	// check if node has high enough uptime
 	public async checkUptime(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[]): Promise<[boolean, string, string]> {
 		// find node's entity/ftso address
-		let ftsoObj = ftsoAddresses.find(obj => {
+		const ftsoObjs = ftsoAddresses.filter(obj => {
 			return obj.nodeId == node.nodeID;
 		})
+		// sort by first epoch in descending order
+		ftsoObjs.sort((a, b) => b.firstEpoch - a.firstEpoch);
+		// if there is more than one ftso address for a node, take the first one (the one with the latest first epoch)
+		const ftsoObj = ftsoObjs[0];
 		const uptimeEligible = eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID)) ? true : false;
 		return [uptimeEligible, ftsoObj.ftsoName, ftsoObj.ftsoAddress];
 	}
@@ -393,9 +398,9 @@ export class CalculatingRewardsService {
 		return [activeNodes, totalCappedWeightEligible, entities];
 	}
 
-	public async getRewardAmount(validatorRewardManager: ValidatorRewardManager, ftsoManager: FtsoManager): Promise<bigint> {
+	public async getRewardAmount(validatorRewardManager: ValidatorRewardManager, flareSystemsManager: FlareSystemsManager): Promise<bigint> {
 		let totals = await validatorRewardManager.methods.getTotals().call();
-		let epochDurationSeconds = await ftsoManager.methods.rewardEpochDurationSeconds().call();
+		let epochDurationSeconds = await flareSystemsManager.methods.rewardEpochDurationSeconds().call();
 		return BigInt(totals[5]) * BigInt(epochDurationSeconds) / BigInt(DAY_SECONDS);
 	}
 
@@ -528,7 +533,7 @@ export class CalculatingRewardsService {
 						}
 						distributed += delegatorRewardAmount;
 					} else {
-						this.logger.error(`Delegator ${delegatorRewardingAddress} has reward amount 0`);
+						this.logger.info(`^YDelegator ${delegatorRewardingAddress} has reward amount 0`);
 					}
 
 				})
