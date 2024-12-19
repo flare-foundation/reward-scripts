@@ -18,5 +18,10 @@
       "name": "FlareSystemsManager",
       "contractName": "FlareSystemsManager.sol",
       "address": "0x89e50DC0380e597ecE79c8494bAAFD84537AD0D4"
+   },
+   {
+      "name": "EntityManager",
+      "contractName": "EntityManager.sol",
+      "address": "0x134b3311C6BdeD895556807a30C7f047D99DfdC2"
    }
 ]

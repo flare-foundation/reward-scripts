@@ -43,16 +43,12 @@ export interface NodeInitialData {
    boostDelegations: bigint;        // delegations made from boosting (FNl) addresses
    totalStakeAmount: bigint;        // group1: total weight = self-bond + self-delegations + (normal) delegations + boost
    // group2: total weight = self-delegations + (normal) delegations + boost
-   delegators: DelegatorData[];     // data about normal delegators
+   delegators?: DelegatorData[];     // data about normal delegators
    fee: number;                     // node's fee (in PPM)
    BEB: bigint;                     // boosting eligibility bond
-   cappedWeight: bigint;            // capped weight for the purpose of distribution of reward amount between nodes
    stakeEnd: number;                // end time of node's stake
-   nodeRewardAmount: bigint;        // reward amount for a node (distributed between validator and (normal) delegators)
-   validatorRewardAmount: bigint;   // reward amount that validator receives
    totalSelfBond: bigint;           // group 1: self-delegations; group 2: initial stake (self-bond) + self-delegations
-   nonEligibilityReason: string;    // reason why node is not eligible for reward
-   ftsoName: string;                // name of an FTSO provider
+   ftsoName?: string;                // name of an FTSO provider
    uptimeEligible: boolean;         // does node has high enough uptime to be considered for reward
 }
 
@@ -60,6 +56,10 @@ export interface NodeData extends NodeInitialData {
    eligible: boolean;               // is node eligible for reward
    overboost: bigint;
    rewardingWeight: bigint;         // adjusted total weight (total stake amount) for the purpose of rewarding
+   cappedWeight: bigint;            // capped weight for the purpose of distribution of reward amount between nodes
+   nodeRewardAmount?: bigint;        // reward amount for a node (distributed between validator and (normal) delegators)
+   validatorRewardAmount?: bigint;   // reward amount that validator receives
+   burnedRewardAmount?: bigint;     // amount of reward that is burned
 }
 
 export interface Entity {

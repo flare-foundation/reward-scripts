@@ -2,7 +2,6 @@ import { Factory, Inject, Singleton } from 'typescript-ioc';
 import { readJSON } from '../utils/config-utils';
 import { INetworkConfigJson } from '../utils/interfaces';
 import { logException } from '../logger/logger';
-import { config } from 'dotenv';
 
 @Singleton
 @Factory(() => new ConfigurationService())

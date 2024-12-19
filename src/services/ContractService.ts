@@ -6,12 +6,11 @@ import { ContractDeploy, ContractEventBatch, UptimeVote } from '../utils/interfa
 import { getWeb3, getWeb3ContractWithAbi, sleepms, waitFinalize3Factory } from '../utils/utils';
 import { ConfigurationService } from './ConfigurationService';
 import { LoggerService } from './LoggerService';
-import { FtsoManager } from '../../typechain-web3-v1/FtsoManager';
-import { FtsoRewardManager } from '../../typechain-web3-v1/FtsoRewardManager';
 import { PChainStakeMirrorMultiSigVoting } from '../../typechain-web3-v1/PChainStakeMirrorMultiSigVoting';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
 import { FlareSystemsManager } from '../../typechain-web3-v1/FlareSystemsManager';
+import { EntityManager } from '../../typechain-web3-v1/EntityManager';
 
 @Singleton
 @Factory(() => new ContractService())
@@ -109,8 +108,8 @@ export class ContractService {
       return (await this.getContract('AddressBinder')) as AddressBinder;
    }
 
-   public async flareSystemsManager(): Promise<FlareSystemsManager> {
-      return (await this.getContract('FlareSystemsManager')) as FlareSystemsManager;
+   public async entityManager(): Promise<EntityManager> {
+      return (await this.getContract('EntityManager')) as EntityManager;
    }
 
    public async getEventsFromBlockForContract(contractName: string, startBlock: number, endBlock: number, inf = false, maxDelay = 150): Promise<ContractEventBatch> {

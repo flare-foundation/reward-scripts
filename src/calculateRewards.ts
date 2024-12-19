@@ -23,8 +23,8 @@ let args = yargs
    .option('votePowerCapBIPS', { alias: 'v', type: 'number', description: 'Cap vote power to x% of total stake amount' })
    .option('minForBEBGwei', { alias: 'm', type: 'string', description: 'Minimal amount (in gwei) of total self-bond to be eligible for boosting' })
    .option('rewardAmountEpochWei', { alias: 'a', type: 'string', description: 'Reward amount (in wei) to be distributed per reward epoch' })
+   .option('rps', { alias: 'r', type: 'number', description: 'Request per second' })
    .argv;
-
 
 process.env.CONFIG_FILE = args['config'];
 
@@ -34,13 +34,14 @@ const contractService = iocContainer(null).get(ContractService);
 
 async function runCalculateRewards() {
    await contractService.waitForInitialization();
-   let rewardEpoch = args['rewardEpoch'] ? args['rewardEpoch'] : configurationService.rewardEpoch;
-   let boostingFactor = args['boostingFactor'] ? args['boostingFactor'] : configurationService.boostingFactor;
-   let votePowerCapBIPS = args['votePowerCapBIPS'] ? args['votePowerCapBIPS'] : configurationService.votePowerCapBIPS;
-   let minForBEBGwei = args['minForBEBGwei'] ? args['minForBEBGwei'] : configurationService.minForBEBGwei;
-   let rewardAmountEpochWei = args['rewardAmountEpochWei'] ? args['rewardAmountEpochWei'] : configurationService.rewardAmountEpochWei;
+   const rewardEpoch = args['rewardEpoch'] ? args['rewardEpoch'] : configurationService.rewardEpoch;
+   const boostingFactor = args['boostingFactor'] ? args['boostingFactor'] : configurationService.boostingFactor;
+   const votePowerCapBIPS = args['votePowerCapBIPS'] ? args['votePowerCapBIPS'] : configurationService.votePowerCapBIPS;
+   const minForBEBGwei = args['minForBEBGwei'] ? args['minForBEBGwei'] : configurationService.minForBEBGwei;
+   const rewardAmountEpochWei = args['rewardAmountEpochWei'] ? args['rewardAmountEpochWei'] : configurationService.rewardAmountEpochWei;
+   const rps = args['rps'] ? args['rps'] : configurationService.maxRequestsPerSecond;
 
-   await calculatingRewardsService.calculateRewards(rewardEpoch, boostingFactor, minForBEBGwei, votePowerCapBIPS, rewardAmountEpochWei);
+   await calculatingRewardsService.calculateRewards(rewardEpoch, boostingFactor, minForBEBGwei, votePowerCapBIPS, rewardAmountEpochWei, rps);
 }
 
 runCalculateRewards()
