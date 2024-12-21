@@ -153,9 +153,8 @@ export class CalculatingRewardsService {
 		// read updated nodes data file
 		let activeNodes = JSON.parse(fs.readFileSync(`generated-files/reward-epoch-${rewardEpoch}/initial-nodes-data.json`, 'utf8'), bigIntReviver) as NodeData[];
 		// fetch minimal conditions file
-		// const minimalConditionsResp = await axios.get(`https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/${this.configurationService.network}/${rewardEpoch}/minimal-conditions.json`);
-		// const minimalConditionsData = minimalConditionsResp.data;
-		const minimalConditionsData = JSON.parse(fs.readFileSync(`generated-files/reward-epoch-${rewardEpoch}/minimal-conditions.json`, 'utf8'), bigIntReviver);
+		const minimalConditionsResp = await axios.get(`https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/${this.configurationService.network}/${rewardEpoch}/minimal-conditions.json`);
+		const minimalConditionsData = minimalConditionsResp.data;
 		const acqInfo = await flareSystemsManager.methods.getRandomAcquisitionInfo(rewardEpoch).call();
 		const initializationBlock = parseInt(acqInfo._randomAcquisitionStartBlock);
 
