@@ -352,15 +352,19 @@ export class CalculatingRewardsService {
 		const ftsoObjs = ftsoAddresses.filter(obj => {
 			return obj.nodeId == node.nodeID;
 		})
+		// filter records with first epoch less or equal than the current epoch
+		ftsoObjs.filter(obj => {
+			return obj.firstEpoch <= epochNum;
+		});
 		// sort by first epoch in descending order
 		ftsoObjs.sort((a, b) => b.firstEpoch - a.firstEpoch);
-		// if there is more than one ftso address for a node, take the first one (the one with the latest first epoch)
-		const ftsoObj = ftsoObjs[0];
-		if (ftsoObj === undefined || ftsoObj.firstEpoch > epochNum) {
+		if (ftsoObjs.length === 0) {
 			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
 			nonEligibilityReason = "didn't provide its FTSO address";
 			return [false, "", nonEligibilityReason, ""];
 		}
+		// if there is more than one ftso address for a node, take the first one (the one with the latest first epoch)
+		const ftsoObj = ftsoObjs[0];
 		// uptime
 		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
 			nonEligibilityReason = "not high enough uptime";
@@ -369,16 +373,18 @@ export class CalculatingRewardsService {
 		}
 
 		// ftso rewards
-		const rewardClaim: IRewardClaimWithProof = ftsoPerformanceData.find((claimWithProof: IRewardClaimWithProof) => {
-			return claimWithProof.body.beneficiary.toLowerCase() == ftsoObj.ftsoAddress.toLowerCase();
-		});
-		// data provider has reward amount 0 or lower than ftsoPerformanceForReward
-		if (rewardClaim == undefined || BigInt(rewardClaim.body.amount) <= BigInt(ftsoPerformanceForReward)) {
-			nonEligibilityReason = "not high enough FTSO performance";
-			this.logger.info(`${node.nodeID}: not high enough FTSO performance`);
-			return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
+		for (const obj of ftsoObjs) {
+			const rewardClaim: IRewardClaimWithProof = ftsoPerformanceData.find((claimWithProof: IRewardClaimWithProof) => {
+				return claimWithProof.body.beneficiary.toLowerCase() == obj.ftsoAddress.toLowerCase();
+			});
+			if (rewardClaim != undefined && BigInt(rewardClaim.body.amount) > BigInt(ftsoPerformanceForReward)) {
+				return [true, obj.ftsoAddress, nonEligibilityReason, obj.ftsoName];
+			}
 		}
-		return [true, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
+		// data provider has reward amount 0 or lower than ftsoPerformanceForReward
+		nonEligibilityReason = "not high enough FTSO performance";
+		this.logger.info(`${node.nodeID}: not high enough FTSO performance`);
+		return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
 	}
 
 	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[]): Promise<ActiveNode> {
