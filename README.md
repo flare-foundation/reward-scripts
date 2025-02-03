@@ -41,8 +41,9 @@ You can also run it with optional parameters from [file](./src/processProviders.
 For each run output of the process is in folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
 
 ### Verifying the results
-To verify the official results posted in this repository one needs to update its configuration file with values from the `configFileData` object of a `data.json` file for some reward epoch.
+To verify the official results posted in this repository one needs to update configuration file with values from the `configFileData` object of a `data.json` file for a chosen reward epoch.
 To verify the results for the reward epochs from 126 to 243 inclusive one needs to use branch `version-1`.
+To verify the results for the reward epochs from 244 to 264 inclusive one needs to use branch `version-2`.
 
 ### Data for distributing rewards
 Rewards will be distributed every four reward epochs, which means that every 14 days reward amounts from the past four reward epochs will be summed. This is achieved by running the process

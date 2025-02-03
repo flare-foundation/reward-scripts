@@ -101,7 +101,7 @@ export class CalculatingRewardsService {
 		const processedNodesInterval = setInterval(() => this.logger.info(`${allActiveNodes.length} nodes processed so far`), 15000);
 
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
-		this.logger.info(`^Rprocessing nodes data started`);
+		this.logger.info(`^Gprocessing nodes data started`);
 		// get ftso v2 performance data
 		let res = await axios.get(`https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/flare/${rewardEpoch}/reward-distribution-data.json`);
 		let data = res.data.rewardClaims.filter(
@@ -115,8 +115,12 @@ export class CalculatingRewardsService {
 			let node = await this.nodeGroup(activeNode, ftsoAddress, boostingAddresses, pChainAddresses);
 			node.eligible = eligible;
 			node.ftsoName = ftsoName;
+			node.uptimeEligible = true;
 			if (!node.eligible) {
 				node.nonEligibilityReason = nonEligibilityReason;
+				if (node.nonEligibilityReason === "not high enough uptime") {
+					node.uptimeEligible = false;
+				}
 			}
 
 			if (node.group === 1) {
@@ -182,7 +186,7 @@ export class CalculatingRewardsService {
 
 		clearInterval(processedNodesInterval);
 
-		this.logger.info(`^Rcalculating rewards started`);
+		this.logger.info(`^Gcalculating rewards started`);
 		// after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
 		allActiveNodes.forEach(node => {
 			const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
@@ -345,14 +349,22 @@ export class CalculatingRewardsService {
 
 		let nonEligibilityReason: string;
 		// find node's entity/ftso address
-		const ftsoObj = ftsoAddresses.find(obj => {
+		const ftsoObjs = ftsoAddresses.filter(obj => {
 			return obj.nodeId == node.nodeID;
 		})
-		if (ftsoObj === undefined || ftsoObj.firstEpoch > epochNum) {
+		// filter records with first epoch less or equal than the current epoch
+		ftsoObjs.filter(obj => {
+			return obj.firstEpoch <= epochNum;
+		});
+		// sort by first epoch in descending order
+		ftsoObjs.sort((a, b) => b.firstEpoch - a.firstEpoch);
+		if (ftsoObjs.length === 0) {
 			this.logger.error(`${node.nodeID} did not provide its FTSO address`);
 			nonEligibilityReason = "didn't provide its FTSO address";
 			return [false, "", nonEligibilityReason, ""];
 		}
+		// if there is more than one ftso address for a node, take the first one (the one with the latest first epoch)
+		const ftsoObj = ftsoObjs[0];
 		// uptime
 		if (!eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID))) {
 			nonEligibilityReason = "not high enough uptime";
@@ -361,16 +373,18 @@ export class CalculatingRewardsService {
 		}
 
 		// ftso rewards
-		const rewardClaim: IRewardClaimWithProof = ftsoPerformanceData.find((claimWithProof: IRewardClaimWithProof) => {
-			return claimWithProof.body.beneficiary.toLowerCase() == ftsoObj.ftsoAddress.toLowerCase();
-		});
-		// data provider has reward amount 0 or lower than ftsoPerformanceForReward
-		if (rewardClaim == undefined || BigInt(rewardClaim.body.amount) <= BigInt(ftsoPerformanceForReward)) {
-			nonEligibilityReason = "not high enough FTSO performance";
-			this.logger.info(`${node.nodeID}: not high enough FTSO performance`);
-			return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
+		for (const obj of ftsoObjs) {
+			const rewardClaim: IRewardClaimWithProof = ftsoPerformanceData.find((claimWithProof: IRewardClaimWithProof) => {
+				return claimWithProof.body.beneficiary.toLowerCase() == obj.ftsoAddress.toLowerCase();
+			});
+			if (rewardClaim != undefined && BigInt(rewardClaim.body.amount) > BigInt(ftsoPerformanceForReward)) {
+				return [true, obj.ftsoAddress, nonEligibilityReason, obj.ftsoName];
+			}
 		}
-		return [true, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
+		// data provider has reward amount 0 or lower than ftsoPerformanceForReward
+		nonEligibilityReason = "not high enough FTSO performance";
+		this.logger.info(`${node.nodeID}: not high enough FTSO performance`);
+		return [false, ftsoObj.ftsoAddress, nonEligibilityReason, ftsoObj.ftsoName];
 	}
 
 	public async nodeGroup(node: NodeData, ftsoAddress: string, boostingAddresses: string[], pChainAddresses: PAddressData[]): Promise<ActiveNode> {
@@ -600,7 +614,7 @@ export class CalculatingRewardsService {
 						}
 						distributed += delegatorRewardAmount;
 					} else {
-						this.logger.error(`Delegator ${delegatorRewardingAddress} has reward amount 0`);
+						this.logger.info(`^YDelegator ${delegatorRewardingAddress} has reward amount 0`);
 					}
 
 				})

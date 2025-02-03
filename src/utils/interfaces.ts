@@ -57,6 +57,7 @@ export interface ActiveNode {
    group: number;                   // group to which node belongs
    nonEligibilityReason: string;    // reason why node is not eligible for reward
    ftsoName: string;                // name of an FTSO provider
+   uptimeEligible: boolean;         // does node have enough uptime to be eligible for reward (needed for minimal conditions)
 }
 
 export interface Entity {
