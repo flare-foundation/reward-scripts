@@ -6,8 +6,6 @@ import { ContractDeploy, ContractEventBatch, UptimeVote } from '../utils/interfa
 import { getWeb3, getWeb3ContractWithAbi, sleepms, waitFinalize3Factory } from '../utils/utils';
 import { ConfigurationService } from './ConfigurationService';
 import { LoggerService } from './LoggerService';
-import { FtsoManager } from '../../typechain-web3-v1/FtsoManager';
-import { FtsoRewardManager } from '../../typechain-web3-v1/FtsoRewardManager';
 import { PChainStakeMirrorMultiSigVoting } from '../../typechain-web3-v1/PChainStakeMirrorMultiSigVoting';
 import { AddressBinder } from '../../typechain-web3-v1/AddressBinder';
 import { ValidatorRewardManager } from '../../typechain-web3-v1/ValidatorRewardManager';
