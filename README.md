@@ -32,17 +32,36 @@ For the fastest execution `RPC` with unlimited number of requests should be used
 ```bash
 yarn
 ````
-- Run the calculating staking rewards process
+- Calculate initial nodes data
 ```bash
-yarn process-staking-rewards
+yarn prepare-initial-data
 ```
+- Calculate staking rewards
+```bash
+yarn calculate-staking-rewards
+```
+Note that for the second part of process to succeed `reward-distribution-data.json` for a given reward epoch should be present in the [FSP Rewards repository](https://github.com/flare-foundation/fsp-rewards/tree/main).
+
 You can also run it with optional parameters from [file](./src/processProviders.ts) (e.g. `yarn process-staking-rewards -b 8 -f 111`), which will override parameters set in the configuration file.
 
 For each run output of the process is in folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
 
 ### Verifying the results
-To verify the official results posted in this repository one needs to update its configuration file with values from the `configFileData` object of a `data.json` file for some reward epoch.
+To verify the official results posted in this repository one needs to update configuration file with values from the `configFileData` object of a `data.json` file for a chosen reward epoch.
+
 To verify the results for the reward epochs from 126 to 243 inclusive one needs to use branch `version-1`.
+To verify the results for the reward epochs from 244 to 264 inclusive one needs to use branch `version-2`.
+For both branches one should run the following process
+```bash
+yarn process-staking-rewards
+```
+
+To replicate minimal conditions info files for reward epochs from 251 to 264 inclusive one should use branch `min-conditions-info` and run the following processes
+```bash
+yarn prepare-initial-data
+yarn calculate-staking-rewards
+```
+
 
 ### Data for distributing rewards
 Rewards will be distributed every four reward epochs, which means that every 14 days reward amounts from the past four reward epochs will be summed. This is achieved by running the process
