@@ -104,7 +104,6 @@ export class CalculatingRewardsService {
 		const chainId = await this.contractService.web3.eth.getChainId();
 
 		for (const activeNode of activeNodes) {
-			// let [uptime, ftsoName, ftsoAddress] = await this.checkUptimeAndGetEntityDataOld(activeNode, eligibleNodesUptime, ftsoAddresses);
 			let [uptime, ftsoName, ftsoAddress] = await this.checkUptimeAndGetEntityData(activeNode, eligibleNodesUptime, ftsoNamesData, entityManager, initializationBlock, rps, chainId);
 
 			// decide to which group node belongs
@@ -341,20 +340,6 @@ export class CalculatingRewardsService {
 	}
 
 	// check if node has high enough uptime
-	private async checkUptimeAndGetEntityDataOld(node: NodeData, eligibleNodesUptime: string[], ftsoAddresses: FtsoData[]): Promise<[boolean, string, string]> {
-		// find node's entity/ftso address
-		const ftsoObjs = ftsoAddresses.filter(obj => {
-			return obj.nodeId == node.nodeID;
-		})
-		// sort by first epoch in descending order
-		ftsoObjs.sort((a, b) => b.firstEpoch - a.firstEpoch);
-		// if there is more than one ftso address for a node, take the first one (the one with the latest first epoch)
-		const ftsoObj = ftsoObjs[0];
-
-		const uptimeEligible = eligibleNodesUptime.includes(nodeIdToBytes20(node.nodeID)) ? true : false;
-		return [uptimeEligible, ftsoObj.ftsoName, ftsoObj.ftsoAddress];
-	}
-
 	private async checkUptimeAndGetEntityData(node: NodeData, eligibleNodesUptime: string[], ftsoNamesData: any, entityManager: EntityManager, initializationBlock: number, rps: number, chainId: number): Promise<[boolean, string, string]> {
 		const nodeIdBytes20 = nodeIdToBytes20(node.nodeID);
 		await sleepms(1000 / rps);
