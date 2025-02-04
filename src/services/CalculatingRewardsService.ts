@@ -229,7 +229,7 @@ export class CalculatingRewardsService {
 		activeNodes = await this.calculateRewardAmounts(activeNodes, totalStakeRewarding, rewardAmount);
 		let activeNodesDataJSON = JSON.stringify(activeNodes, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
 		const generatedFilesPath = `generated-files/reward-epoch-${rewardEpoch}`
-		fs.writeFileSync(`${generatedFilesPath}/nodes-data-min-conditions.json`, activeNodesDataJSON, "utf8");
+		fs.writeFileSync(`${generatedFilesPath}/nodes-data.json`, activeNodesDataJSON, "utf8");
 
 		// for the reward epoch create JSON file with rewarded addresses and reward amounts
 		// sum rewards per epoch and address
@@ -258,7 +258,7 @@ export class CalculatingRewardsService {
 
 		// for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
 		let fullDataJSON = JSON.stringify(fullData, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2);
-		fs.writeFileSync(`${generatedFilesPath}/data-min-conditions.json`, fullDataJSON, "utf8");
+		fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
 	}
 
 	private async getFtsoAddress(ftsoAddressFile: string) {
