@@ -1,0 +1,54 @@
+name: "Calculate initial rewards data"
+
+on:
+  schedule:
+  - cron:  '30 7 * * 1' # Every Monday at 07:30 UCT
+  - cron:  '30 19 * * 4' # Every Thursday at 19:30 UCT
+  workflow_dispatch:
+    inputs:
+      first_reward_epoch:
+        description: "Reward epoch"
+        type: number
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  calculate-initial-data:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 20
+    - name: Install jq
+      run: sudo apt update -y && sudo apt install jq moreutils -y
+    - name: Install node modules
+      run: yarn install --frozen-lockfile
+    - name: Calculate epoch vars
+      run: |
+        export REWARD_EPOCH_DEFINED="${{ github.event.inputs.first_reward_epoch }}"
+        export REWARD_EPOCH_CALCULATED="$(node .github/workflows/get-current-reward-epoch.js)"
+        export USE_REWARD_EPOCH="${REWARD_EPOCH_DEFINED:-$REWARD_EPOCH_CALCULATED}"
+        echo "USE_REWARD_EPOCH=$USE_REWARD_EPOCH" >> "$GITHUB_ENV"
+
+    - name: Process initial rewards data for ${{ env.USE_REWARD_EPOCH }}
+      run: |
+        jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
+        jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
+        yarn run prepare-initial-data
+
+    - name: Commit generated-files
+      run: |
+        git config --global user.name 'Reward scripts automation'
+        git config --global user.email 'flare-foundation-reward-scripts-automation@users.noreply.github.com'
+        git add generated-files/reward-epoch-${{ env.USE_REWARD_EPOCH }}
+        git commit -m "Processed initial rewards data for epoch ${{ env.USE_REWARD_EPOCH }}" && git push || echo "No changes were present, failed to commit, proceeding..."
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: staking-rewards
+        path: |
+          generated-files/reward-epoch-${{ env.USE_REWARD_EPOCH }}
