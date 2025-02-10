@@ -37,7 +37,7 @@ jobs:
       run: |
         jq --raw-output --monochrome-output '.NUM_EPOCHS = 1' configs/networks/flare.json | sponge configs/networks/flare.json
         jq --raw-output --monochrome-output --argjson epoch "$USE_REWARD_EPOCH" '.REWARD_EPOCH = $epoch' configs/networks/flare.json | sponge configs/networks/flare.json
-        yarn run process-staking-rewards
+        yarn run prepare-initial-data
 
     - name: Commit generated-files
       run: |
