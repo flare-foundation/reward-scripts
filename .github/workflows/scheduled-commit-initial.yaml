@@ -1,9 +1,9 @@
 name: "Calculate initial rewards data"
 
 on:
-  push:
-    branches:
-      - "test-auto"
+  schedule:
+  - cron:  '30 7 * * 1' # Every Monday at 07:30 UCT
+  - cron:  '30 19 * * 4' # Every Thursday at 19:30 UCT
   workflow_dispatch:
     inputs:
       first_reward_epoch:
@@ -15,7 +15,7 @@ permissions:
   actions: write
 
 jobs:
-  process-staking-rewards:
+  calculate-initial-data:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
