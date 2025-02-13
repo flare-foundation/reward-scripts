@@ -37,7 +37,7 @@ jobs:
         .github/workflows/generate-report-html.sh ${{ env.USE_FIRST_REWARD_EPOCH }} ${{ env.USE_REWARD_EPOCH }}
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: staking-rewards-reports
         path: |
@@ -54,7 +54,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-    - uses: actions/download-artifact@v3
+    - uses: actions/download-artifact@v4
       with:
         name: staking-rewards-reports
         path: ./pages
