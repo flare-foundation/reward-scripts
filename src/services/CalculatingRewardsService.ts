@@ -169,6 +169,9 @@ export class CalculatingRewardsService {
 			const voterAddress = await entityManager.methods.getVoterForDelegationAddress(node.ftsoAddress, initializationBlock).call();
 			const entity = minimalConditionsData.find((entity: any) => entity.voterAddress.toLowerCase() === voterAddress.toLowerCase());
 			node.eligible = entity != undefined ? entity.eligibleForReward : false;
+			if (entity === undefined) {
+				this.logger.error(`Entity ${node.ftsoAddress} is not in minimal conditions file`);
+			}
 
 			// add node to its entity
 			const i = entities.findIndex(entity => entity.entityAddress == node.ftsoAddress);
