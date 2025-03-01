@@ -170,7 +170,7 @@ export class CalculatingRewardsService {
 			const entity = minimalConditionsData.find((entity: any) => entity.voterAddress.toLowerCase() === voterAddress.toLowerCase());
 			node.eligible = entity != undefined ? entity.eligibleForReward : false;
 			if (entity === undefined) {
-				this.logger.error(`Entity ${node.ftsoAddress} is not in minimal conditions file`);
+				this.logger.error(`Entity ${node.ftsoAddress} (node ${node.nodeId}) is not in minimal conditions file`);
 			}
 
 			// add node to its entity
