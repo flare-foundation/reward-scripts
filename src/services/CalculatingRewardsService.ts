@@ -96,8 +96,30 @@ export class CalculatingRewardsService {
 		//// for each node check if it is eligible for rewarding, get its delegations, decide to which entity it belongs and calculate boost, total stake amount, ...
 		this.logger.info(`^Gprocessing nodes data started`);
 
-		const ftsoNamesResp = await axios.get(`https://raw.githubusercontent.com/TowoLabs/ftso-signal-providers/next/bifrost-wallet.providerlist.json`);
-		const ftsoNamesData = ftsoNamesResp.data.providers;
+		let ftsoNamesData;
+		try {
+			const ftsoNamesResp = await axios.get(
+				`https://raw.githubusercontent.com/TowoLabs/ftso-signal-providers/next/bifrost-wallet.providerlist.json`
+			);
+			ftsoNamesData = ftsoNamesResp.data.providers;
+
+			if (!ftsoNamesData) {
+				throw new Error("Providers data is undefined");
+			}
+		} catch (error) {
+			// Fallback to local file
+			// try {
+				this.logger.info(`^RReading provider names from local file`);
+				const localData = await fs.promises.readFile("./providers-names/bifrost-wallet.providerlist.json", "utf-8");
+				ftsoNamesData = JSON.parse(localData).providers;
+			// 	if (!ftsoNamesData) {
+			// 		throw new Error("Local providers data is undefined");
+			// 	}
+			// } catch (localError) {
+			// 	console.error("Failed to read local FTSO file:", localError.message);
+			// 	ftsoNamesData = [];
+			// }
+		}
 		const entityManager = await this.contractService.entityManager();
 		const acqInfo = await flareSystemsManager.methods.getRandomAcquisitionInfo(rewardEpoch).call();
 		const initializationBlock = parseInt(acqInfo._randomAcquisitionStartBlock);
