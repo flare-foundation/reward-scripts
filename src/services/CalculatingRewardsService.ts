@@ -19,7 +19,7 @@ const VALIDATORS_API = 'validators/list';
 const DELEGATORS_API = 'delegators/list';
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DAY_SECONDS = 24 * 60 * 60;
-const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
+const BURN_ADDRESS = "0xD9e5B450773B17593abAfCF73aB96ad99d589751";
 
 @Singleton
 @Factory(() => new CalculatingRewardsService())
