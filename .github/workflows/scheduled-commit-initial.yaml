@@ -2,8 +2,8 @@ name: "Calculate initial rewards data"
 
 on:
   schedule:
-  - cron:  '30 7 * * 1' # Every Monday at 07:30 UCT
-  - cron:  '30 19 * * 4' # Every Thursday at 19:30 UCT
+  - cron:  '15 7 * * 1' # Every Monday at 07:15 UCT
+  - cron:  '15 19 * * 4' # Every Thursday at 19:15 UCT
   workflow_dispatch:
     inputs:
       first_reward_epoch:
