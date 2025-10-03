@@ -11204,7 +11204,7 @@
     "boostDelegations": "0n",
     "boost": "0n",
     "selfDelegations": "0n",
-    "normalDelegations": "90482191930987742n",
+    "normalDelegations": "89732191930987742n",
     "totalSelfBond": "7753235000000000n",
     "delegators": [
       {
@@ -11498,11 +11498,6 @@
         "amount": "483229999000000n"
       },
       {
-        "pAddress": "flare1k7v2enxkfenfrr4354kd4ckz6mlck9fzg8xq4c",
-        "cAddress": "0x9209987190faD0D1Ff4645966CBDaef57f3FaB11",
-        "amount": "750000000000000n"
-      },
-      {
         "pAddress": "flare1ct3c4ka8ksc73v44uf9qhqxw6azgxns6n9c245",
         "cAddress": "0x517773eaC8d4e11db8B39EB79149815183a1Ca55",
         "amount": "150000000000000n"
@@ -11778,7 +11773,7 @@
         "amount": "403683342480000n"
       }
     ],
-    "totalStakeAmount": "98235426930987742n",
+    "totalStakeAmount": "97485426930987742n",
     "cChainAddress": "0x45F543d4b242C296f8Aa4Dc988Da4f42917199b5"
   },
   {
@@ -16468,7 +16463,7 @@
     "boostDelegations": "0n",
     "boost": "0n",
     "selfDelegations": "0n",
-    "normalDelegations": "153989309080186539n",
+    "normalDelegations": "152399888030424247n",
     "totalSelfBond": "11000000000000000n",
     "delegators": [
       {
@@ -16802,11 +16797,6 @@
         "amount": "148310212342000n"
       },
       {
-        "pAddress": "flare1g9dalva5ru460e87q4yxy7t95lxlsfxv43vl93",
-        "cAddress": "0xD3cf9AB67bB0B13262F79Fd2c676077675e8edc9",
-        "amount": "1589421049762292n"
-      },
-      {
         "pAddress": "flare1shc6k4tc36p3ug75saggercdddxy6zc69vpalk",
         "cAddress": "0xAe1503224bfE7BDD73beD0B5dCdF33b72c90960e",
         "amount": "4805490968000000n"
@@ -17127,7 +17117,7 @@
         "amount": "50000000000000n"
       }
     ],
-    "totalStakeAmount": "164989309080186539n",
+    "totalStakeAmount": "163399888030424247n",
     "cChainAddress": "0x1E8F916CE03F4ce86186531a8994d366581Ed4be"
   },
   {
