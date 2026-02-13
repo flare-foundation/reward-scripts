@@ -99,7 +99,7 @@ export class CalculatingRewardsService {
 		let ftsoNamesData;
 		try {
 			const ftsoNamesResp = await axios.get(
-				`https://raw.githubusercontent.com/TowoLabs/ftso-signal-providers/next/bifrost-wallet.providerlist.json`
+				`https://raw.githubusercontent.com/TowoLabs/ftso-signal-providers/master/bifrost-wallet.providerlist.json`
 			);
 			ftsoNamesData = ftsoNamesResp.data.providers;
 
