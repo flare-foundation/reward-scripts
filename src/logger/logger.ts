@@ -42,6 +42,7 @@ interface LogInfo {
   label?: string;
 }
 
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
 export class ColorConsole extends Transport {
   instance = 0;
 
@@ -141,6 +142,7 @@ export class ColorConsole extends Transport {
     }
   };
 }
+/* eslint-enable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
 
 function replaceAll(text: string, search: string, replaceWith: string): string {
   try {

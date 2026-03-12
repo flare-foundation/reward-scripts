@@ -30,10 +30,10 @@ const configurationService = iocContainer(null).get(ConfigurationService);
 try {
   const lastRewardEpoch = args["lastEpoch"] ? (args["lastEpoch"] as number) : configurationService.rewardEpoch;
   const numEpochs = args["numEpochs"] ? (args["numEpochs"] as number) : configurationService.numEpochs;
-  /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
   calculatingRewardsService.sumRewards(lastRewardEpoch, numEpochs);
   process.exit(0);
+  /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 } catch (error) {
   console.error(error);
   process.exit(1);
