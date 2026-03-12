@@ -1,73 +1,103 @@
-# Staking Reward Script
-For each reward epoch (every 3.5 days) script that calculates staking rewards will be run. Relevant data will be posted on this repository.
+<!-- LOGO -->
 
-## The process
+<div align="center">
+  <a href="https://flare.network/" target="blank">
+    <img src="https://content.flare.network/Flare-2.svg" width="300" alt="Flare Logo" />
+  </a>
+  <br />
+  Staking reward calculation and distribution scripts for the Flare network.
+  <br />
+  <a href="#staking-rewards-calculation-script">About</a>
+  ·
+  <a href="CONTRIBUTING.md">Contributing</a>
+  ·
+  <a href="SECURITY.md">Security</a>
+  ·
+  <a href="CHANGELOG.md">Changelog</a>
+</div>
 
-- Clone this repository
+# Staking Rewards Calculation Script
+
+For each reward epoch (every 3.5 days) a script that calculates staking rewards
+is run. Relevant data will be posted on this repository.
+
+## Overview
+
+The reward calculation process consists of three stages:
+
+1. **Prepare initial data** -- gather on-chain validator and delegator information for a given reward epoch.
+2. **Calculate staking rewards** -- compute the reward distribution based on uptime, FTSO performance, stake weight, and boosting.
+3. **Sum staking rewards** -- aggregate rewards across multiple epochs for the actual on-chain payout (every four reward epochs / 14 days).
+
+## Configuration
+
+Set up a network configuration file at `configs/networks/<network_name>.json`:
+
+| Parameter | Description |
+|---|---|
+| `NETWORK` | Name of the network (e.g. `flare`). Must match the address config file `deploys/<NETWORK>.json` (e.g. [flare](deploys/flare.json)). |
+| `RPC` | RPC URL for the network. |
+| `MAX_BLOCKS_FOR_EVENT_READS` | How many blocks can be read with a single web3 API call (e.g. `getAllEvents`). |
+| `MAX_REQUESTS_PER_SECOND` | How many requests per second can be made. |
+| `REWARD_EPOCH` | Reward epoch for which rewards are calculated. |
+| `REQUIRED_FTSO_PERFORMANCE_WEI` | Amount of FTSO rewards a provider needs to receive in a given epoch for its node to be eligible for staking rewards. |
+| `BOOSTING_FACTOR` | Factor of boosting eligibility bond (BEB) a validator receives as a boost. |
+| `MIN_FOR_BEB_GWEI` | Minimum total self-bond needed to be eligible to receive a boost. |
+| `VOTE_POWER_CAP_BIPS` | Percentage of the network's total stake amount a node can have for rewarding. |
+| `UPTIME_VOTING_PERIOD_LENGTH_SECONDS` | Length of the period (starting at the given reward epoch) in which voters can cast a vote regarding nodes with high enough uptime. |
+| `UPTIME_VOTING_THRESHOLD` | Number of votes a node needs to receive to be eligible for a reward. |
+| `API_PATH` | Path to APIs which list active validators and delegators. |
+| `REWARD_AMOUNT_EPOCH_WEI` | Reward amount to distribute in a given reward epoch. |
+| `NUM_EPOCHS` | Number of epochs for which to sum reward amounts. |
+
+If a configuration file doesn't exist or some parameters are missing, those parameters will have default values from the [configuration service](./src/services/ConfigurationService.ts). If a default value is `undefined` it will be read from the blockchain.
+
+For the fastest execution, use an `RPC` with unlimited requests and set `MAX_REQUESTS_PER_SECOND` to `Infinity`.
+
+## Usage
+
+Install packages:
+
 ```bash
-git checkout https://github.com/flare-foundation/reward-scripts.git
+pnpm install
 ```
-- Set up (network) configuration file `configs/networks/network_name.json`
-   - `NETWORK`: name of the network (e.g. `flare`). It should match the file name for the address configuration file `deploys/<NETWORK>.json` (e.g. [flare](deploys/flare.json))
-   - `RPC`: RPC URL for the network
-   - `MAX_BLOCKS_FOR_EVENT_READS`: how many blocks can be read with a single web3 API call (e.g. `getAllEvents`)
-   - `MAX_REQUESTS_PER_SECOND`: how many requests per second can be made
-   - `REWARD_EPOCH`: reward epoch for which rewards are calculated
-   - `REQUIRED_FTSO_PERFORMANCE_WEI`: the amount of FTSO rewards that an FTSO provider needs to receive in a given epoch for its node to be eligible to receive staking rewards
-   - `BOOSTING_FACTOR`: factor of boosting eligibility bond (BEB) validator received as a boost
-   - `MIN_FOR_BEB_GWEI`: minimum total self-bond needed to be eligible to receive a boost
-   - `VOTE_POWER_CAP_BIPS`: percentage of the network's total stake amount node can have for rewarding
-   - `UPTIME_VOTING_PERIOD_LENGTH_SECONDS`: length of a period (starting at the given reward epoch) in which voters can cast a vote regarding nodes with high enough uptime
-   - `UPTIME_VOTING_THRESHOLD`: number of votes a node needs to receive to be eligible for a reward
-   - `API_PATH`: path to APIs which list active validators and delegators
-   - `REWARD_AMOUNT_EPOCH_WEI`: reward amount to distribute in a given reward epoch
-   - `NUM_EPOCHS`: number of epochs for which to sum reward amounts
 
+Calculate initial nodes data:
 
-If a configuration file doesn't exist or some parameters are missing, (those) parameters will have default values from [configuration service](./src/services/ConfigurationService.ts). If a default value is `undefined` it will be read from the blockchain.
-
-For the fastest execution `RPC` with unlimited number of requests should be used and parameter `MAX_REQUESTS_PER_SECOND` should be set to `Infinity`.
-
-- Install packages
 ```bash
-yarn
-````
-- Calculate initial nodes data
-```bash
-yarn prepare-initial-data
+pnpm prepare-initial-data
 ```
-- Calculate staking rewards
+
+Calculate staking rewards:
+
 ```bash
-yarn calculate-staking-rewards
+pnpm calculate-staking-rewards
 ```
-Note that for the second part of process to succeed `reward-distribution-data.json` for a given reward epoch should be present in the [FSP Rewards repository](https://github.com/flare-foundation/fsp-rewards/tree/main).
 
-You can also run it with optional parameters from [file](./src/processProviders.ts) (e.g. `yarn process-staking-rewards -b 8 -f 111`), which will override parameters set in the configuration file.
+> **Note:** For the second step to succeed, `reward-distribution-data.json` for a given reward epoch must be present in the [FSP Rewards repository](https://github.com/flare-foundation/fsp-rewards/tree/main).
 
-For each run output of the process is in folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
+You can also run it with optional parameters from [this file](./src/processProviders.ts) (e.g. `pnpm process-staking-rewards -b 8 -f 111`), which will override parameters set in the configuration file.
+
+For each run, output is in the folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
 
 ### Verifying the results
-To verify the official results posted in this repository one needs to update configuration file with values from the `configFileData` object of a `data.json` file for a chosen reward epoch.
 
-To verify the results for the reward epochs from 126 to 243 inclusive one needs to use branch `version-1`.
-To verify the results for the reward epochs from 244 to 264 inclusive one needs to use branch `version-2`.
-For both branches one should run the following process
-```bash
-yarn process-staking-rewards
-```
+To verify the official results posted in this repository, update the configuration file with values from the `configFileData` object of a `data.json` file for a chosen reward epoch.
 
-To replicate minimal conditions info files for reward epochs from 251 to 264 inclusive one should use branch `min-conditions-info` and run the following processes
-```bash
-yarn prepare-initial-data
-yarn calculate-staking-rewards
-```
-
+| Reward epochs | Branch | Command |
+|---|---|---|
+| 126 -- 243 | `version-1` | `pnpm process-staking-rewards` |
+| 244 -- 264 | `version-2` | `pnpm process-staking-rewards` |
+| 251 -- 264 (minimal conditions info) | `min-conditions-info` | `pnpm prepare-initial-data && pnpm calculate-staking-rewards` |
 
 ### Data for distributing rewards
-Rewards will be distributed every four reward epochs, which means that every 14 days reward amounts from the past four reward epochs will be summed. This is achieved by running the process
-```bash
-yarn sum-staking-rewards
-```
-The config's file parameter `REWARD_EPOCH` specifies the latest reward epoch for which reward data is summed, and the parameter `NUM_EPOCHS` specifies the number of reward epochs for which reward data is summed.
 
-Output of the process is a file `epochs-<REWARD_EPOCH-NUM_EPOCHS+1>-<REWARD_EPOCH>`, which is located in the folder `generated-files/validator-rewards`.
+Rewards are distributed every four reward epochs (every 14 days). Reward amounts from the past four epochs are summed by running:
+
+```bash
+pnpm sum-staking-rewards
+```
+
+The config parameter `REWARD_EPOCH` specifies the latest reward epoch for which reward data is summed, and `NUM_EPOCHS` specifies the number of reward epochs to sum.
+
+Output is a file `epochs-<REWARD_EPOCH-NUM_EPOCHS+1>-<REWARD_EPOCH>` in the folder `generated-files/validator-rewards`.
