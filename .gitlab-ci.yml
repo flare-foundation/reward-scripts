@@ -1,0 +1,12 @@
+stages:
+  - check
+
+lint:
+  stage: check
+  image: node:24
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm lint:check
+    - pnpm format:check

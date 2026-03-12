@@ -230,15 +230,17 @@ export function createLogger(label?: string): AttLogger {
         label,
       }),
       winston.format.printf((json: winston.Logform.TransformableInfo) => {
+        const ts = json.timestamp as string;
+        const msg = json.message as string;
         if (json.label) {
-          return `${String(json.timestamp)}  - ${String(json.label)}:[${json.level}]: ${String(json.message)}`;
+          return `${ts}  - ${json.label as string}:[${json.level}]: ${msg}`;
         } else {
-          return `${String(json.timestamp)}[${json.level}]: ${String(json.message)}`;
+          return `${ts}[${json.level}]: ${msg}`;
         }
       })
     ),
     transports: [
-      new ColorConsole(),
+      new ColorConsole() as unknown as winston.transport,
       new winston.transports.File({
         level: "debug2",
         filename: `./logs/${PROJECT_NAME}-${label}.log`,
