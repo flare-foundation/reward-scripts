@@ -5,32 +5,21 @@ import { Terminal } from "./terminal";
 
 const PROJECT_NAME = "staking-rewards";
 
-const _level = process.env.LOG_LEVEL || "info";
-
 const Reset = "\x1b[0m";
-const _Bright = "\x1b[1m";
-const _Dim = "\x1b[2m";
-const _Underscore = "\x1b[4m";
-const _Blink = "\x1b[5m";
-const _Reverse = "\x1b[7m";
-const _Hidden = "\x1b[8m";
 
 const FgBlack = "\x1b[30m";
 const FgRed = "\x1b[31m";
 const FgGreen = "\x1b[32m";
 const FgYellow = "\x1b[33m";
 const FgBlue = "\x1b[34m";
-const _FgMagenta = "\x1b[35m";
 const FgCyan = "\x1b[36m";
 const FgWhite = "\x1b[37m";
 const FgGray = "\x1b[90m";
 
-const _BgBlack = "\x1b[40m";
 const BgRed = "\x1b[41m";
 const BgGreen = "\x1b[42m";
 const BgBlue = "\x1b[44m";
 const BgYellow = "\x1b[43m";
-const _BgMagenta = "\x1b[45m";
 const BgCyan = "\x1b[46m";
 const BgWhite = "\x1b[47m";
 const BgGray = "\x1b[100m";
@@ -42,7 +31,6 @@ interface LogInfo {
   label?: string;
 }
 
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
 export class ColorConsole extends Transport {
   instance = 0;
 
@@ -142,7 +130,6 @@ export class ColorConsole extends Transport {
     }
   };
 }
-/* eslint-enable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
 
 function replaceAll(text: string, search: string, replaceWith: string): string {
   try {

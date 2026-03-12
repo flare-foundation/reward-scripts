@@ -23,7 +23,6 @@ import { ValidatorRewardManager } from "../../typechain-web3-v1/ValidatorRewardM
 import { FlareSystemsManager } from "../../typechain-web3-v1/FlareSystemsManager";
 import { bigIntReplacer, bigIntReviver } from "../utils/big-number-serialization";
 import { EntityManager } from "../../typechain-web3-v1/EntityManager";
-import { parse as parseCsv } from "csv-parse/sync";
 const VALIDATORS_API = "validators/list";
 const DELEGATORS_API = "delegators/list";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -89,9 +88,6 @@ export class CalculatingRewardsService {
 
     // boosting addresses
     const boostingAddresses = this.getBoostingAddresses("boosting-addresses.json");
-
-    // ftso address for a node
-    const _ftsoAddresses = this.getFtsoAddress("ftso-address.csv");
 
     // uptime voting threshold
     if (uptimeVotingThreshold === undefined) {
@@ -377,25 +373,6 @@ export class CalculatingRewardsService {
     // for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
     const fullDataJSON = JSON.stringify(fullData, (_, v: unknown) => (typeof v === "bigint" ? v.toString() : v), 2);
     fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
-  }
-
-  private getFtsoAddress(ftsoAddressFile: string) {
-    const rawData = fs.readFileSync(ftsoAddressFile, "utf8");
-    const csvRows = parseCsv(rawData, {
-      columns: true,
-      skip_empty_lines: true,
-      delimiter: ",",
-      skip_records_with_error: false,
-    }) as Record<string, string>[];
-    const parsed = csvRows.map((it: Record<string, string>) => {
-      return {
-        nodeId: it["Node ID"],
-        ftsoAddress: it["FTSO address"],
-        ftsoName: it["Name"],
-        firstEpoch: it["First epoch"],
-      };
-    });
-    return parsed;
   }
 
   private getBoostingAddresses(boostingFile: string) {

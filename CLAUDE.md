@@ -41,9 +41,14 @@ Uses **typescript-ioc** for dependency injection with `@Singleton`, `@Factory`, 
 
 ## Post-change checklist
 
+Always use the Node version from `.nvmrc` (must match the `image` in `.gitlab-ci.yml`) before running any commands:
+```bash
+source ~/.nvm/nvm.sh && nvm use
+```
+
 After every code change, run:
 
-1. `pnpm lint:check` — fix any lint errors before proceeding
+1. `pnpm lint:check` — fix any lint errors or warnings before proceeding
 2. `pnpm format:check` — fix any formatting issues
 3. `pnpm build` — ensure TypeScript compiles without errors
 4. `pnpm calculate-staking-rewards -e 378` — verify the script still runs
