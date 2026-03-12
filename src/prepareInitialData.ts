@@ -30,7 +30,6 @@ const args = yargs
     description: "Required number of votes for uptime to be considered high enough",
   })
   .option("apiPath", { alias: "y", type: "string", description: "Api for validators and delegators" }).argv;
-/* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 
 process.env.CONFIG_FILE = args["config"] as string;
 
@@ -59,8 +58,8 @@ async function runPrepareInitialData() {
     uptimeVotingThreshold,
     apiPath
   );
+  /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 }
-/* eslint-enable @typescript-eslint/no-unsafe-member-access */
 
 runPrepareInitialData()
   .then(() => process.exit(0))

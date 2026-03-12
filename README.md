@@ -76,7 +76,7 @@ pnpm calculate-staking-rewards
 
 > **Note:** For the second step to succeed, `reward-distribution-data.json` for a given reward epoch must be present in the [FSP Rewards repository](https://github.com/flare-foundation/fsp-rewards/tree/main).
 
-You can also run it with optional parameters from [this file](./src/processProviders.ts) (e.g. `pnpm process-staking-rewards -b 8 -f 111`), which will override parameters set in the configuration file.
+You can also run it with optional parameters (e.g. `pnpm calculate-staking-rewards -e 378 -f 8`), which will override parameters set in the configuration file.
 
 For each run, output is in the folder `generated-files/reward-epochs-<REWARD_EPOCH>`.
 
@@ -86,9 +86,10 @@ To verify the official results posted in this repository, update the configurati
 
 | Reward epochs | Branch | Command |
 |---|---|---|
-| 126 -- 243 | `version-1` | `pnpm process-staking-rewards` |
-| 244 -- 264 | `version-2` | `pnpm process-staking-rewards` |
+| 126 -- 243 | `version-1` | `pnpm calculate-staking-rewards` |
+| 244 -- 264 | `version-2` | `pnpm calculate-staking-rewards` |
 | 251 -- 264 (minimal conditions info) | `min-conditions-info` | `pnpm prepare-initial-data && pnpm calculate-staking-rewards` |
+| 265+ | `main` | `pnpm prepare-initial-data && pnpm calculate-staking-rewards` |
 
 ### Data for distributing rewards
 

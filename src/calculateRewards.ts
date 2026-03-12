@@ -34,7 +34,6 @@ const args = yargs
     description: "Reward amount (in wei) to be distributed per reward epoch",
   })
   .option("rps", { alias: "r", type: "number", description: "Request per second" }).argv;
-/* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 
 process.env.CONFIG_FILE = args["config"] as string;
 
@@ -56,6 +55,7 @@ async function runCalculateRewards() {
     ? (args["rewardAmountEpochWei"] as string)
     : configurationService.rewardAmountEpochWei;
   const rps = args["rps"] ? (args["rps"] as number) : (configurationService.maxRequestsPerSecond as number);
+  /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 
   await calculatingRewardsService.calculateRewards(
     rewardEpoch,
@@ -66,7 +66,6 @@ async function runCalculateRewards() {
     rps
   );
 }
-/* eslint-enable @typescript-eslint/no-unsafe-member-access */
 
 runCalculateRewards()
   .then(() => process.exit(0))
