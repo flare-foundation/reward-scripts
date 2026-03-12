@@ -12,6 +12,18 @@ import { ValidatorRewardManager } from "../../typechain-web3-v1/ValidatorRewardM
 import { FlareSystemsManager } from "../../typechain-web3-v1/FlareSystemsManager";
 import { EntityManager } from "../../typechain-web3-v1/EntityManager";
 
+interface EventReturnValues {
+  rewardEpochId: string;
+  timestamp: string;
+  voter: string;
+  nodeIds: string[];
+}
+
+interface ContractEvent {
+  event: string;
+  returnValues: EventReturnValues;
+}
+
 @Singleton
 @Factory(() => new ContractService())
 export class ContractService {
@@ -26,17 +38,17 @@ export class ContractService {
   }
 
   constructor() {
-    this.init();
+    void this.init();
   }
   initialized = false;
 
   public web3: Web3;
-  private deployMap = new Map<string, any>();
+  private deployMap = new Map<string, unknown>();
   private addressToContactInfo = new Map<string, ContractDeploy>();
 
   public deployData: ContractDeploy[];
 
-  waitFinalize3: (sender: string, func: () => any, delay?: number) => Promise<any>;
+  waitFinalize3: (sender: string, func: () => unknown, delay?: number) => Promise<unknown>;
 
   async init() {
     this.web3 = getWeb3(this.configurationService.networkRPC, this.logger);
@@ -44,7 +56,7 @@ export class ContractService {
     this.deployData = JSON.parse(fs.readFileSync(deployFname).toString()) as ContractDeploy[];
     for (const contractDeploy of this.deployData) {
       const [contractName] = contractDeploy.contractName.split(".");
-      const { contract, abi } = await getWeb3ContractWithAbi(this.web3, contractDeploy.address, contractName);
+      const { contract } = await getWeb3ContractWithAbi(this.web3, contractDeploy.address, contractName);
       this.deployMap.set(contractDeploy.name, contract);
       contractDeploy.address = contractDeploy.address.toLowerCase();
       this.addressToContactInfo.set(contractDeploy.address.toLowerCase(), contractDeploy);
@@ -57,16 +69,16 @@ export class ContractService {
     return [...this.deployMap.keys()];
   }
 
-  public async getContract(name: string): Promise<any> {
+  public async getContract(name: string): Promise<unknown> {
     await this.waitForInitialization();
     return this.deployMap.get(name);
   }
 
-  public contractInfoForAddress(address: string): ContractDeploy {
+  public contractInfoForAddress(address: string): ContractDeploy | undefined {
     return this.addressToContactInfo.get(address);
   }
 
-  public async getContractFromAddress(address: string): Promise<any> {
+  public async getContractFromAddress(address: string): Promise<unknown> {
     await this.waitForInitialization();
     const deployInfo = this.addressToContactInfo.get(address.toLowerCase());
     if (deployInfo) {
@@ -119,7 +131,9 @@ export class ContractService {
     inf = false,
     maxDelay = 150
   ): Promise<ContractEventBatch> {
-    const contract = await this.getContract(contractName);
+    const contract = (await this.getContract(contractName)) as
+      | { getPastEvents: (type: string, opts: { fromBlock: number; toBlock: number }) => Promise<ContractEvent[]> }
+      | undefined;
     if (!contract) {
       return {
         contractName,
@@ -148,7 +162,7 @@ export class ContractService {
   }
 
   public async processBatches(contractName: string, startBlock: number, endBlock: number, batchSize: number) {
-    const batchPromises = [];
+    const batchPromises: Promise<ContractEventBatch>[] = [];
     let next = startBlock;
 
     const contract = await this.getContract(contractName);
@@ -168,9 +182,9 @@ export class ContractService {
     }
 
     const result = await Promise.all(batchPromises);
-    const events = [];
+    const events: ContractEvent[] = [];
     for (const batch of result) {
-      events.push(...batch.events);
+      events.push(...(batch.events as ContractEvent[]));
     }
 
     return {
@@ -181,14 +195,15 @@ export class ContractService {
     } as ContractEventBatch;
   }
 
-  public async processEvents(batch: any, epochId: number, votingStart: number, votingEnd: number): Promise<any> {
-    for (const event of batch.events) {
+  public processEvents(batch: ContractEventBatch, epochId: number, votingStart: number, votingEnd: number): void {
+    const typedEvents = batch.events as unknown as ContractEvent[];
+    for (const event of typedEvents) {
       if (event.event === "PChainStakeMirrorValidatorUptimeVoteSubmitted") {
         const params = event.returnValues;
         // vote is for correct reward epoch
-        if (params.rewardEpochId == epochId) {
+        if (String(params.rewardEpochId) === String(epochId)) {
           // vote was casted in the correct time period
-          if (params.timestamp >= votingStart && params.timestamp <= votingEnd) {
+          if (Number(params.timestamp) >= votingStart && Number(params.timestamp) <= votingEnd) {
             // check if voter has already voted
             for (let i = this.uptimeVotingData.length - 1; i >= 0; i--) {
               // voter has already voted before. Remove that vote and save new one.
@@ -211,13 +226,13 @@ export class ContractService {
     }
   }
 
-  public async resetUptimeArray() {
+  public resetUptimeArray() {
     this.uptimeVotingData = [];
   }
 
   uptimeVotingData = [] as UptimeVote[];
 
-  public async getUptimeVotingData() {
+  public getUptimeVotingData() {
     return this.uptimeVotingData;
   }
 }

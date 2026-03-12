@@ -6,6 +6,7 @@ import { ConfigurationService } from "./services/ConfigurationService";
 import { ContractService } from "./services/ContractService";
 import { CalculatingRewardsService } from "./services/CalculatingRewardsService";
 
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 const yargs = require("yargs");
 
 const args = yargs
@@ -33,8 +34,9 @@ const args = yargs
     description: "Reward amount (in wei) to be distributed per reward epoch",
   })
   .option("rps", { alias: "r", type: "number", description: "Request per second" }).argv;
+/* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 
-process.env.CONFIG_FILE = args["config"];
+process.env.CONFIG_FILE = args["config"] as string;
 
 const calculatingRewardsService = iocContainer(null).get(CalculatingRewardsService);
 const configurationService = iocContainer(null).get(ConfigurationService);
@@ -42,14 +44,18 @@ const contractService = iocContainer(null).get(ContractService);
 
 async function runCalculateRewards() {
   await contractService.waitForInitialization();
-  const rewardEpoch = args["rewardEpoch"] ? args["rewardEpoch"] : configurationService.rewardEpoch;
-  const boostingFactor = args["boostingFactor"] ? args["boostingFactor"] : configurationService.boostingFactor;
-  const votePowerCapBIPS = args["votePowerCapBIPS"] ? args["votePowerCapBIPS"] : configurationService.votePowerCapBIPS;
-  const minForBEBGwei = args["minForBEBGwei"] ? args["minForBEBGwei"] : configurationService.minForBEBGwei;
+  const rewardEpoch = args["rewardEpoch"] ? (args["rewardEpoch"] as number) : configurationService.rewardEpoch;
+  const boostingFactor = args["boostingFactor"]
+    ? (args["boostingFactor"] as number)
+    : configurationService.boostingFactor;
+  const votePowerCapBIPS = args["votePowerCapBIPS"]
+    ? (args["votePowerCapBIPS"] as number)
+    : configurationService.votePowerCapBIPS;
+  const minForBEBGwei = args["minForBEBGwei"] ? (args["minForBEBGwei"] as string) : configurationService.minForBEBGwei;
   const rewardAmountEpochWei = args["rewardAmountEpochWei"]
-    ? args["rewardAmountEpochWei"]
+    ? (args["rewardAmountEpochWei"] as string)
     : configurationService.rewardAmountEpochWei;
-  const rps = args["rps"] ? args["rps"] : configurationService.maxRequestsPerSecond;
+  const rps = args["rps"] ? (args["rps"] as number) : (configurationService.maxRequestsPerSecond as number);
 
   await calculatingRewardsService.calculateRewards(
     rewardEpoch,
@@ -60,6 +66,7 @@ async function runCalculateRewards() {
     rps
   );
 }
+/* eslint-enable @typescript-eslint/no-unsafe-member-access */
 
 runCalculateRewards()
   .then(() => process.exit(0))

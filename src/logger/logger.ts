@@ -5,35 +5,42 @@ import { Terminal } from "./terminal";
 
 const PROJECT_NAME = "staking-rewards";
 
-const level = process.env.LOG_LEVEL || "info";
+const _level = process.env.LOG_LEVEL || "info";
 
 const Reset = "\x1b[0m";
-const Bright = "\x1b[1m";
-const Dim = "\x1b[2m";
-const Underscore = "\x1b[4m";
-const Blink = "\x1b[5m";
-const Reverse = "\x1b[7m";
-const Hidden = "\x1b[8m";
+const _Bright = "\x1b[1m";
+const _Dim = "\x1b[2m";
+const _Underscore = "\x1b[4m";
+const _Blink = "\x1b[5m";
+const _Reverse = "\x1b[7m";
+const _Hidden = "\x1b[8m";
 
 const FgBlack = "\x1b[30m";
 const FgRed = "\x1b[31m";
 const FgGreen = "\x1b[32m";
 const FgYellow = "\x1b[33m";
 const FgBlue = "\x1b[34m";
-const FgMagenta = "\x1b[35m";
+const _FgMagenta = "\x1b[35m";
 const FgCyan = "\x1b[36m";
 const FgWhite = "\x1b[37m";
 const FgGray = "\x1b[90m";
 
-const BgBlack = "\x1b[40m";
+const _BgBlack = "\x1b[40m";
 const BgRed = "\x1b[41m";
 const BgGreen = "\x1b[42m";
-const BgYellow = "\x1b[43m";
 const BgBlue = "\x1b[44m";
-const BgMagenta = "\x1b[45m";
+const BgYellow = "\x1b[43m";
+const _BgMagenta = "\x1b[45m";
 const BgCyan = "\x1b[46m";
 const BgWhite = "\x1b[47m";
 const BgGray = "\x1b[100m";
+
+interface LogInfo {
+  level: string;
+  message: string;
+  timestamp: string;
+  label?: string;
+}
 
 export class ColorConsole extends Transport {
   instance = 0;
@@ -45,10 +52,10 @@ export class ColorConsole extends Transport {
   constructor() {
     super();
 
-    this.terminal = new Terminal(process.stderr);
+    this.terminal = new Terminal(process.stderr as unknown as NodeJS.WriteStream);
   }
 
-  log = (info: any, callback: any) => {
+  log = (info: LogInfo, callback: () => void) => {
     setImmediate(() => this.emit("logged", info));
 
     let color = "";
@@ -140,7 +147,9 @@ function replaceAll(text: string, search: string, replaceWith: string): string {
     while (text.indexOf(search) >= 0) {
       text = text.replace(search, replaceWith);
     }
-  } catch {}
+  } catch {
+    // ignore replacement errors
+  }
 
   return text;
 }
@@ -164,7 +173,9 @@ export function processColors(text: string, def: string) {
     text = replaceAll(text, "^c", BgCyan);
     text = replaceAll(text, "^w", BgWhite);
     text = replaceAll(text, "^e", BgGray);
-  } catch {}
+  } catch {
+    // ignore color processing errors
+  }
 
   return text;
 }
@@ -192,7 +203,7 @@ const myCustomLevels = {
 
 const globalLogger = new Map<string, AttLogger>();
 
-let globalLoggerLabel;
+let globalLoggerLabel: string | undefined;
 
 export interface AttLogger extends winston.Logger {
   title: (message: string) => null;
@@ -218,11 +229,11 @@ export function createLogger(label?: string): AttLogger {
       winston.format.label({
         label,
       }),
-      winston.format.printf((json: any) => {
+      winston.format.printf((json: winston.Logform.TransformableInfo) => {
         if (json.label) {
-          return `${json.timestamp}  - ${json.label}:[${json.level}]: ${json.message}`;
+          return `${String(json.timestamp)}  - ${String(json.label)}:[${json.level}]: ${String(json.message)}`;
         } else {
-          return `${json.timestamp}[${json.level}]: ${json.message}`;
+          return `${String(json.timestamp)}[${json.level}]: ${String(json.message)}`;
         }
       })
     ),
@@ -259,11 +270,12 @@ export function getGlobalLogger(label?: string): AttLogger {
   return logger;
 }
 
-export function logException(error: any, comment: string) {
+export function logException(error: unknown, comment: string) {
   const logger = getGlobalLogger();
 
-  logger.error2(`${comment} ${error}`);
-  if (error.stack) {
+  const errorMsg = error instanceof Error ? error.message : JSON.stringify(error);
+  logger.error2(`${comment} ${errorMsg}`);
+  if (error instanceof Error && error.stack) {
     logger.error(error.stack);
   }
 }

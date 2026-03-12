@@ -45,7 +45,7 @@ export class EventProcessorService {
       try {
         this.logger.info(`Next block ${nextBlockToProcess}`);
 
-        if (rps != Infinity) {
+        if (rps !== Infinity) {
           endBlock = Math.min(nextBlockToProcess + batchSize - 1, lastBlock);
           // https://flare-api.flare.network has rate limit 200 rpm
           await sleepms(2000 / rps);
@@ -56,7 +56,7 @@ export class EventProcessorService {
             false
           );
           nextBlockToProcess = endBlock + 1;
-          await this.contractService.processEvents(contractEventBatches, epochId, votingStartTs, votingEndTs);
+          this.contractService.processEvents(contractEventBatches, epochId, votingStartTs, votingEndTs);
         } else {
           endBlock = Math.min(nextBlockToProcess + 30 * batchSize - 1, lastBlock);
           const contractEventBatches = await this.contractService.processBatches(
@@ -66,7 +66,7 @@ export class EventProcessorService {
             batchSize
           );
           nextBlockToProcess = endBlock + 1;
-          await this.contractService.processEvents(contractEventBatches, epochId, votingStartTs, votingEndTs);
+          this.contractService.processEvents(contractEventBatches, epochId, votingStartTs, votingEndTs);
         }
         nextBlockToProcessTs = (await this.contractService.web3.eth.getBlock(nextBlockToProcess)).timestamp as number;
       } catch (error) {

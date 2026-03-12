@@ -1,14 +1,14 @@
-const _readline = require("readline");
+import * as _readline from "readline";
 
 // low-level terminal interactions
 export class Terminal {
-  stream: any;
+  stream: NodeJS.WriteStream;
   linewrap: boolean;
 
   dx: number;
   dy: number;
 
-  constructor(outputStream) {
+  constructor(outputStream: NodeJS.WriteStream) {
     this.stream = outputStream;
 
     // default: line wrapping enabled
@@ -39,7 +39,7 @@ export class Terminal {
   }
 
   // show/hide cursor
-  cursor(enabled) {
+  cursor(enabled: boolean) {
     if (!this.stream.isTTY) {
       return;
     }
@@ -52,7 +52,7 @@ export class Terminal {
   }
 
   // change cursor positionn
-  cursorTo(x = null, y = null) {
+  cursorTo(x: number = 0, y?: number) {
     if (!this.stream.isTTY) {
       return;
     }
@@ -62,7 +62,7 @@ export class Terminal {
   }
 
   // change relative cursor position
-  cursorRelative(dx = null, dy = null) {
+  cursorRelative(dx: number = 0, dy: number = 0) {
     if (!this.stream.isTTY) {
       return;
     }
@@ -84,7 +84,7 @@ export class Terminal {
     _readline.moveCursor(this.stream, 0, -this.dy);
 
     // first char
-    _readline.cursorTo(this.stream, 0, null);
+    _readline.cursorTo(this.stream, 0);
 
     // reset counter
     this.dy = 0;
@@ -125,7 +125,7 @@ export class Terminal {
 
   // write content to output stream
   // @TODO use string-width to strip length
-  write(s) {
+  write(s: string) {
     // line wrapping enabled ? trim output
     if (this.linewrap === true) {
       this.stream.write(s.substr(0, this.getWidth()));
@@ -135,7 +135,7 @@ export class Terminal {
   }
 
   // control line wrapping
-  lineWrapping(enabled) {
+  lineWrapping(enabled: boolean) {
     if (!this.stream.isTTY) {
       return;
     }

@@ -4,17 +4,18 @@ import Web3 from "web3";
 import * as _ from "lodash";
 import { BinTools } from "@flarenetwork/flarejs";
 import { bech32 } from "bech32";
+import { AttLogger } from "../logger/logger";
 
 export const BIPS = 10_000;
 const bintools = BinTools.getInstance();
 
 export interface ContractWithAbi {
-  contract: any;
+  contract: unknown;
   abi: string;
 }
 
 export async function sleepms(milliseconds: number) {
-  await new Promise((resolve: any) => {
+  await new Promise<void>((resolve) => {
     setTimeout(() => {
       resolve();
     }, milliseconds);
@@ -29,13 +30,12 @@ export function round(x: number, decimal: number = 0) {
   return Math.round(x * dec10) / dec10;
 }
 
-export function getWeb3(rpcLink: string, logger?: any) {
+export function getWeb3(rpcLink: string, logger?: AttLogger) {
   const web3 = new Web3();
   if (rpcLink.startsWith("http")) {
     web3.setProvider(new Web3.providers.HttpProvider(rpcLink));
   } else if (rpcLink.startsWith("ws")) {
     const provider = new Web3.providers.WebsocketProvider(rpcLink, {
-      // @ts-ignore
       clientConfig: {
         keepalive: true,
         keepaliveInterval: 60000, // milliseconds
@@ -60,40 +60,45 @@ export function getWeb3(rpcLink: string, logger?: any) {
 }
 
 export function getAbi(abiPath: string) {
-  let abi = JSON.parse(fs.readFileSync(abiPath).toString());
+  let abi = JSON.parse(fs.readFileSync(abiPath).toString()) as Record<string, unknown>;
   if (abi.abi) {
-    abi = abi.abi;
+    abi = abi.abi as Record<string, unknown>;
   }
   return abi;
 }
 
-export async function getWeb3Contract(web3: any, address: string, name: string) {
+export async function getWeb3Contract(web3: Web3, address: string, name: string) {
   const contractData = await getWeb3ContractWithAbi(web3, address, name);
   return contractData.contract;
 }
 
-export async function getWeb3ContractWithAbi(web3: any, address: string, name: string): Promise<ContractWithAbi> {
+export async function getWeb3ContractWithAbi(web3: Web3, address: string, name: string): Promise<ContractWithAbi> {
   let abiPath = "";
   try {
     abiPath = await relativeContractABIPathForContractName(name, "artifacts");
     const abi = getAbi(`artifacts/${abiPath}`);
     return {
-      contract: new web3.eth.Contract(abi, address),
-      abi,
+      contract: new web3.eth.Contract(abi as unknown as ConstructorParameters<typeof web3.eth.Contract>[0], address),
+      abi: abi as unknown as string,
     };
-  } catch (e: any) {
-    console.error(`getWeb3Contract error - ABI not found: ${e}`);
+  } catch (e: unknown) {
+    const errorMsg = e instanceof Error ? e.message : JSON.stringify(e);
+    console.error(`getWeb3Contract error - ABI not found: ${errorMsg}`);
+    return {
+      contract: undefined,
+      abi: "",
+    };
   }
 }
 
 export function waitFinalize3Factory(web3: Web3) {
-  return async (address: string, func: () => any, delay: number = 1000) => {
+  return async (address: string, func: () => unknown, delay: number = 1000) => {
     const nonce = await web3.eth.getTransactionCount(address);
     const res = await func();
     const backoff = 1.5;
     let cnt = 0;
     while ((await web3.eth.getTransactionCount(address)) === nonce) {
-      await new Promise((resolve: any) => {
+      await new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve();
         }, delay);
@@ -115,39 +120,52 @@ export async function relativeContractABIPathForContractName(
   artifactsRoot = "artifacts"
 ): Promise<string> {
   return new Promise((resolve, reject) => {
-    glob(`contracts/**/${name}.sol/${name}.json`, { cwd: artifactsRoot }, (er: any, files: string[] | null) => {
-      if (er) {
-        reject(er);
-      } else {
-        if (files && files.length === 1) {
-          resolve(files[0]);
+    (glob as (pattern: string, options: { cwd: string }, cb: (er: Error | null, files: string[]) => void) => void)(
+      `contracts/**/${name}.sol/${name}.json`,
+      { cwd: artifactsRoot },
+      (er: Error | null, files: string[]) => {
+        if (er) {
+          reject(er);
         } else {
-          reject(files);
+          if (files && files.length === 1) {
+            resolve(files[0]);
+          } else {
+            reject(new Error(`Expected 1 file but found: ${files?.join(", ") ?? "none"}`));
+          }
         }
       }
-    });
+    );
   });
 }
 
-export function compareObjArray(arr1: any[], arr2: any[], sortBy: string) {
+interface SortableRecord {
+  [key: string]: unknown;
+  rewardRate?: number | string;
+}
+
+export function compareObjArray(arr1: SortableRecord[], arr2: SortableRecord[], sortBy: string) {
   if (arr1.length !== arr2.length) return false;
 
   // sort array by object key
-  const arr1Sorted = arr1.sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : b[sortBy] > a[sortBy] ? -1 : 0));
-  const arr2Sorted = arr2.sort((a, b) => (a[sortBy] > b[sortBy] ? 1 : b[sortBy] > a[sortBy] ? -1 : 0));
+  const arr1Sorted = arr1.sort((a, b) =>
+    (a[sortBy] as string) > (b[sortBy] as string) ? 1 : (b[sortBy] as string) > (a[sortBy] as string) ? -1 : 0
+  );
+  const arr2Sorted = arr2.sort((a, b) =>
+    (a[sortBy] as string) > (b[sortBy] as string) ? 1 : (b[sortBy] as string) > (a[sortBy] as string) ? -1 : 0
+  );
 
   // round rewardRate to 9 decimals to avoid percision mistakes
   arr1Sorted.forEach((obj) => {
     const hasKeyRewardRate = "rewardRate" in obj;
     if (hasKeyRewardRate) {
-      obj.rewardRate = obj.rewardRate.toFixed(9);
+      obj.rewardRate = (obj.rewardRate as number).toFixed(9);
     }
   });
 
   arr2Sorted.forEach((obj) => {
     const hasKeyRewardRate = "rewardRate" in obj;
     if (hasKeyRewardRate) {
-      obj.rewardRate = obj.rewardRate.toFixed(9);
+      obj.rewardRate = (obj.rewardRate as number).toFixed(9);
     }
   });
 
@@ -158,7 +176,7 @@ export function compareObjArray(arr1: any[], arr2: any[], sortBy: string) {
   return true;
 }
 
-export function compareArray(arr1: any[], arr2: any[]) {
+export function compareArray(arr1: unknown[], arr2: unknown[]) {
   if (arr1.length !== arr2.length) return false;
 
   return _.isEqual(arr1.sort(), arr2.sort());

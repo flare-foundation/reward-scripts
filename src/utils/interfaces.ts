@@ -3,13 +3,13 @@ export interface ContractDeploy {
   contractName: string;
   address: string;
   chainId?: number;
-  abi?: any;
+  abi?: unknown;
 }
 export interface ContractEventBatch {
   contractName: string;
   startBlock: number;
   endBlock: number;
-  events: any[];
+  events: unknown[];
 }
 export interface NodeData {
   nodeID: string;
