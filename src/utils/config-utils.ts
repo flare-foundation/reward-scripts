@@ -1,18 +1,21 @@
+import * as fs from "fs";
+
 export function readJSON<T>(filename: string) {
-   const fs = require('fs');
+  let data = fs.readFileSync(filename).toString();
 
-   let data = fs.readFileSync(filename).toString();
+  // remove all comments
+  //data = data.replace(/((["'])(?:\\[\s\S]|.)*?\2|(?:[^\w\s]|^)\s*\/(?![*\/])(?:\\.|\[(?:\\.|.)\]|.)*?\/(?=[gmiy]{0,4}\s*(?![*\/])(?:\W|$)))|\/\/.*?$|\/\*[\s\S]*?\*\//gm, '$1');
+  data = data.replace(
+    /((["'])(?:\\[\s\S]|.)*?\2|\/(?![*/])(?:\\.|\[(?:\\.|.)\]|.)*?\/)|\/\/.*?$|\/\*[\s\S]*?\*\//gm,
+    "$1"
+  );
 
-   // remove all comments
-   //data = data.replace(/((["'])(?:\\[\s\S]|.)*?\2|(?:[^\w\s]|^)\s*\/(?![*\/])(?:\\.|\[(?:\\.|.)\]|.)*?\/(?=[gmiy]{0,4}\s*(?![*\/])(?:\W|$)))|\/\/.*?$|\/\*[\s\S]*?\*\//gm, '$1');
-   data = data.replace(/((["'])(?:\\[\s\S]|.)*?\2|\/(?![*\/])(?:\\.|\[(?:\\.|.)\]|.)*?\/)|\/\/.*?$|\/\*[\s\S]*?\*\//gm, '$1');
+  // remove trailing commas
+  data = data.replace(/,(?!\s*?[{["'\w])/g, "");
 
-   // remove trailing commas
-   data = data.replace(/\,(?!\s*?[\{\[\"\'\w])/g, '');
+  //console.log( data );
 
-   //console.log( data );
+  const res = JSON.parse(data) as T;
 
-   const res = JSON.parse(data) as T;
-
-   return res;
+  return res;
 }

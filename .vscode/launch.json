@@ -8,7 +8,7 @@
            "type": "node",
            "request": "launch",
            "name": "Backend",
-           "runtimeExecutable": "yarn",
+           "runtimeExecutable": "pnpm",
            "env": {
            },
            "outFiles": [
@@ -27,7 +27,7 @@
         "runtimeVersion": "16.14.0",
         "request": "launch",
         "name": "Staking rewards",
-        "runtimeExecutable": "yarn",
+        "runtimeExecutable": "pnpm",
         "env": {
         },
         "outFiles": [

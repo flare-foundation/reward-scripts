@@ -11,8 +11,8 @@ dist
 ## Node packages etc
 node_modules/
 
-## yarn
-yarn-error.log
+## pnpm
+pnpm-debug.log
 
 ## Logs
 logs
@@ -23,6 +23,7 @@ logs
 
 ## Misc
 .DS_Store
+.claude
 nul
 
 
