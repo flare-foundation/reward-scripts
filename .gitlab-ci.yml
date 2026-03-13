@@ -1,5 +1,7 @@
 stages:
   - check
+  - build
+  - test
 
 lint:
   stage: check
@@ -10,3 +12,30 @@ lint:
   script:
     - pnpm lint:check
     - pnpm format:check
+
+build:
+  stage: build
+  image: node:24
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm build
+
+test:
+  stage: test
+  image: node:24
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm test:coverage
+  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml

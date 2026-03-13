@@ -7,6 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 pnpm install                              # Install dependencies
 pnpm build                                # Compile TypeScript to dist/
+pnpm test                                 # Run tests (Mocha + Chai)
+pnpm test:coverage                        # Run tests with coverage report (nyc)
 pnpm lint:check                           # Check ESLint rules
 pnpm lint:fix                             # Auto-fix ESLint issues
 pnpm format:check                         # Check Prettier formatting
@@ -48,12 +50,13 @@ source ~/.nvm/nvm.sh && nvm use
 
 After every code change, run:
 
-1. `pnpm lint:check` — fix any lint errors or warnings before proceeding
-2. `pnpm format:check` — fix any formatting issues
-3. `pnpm build` — ensure TypeScript compiles without errors
-4. `pnpm calculate-staking-rewards -e 378` — verify the script still runs
-5. Update `CLAUDE.md` if architecture, commands, or constraints changed
-6. Update `.claude/LEARNINGS.md` if something new was learned during the change
+1. `pnpm test` — ensure all tests pass
+2. `pnpm lint:check` — fix any lint errors or warnings before proceeding
+3. `pnpm format:check` — fix any formatting issues
+4. `pnpm build` — ensure TypeScript compiles without errors
+5. `pnpm calculate-staking-rewards -e 378` — verify the script still runs
+6. Update `CLAUDE.md` if architecture, commands, or constraints changed
+7. Update `.claude/LEARNINGS.md` if something new was learned during the change
 
 ## Key constraints
 
