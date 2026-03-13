@@ -1,0 +1,13 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "check-coverage": false,
+  "all": true,
+  "include": [
+    "src/utils/big-number-serialization.ts",
+    "src/utils/hash.ts",
+    "src/utils/utils.ts",
+    "src/utils/config-utils.ts"
+  ],
+  "reporter": ["text", "text-summary", "html", "lcov", "cobertura"],
+  "report-dir": "coverage"
+}
