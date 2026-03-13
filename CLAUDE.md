@@ -54,9 +54,9 @@ After every code change, run:
 2. `pnpm lint:check` — fix any lint errors or warnings before proceeding
 3. `pnpm format:check` — fix any formatting issues
 4. `pnpm build` — ensure TypeScript compiles without errors
-4. `pnpm calculate-staking-rewards -e 378` — verify the script still runs
-5. Update `CLAUDE.md` if architecture, commands, or constraints changed
-6. Update `.claude/LEARNINGS.md` if something new was learned during the change
+5. `pnpm calculate-staking-rewards -e 378` — verify the script still runs
+6. Update `CLAUDE.md` if architecture, commands, or constraints changed
+7. Update `.claude/LEARNINGS.md` if something new was learned during the change
 
 ## Key constraints
 

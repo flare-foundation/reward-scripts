@@ -6,7 +6,10 @@
     "src/utils/big-number-serialization.ts",
     "src/utils/hash.ts",
     "src/utils/utils.ts",
-    "src/utils/config-utils.ts"
+    "src/utils/config-utils.ts",
+    "src/utils/rewards.ts",
+    "src/services/ConfigurationService.ts",
+    "src/services/EventProcessorService.ts"
   ],
   "reporter": ["text", "text-summary", "html", "lcov", "cobertura"],
   "report-dir": "coverage"
