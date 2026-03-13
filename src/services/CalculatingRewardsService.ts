@@ -7,7 +7,6 @@ import {
   Entity,
   NodeData,
   RewardsData,
-  UptimeVote,
   RewardingPeriodData,
   DataValidatorRewardManager,
 } from "../utils/interfaces";
@@ -22,12 +21,18 @@ import { AddressBinder } from "../../typechain-web3-v1/AddressBinder";
 import { ValidatorRewardManager } from "../../typechain-web3-v1/ValidatorRewardManager";
 import { FlareSystemsManager } from "../../typechain-web3-v1/FlareSystemsManager";
 import { bigIntReplacer, bigIntReviver } from "../utils/big-number-serialization";
+import {
+  getUptimeEligibleNodes,
+  initialNodeData,
+  getTotalStakeAndCapVP,
+  calculateRewardAmounts,
+  aggregateRewards,
+} from "../utils/rewards";
 import { EntityManager } from "../../typechain-web3-v1/EntityManager";
 const VALIDATORS_API = "validators/list";
 const DELEGATORS_API = "delegators/list";
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DAY_SECONDS = 24 * 60 * 60;
-const BURN_ADDRESS = "0xD9e5B450773B17593abAfCF73aB96ad99d589751";
 
 interface FtsoNameEntry {
   address: string;
@@ -120,7 +125,7 @@ export class CalculatingRewardsService {
       rewardEpoch
     );
     const uptimeVotingData = this.contractService.getUptimeVotingData();
-    const eligibleNodesUptime = this.getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
+    const eligibleNodesUptime = getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
 
     // get active nodes at staking vote power block
     const activeNodes = (await this.getActiveStakes(stakingVpBlock, apiPath, VALIDATORS_API)) as NodeData[];
@@ -183,7 +188,7 @@ export class CalculatingRewardsService {
       );
 
       // decide to which group node belongs
-      const node = this.initialNodeData(activeNode, ftsoAddress, boostingAddresses);
+      const node = initialNodeData(activeNode, ftsoAddress);
       node.uptimeEligible = uptime;
       node.ftsoName = ftsoName;
 
@@ -315,7 +320,7 @@ export class CalculatingRewardsService {
 
     //// calculate total stake amount and cap vote power (and then adjust total stake amount of network used for rewarding)
     let totalStakeRewarding = BigInt(0);
-    [activeNodes, totalStakeRewarding, entities] = this.getTotalStakeAndCapVP(
+    [activeNodes, totalStakeRewarding, entities] = getTotalStakeAndCapVP(
       activeNodes,
       votePowerCapBIPS,
       totalStakeNetwork,
@@ -331,7 +336,7 @@ export class CalculatingRewardsService {
     }
 
     // calculated reward amount for each eligible node and for its delegators
-    activeNodes = this.calculateRewardAmounts(activeNodes, totalStakeRewarding, rewardAmount);
+    activeNodes = calculateRewardAmounts(activeNodes, totalStakeRewarding, rewardAmount);
     const activeNodesDataJSON = JSON.stringify(
       activeNodes,
       (_, v: unknown) => (typeof v === "bigint" ? v.toString() : v),
@@ -342,7 +347,10 @@ export class CalculatingRewardsService {
 
     // for the reward epoch create JSON file with rewarded addresses and reward amounts
     // sum rewards per epoch and address
-    const rewardsData = this.writeRewardedAddressesToJSON(activeNodes, rewardAmount);
+    const { rewards: rewardsData, distributed } = aggregateRewards(activeNodes, rewardAmount);
+    if (distributed !== rewardAmount) {
+      this.logger.error(`${distributed} was distributed, it should be ${rewardAmount}`);
+    }
 
     const fullData = {
       recipients: rewardsData,
@@ -412,34 +420,6 @@ export class CalculatingRewardsService {
     return fullData;
   }
 
-  private getUptimeEligibleNodes(votingData: UptimeVote[], threshold: number) {
-    const eligibleNodesUptime = [] as string[];
-
-    // const voteCount = votingData.reduce((result, vote) => {
-    // 	vote.nodeIds.forEach(node => {
-    // 	  result[node] = (result[node] || 0) + 1;
-    // 	});
-    // 	return result;
-    //   }, {});
-
-    const voteCount = votingData.reduce(
-      (result: Record<string, number>, vote) => {
-        vote.nodeIds.forEach((node) => {
-          if (!result[node]) result[node] = 0;
-          result[node]++;
-        });
-        return result;
-      },
-      {} as Record<string, number>
-    );
-
-    for (const key of Object.keys(voteCount)) {
-      if (voteCount[key] >= threshold) eligibleNodesUptime.push(key);
-    }
-
-    return eligibleNodesUptime;
-  }
-
   // check if node has high enough uptime
   private async checkUptimeAndGetEntityData(
     node: NodeData,
@@ -463,50 +443,6 @@ export class CalculatingRewardsService {
     return [uptimeEligible, ftsoName, ftsoAddress];
   }
 
-  private initialNodeData(node: NodeData, ftsoAddress: string, _boostingAddresses: string[]): NodeInitialData {
-    const nodeObj = {} as NodeInitialData;
-    nodeObj.nodeId = node.nodeID;
-    nodeObj.bondingAddress = node.inputAddresses[0];
-    nodeObj.selfBond = node.weight;
-    nodeObj.ftsoAddress = ftsoAddress;
-    nodeObj.stakeEnd = node.endTime;
-    nodeObj.pChainAddress = [];
-    nodeObj.fee = node.feePercentage;
-    nodeObj.pChainAddress.push(nodeObj.bondingAddress);
-    return nodeObj;
-  }
-
-  private getTotalStakeAndCapVP(
-    activeNodes: NodeData[],
-    votePowerCapFactor: number,
-    totalStakeNetwork: bigint,
-    entities: Entity[]
-  ): [NodeData[], bigint, Entity[]] {
-    // cap factor for entity
-    entities.forEach((e) => {
-      if (e.totalStakeRewarding !== BigInt(0)) {
-        const capBIPS = (totalStakeNetwork * BigInt(votePowerCapFactor)) / e.totalStakeRewarding;
-        e.capFactor = capBIPS < 1e4 ? capBIPS : BigInt(1e4);
-      } else {
-        // rewarding weight == overboost
-        e.capFactor = BigInt(0);
-      }
-    });
-
-    // total capped rewarding weight of eligible nodes
-    let totalCappedWeightEligible = BigInt(0);
-
-    // cap vote power to some percentage of total stake amount
-    activeNodes.forEach((item) => {
-      if (item.uptimeEligible) {
-        const entity = entities.find((i) => i.entityAddress === item.ftsoAddress);
-        item.cappedWeight = (item.rewardingWeight * entity.capFactor) / BigInt(1e4);
-        totalCappedWeightEligible += item.cappedWeight;
-      }
-    });
-    return [activeNodes, totalCappedWeightEligible, entities];
-  }
-
   private async getRewardAmount(
     validatorRewardManager: ValidatorRewardManager,
     flareSystemsManager: FlareSystemsManager
@@ -514,70 +450,6 @@ export class CalculatingRewardsService {
     const totals = await validatorRewardManager.methods.getTotals().call();
     const epochDurationSeconds = await flareSystemsManager.methods.rewardEpochDurationSeconds().call();
     return (BigInt(totals[5]) * BigInt(epochDurationSeconds)) / BigInt(DAY_SECONDS);
-  }
-
-  private calculateRewardAmounts(
-    activeNodes: NodeData[],
-    totalStakeAmount: bigint,
-    availableRewardAmount: bigint
-  ): NodeData[] {
-    // sort lexicographically by nodeID
-    activeNodes.sort((a, b) => (a.nodeId.toLowerCase() > b.nodeId.toLowerCase() ? 1 : -1));
-
-    activeNodes.forEach((node) => {
-      if (node.uptimeEligible) {
-        if (node.eligible) {
-          // reward amount available for a node
-          node.nodeRewardAmount =
-            totalStakeAmount > BigInt(0) ? (node.cappedWeight * availableRewardAmount) / totalStakeAmount : BigInt(0);
-          let nodeRemainingRewardAmount = node.nodeRewardAmount;
-          let nodeRemainingWeight = node.rewardingWeight;
-          availableRewardAmount -= node.nodeRewardAmount;
-          totalStakeAmount -= node.cappedWeight;
-
-          // fee amount, which validator (entity) receives
-          const feeAmount = (node.nodeRewardAmount * BigInt(node.fee)) / BigInt(1e6);
-          node.validatorRewardAmount = feeAmount;
-          nodeRemainingRewardAmount -= feeAmount;
-
-          // rewards (excluding fees) for total self bond (group1: self-delegations; group2: self-delegations + self-bond)
-          const validatorSelfBondReward =
-            nodeRemainingWeight > BigInt(0)
-              ? (node.totalSelfBond * nodeRemainingRewardAmount) / nodeRemainingWeight
-              : BigInt(0);
-          node.validatorRewardAmount += validatorSelfBondReward;
-          nodeRemainingRewardAmount -= validatorSelfBondReward;
-          nodeRemainingWeight -= node.totalSelfBond;
-
-          // adjusted reward (that would otherwise be earned by boosting addresses)
-          const validatorAdjustedReward =
-            nodeRemainingWeight > BigInt(0)
-              ? ((node.boost - node.overboost) * nodeRemainingRewardAmount) / nodeRemainingWeight
-              : BigInt(0);
-          node.validatorRewardAmount += validatorAdjustedReward;
-          nodeRemainingRewardAmount -= validatorAdjustedReward;
-          nodeRemainingWeight -= node.boost - node.overboost;
-
-          // rewards for delegators
-          node.delegators.sort((a, b) => (a.pAddress.toLowerCase() > b.pAddress.toLowerCase() ? 1 : -1));
-          node.delegators.forEach((delegator) => {
-            delegator.delegatorRewardAmount =
-              nodeRemainingWeight > 0
-                ? (delegator.amount * nodeRemainingRewardAmount) / nodeRemainingWeight
-                : BigInt(0);
-            nodeRemainingWeight -= delegator.amount;
-            nodeRemainingRewardAmount -= delegator.delegatorRewardAmount;
-          });
-        } else {
-          // node is not eligible for reward according to minimal conditions
-          node.burnedRewardAmount =
-            totalStakeAmount > BigInt(0) ? (node.cappedWeight * availableRewardAmount) / totalStakeAmount : BigInt(0);
-          availableRewardAmount -= node.burnedRewardAmount;
-          totalStakeAmount -= node.cappedWeight;
-        }
-      }
-    });
-    return activeNodes;
   }
 
   private async nodeGroup2Data(
@@ -626,77 +498,6 @@ export class CalculatingRewardsService {
       }
     }
     return [selfDelegations, regularDelegations, boost, delegators];
-  }
-
-  private writeRewardedAddressesToJSON(activeNodes: NodeData[], availableRewardAmount: bigint): RewardsData[] {
-    const epochRewardsData = [] as RewardsData[];
-    let distributed = BigInt(0);
-
-    activeNodes.forEach((node) => {
-      if (node.uptimeEligible) {
-        if (node.eligible) {
-          const validatorRewardAmount = node.validatorRewardAmount;
-          if (validatorRewardAmount === BigInt(0)) {
-            if (node.cChainAddress !== undefined) {
-              this.logger.error(`Entity ${node.ftsoAddress} is eligible but reward amount is 0`);
-            }
-            // else:
-            // validator did not provider its ftso address
-            // should only happen if validator from group 1 did not provide p-chain address and has 0 self-delegations
-          } else {
-            const address = node.cChainAddress;
-            const index = epochRewardsData.findIndex((validator) => validator.address === address);
-            if (index > -1) {
-              epochRewardsData[index].amount += validatorRewardAmount;
-            } else {
-              epochRewardsData.push({
-                address: address,
-                amount: validatorRewardAmount,
-              });
-            }
-            distributed += validatorRewardAmount;
-          }
-
-          node.delegators.forEach((delegator) => {
-            const delegatorRewardingAddress = delegator.cAddress;
-            const delegatorRewardAmount = delegator.delegatorRewardAmount;
-            if (delegatorRewardAmount > BigInt(0)) {
-              const index = epochRewardsData.findIndex(
-                (rewardedData) => rewardedData.address === delegatorRewardingAddress
-              );
-              if (index > -1) {
-                epochRewardsData[index].amount += delegatorRewardAmount;
-              } else {
-                epochRewardsData.push({
-                  address: delegatorRewardingAddress,
-                  amount: delegatorRewardAmount,
-                });
-              }
-              distributed += delegatorRewardAmount;
-            } else {
-              this.logger.info(`^YDelegator ${delegatorRewardingAddress} has reward amount 0`);
-            }
-          });
-        } else {
-          const index = epochRewardsData.findIndex((recipient) => recipient.address === BURN_ADDRESS);
-          if (index > -1) {
-            epochRewardsData[index].amount += node.burnedRewardAmount;
-          } else {
-            epochRewardsData.push({
-              address: BURN_ADDRESS,
-              amount: node.burnedRewardAmount,
-            });
-          }
-          distributed += node.burnedRewardAmount;
-        }
-      }
-    });
-
-    // check if everything was distributed
-    if (distributed !== availableRewardAmount) {
-      this.logger.error(`${distributed} was distributed, it should be ${availableRewardAmount}`);
-    }
-    return epochRewardsData;
   }
 
   public sumRewards(lastRewardEpoch: number, numberOfEpochs: number) {
