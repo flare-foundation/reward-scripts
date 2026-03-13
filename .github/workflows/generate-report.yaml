@@ -12,13 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 24
+    - name: Enable pnpm
+      run: corepack enable pnpm
     - name: Install jq
       run: sudo apt update -y && sudo apt install jq moreutils -y
     - name: Install node modules
-      run: yarn install --frozen-lockfile
+      run: pnpm install --frozen-lockfile
     - name: Calculate epoch vars
       run: |
         export REWARD_EPOCH_DEFINED="${{ github.event.inputs.first_reward_epoch }}"
