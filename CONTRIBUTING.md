@@ -34,7 +34,7 @@ also welcome.
 
 ## Dev environment
 
-- [Node.js](https://nodejs.org/) >= 22.0.0
+- [Node.js](https://nodejs.org/) >= 24.0.0
 - [pnpm](https://pnpm.io/)
 
 ```bash
@@ -80,7 +80,17 @@ pnpm format:fix
 
 ## Testing
 
-There are currently no tests configured for this project.
+Run the test suite:
+
+```bash
+pnpm test
+```
+
+Run with coverage report:
+
+```bash
+pnpm test:coverage
+```
 
 ## Release process
 
