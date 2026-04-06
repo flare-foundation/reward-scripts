@@ -215,9 +215,7 @@ export function createLogger(label?: string): AttLogger {
     format: winston.format.combine(
       winston.format.timestamp(),
       winston.format.json(),
-      winston.format.label({
-        label,
-      }),
+      winston.format.label(label !== undefined ? { label } : {}),
       winston.format.printf((json: winston.Logform.TransformableInfo) => {
         const ts = json.timestamp as string;
         const msg = json.message as string;

@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[[v1.3.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.3.0)\] - 2026-04-06
+
+### Changed
+
+- Enabled `strict`, `exactOptionalPropertyTypes` in tsconfig
+- Removed deprecated `baseUrl` and `moduleResolution` options from tsconfig
+- Made `rewardEpoch`, `uptimeVotingThreshold`, `rewardAmountEpochWei`, `apiPath` properly optional in ConfigurationService
+- Added runtime guards in entry points for required configuration values
+- Removed unused `numUnrewardedEpochs` and `defaultFeePPM` properties from ConfigurationService
+- Added `@types/glob` and `@types/json2csv` dev dependencies for strict type checking
+- Refactored `findIndex` + indexed access patterns to `.find()` with narrowing to reduce non-null assertions
+
 ## \[[v1.2.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.2.0)\] - 2026-03-13
 
 ### Added

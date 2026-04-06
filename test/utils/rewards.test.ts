@@ -188,7 +188,7 @@ describe("rewards", () => {
       ];
       const [, totalCapped, resultEntities] = getTotalStakeAndCapVP([node], 500, BigInt(10000), entities);
       expect(totalCapped).to.equal(BigInt(0));
-      expect(resultEntities[0].capFactor).to.equal(BigInt(0));
+      expect(resultEntities[0]!.capFactor).to.equal(BigInt(0));
     });
   });
 
@@ -224,7 +224,7 @@ describe("rewards", () => {
       const result = calculateRewardAmounts([node1, node2], totalStake, rewardAmount);
       // node1 gets 600/1000 * 1000 = 600
       // node2 gets 400/400 * 400 = 400 (remaining)
-      const totalDistributed = result.reduce((sum, n) => sum + (n.nodeRewardAmount ?? BigInt(0)), BigInt(0));
+      const totalDistributed = result.reduce((sum, n) => sum + (n.nodeRewardAmount! ?? BigInt(0)), BigInt(0));
       expect(totalDistributed).to.equal(rewardAmount);
     });
 
@@ -248,7 +248,7 @@ describe("rewards", () => {
       // validator total: 150 + 425 = 575
       expect(node.validatorRewardAmount).to.equal(BigInt(575));
       // delegator gets rest: 850 - 425 = 425
-      expect(node.delegators[0].delegatorRewardAmount).to.equal(BigInt(425));
+      expect(node.delegators![0]!.delegatorRewardAmount).to.equal(BigInt(425));
     });
 
     it("should burn rewards for ineligible nodes with uptime", () => {
@@ -289,7 +289,7 @@ describe("rewards", () => {
         delegators: [],
       });
       const result = calculateRewardAmounts([node], BigInt(0), BigInt(1000));
-      expect(result[0].nodeRewardAmount).to.equal(BigInt(0));
+      expect(result[0]!.nodeRewardAmount).to.equal(BigInt(0));
     });
 
     it("should distribute to multiple delegators proportionally", () => {
@@ -309,8 +309,8 @@ describe("rewards", () => {
         ],
       });
       calculateRewardAmounts([node], BigInt(1000), BigInt(1000));
-      const del1Reward = node.delegators[0].delegatorRewardAmount;
-      const del2Reward = node.delegators[1].delegatorRewardAmount;
+      const del1Reward = node.delegators![0]!.delegatorRewardAmount!;
+      const del2Reward = node.delegators![1]!.delegatorRewardAmount!;
       expect(del1Reward + del2Reward).to.equal(BigInt(1000));
       expect(del1Reward).to.equal(BigInt(700));
       expect(del2Reward).to.equal(BigInt(300));
@@ -340,7 +340,7 @@ describe("rewards", () => {
 
       const { rewards, distributed } = aggregateRewards([node1, node2], BigInt(1000));
       const validatorReward = rewards.find((r) => r.address === "0xValidator1");
-      expect(validatorReward.amount).to.equal(BigInt(800)); // 500 + 300
+      expect(validatorReward!.amount).to.equal(BigInt(800)); // 500 + 300
       expect(distributed).to.equal(BigInt(1000)); // 500 + 300 + 200
     });
 
@@ -354,7 +354,7 @@ describe("rewards", () => {
       const { rewards, distributed } = aggregateRewards([node], BigInt(1000));
       const burnEntry = rewards.find((r) => r.address === "0xD9e5B450773B17593abAfCF73aB96ad99d589751");
       expect(burnEntry).to.not.be.undefined;
-      expect(burnEntry.amount).to.equal(BigInt(1000));
+      expect(burnEntry!.amount).to.equal(BigInt(1000));
       expect(distributed).to.equal(BigInt(1000));
     });
 
@@ -380,7 +380,7 @@ describe("rewards", () => {
       });
       const { rewards } = aggregateRewards([node], BigInt(100));
       expect(rewards).to.have.length(1);
-      expect(rewards[0].address).to.equal("0xVal");
+      expect(rewards[0]!.address).to.equal("0xVal");
     });
 
     it("should return empty for empty input", () => {

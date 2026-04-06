@@ -60,27 +60,27 @@ interface ActiveStakeApiEntry {
 @Factory(() => new CalculatingRewardsService())
 export class CalculatingRewardsService {
   @Inject
-  configurationService: ConfigurationService;
+  configurationService!: ConfigurationService;
 
   @Inject
-  loggerService: LoggerService;
+  loggerService!: LoggerService;
 
   @Inject
-  contractService: ContractService;
+  contractService!: ContractService;
 
   @Inject
-  eventProcessorService: EventProcessorService;
+  eventProcessorService!: EventProcessorService;
 
   get logger(): AttLogger {
     return this.loggerService.logger;
   }
 
   public async prepareInitialData(
-    rewardEpoch: number,
+    rewardEpoch: number | undefined,
     uptimeVotingPeriodLengthSeconds: number,
     rps: number,
     batchSize: number,
-    uptimeVotingThreshold: number,
+    uptimeVotingThreshold: number | undefined,
     apiPath: string
   ) {
     await this.contractService.waitForInitialization();
@@ -213,7 +213,7 @@ export class CalculatingRewardsService {
         node.pChainAddress.sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1));
         await sleepms(1000 / rps);
         node.cChainAddress = await addressBinder.methods
-          .pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0]))
+          .pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0]!))
           .call();
       }
       if (node.cChainAddress === ZERO_ADDRESS) {
@@ -238,7 +238,7 @@ export class CalculatingRewardsService {
     boostingFactor: number,
     minForBEBGwei: string,
     votePowerCapBIPS: number,
-    rewardAmountEpochWei: string,
+    rewardAmountEpochWei: string | undefined,
     rps: number
   ) {
     const flareSystemsManager = await this.contractService.flareSystemsManager();
@@ -279,17 +279,10 @@ export class CalculatingRewardsService {
       }
 
       // add node to its entity
-      const i = entities.findIndex((e) => e.entityAddress === node.ftsoAddress);
-      if (i > -1) {
-        entities[i].totalSelfBond += node.totalSelfBond;
-        entities[i].nodes.push(node.nodeId);
-        // entity has more than four active nodes
-        // nodes are already sorted by start time (increasing)
-        // if (entities[i].nodes.length > 4 && entities[i].entityAddress !== "") {
-        // 	node.eligible = false;
-        // 	this.logger.error(`Entity ${entities[i].entityAddress} has more than 4 nodes`);
-        // }
-        // this condition will already be taken care of in the other script
+      const existingEntity = entities.find((e) => e.entityAddress === node.ftsoAddress);
+      if (existingEntity) {
+        existingEntity.totalSelfBond += node.totalSelfBond;
+        existingEntity.nodes.push(node.nodeId);
       } else {
         const nodes = [node.nodeId];
         entities.push({
@@ -303,8 +296,8 @@ export class CalculatingRewardsService {
 
     // after calculating total self-bond for entities, we can check if entity is eligible for boosting and calculate overboost
     activeNodes.forEach((node) => {
-      const i = entities.findIndex((e) => e.entityAddress === node.ftsoAddress);
-      if (entities[i].totalSelfBond < BigInt(minForBEBGwei)) {
+      const entity = entities.find((e) => e.entityAddress === node.ftsoAddress)!;
+      if (entity.totalSelfBond < BigInt(minForBEBGwei)) {
         node.overboost = node.boost;
       } else {
         node.overboost =
@@ -315,7 +308,7 @@ export class CalculatingRewardsService {
       node.rewardingWeight = node.totalStakeAmount - node.overboost;
 
       // update total stake for rewarding for entity
-      entities[i].totalStakeRewarding += node.rewardingWeight;
+      entity.totalStakeRewarding! += node.rewardingWeight;
     });
 
     //// calculate total stake amount and cap vote power (and then adjust total stake amount of network used for rewarding)
@@ -467,30 +460,30 @@ export class CalculatingRewardsService {
       if (delegation.nodeID !== node.nodeId) continue;
 
       // self-delegation
-      if (node.pChainAddress.includes(delegation.inputAddresses[0])) {
+      if (node.pChainAddress.includes(delegation.inputAddresses[0]!)) {
         selfDelegations += delegation.weight;
       }
       // boosting delegation
-      else if (boostingAddresses.includes(delegation.inputAddresses[0])) {
+      else if (boostingAddresses.includes(delegation.inputAddresses[0]!)) {
         boost += delegation.weight;
       }
       // regular delegation
       else {
         regularDelegations += delegation.weight;
         // check if p chain address already delegated to that node
-        const i = delegators.findIndex((del) => del.pAddress === delegation.inputAddresses[0]);
-        if (i > -1) {
-          delegators[i].amount += delegation.weight;
+        const existingDelegator = delegators.find((del) => del.pAddress === delegation.inputAddresses[0]!);
+        if (existingDelegator) {
+          existingDelegator.amount += delegation.weight;
         } else {
           await sleepms(1000 / rps);
           const cAddr = await addressBinder.methods
-            .pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0]))
+            .pAddressToCAddress(pAddressToBytes20(delegation.inputAddresses[0]!))
             .call();
           if (cAddr === ZERO_ADDRESS) {
             this.logger.error(`Delegation address ${delegation.inputAddresses[0]} is not bound`);
           }
           delegators.push({
-            pAddress: delegation.inputAddresses[0],
+            pAddress: delegation.inputAddresses[0]!,
             cAddress: cAddr,
             amount: delegation.weight,
           });
@@ -511,9 +504,9 @@ export class CalculatingRewardsService {
       for (const obj of json.recipients) {
         const address = obj.address;
         const amount = obj.amount;
-        const index = rewardsData.findIndex((rewardedData) => rewardedData.address === address);
-        if (index > -1) {
-          rewardsData[index].amount += BigInt(amount);
+        const existing = rewardsData.find((rewardedData) => rewardedData.address === address);
+        if (existing) {
+          existing.amount += BigInt(amount);
         } else {
           rewardsData.push({
             address: address,

@@ -28,10 +28,10 @@ interface ContractEvent {
 @Factory(() => new ContractService())
 export class ContractService {
   @Inject
-  configurationService: ConfigurationService;
+  configurationService!: ConfigurationService;
 
   @Inject
-  loggerService: LoggerService;
+  loggerService!: LoggerService;
 
   get logger(): AttLogger {
     return this.loggerService.logger;
@@ -42,20 +42,20 @@ export class ContractService {
   }
   initialized = false;
 
-  public web3: Web3;
+  public web3!: Web3;
   private deployMap = new Map<string, unknown>();
   private addressToContactInfo = new Map<string, ContractDeploy>();
 
-  public deployData: ContractDeploy[];
+  public deployData!: ContractDeploy[];
 
-  waitFinalize3: (sender: string, func: () => unknown, delay?: number) => Promise<unknown>;
+  waitFinalize3!: (sender: string, func: () => unknown, delay?: number) => Promise<unknown>;
 
   async init() {
     this.web3 = getWeb3(this.configurationService.networkRPC, this.logger);
     const deployFname = `deploys/${this.configurationService.network}.json`;
     this.deployData = JSON.parse(fs.readFileSync(deployFname).toString()) as ContractDeploy[];
     for (const contractDeploy of this.deployData) {
-      const [contractName] = contractDeploy.contractName.split(".");
+      const [contractName] = contractDeploy.contractName.split(".") as [string, ...string[]];
       const { contract } = await getWeb3ContractWithAbi(this.web3, contractDeploy.address, contractName);
       this.deployMap.set(contractDeploy.name, contract);
       contractDeploy.address = contractDeploy.address.toLowerCase();
@@ -207,7 +207,7 @@ export class ContractService {
             // check if voter has already voted
             for (let i = this.uptimeVotingData.length - 1; i >= 0; i--) {
               // voter has already voted before. Remove that vote and save new one.
-              if (params.voter === this.uptimeVotingData[i].voter) {
+              if (params.voter === this.uptimeVotingData[i]!.voter) {
                 this.uptimeVotingData.splice(i, 1);
                 break;
               }
