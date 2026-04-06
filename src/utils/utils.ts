@@ -128,7 +128,7 @@ export async function relativeContractABIPathForContractName(
           reject(er);
         } else {
           if (files && files.length === 1) {
-            resolve(files[0]);
+            resolve(files[0]!);
           } else {
             reject(new Error(`Expected 1 file but found: ${files?.join(", ") ?? "none"}`));
           }

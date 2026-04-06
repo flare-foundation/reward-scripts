@@ -10,8 +10,8 @@ function Parse(addrStr: string): { chainID: string; hrp: string; addr: number[] 
   if (addressParts.length < 2) {
     throw new Error("no separator found in address");
   }
-  const chainID = addressParts[0];
-  const rawAddr = addressParts[1];
+  const chainID = addressParts[0]!;
+  const rawAddr = addressParts[1]!;
 
   const { hrp, addr } = ParseBech32(rawAddr);
   return { chainID, hrp, addr };

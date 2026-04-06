@@ -29,6 +29,7 @@ const configurationService = iocContainer(null).get(ConfigurationService);
 
 try {
   const lastRewardEpoch = args["lastEpoch"] ? (args["lastEpoch"] as number) : configurationService.rewardEpoch;
+  if (lastRewardEpoch === undefined) throw new Error("lastEpoch must be provided via -l flag or config file");
   const numEpochs = args["numEpochs"] ? (args["numEpochs"] as number) : configurationService.numEpochs;
 
   calculatingRewardsService.sumRewards(lastRewardEpoch, numEpochs);

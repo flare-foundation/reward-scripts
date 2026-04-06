@@ -44,6 +44,7 @@ const contractService = iocContainer(null).get(ContractService);
 async function runCalculateRewards() {
   await contractService.waitForInitialization();
   const rewardEpoch = args["rewardEpoch"] ? (args["rewardEpoch"] as number) : configurationService.rewardEpoch;
+  if (rewardEpoch === undefined) throw new Error("rewardEpoch must be provided via -e flag or config file");
   const boostingFactor = args["boostingFactor"]
     ? (args["boostingFactor"] as number)
     : configurationService.boostingFactor;

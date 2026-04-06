@@ -16,7 +16,7 @@ export function getUptimeEligibleNodes(votingData: UptimeVote[], threshold: numb
 
   const eligibleNodesUptime: string[] = [];
   for (const key of Object.keys(voteCount)) {
-    if (voteCount[key] >= threshold) eligibleNodesUptime.push(key);
+    if ((voteCount[key] ?? 0) >= threshold) eligibleNodesUptime.push(key);
   }
   return eligibleNodesUptime;
 }
@@ -24,12 +24,12 @@ export function getUptimeEligibleNodes(votingData: UptimeVote[], threshold: numb
 export function initialNodeData(node: NodeData, ftsoAddress: string): NodeInitialData {
   const nodeObj = {} as NodeInitialData;
   nodeObj.nodeId = node.nodeID;
-  nodeObj.bondingAddress = node.inputAddresses[0];
+  nodeObj.bondingAddress = node.inputAddresses[0]!;
   nodeObj.selfBond = node.weight;
   nodeObj.ftsoAddress = ftsoAddress;
   nodeObj.stakeEnd = node.endTime;
   nodeObj.pChainAddress = [];
-  nodeObj.fee = node.feePercentage;
+  nodeObj.fee = node.feePercentage ?? 0;
   nodeObj.pChainAddress.push(nodeObj.bondingAddress);
   return nodeObj;
 }
@@ -42,7 +42,7 @@ export function getTotalStakeAndCapVP(
 ): [NodeData[], bigint, Entity[]] {
   // cap factor for entity
   entities.forEach((e) => {
-    if (e.totalStakeRewarding !== BigInt(0)) {
+    if (e.totalStakeRewarding && e.totalStakeRewarding !== BigInt(0)) {
       const capBIPS = (totalStakeNetwork * BigInt(votePowerCapFactor)) / e.totalStakeRewarding;
       e.capFactor = capBIPS < 1e4 ? capBIPS : BigInt(1e4);
     } else {
@@ -57,8 +57,8 @@ export function getTotalStakeAndCapVP(
   // cap vote power to some percentage of total stake amount
   activeNodes.forEach((item) => {
     if (item.uptimeEligible) {
-      const entity = entities.find((i) => i.entityAddress === item.ftsoAddress);
-      item.cappedWeight = (item.rewardingWeight * entity.capFactor) / BigInt(1e4);
+      const entity = entities.find((i) => i.entityAddress === item.ftsoAddress)!;
+      item.cappedWeight = (item.rewardingWeight * entity.capFactor!) / BigInt(1e4);
       totalCappedWeightEligible += item.cappedWeight;
     }
   });
@@ -108,8 +108,8 @@ export function calculateRewardAmounts(
         nodeRemainingWeight -= node.boost - node.overboost;
 
         // rewards for delegators
-        node.delegators.sort((a, b) => (a.pAddress.toLowerCase() > b.pAddress.toLowerCase() ? 1 : -1));
-        node.delegators.forEach((delegator) => {
+        node.delegators!.sort((a, b) => (a.pAddress.toLowerCase() > b.pAddress.toLowerCase() ? 1 : -1));
+        node.delegators!.forEach((delegator) => {
           delegator.delegatorRewardAmount =
             nodeRemainingWeight > 0 ? (delegator.amount * nodeRemainingRewardAmount) / nodeRemainingWeight : BigInt(0);
           nodeRemainingWeight -= delegator.amount;
@@ -139,12 +139,12 @@ export function aggregateRewards(activeNodes: NodeData[], availableRewardAmount:
   activeNodes.forEach((node) => {
     if (node.uptimeEligible) {
       if (node.eligible) {
-        const validatorRewardAmount = node.validatorRewardAmount;
+        const validatorRewardAmount = node.validatorRewardAmount!;
         if (validatorRewardAmount !== BigInt(0)) {
-          const address = node.cChainAddress;
-          const index = epochRewardsData.findIndex((validator) => validator.address === address);
-          if (index > -1) {
-            epochRewardsData[index].amount += validatorRewardAmount;
+          const address = node.cChainAddress!;
+          const existing = epochRewardsData.find((validator) => validator.address === address);
+          if (existing) {
+            existing.amount += validatorRewardAmount;
           } else {
             epochRewardsData.push({
               address: address,
@@ -154,15 +154,15 @@ export function aggregateRewards(activeNodes: NodeData[], availableRewardAmount:
           distributed += validatorRewardAmount;
         }
 
-        node.delegators.forEach((delegator) => {
-          const delegatorRewardingAddress = delegator.cAddress;
-          const delegatorRewardAmount = delegator.delegatorRewardAmount;
+        node.delegators!.forEach((delegator) => {
+          const delegatorRewardingAddress = delegator.cAddress!;
+          const delegatorRewardAmount = delegator.delegatorRewardAmount!;
           if (delegatorRewardAmount > BigInt(0)) {
-            const index = epochRewardsData.findIndex(
+            const existing = epochRewardsData.find(
               (rewardedData) => rewardedData.address === delegatorRewardingAddress
             );
-            if (index > -1) {
-              epochRewardsData[index].amount += delegatorRewardAmount;
+            if (existing) {
+              existing.amount += delegatorRewardAmount;
             } else {
               epochRewardsData.push({
                 address: delegatorRewardingAddress,
@@ -173,16 +173,16 @@ export function aggregateRewards(activeNodes: NodeData[], availableRewardAmount:
           }
         });
       } else {
-        const index = epochRewardsData.findIndex((recipient) => recipient.address === BURN_ADDRESS);
-        if (index > -1) {
-          epochRewardsData[index].amount += node.burnedRewardAmount;
+        const existing = epochRewardsData.find((recipient) => recipient.address === BURN_ADDRESS);
+        if (existing) {
+          existing.amount += node.burnedRewardAmount!;
         } else {
           epochRewardsData.push({
             address: BURN_ADDRESS,
-            amount: node.burnedRewardAmount,
+            amount: node.burnedRewardAmount!,
           });
         }
-        distributed += node.burnedRewardAmount;
+        distributed += node.burnedRewardAmount!;
       }
     }
   });

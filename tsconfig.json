@@ -2,12 +2,10 @@
   "compilerOptions": {
     // File Layout
     "outDir": "./dist",
-    "baseUrl": ".",
 
     // Environment Settings
     "target": "es2024",
     "module": "commonjs",
-    "moduleResolution": "node",
     "types": ["node", "mocha"],
 
     // Other Outputs
@@ -17,6 +15,7 @@
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
 
     // Recommended Options
     "isolatedModules": true,
@@ -26,6 +25,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "strict": true,
 
     // Required for typescript-ioc
     "experimentalDecorators": true,

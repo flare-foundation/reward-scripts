@@ -5,7 +5,7 @@ export class Terminal {
   stream: NodeJS.WriteStream;
   linewrap: boolean;
 
-  dx: number;
+  dx: number = 0;
   dy: number;
 
   constructor(outputStream: NodeJS.WriteStream) {

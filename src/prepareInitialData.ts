@@ -49,6 +49,7 @@ async function runPrepareInitialData() {
     ? (args["uptimeVotingThreshold"] as number)
     : configurationService.uptimeVotingThreshold;
   const apiPath = args["apiPath"] ? (args["apiPath"] as string) : configurationService.apiPath;
+  if (apiPath === undefined) throw new Error("apiPath must be provided via -y flag or config file");
 
   await calculatingRewardsService.prepareInitialData(
     rewardEpoch,

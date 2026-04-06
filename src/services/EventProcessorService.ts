@@ -9,13 +9,13 @@ import { sleepms } from "../utils/utils";
 @Factory(() => new EventProcessorService())
 export class EventProcessorService {
   @Inject
-  configurationService: ConfigurationService;
+  configurationService!: ConfigurationService;
 
   @Inject
-  loggerService: LoggerService;
+  loggerService!: LoggerService;
 
   @Inject
-  contractService: ContractService;
+  contractService!: ContractService;
 
   get logger(): AttLogger {
     return this.loggerService.logger;

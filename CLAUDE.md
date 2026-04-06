@@ -61,6 +61,11 @@ After every code change, run:
 ## Key constraints
 
 - **typescript-ioc** requires `experimentalDecorators`, `emitDecoratorMetadata`, and `useDefineForClassFields: false` in tsconfig
+- **strict mode** — tsconfig enables `strict: true`, `noUncheckedIndexedAccess`, and `exactOptionalPropertyTypes`
+  - IoC `@Inject` properties use `!` (definite assignment assertion) since the DI container sets them at runtime
+  - Array indexed access after bounds checks (e.g., `findIndex > -1`) requires `!` since TS can't narrow indexed types from index checks
+  - Optional interface properties accessed in contexts where they're guaranteed present also use `!`
+  - Avoid `undefined!` — if a value can genuinely be undefined, make the type optional (`?`) and add runtime guards at entry points
 - **yargs** must use `require()` with eslint-disable block — ESM import with `.parseSync()` doesn't work under ts-node with `module: commonjs`
 - **web3 v1** — do not upgrade to v4 without a full migration plan (different API, typechain bindings)
 - **BigInt serialization** — `src/utils/big-number-serialization.ts` provides custom JSON replacer/reviver for large numbers
