@@ -61,9 +61,10 @@ async function runCalculateTestnetRewards() {
     : configurationService.uptimeVotigPeriodLengthSeconds;
   const batchSize = args["batchSize"] ? (args["batchSize"] as number) : configurationService.maxBlocksForEventReads;
   const rps = args["rps"] ? (args["rps"] as number) : (configurationService.maxRequestsPerSecond as number);
-  const uptimeVotingThreshold = args["uptimeVotingThreshold"]
-    ? (args["uptimeVotingThreshold"] as number)
-    : configurationService.uptimeVotingThreshold;
+  const uptimeVotingThreshold =
+    args["uptimeVotingThreshold"] !== undefined
+      ? (args["uptimeVotingThreshold"] as number)
+      : configurationService.uptimeVotingThreshold;
   const apiPath = args["apiPath"]
     ? (args["apiPath"] as string)
     : (process.env.API_PATH ?? configurationService.apiPath);
