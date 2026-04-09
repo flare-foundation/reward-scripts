@@ -67,16 +67,6 @@ calculate-testnet-rewards:
         echo "No new reward data"
       fi
 
-debug-vars:
-  stage: rewards
-  image: node:24
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-  script:
-    - echo "REWARD_NETWORK=${REWARD_NETWORK}"
-    - echo "REWARD_EPOCH=${REWARD_EPOCH}"
-    - echo "CI_PIPELINE_SOURCE=${CI_PIPELINE_SOURCE}"
-
 auto-testnet-rewards:
   stage: rewards
   image: node:24
