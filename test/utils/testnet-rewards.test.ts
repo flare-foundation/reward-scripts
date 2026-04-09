@@ -256,8 +256,18 @@ describe("testnet rewards", () => {
       });
 
       const entities: Entity[] = [
-        { entityAddress: "0xEntity1", nodes: ["node1"], totalSelfBond: BigInt(3000), totalStakeRewarding: BigInt(5000) },
-        { entityAddress: "0xEntity2", nodes: ["node2"], totalSelfBond: BigInt(5000), totalStakeRewarding: BigInt(5000) },
+        {
+          entityAddress: "0xEntity1",
+          nodes: ["node1"],
+          totalSelfBond: BigInt(3000),
+          totalStakeRewarding: BigInt(5000),
+        },
+        {
+          entityAddress: "0xEntity2",
+          nodes: ["node2"],
+          totalSelfBond: BigInt(5000),
+          totalStakeRewarding: BigInt(5000),
+        },
       ];
 
       // Cap vote power
