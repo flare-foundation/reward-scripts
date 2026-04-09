@@ -2,6 +2,7 @@ stages:
   - check
   - build
   - test
+  - rewards
 
 lint:
   stage: check
@@ -39,3 +40,59 @@ test:
       coverage_report:
         coverage_format: cobertura
         path: coverage/cobertura-coverage.xml
+
+calculate-testnet-rewards:
+  stage: rewards
+  image: node:24
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $REWARD_EPOCH
+    - if: $CI_PIPELINE_SOURCE == "web" && $REWARD_EPOCH
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+    - git config user.name "CI Bot"
+    - git config user.email "ci@flarenetwork.com"
+    - git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+    - git fetch origin main
+    - git checkout main
+  script:
+    - echo "REWARD_EPOCH=${REWARD_EPOCH} UPTIME_THRESHOLD=${UPTIME_THRESHOLD:-2}"
+    - pnpm calculate-testnet-rewards -e "${REWARD_EPOCH}" -t "${UPTIME_THRESHOLD:-2}"
+    - |
+      if [ -n "$(git status --porcelain generated-files/)" ]; then
+        git add generated-files/
+        git commit -m "chore: coston2 rewards for epoch ${REWARD_EPOCH}"
+        git push origin main
+      else
+        echo "No new reward data"
+      fi
+
+auto-testnet-rewards:
+  stage: rewards
+  image: node:24
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $REWARD_NETWORK == "coston2"
+    - if: $CI_PIPELINE_SOURCE == "web" && $REWARD_NETWORK == "coston2"
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+    - git config user.name "CI Bot"
+    - git config user.email "ci@flarenetwork.com"
+    - git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+    - git fetch origin main
+    - git checkout main
+  script:
+    - pnpm auto-testnet-rewards
+    - |
+      if [ -n "$(git status --porcelain 'generated-files/*/reward-epoch-*')" ]; then
+        EPOCH=$(git status --porcelain 'generated-files/*/reward-epoch-*' | grep -oP 'reward-epoch-\K\d+' | sort -n | tail -1 || echo "unknown")
+        git add 'generated-files/*/reward-epoch-*'
+        git commit -m "chore: coston2 rewards for epoch ${EPOCH}"
+      fi
+    - |
+      if [ -n "$(git status --porcelain generated-files/validator-rewards/)" ]; then
+        EPOCHS=$(git status --porcelain generated-files/validator-rewards/ | grep -oP 'epochs-\K[0-9-]+' || echo "unknown")
+        git add generated-files/validator-rewards/
+        git commit -m "chore: coston2 payout ${EPOCHS}"
+      fi
+    - git diff --quiet origin/main || git push origin main

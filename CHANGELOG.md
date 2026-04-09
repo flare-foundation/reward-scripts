@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[[v1.4.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.4.0)\] - 2026-04-09
+
+### Added
+
+- Single-stage testnet reward calculation (`pnpm calculate-testnet-rewards`) — checks uptime and rewards all eligible validators without minimal conditions check
+- Automated reward pipeline (`pnpm auto-testnet-rewards`) — auto-detects epoch, calculates rewards, sums every 4 epochs, and distributes on-chain via ValidatorRewardManager
+- GitLab CI scheduled pipeline for automated testnet rewards with git push
+- Uptime threshold 0 bypasses uptime check (all validators eligible)
+- Coston2 deploy config with FlareSystemsManager and EntityManager contracts
+- Testnet output files in `generated-files/{network}/reward-epoch-{N}/`
+
 ## \[[v1.3.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.3.0)\] - 2026-04-06
 
 ### Changed
