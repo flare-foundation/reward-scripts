@@ -80,7 +80,7 @@ auto-testnet-rewards:
   stage: rewards
   image: node:24
   rules:
-    - if: ($CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "web") && $REWARD_NETWORK == "coston2"
+    - if: $REWARD_NETWORK == "coston2"
   before_script:
     - corepack enable pnpm
     - pnpm install --frozen-lockfile
