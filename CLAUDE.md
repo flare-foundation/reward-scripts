@@ -17,16 +17,22 @@ pnpm prepare-initial-data                 # Gather validator/delegator data for 
 pnpm prepare-initial-data -e <N>          # Gather data for specific epoch (e.g. -e 378)
 pnpm calculate-staking-rewards            # Calculate reward distribution for epoch
 pnpm calculate-staking-rewards -e <N>     # Calculate rewards for specific epoch
+pnpm calculate-testnet-rewards             # Single-stage testnet reward calculation
+pnpm calculate-testnet-rewards -e <N>      # Calculate testnet rewards for specific epoch
 pnpm sum-staking-rewards                  # Aggregate rewards across epochs
 ```
 
 ## Architecture
 
-Three-stage reward calculation pipeline for Flare network staking:
+### Mainnet (two-stage)
 
 1. **Prepare initial data** — fetches validators/delegators from P-Chain API, processes on-chain uptime voting events, outputs `generated-files/reward-epoch-{N}/initial-nodes-data.json`
-2. **Calculate staking rewards** — reads initial data + FSP reward distribution from GitHub, computes per-node rewards with boosting/caps/fees, outputs `generated-files/reward-epoch-{N}/data.json`
+2. **Calculate staking rewards** — reads initial data + minimal conditions from GitHub, computes per-node rewards with boosting/caps/fees, outputs `generated-files/reward-epoch-{N}/data.json`
 3. **Sum staking rewards** — aggregates across epochs (default 4) for on-chain payout, outputs `generated-files/validator-rewards/epochs-{START}-{END}.json`
+
+### Testnet (single-stage)
+
+**Calculate testnet rewards** — single-stage process that fetches validators/delegators, checks uptime, and calculates rewards in one pass. All uptime-eligible validators are rewarded (no minimal conditions check, no burn). Outputs `nodes-data.json` and `data.json`. Entry point: `src/calculateTestnetRewards.ts`, method: `calculateTestnetRewards()`. Default config: `configs/networks/coston2.json`.
 
 ### Service layer
 
@@ -39,7 +45,7 @@ Uses **typescript-ioc** for dependency injection with `@Singleton`, `@Factory`, 
 
 ### Entry points
 
-`src/calculateRewards.ts`, `src/prepareInitialData.ts`, `src/sumStakingRewards.ts` — each parses CLI args with yargs (`require("yargs")` pattern due to CJS/ESM incompatibility), sets config, and calls the appropriate service method.
+`src/calculateRewards.ts`, `src/prepareInitialData.ts`, `src/sumStakingRewards.ts`, `src/calculateTestnetRewards.ts` — each parses CLI args with yargs (`require("yargs")` pattern due to CJS/ESM incompatibility), sets config, and calls the appropriate service method.
 
 ## Post-change checklist
 

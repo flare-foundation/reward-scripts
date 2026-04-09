@@ -10,6 +10,8 @@
    "scripts": {
       "prepare-initial-data": "ts-node src/prepareInitialData.ts",
       "calculate-staking-rewards": "ts-node src/calculateRewards.ts",
+      "calculate-testnet-rewards": "ts-node src/calculateTestnetRewards.ts",
+      "auto-testnet-rewards": "ts-node src/autoTestnetRewards.ts",
       "sum-staking-rewards": "ts-node src/sumStakingRewards.ts",
       "build": "tsc",
       "test": "mocha",

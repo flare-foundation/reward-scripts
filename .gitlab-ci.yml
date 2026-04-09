@@ -2,6 +2,7 @@ stages:
   - check
   - build
   - test
+  - rewards
 
 lint:
   stage: check
@@ -39,3 +40,28 @@ test:
       coverage_report:
         coverage_format: cobertura
         path: coverage/cobertura-coverage.xml
+
+auto-testnet-rewards:
+  stage: rewards
+  image: node:24
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $REWARD_NETWORK == "coston2"
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+    - git config user.name "CI Bot"
+    - git config user.email "ci@flarenetwork.com"
+    - git remote set-url origin "https://gitlab-ci-token:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+    - git fetch origin testnet
+    - git checkout testnet
+  script:
+    - pnpm auto-testnet-rewards
+    - |
+      if [ -n "$(git status --porcelain calculated-files/ generated-files/)" ]; then
+        git add calculated-files/ generated-files/
+        EPOCH=$(git diff --cached --name-only | grep -oP 'reward-epoch-\K\d+' | sort -n | tail -1 || echo "unknown")
+        git commit -m "chore: testnet rewards for epoch ${EPOCH}"
+        git push origin testnet
+      else
+        echo "No new reward data"
+      fi

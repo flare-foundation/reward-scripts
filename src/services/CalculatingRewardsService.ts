@@ -493,6 +493,259 @@ export class CalculatingRewardsService {
     return [selfDelegations, regularDelegations, boost, delegators];
   }
 
+  public async calculateTestnetRewards(
+    rewardEpoch: number | undefined,
+    uptimeVotingPeriodLengthSeconds: number,
+    rps: number,
+    batchSize: number,
+    uptimeVotingThreshold: number | undefined,
+    apiPath: string,
+    boostingFactor: number,
+    minForBEBGwei: string,
+    votePowerCapBIPS: number,
+    rewardAmountEpochWei: string | undefined
+  ) {
+    // === Phase A: Data Collection ===
+    await this.contractService.waitForInitialization();
+    this.logger.info(`waiting for network connection...`);
+
+    const flareSystemsManager = await this.contractService.flareSystemsManager();
+    const pChainStakeMirrorMultiSigVoting = await this.contractService.pChainStakeMirrorMultiSigVoting();
+    const addressBinder = await this.contractService.addressBinder();
+    const validatorRewardManager = await this.contractService.validatorRewardManager();
+
+    const boostingAddresses = this.getBoostingAddresses("boosting-addresses.json");
+
+    if (uptimeVotingThreshold === undefined) {
+      await sleepms(1000 / rps);
+      uptimeVotingThreshold = parseInt(await pChainStakeMirrorMultiSigVoting.methods.getVotingThreshold().call());
+    }
+
+    if (rewardEpoch === undefined) {
+      await sleepms(1000 / rps);
+      rewardEpoch = parseInt(await flareSystemsManager.methods.getCurrentRewardEpoch().call()) - 1;
+    }
+
+    const network = this.configurationService.network;
+    const generatedFilesPath = `calculated-files/${network}/reward-epoch-${rewardEpoch}`;
+    fs.mkdirSync(generatedFilesPath, { recursive: true });
+
+    await sleepms(1000 / rps);
+    const nextRewardEpochData = await flareSystemsManager.methods.getRewardEpochStartInfo(rewardEpoch + 1).call();
+    const nextRewardEpochStartBlock = parseInt(nextRewardEpochData[1]);
+    const nextRewardEpochStartTs = parseInt(nextRewardEpochData[0]);
+    const stakingVpBlock = Number(await flareSystemsManager.methods.getVotePowerBlock(rewardEpoch + 1).call());
+
+    this.logger.info(`^Yreward epoch: ${rewardEpoch}`);
+    this.logger.info(`^Ynext epoch start block: ${nextRewardEpochStartBlock}, ts: ${nextRewardEpochStartTs}`);
+    this.logger.info(
+      `^Yvoting period: ${nextRewardEpochStartTs} to ${nextRewardEpochStartTs + uptimeVotingPeriodLengthSeconds}`
+    );
+    this.logger.info(`^Ystaking VP block: ${stakingVpBlock}`);
+
+    // get list of nodes with sufficient uptime
+    let eligibleNodesUptime: string[];
+    if (uptimeVotingThreshold === 0) {
+      this.logger.info(`^Yuptime threshold is 0, bypassing uptime check — all validators will be eligible`);
+      eligibleNodesUptime = [];
+    } else {
+      this.contractService.resetUptimeArray();
+      await this.eventProcessorService.processEvents(
+        nextRewardEpochStartBlock,
+        rps,
+        batchSize,
+        uptimeVotingPeriodLengthSeconds,
+        nextRewardEpochStartTs,
+        rewardEpoch
+      );
+      const uptimeVotingData = this.contractService.getUptimeVotingData();
+      this.logger.info(`^Yuptime voters: ${uptimeVotingData.length}, threshold: ${uptimeVotingThreshold}`);
+      for (const vote of uptimeVotingData) {
+        this.logger.info(`^Y  voter ${vote.voter}: ${vote.nodeIds.length} nodes`);
+      }
+      eligibleNodesUptime = getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
+      this.logger.info(`^Yuptime eligible nodes: ${eligibleNodesUptime.length}`);
+    }
+
+    // get active nodes at staking vote power block
+    const activeNodes = (await this.getActiveStakes(stakingVpBlock, apiPath, VALIDATORS_API)) as NodeData[];
+    this.logger.info(`^Yactive validators: ${activeNodes.length}`);
+    activeNodes.sort(
+      (a, b) => a.startTime - b.startTime || a.nodeID.toLowerCase().localeCompare(b.nodeID.toLowerCase())
+    );
+
+    // get delegations active at staking vp block
+    const delegations = (await this.getActiveStakes(stakingVpBlock, apiPath, DELEGATORS_API)) as DelegationData[];
+    this.logger.info(`^Yactive delegations: ${delegations.length}`);
+    delegations.sort((a, b) => a.startTime - b.startTime || a.txID.toLowerCase().localeCompare(b.txID.toLowerCase()));
+
+    const allActiveNodes = [] as NodeData[];
+
+    const processedNodesInterval = setInterval(
+      () => this.logger.info(`${allActiveNodes.length} nodes processed so far`),
+      15000
+    );
+
+    this.logger.info(`^Gprocessing nodes data started`);
+
+    let ftsoNamesData: FtsoNameEntry[];
+    try {
+      const ftsoNamesResp = await axios.get<ProviderListResponse>(
+        `https://raw.githubusercontent.com/TowoLabs/ftso-signal-providers/master/bifrost-wallet.providerlist.json`
+      );
+      ftsoNamesData = ftsoNamesResp.data.providers;
+
+      if (!ftsoNamesData) {
+        throw new Error("Providers data is undefined");
+      }
+    } catch {
+      this.logger.info(`^RReading provider names from local file`);
+      const localData = await fs.promises.readFile("./providers-names/bifrost-wallet.providerlist.json", "utf-8");
+      ftsoNamesData = (JSON.parse(localData) as ProviderListResponse).providers;
+    }
+    const entityManager = await this.contractService.entityManager();
+    const acqInfo = await flareSystemsManager.methods.getRandomAcquisitionInfo(rewardEpoch).call();
+    const initializationBlock = parseInt(acqInfo._randomAcquisitionStartBlock);
+    const chainId = await this.contractService.web3.eth.getChainId();
+
+    for (const activeNode of activeNodes) {
+      const [uptime, ftsoName, ftsoAddress] = await this.checkUptimeAndGetEntityData(
+        activeNode,
+        eligibleNodesUptime,
+        ftsoNamesData,
+        entityManager,
+        initializationBlock,
+        rps,
+        chainId
+      );
+
+      const node = initialNodeData(activeNode, ftsoAddress) as NodeData;
+      node.uptimeEligible = uptimeVotingThreshold === 0 ? true : uptime;
+      node.ftsoName = ftsoName;
+
+      const [selfDelegation, normalDelegations, boost, delegators] = await this.nodeGroup2Data(
+        delegations,
+        boostingAddresses,
+        node,
+        addressBinder,
+        rps
+      );
+      node.BEB = node.selfBond;
+      node.boostDelegations = boost;
+      node.boost = boost;
+      node.selfDelegations = selfDelegation;
+      node.normalDelegations = normalDelegations;
+      node.totalSelfBond = selfDelegation + node.selfBond;
+      node.delegators = delegators;
+      node.totalStakeAmount = node.selfBond + node.boost + selfDelegation + normalDelegations;
+      if (node.pChainAddress.length === 0) {
+        this.logger.error(`FTSO ${node.ftsoAddress} did not provide its p-chain address`);
+      } else {
+        node.pChainAddress.sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1));
+        await sleepms(1000 / rps);
+        node.cChainAddress = await addressBinder.methods
+          .pAddressToCAddress(pAddressToBytes20(node.pChainAddress[0]!))
+          .call();
+      }
+      if (node.cChainAddress === ZERO_ADDRESS) {
+        this.logger.error(`Validator address ${node.pChainAddress.join(", ")} is not bound`);
+      }
+      allActiveNodes.push(node);
+    }
+    clearInterval(processedNodesInterval);
+
+    // === Phase B: Reward Calculation ===
+    this.logger.info(`^Rcalculating testnet rewards started`);
+
+    let totalStakeNetwork = BigInt(0);
+    let entities = [] as Entity[];
+
+    for (const node of allActiveNodes) {
+      totalStakeNetwork += node.totalStakeAmount;
+
+      // testnet: all uptime-eligible nodes are eligible for rewards
+      node.eligible = node.uptimeEligible;
+
+      const existingEntity = entities.find((e) => e.entityAddress === node.ftsoAddress);
+      if (existingEntity) {
+        existingEntity.totalSelfBond += node.totalSelfBond;
+        existingEntity.nodes.push(node.nodeId);
+      } else {
+        entities.push({
+          entityAddress: node.ftsoAddress,
+          totalSelfBond: node.totalSelfBond,
+          totalStakeRewarding: BigInt(0),
+          nodes: [node.nodeId],
+        });
+      }
+    }
+
+    // calculate overboost
+    allActiveNodes.forEach((node) => {
+      const entity = entities.find((e) => e.entityAddress === node.ftsoAddress)!;
+      if (entity.totalSelfBond < BigInt(minForBEBGwei)) {
+        node.overboost = node.boost;
+      } else {
+        node.overboost =
+          node.boost - node.BEB * BigInt(boostingFactor) > BigInt(0)
+            ? node.boost - node.BEB * BigInt(boostingFactor)
+            : BigInt(0);
+      }
+      node.rewardingWeight = node.totalStakeAmount - node.overboost;
+      entity.totalStakeRewarding! += node.rewardingWeight;
+    });
+
+    let nodesForReward = allActiveNodes;
+    let totalStakeRewarding = BigInt(0);
+    [nodesForReward, totalStakeRewarding, entities] = getTotalStakeAndCapVP(
+      nodesForReward,
+      votePowerCapBIPS,
+      totalStakeNetwork,
+      entities
+    );
+
+    let rewardAmount: bigint;
+    if (rewardAmountEpochWei === undefined) {
+      rewardAmount = await this.getRewardAmount(validatorRewardManager, flareSystemsManager);
+    } else {
+      rewardAmount = BigInt(rewardAmountEpochWei);
+    }
+
+    nodesForReward = calculateRewardAmounts(nodesForReward, totalStakeRewarding, rewardAmount);
+    const nodesDataJSON = JSON.stringify(
+      nodesForReward,
+      (_, v: unknown) => (typeof v === "bigint" ? v.toString() : v),
+      2
+    );
+    fs.writeFileSync(`${generatedFilesPath}/nodes-data.json`, nodesDataJSON, "utf8");
+
+    const { rewards: rewardsData, distributed } = aggregateRewards(nodesForReward, rewardAmount);
+    if (distributed !== rewardAmount) {
+      this.logger.error(`${distributed} was distributed, it should be ${rewardAmount}`);
+    }
+
+    const fullData = {
+      recipients: rewardsData,
+    } as RewardingPeriodData;
+
+    fullData.configFileData = {
+      BOOSTING_FACTOR: boostingFactor,
+      VOTE_POWER_CAP_BIPS: votePowerCapBIPS,
+      UPTIME_VOTING_PERIOD_LENGTH_SECONDS: uptimeVotingPeriodLengthSeconds,
+      UPTIME_VOTING_THRESHOLD: uptimeVotingThreshold,
+      MIN_FOR_BEB_GWEI: minForBEBGwei,
+      REWARD_EPOCH: rewardEpoch,
+      REWARD_AMOUNT_EPOCH_WEI: rewardAmount.toString(),
+    };
+
+    fullData.stakingVotePowerBlock = stakingVpBlock;
+    fullData.stakingVPBlockTimestamp = (await this.contractService.web3.eth.getBlock(stakingVpBlock))
+      .timestamp as number;
+
+    const fullDataJSON = JSON.stringify(fullData, (_, v: unknown) => (typeof v === "bigint" ? v.toString() : v), 2);
+    fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
+  }
+
   public sumRewards(lastRewardEpoch: number, numberOfEpochs: number) {
     const rewardsData: RewardsData[] = [];
     const firstRewardEpoch = lastRewardEpoch - numberOfEpochs + 1;
