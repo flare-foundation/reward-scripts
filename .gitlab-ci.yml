@@ -55,7 +55,8 @@ calculate-testnet-rewards:
     - git fetch origin testnet
     - git checkout testnet
   script:
-    - pnpm calculate-testnet-rewards -e ${REWARD_EPOCH} -t ${UPTIME_THRESHOLD:-2}
+    - echo "REWARD_EPOCH=${REWARD_EPOCH} UPTIME_THRESHOLD=${UPTIME_THRESHOLD:-2}"
+    - pnpm calculate-testnet-rewards -e "${REWARD_EPOCH}" -t "${UPTIME_THRESHOLD:-2}"
     - |
       if [ -n "$(git status --porcelain calculated-files/)" ]; then
         git add calculated-files/
