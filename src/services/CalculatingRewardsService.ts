@@ -527,7 +527,7 @@ export class CalculatingRewardsService {
     }
 
     const network = this.configurationService.network;
-    const generatedFilesPath = `calculated-files/${network}/reward-epoch-${rewardEpoch}`;
+    const generatedFilesPath = `generated-files/${network}/reward-epoch-${rewardEpoch}`;
     fs.mkdirSync(generatedFilesPath, { recursive: true });
 
     await sleepms(1000 / rps);
@@ -746,12 +746,13 @@ export class CalculatingRewardsService {
     fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
   }
 
-  public sumRewards(lastRewardEpoch: number, numberOfEpochs: number) {
+  public sumRewards(lastRewardEpoch: number, numberOfEpochs: number, network?: string) {
     const rewardsData: RewardsData[] = [];
     const firstRewardEpoch = lastRewardEpoch - numberOfEpochs + 1;
     this.logger.info(`^Rsumming rewards for epochs ${firstRewardEpoch}-${lastRewardEpoch}`);
+    const baseDir = network ? `generated-files/${network}` : "generated-files";
     for (let epoch = firstRewardEpoch; epoch < firstRewardEpoch + numberOfEpochs; epoch++) {
-      const filesPath = `generated-files/reward-epoch-${epoch}`;
+      const filesPath = `${baseDir}/reward-epoch-${epoch}`;
       const json = JSON.parse(fs.readFileSync(`${filesPath}/data.json`, "utf8")) as RewardingPeriodData;
 
       for (const obj of json.recipients) {
@@ -783,7 +784,9 @@ export class CalculatingRewardsService {
       (_, v: unknown) => (typeof v === "bigint" ? v.toString() : v),
       2
     );
-    const generatedFilesPath = "generated-files/validator-rewards";
+    const generatedFilesPath = network
+      ? `generated-files/validator-rewards/${network}`
+      : "generated-files/validator-rewards";
     fs.mkdirSync(generatedFilesPath, { recursive: true });
     fs.writeFileSync(
       `${generatedFilesPath}/epochs-${firstRewardEpoch}-${firstRewardEpoch + numberOfEpochs - 1}.json`,

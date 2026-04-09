@@ -42,7 +42,7 @@ async function run() {
   const rewardEpoch = currentEpoch - 1;
 
   const network = configurationService.network;
-  const generatedFilesPath = `calculated-files/${network}/reward-epoch-${rewardEpoch}`;
+  const generatedFilesPath = `generated-files/${network}/reward-epoch-${rewardEpoch}`;
 
   // check if already processed
   if (fs.existsSync(`${generatedFilesPath}/data.json`)) {
@@ -77,7 +77,7 @@ async function run() {
 
   // sum rewards across last N epochs
   logger.info(`^GSumming rewards for epochs ${rewardEpoch - distributeEvery + 1}-${rewardEpoch}`);
-  calculatingRewardsService.sumRewards(rewardEpoch, distributeEvery);
+  calculatingRewardsService.sumRewards(rewardEpoch, distributeEvery, network);
 
   // distribute on-chain
   const privateKey = process.env.DISTRIBUTOR_PRIVATE_KEY;
@@ -86,7 +86,7 @@ async function run() {
     return;
   }
 
-  const summedFilePath = `generated-files/validator-rewards/epochs-${rewardEpoch - distributeEvery + 1}-${rewardEpoch}.json`;
+  const summedFilePath = `generated-files/validator-rewards/${network}/epochs-${rewardEpoch - distributeEvery + 1}-${rewardEpoch}.json`;
   const summedData = JSON.parse(fs.readFileSync(summedFilePath, "utf8")) as DataValidatorRewardManager;
 
   const totalAddresses = summedData.addresses.length;
