@@ -41,6 +41,30 @@ test:
         coverage_format: cobertura
         path: coverage/cobertura-coverage.xml
 
+calculate-testnet-rewards:
+  stage: rewards
+  image: node:24
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $REWARD_EPOCH
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+    - git config user.name "CI Bot"
+    - git config user.email "ci@flarenetwork.com"
+    - git remote set-url origin "https://gitlab-ci-token:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+    - git fetch origin testnet
+    - git checkout testnet
+  script:
+    - pnpm calculate-testnet-rewards -e ${REWARD_EPOCH} -t ${UPTIME_THRESHOLD:-2}
+    - |
+      if [ -n "$(git status --porcelain calculated-files/)" ]; then
+        git add calculated-files/
+        git commit -m "chore: coston2 rewards for epoch ${REWARD_EPOCH}"
+        git push origin testnet
+      else
+        echo "No new reward data"
+      fi
+
 auto-testnet-rewards:
   stage: rewards
   image: node:24
@@ -60,7 +84,7 @@ auto-testnet-rewards:
       if [ -n "$(git status --porcelain calculated-files/ generated-files/)" ]; then
         git add calculated-files/ generated-files/
         EPOCH=$(git diff --cached --name-only | grep -oP 'reward-epoch-\K\d+' | sort -n | tail -1 || echo "unknown")
-        git commit -m "chore: testnet rewards for epoch ${EPOCH}"
+        git commit -m "chore: coston2 rewards for epoch ${EPOCH}"
         git push origin testnet
       else
         echo "No new reward data"
