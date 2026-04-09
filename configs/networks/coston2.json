@@ -9,5 +9,6 @@
     "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 6000,
     "UPTIME_VOTING_THRESHOLD": 2,
     "MIN_FOR_BEB_GWEI": "1500",
+    "API_PATH": "https://coston2-p-chain-indexer.flare.network",
     "REWARD_AMOUNT_EPOCH_WEI": "100000000000000000000"
 }

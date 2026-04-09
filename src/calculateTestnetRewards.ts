@@ -65,10 +65,8 @@ async function runCalculateTestnetRewards() {
     args["uptimeVotingThreshold"] !== undefined
       ? (args["uptimeVotingThreshold"] as number)
       : configurationService.uptimeVotingThreshold;
-  const apiPath = args["apiPath"]
-    ? (args["apiPath"] as string)
-    : (process.env.API_PATH ?? configurationService.apiPath);
-  if (apiPath === undefined) throw new Error("apiPath must be provided via -y flag, API_PATH env var, or config file");
+  const apiPath = args["apiPath"] ? (args["apiPath"] as string) : configurationService.apiPath;
+  if (apiPath === undefined) throw new Error("apiPath must be provided via -y flag or config file");
   const boostingFactor = args["boostingFactor"]
     ? (args["boostingFactor"] as number)
     : configurationService.boostingFactor;

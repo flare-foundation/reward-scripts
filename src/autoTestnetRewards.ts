@@ -60,7 +60,7 @@ async function run() {
     rps,
     configurationService.maxBlocksForEventReads,
     configurationService.uptimeVotingThreshold,
-    (process.env.API_PATH ?? configurationService.apiPath)!,
+    configurationService.apiPath!,
     configurationService.boostingFactor,
     configurationService.minForBEBGwei,
     configurationService.votePowerCapBIPS,
