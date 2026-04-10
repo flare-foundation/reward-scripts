@@ -7,10 +7,18 @@ import { ConfigurationService } from "../../src/services/ConfigurationService";
 describe("ConfigurationService", () => {
   let tmpDir: string;
   let origConfigFile: string | undefined;
+  const savedRpcVars: Record<string, string | undefined> = {};
 
   before(() => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "config-svc-test-"));
     origConfigFile = process.env.CONFIG_FILE;
+    // Save and clear any RPC_URL_* env vars to prevent interference
+    for (const key of Object.keys(process.env)) {
+      if (key.startsWith("RPC_URL_")) {
+        savedRpcVars[key] = process.env[key];
+        delete process.env[key];
+      }
+    }
   });
 
   after(() => {
@@ -18,6 +26,12 @@ describe("ConfigurationService", () => {
       process.env.CONFIG_FILE = origConfigFile;
     } else {
       delete process.env.CONFIG_FILE;
+    }
+    // Restore RPC_URL_* env vars
+    for (const [key, value] of Object.entries(savedRpcVars)) {
+      if (value !== undefined) {
+        process.env[key] = value;
+      }
     }
     fs.rmSync(tmpDir, { recursive: true });
   });
