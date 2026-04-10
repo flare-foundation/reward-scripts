@@ -124,4 +124,40 @@ describe("ConfigurationService", () => {
     const svc = new ConfigurationService();
     expect(svc.maxRequestsPerSecond).to.equal("Infinity");
   });
+
+  it("should override RPC with RPC_URL_{NETWORK} env var", () => {
+    const configPath = path.join(tmpDir, "rpc-override.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", RPC: "http://config-rpc.com" }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.RPC_URL_FLARE = "http://env-rpc.com";
+
+    const svc = new ConfigurationService();
+    expect(svc.networkRPC).to.equal("http://env-rpc.com");
+
+    delete process.env.RPC_URL_FLARE;
+  });
+
+  it("should use config RPC when env var is not set", () => {
+    const configPath = path.join(tmpDir, "rpc-no-env.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "coston2", RPC: "http://config-rpc.com" }));
+    process.env.CONFIG_FILE = configPath;
+    delete process.env.RPC_URL_COSTON2;
+
+    const svc = new ConfigurationService();
+    expect(svc.networkRPC).to.equal("http://config-rpc.com");
+  });
+
+  it("should use correct network-specific env var", () => {
+    const configPath = path.join(tmpDir, "rpc-network.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "coston2", RPC: "http://config-rpc.com" }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.RPC_URL_FLARE = "http://flare-rpc.com";
+    process.env.RPC_URL_COSTON2 = "http://coston2-rpc.com";
+
+    const svc = new ConfigurationService();
+    expect(svc.networkRPC).to.equal("http://coston2-rpc.com");
+
+    delete process.env.RPC_URL_FLARE;
+    delete process.env.RPC_URL_COSTON2;
+  });
 });
