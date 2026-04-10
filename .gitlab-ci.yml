@@ -91,7 +91,7 @@ auto-testnet-rewards:
       fi
     - |
       if [ -n "$(git status --porcelain generated-files/validator-rewards/)" ]; then
-        EPOCHS=$(git status --porcelain generated-files/validator-rewards/ | grep -oP 'epochs-\K[0-9-]+' || echo "unknown")
+        EPOCHS=$(git status --porcelain generated-files/validator-rewards/ | grep -oE 'epochs-[0-9]+-[0-9]+' | head -1 || echo "unknown")
         git add generated-files/validator-rewards/
         git commit -m "chore: coston2 payout ${EPOCHS}"
       fi
