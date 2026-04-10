@@ -85,6 +85,7 @@ export class CalculatingRewardsService {
   ) {
     await this.contractService.waitForInitialization();
     this.logger.info(`waiting for network connection...`);
+    this.logger.info(`^Ynetwork: ${this.configurationService.network}, rps: ${rps}`);
 
     // contracts
     const flareSystemsManager = await this.contractService.flareSystemsManager();
