@@ -125,5 +125,5 @@ Output is in `generated-files/<NETWORK>/reward-epoch-<N>/` and payout data in `g
 
 | Variable | Description |
 |---|---|
-| `RPC_URL_{NETWORK}` | Override RPC endpoint (e.g. `RPC_URL_FLARE`, `RPC_URL_COSTON2`). Takes priority over config file. |
+| `RPC_URL_{NETWORK}` | Override RPC endpoint (e.g. `RPC_URL_FLARE`, `RPC_URL_COSTON2`). Takes priority over config file. Automatically sets `MAX_REQUESTS_PER_SECOND` to `Infinity`. |
 | `DISTRIBUTOR_PRIVATE_KEY` | Wallet private key for on-chain reward distribution. |

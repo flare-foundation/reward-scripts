@@ -76,4 +76,4 @@ After every code change, run:
 - **web3 v1** — do not upgrade to v4 without a full migration plan (different API, typechain bindings)
 - **BigInt serialization** — `src/utils/big-number-serialization.ts` provides custom JSON replacer/reviver for large numbers
 - Network config files in `configs/networks/` and contract addresses in `deploys/` are per-network (flare, coston2, check)
-- **RPC override** — `RPC_URL_{NETWORK}` env var (e.g. `RPC_URL_FLARE`) takes priority over config file RPC. Used in CI for private/fast RPC endpoints
+- **RPC override** — `RPC_URL_{NETWORK}` env var (e.g. `RPC_URL_FLARE`) takes priority over config file RPC and automatically sets `maxRequestsPerSecond` to `Infinity` (no rate limiting for private RPCs)

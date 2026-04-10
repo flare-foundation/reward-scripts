@@ -32,12 +32,10 @@ export class ConfigurationService {
       }
 
       this.network = configFile.NETWORK ?? "flare";
-      this.networkRPC =
-        process.env[`RPC_URL_${this.network.toUpperCase()}`] ??
-        configFile.RPC ??
-        "https://flare-api.flare.network/ext/C/rpc";
+      const rpcOverride = process.env[`RPC_URL_${this.network.toUpperCase()}`];
+      this.networkRPC = rpcOverride ?? configFile.RPC ?? "https://flare-api.flare.network/ext/C/rpc";
       this.maxBlocksForEventReads = configFile.MAX_BLOCKS_FOR_EVENT_READS ?? 30;
-      this.maxRequestsPerSecond = configFile.MAX_REQUESTS_PER_SECOND ?? 3;
+      this.maxRequestsPerSecond = rpcOverride ? "Infinity" : (configFile.MAX_REQUESTS_PER_SECOND ?? 3);
       this.rewardEpoch = configFile.REWARD_EPOCH ?? undefined;
       this.requiredFtsoPerformanceWei = configFile.REQUIRED_FTSO_PERFORMANCE_WEI ?? "0";
       this.boostingFactor = configFile.BOOSTING_FACTOR ?? 5;
