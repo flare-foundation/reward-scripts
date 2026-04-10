@@ -96,3 +96,35 @@ auto-testnet-rewards:
         git commit -m "chore: coston2 payout ${EPOCHS}"
       fi
     - git diff --quiet origin/main || git push origin main
+
+prepare-initial-data:
+  stage: rewards
+  image: node:24
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule" && $REWARD_NETWORK == "flare"
+    - if: $CI_PIPELINE_SOURCE == "web" && $REWARD_NETWORK == "flare"
+  before_script:
+    - corepack enable pnpm
+    - pnpm install --frozen-lockfile
+    - git config user.name "CI Bot"
+    - git config user.email "ci@flarenetwork.com"
+    - git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+    - git fetch origin main
+    - git checkout main
+  script:
+    - EPOCH=$(node .github/workflows/get-current-reward-epoch.js)
+    - echo "Reward epoch ${EPOCH}"
+    - |
+      if [ -f "generated-files/reward-epoch-${EPOCH}/initial-nodes-data.json" ]; then
+        echo "Epoch ${EPOCH} already processed, skipping"
+        exit 0
+      fi
+    - pnpm prepare-initial-data -e "${EPOCH}"
+    - |
+      if [ -n "$(git status --porcelain generated-files/)" ]; then
+        git add generated-files/
+        git commit -m "chore: initial rewards data for epoch ${EPOCH}"
+        git push origin main
+      else
+        echo "No new initial data"
+      fi
