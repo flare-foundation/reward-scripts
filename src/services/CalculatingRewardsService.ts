@@ -785,7 +785,7 @@ export class CalculatingRewardsService {
       2
     );
     const generatedFilesPath = network
-      ? `generated-files/validator-rewards/${network}`
+      ? `generated-files/${network}/validator-rewards`
       : "generated-files/validator-rewards";
     fs.mkdirSync(generatedFilesPath, { recursive: true });
     fs.writeFileSync(
