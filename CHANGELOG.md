@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[[v1.5.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.5.0)\] - 2026-04-10
+
+### Added
+
+- GitLab CI job for `prepare-initial-data` (mainnet), replacing GitHub Actions workflow
+- `RPC_URL_{NETWORK}` environment variable override for RPC endpoint (e.g. `RPC_URL_FLARE`, `RPC_URL_COSTON2`); automatically sets `maxRequestsPerSecond` to `Infinity`
+- Skip-if-processed check in CI to avoid re-running already completed epochs
+
+### Removed
+
+- GitHub Actions workflows (`.github/`) — fully replaced by GitLab CI
+
 ## \[[v1.4.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.4.0)\] - 2026-04-09
 
 ### Added

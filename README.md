@@ -102,3 +102,28 @@ pnpm sum-staking-rewards
 The config parameter `REWARD_EPOCH` specifies the latest reward epoch for which reward data is summed, and `NUM_EPOCHS` specifies the number of reward epochs to sum.
 
 Output is a file `epochs-<REWARD_EPOCH-NUM_EPOCHS+1>-<REWARD_EPOCH>` in the folder `generated-files/validator-rewards`.
+
+## Testnet (Coston2)
+
+Testnet uses a single-stage process where uptime is checked and all eligible validators are rewarded directly (no minimal conditions check from an external source).
+
+```bash
+pnpm calculate-testnet-rewards
+```
+
+Default config is `configs/networks/coston2.json`. Setting `UPTIME_VOTING_THRESHOLD` to `0` bypasses the uptime check and marks all validators as eligible.
+
+An automated script handles the full cycle -- auto-detects the current epoch, calculates rewards, and every 4 epochs sums and distributes rewards on-chain (requires `DISTRIBUTOR_PRIVATE_KEY` env var for on-chain distribution):
+
+```bash
+pnpm auto-testnet-rewards
+```
+
+Output is in `generated-files/<NETWORK>/reward-epoch-<N>/` and payout data in `generated-files/<NETWORK>/validator-rewards/`.
+
+### Environment variables
+
+| Variable | Description |
+|---|---|
+| `RPC_URL_{NETWORK}` | Override RPC endpoint (e.g. `RPC_URL_FLARE`, `RPC_URL_COSTON2`). Takes priority over config file. Automatically sets `MAX_REQUESTS_PER_SECOND` to `Infinity`. |
+| `DISTRIBUTOR_PRIVATE_KEY` | Wallet private key for on-chain reward distribution. |
