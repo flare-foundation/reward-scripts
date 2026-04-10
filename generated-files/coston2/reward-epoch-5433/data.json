@@ -1,0 +1,14 @@
+{
+  "recipients": [],
+  "configFileData": {
+    "BOOSTING_FACTOR": 5,
+    "VOTE_POWER_CAP_BIPS": 500,
+    "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 6000,
+    "UPTIME_VOTING_THRESHOLD": 2,
+    "MIN_FOR_BEB_GWEI": "1500",
+    "REWARD_EPOCH": 5433,
+    "REWARD_AMOUNT_EPOCH_WEI": "100000000000000000000"
+  },
+  "stakingVotePowerBlock": 29194763,
+  "stakingVPBlockTimestamp": 1775785907
+}

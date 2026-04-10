@@ -86,7 +86,7 @@ async function run() {
     return;
   }
 
-  const summedFilePath = `generated-files/validator-rewards/${network}/epochs-${rewardEpoch - distributeEvery + 1}-${rewardEpoch}.json`;
+  const summedFilePath = `generated-files/${network}/validator-rewards/epochs-${rewardEpoch - distributeEvery + 1}-${rewardEpoch}.json`;
   const summedData = JSON.parse(fs.readFileSync(summedFilePath, "utf8")) as DataValidatorRewardManager;
 
   const totalAddresses = summedData.addresses.length;
