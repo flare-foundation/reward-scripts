@@ -32,7 +32,8 @@ try {
   if (lastRewardEpoch === undefined) throw new Error("lastEpoch must be provided via -l flag or config file");
   const numEpochs = args["numEpochs"] ? (args["numEpochs"] as number) : configurationService.numEpochs;
 
-  calculatingRewardsService.sumRewards(lastRewardEpoch, numEpochs);
+  const network = configurationService.network !== "flare" ? configurationService.network : undefined;
+  calculatingRewardsService.sumRewards(lastRewardEpoch, numEpochs, network);
   process.exit(0);
   /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 } catch (error) {
