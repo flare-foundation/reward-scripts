@@ -126,7 +126,13 @@ export class CalculatingRewardsService {
       rewardEpoch
     );
     const uptimeVotingData = this.contractService.getUptimeVotingData();
+    if (uptimeVotingData.length === 0) {
+      throw new Error(`No uptime voters found for epoch ${rewardEpoch}`);
+    }
     const eligibleNodesUptime = getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
+    if (eligibleNodesUptime.length === 0) {
+      throw new Error(`No uptime eligible nodes for epoch ${rewardEpoch} (threshold: ${uptimeVotingThreshold})`);
+    }
 
     // get active nodes at staking vote power block
     const activeNodes = (await this.getActiveStakes(stakingVpBlock, apiPath, VALIDATORS_API)) as NodeData[];
@@ -343,7 +349,7 @@ export class CalculatingRewardsService {
     // sum rewards per epoch and address
     const { rewards: rewardsData, distributed } = aggregateRewards(activeNodes, rewardAmount);
     if (distributed !== rewardAmount) {
-      this.logger.error(`${distributed} was distributed, it should be ${rewardAmount}`);
+      throw new Error(`Distribution mismatch: ${distributed} was distributed, expected ${rewardAmount}`);
     }
 
     const fullData = {
@@ -564,8 +570,14 @@ export class CalculatingRewardsService {
       for (const vote of uptimeVotingData) {
         this.logger.info(`^Y  voter ${vote.voter}: ${vote.nodeIds.length} nodes`);
       }
+      if (uptimeVotingData.length === 0) {
+        throw new Error(`No uptime voters found for epoch ${rewardEpoch}`);
+      }
       eligibleNodesUptime = getUptimeEligibleNodes(uptimeVotingData, uptimeVotingThreshold);
       this.logger.info(`^Yuptime eligible nodes: ${eligibleNodesUptime.length}`);
+      if (eligibleNodesUptime.length === 0) {
+        throw new Error(`No uptime eligible nodes for epoch ${rewardEpoch} (threshold: ${uptimeVotingThreshold})`);
+      }
     }
 
     // get active nodes at staking vote power block
@@ -722,7 +734,7 @@ export class CalculatingRewardsService {
 
     const { rewards: rewardsData, distributed } = aggregateRewards(nodesForReward, rewardAmount);
     if (distributed !== rewardAmount) {
-      this.logger.error(`${distributed} was distributed, it should be ${rewardAmount}`);
+      throw new Error(`Distribution mismatch: ${distributed} was distributed, expected ${rewardAmount}`);
     }
 
     const fullData = {
@@ -754,7 +766,11 @@ export class CalculatingRewardsService {
     const baseDir = network ? `generated-files/${network}` : "generated-files";
     for (let epoch = firstRewardEpoch; epoch < firstRewardEpoch + numberOfEpochs; epoch++) {
       const filesPath = `${baseDir}/reward-epoch-${epoch}`;
-      const json = JSON.parse(fs.readFileSync(`${filesPath}/data.json`, "utf8")) as RewardingPeriodData;
+      const dataFile = `${filesPath}/data.json`;
+      if (!fs.existsSync(dataFile)) {
+        throw new Error(`Missing rewards data for epoch ${epoch}: ${dataFile}`);
+      }
+      const json = JSON.parse(fs.readFileSync(dataFile, "utf8")) as RewardingPeriodData;
 
       for (const obj of json.recipients) {
         const address = obj.address;

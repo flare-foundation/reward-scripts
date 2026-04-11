@@ -293,4 +293,33 @@ describe("testnet rewards", () => {
       expect(burnEntry).to.be.undefined;
     });
   });
+
+  describe("error conditions", () => {
+    it("should detect distribution mismatch via aggregateRewards", () => {
+      // If a node is uptime eligible but not reward eligible, rewards are burned
+      // but if the burn amount doesn't match, distributed !== rewardAmount
+      const node = makeNode({
+        nodeId: "node1",
+        uptimeEligible: true,
+        eligible: true,
+        cChainAddress: "0xAddr1",
+        validatorRewardAmount: BigInt(500),
+        delegators: [],
+      });
+      const { distributed } = aggregateRewards([node], BigInt(1000));
+      // Only 500 distributed out of 1000 — mismatch
+      expect(distributed).to.not.equal(BigInt(1000));
+    });
+
+    it("should return 0 eligible nodes when no votes match threshold", () => {
+      const votes: UptimeVote[] = [{ voter: "voter1", nodeIds: ["nodeA"] }];
+      const result = getUptimeEligibleNodes(votes, 5);
+      expect(result).to.have.length(0);
+    });
+
+    it("should return 0 eligible nodes from empty voting data", () => {
+      const result = getUptimeEligibleNodes([], 2);
+      expect(result).to.have.length(0);
+    });
+  });
 });
