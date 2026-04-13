@@ -95,6 +95,7 @@ auto-testnet-rewards:
         git add 'generated-files/*/validator-rewards/'
         git commit -m "chore: coston2 payout ${EPOCHS}"
       fi
+    - git pull --rebase origin main
     - git diff --quiet origin/main || git push origin main
 
 prepare-initial-data:
@@ -124,6 +125,7 @@ prepare-initial-data:
       if [ -n "$(git status --porcelain generated-files/)" ]; then
         git add generated-files/
         git commit -m "chore: initial rewards data for epoch ${EPOCH}"
+        git pull --rebase origin main
         git push origin main
       else
         echo "No new initial data"
