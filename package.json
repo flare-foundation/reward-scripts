@@ -13,7 +13,7 @@
       "calculate-testnet-rewards": "ts-node src/calculateTestnetRewards.ts",
       "auto-testnet-rewards": "ts-node src/autoTestnetRewards.ts",
       "sum-staking-rewards": "ts-node src/sumStakingRewards.ts",
-      "build": "tsc",
+      "build": "tsc -p tsconfig.build.json",
       "test": "mocha",
       "test:coverage": "nyc mocha",
       "format:fix": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
