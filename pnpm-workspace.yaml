@@ -1,0 +1,3 @@
+engineStrict: true
+nodeOptions: --no-warnings
+minimumReleaseAge: 10080
