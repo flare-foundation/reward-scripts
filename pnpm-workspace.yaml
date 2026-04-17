@@ -1,3 +1,6 @@
-engineStrict: true
 nodeOptions: --no-warnings
 minimumReleaseAge: 10080
+onlyBuiltDependencies:
+  - esbuild
+  - keccak
+  - secp256k1
