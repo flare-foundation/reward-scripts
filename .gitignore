@@ -44,3 +44,5 @@ src/utils/data-utils.ts
 # Test coverage
 coverage
 .nyc_output
+
+scripts/local/
