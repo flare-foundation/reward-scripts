@@ -1,0 +1,59 @@
+{
+  "recipients": [
+    {
+      "address": "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+      "amount": "21377213925874135786"
+    },
+    {
+      "address": "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+      "amount": "51828395474997022683"
+    },
+    {
+      "address": "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+      "amount": "21382551337926227828"
+    },
+    {
+      "address": "0x43cF19b8C03CD95Bdc6A65Df1cA6184067D2063F",
+      "amount": "12009177117207097"
+    },
+    {
+      "address": "0xBf8AB3Cd24F473b94C4d7ab948888FB3AC06Fe7B",
+      "amount": "12009177117207097"
+    },
+    {
+      "address": "0x8A0DBAf03886ed2AD223689EC518402140122516",
+      "amount": "24018354234414196"
+    },
+    {
+      "address": "0xDe0886C7b21E2547a821A75E4500Cf3ef023C86e",
+      "amount": "77528580485520318"
+    },
+    {
+      "address": "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+      "amount": "232900467129253621"
+    },
+    {
+      "address": "0x8cC3363d27a0B4ca4464CbE16183Ac20027d2764",
+      "amount": "158933574489600555"
+    },
+    {
+      "address": "0x24ee85804ebae72Db31DeBD94C8c9C50efA849cb",
+      "amount": "3171582586506737077"
+    },
+    {
+      "address": "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+      "amount": "1722857344122673742"
+    }
+  ],
+  "configFileData": {
+    "BOOSTING_FACTOR": 5,
+    "VOTE_POWER_CAP_BIPS": 500,
+    "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 600,
+    "UPTIME_VOTING_THRESHOLD": 2,
+    "MIN_FOR_BEB_GWEI": "1500",
+    "REWARD_EPOCH": 5690,
+    "REWARD_AMOUNT_EPOCH_WEI": "100000000000000000000"
+  },
+  "stakingVotePowerBlock": 31740548,
+  "stakingVPBlockTimestamp": 1781345114
+}
