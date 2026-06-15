@@ -109,7 +109,7 @@ prepare-initial-data:
     - pnpm install --frozen-lockfile
     - git config user.name "CI Bot"
     - git config user.email "ci@flarenetwork.com"
-    - git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@gitlab.com/${CI_PROJECT_PATH}.git"
+    - git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN_FLARE}@gitlab.com/${CI_PROJECT_PATH}.git"
     - git fetch origin main
     - git checkout main
   script:
