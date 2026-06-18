@@ -4,7 +4,7 @@ import Web3 from "web3";
 import * as _ from "lodash";
 import { BinTools } from "@flarenetwork/flarejs";
 import { bech32 } from "bech32";
-import { AttLogger } from "../logger/logger";
+import type { AttLogger } from "../logger/logger";
 
 export const BIPS = 10_000;
 const bintools = BinTools.getInstance();
@@ -13,6 +13,33 @@ export interface ContractWithAbi {
   contract: unknown;
   abi: string;
 }
+
+interface JsonRpcResponse {
+  jsonrpc: string;
+  id: string | number;
+  result?: unknown;
+  error?: {
+    readonly code?: number;
+    readonly data?: unknown;
+    readonly message: string;
+  };
+}
+
+export interface RetryableHttpProvider {
+  send(payload: object, callback?: (error: Error | null, result: JsonRpcResponse | undefined) => void): void;
+}
+
+export interface RpcRetryOptions {
+  attempts?: number;
+  initialDelayMs?: number;
+  maxDelayMs?: number;
+  backoff?: number;
+}
+
+const DEFAULT_RPC_RETRY_ATTEMPTS = 5;
+const DEFAULT_RPC_RETRY_INITIAL_DELAY_MS = 1000;
+const DEFAULT_RPC_RETRY_MAX_DELAY_MS = 10000;
+const DEFAULT_RPC_RETRY_BACKOFF = 2;
 
 export async function sleepms(milliseconds: number) {
   await new Promise<void>((resolve) => {
@@ -30,10 +57,91 @@ export function round(x: number, decimal: number = 0) {
   return Math.round(x * dec10) / dec10;
 }
 
+function errorMessage(error: unknown): string {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  if (typeof error === "string") {
+    return error;
+  }
+  return JSON.stringify(error) ?? String(error);
+}
+
+export function isRetryableRpcError(error: unknown): boolean {
+  const message = errorMessage(error);
+  return [
+    "Invalid JSON RPC response",
+    "CONNECTION ERROR",
+    "CONNECTION TIMEOUT",
+    "ECONNRESET",
+    "ETIMEDOUT",
+    "EAI_AGAIN",
+    "socket hang up",
+    "fetch failed",
+    "Too Many Requests",
+    "429",
+    "502",
+    "503",
+    "504",
+  ].some((retryableMessage) => message.includes(retryableMessage));
+}
+
+function rpcMethodName(payload: object): string {
+  if (Array.isArray(payload)) {
+    return "batch";
+  }
+
+  const method = (payload as { method?: unknown }).method;
+  return typeof method === "string" ? method : "unknown";
+}
+
+export function addRpcRetry<T extends RetryableHttpProvider>(
+  provider: T,
+  logger?: Pick<AttLogger, "warning">,
+  options: RpcRetryOptions = {}
+): T {
+  const attempts = Math.max(1, options.attempts ?? DEFAULT_RPC_RETRY_ATTEMPTS);
+  const initialDelayMs = options.initialDelayMs ?? DEFAULT_RPC_RETRY_INITIAL_DELAY_MS;
+  const maxDelayMs = options.maxDelayMs ?? DEFAULT_RPC_RETRY_MAX_DELAY_MS;
+  const backoff = options.backoff ?? DEFAULT_RPC_RETRY_BACKOFF;
+  const send = provider.send.bind(provider);
+
+  provider.send = ((payload, callback) => {
+    if (!callback) {
+      send(payload);
+      return;
+    }
+
+    let attempt = 1;
+    let delayMs = initialDelayMs;
+    const method = rpcMethodName(payload);
+
+    const sendOnce = () => {
+      send(payload, (error, result) => {
+        if (error && attempt < attempts && isRetryableRpcError(error)) {
+          logger?.warning?.(
+            `Retrying RPC ${method} after transient error (${attempt}/${attempts}): ${errorMessage(error)}`
+          );
+          attempt++;
+          setTimeout(sendOnce, delayMs);
+          delayMs = Math.min(Math.round(delayMs * backoff), maxDelayMs);
+          return;
+        }
+
+        callback(error, result);
+      });
+    };
+
+    sendOnce();
+  }) as T["send"];
+
+  return provider;
+}
+
 export function getWeb3(rpcLink: string, logger?: AttLogger) {
   const web3 = new Web3();
   if (rpcLink.startsWith("http")) {
-    web3.setProvider(new Web3.providers.HttpProvider(rpcLink));
+    web3.setProvider(addRpcRetry(new Web3.providers.HttpProvider(rpcLink), logger));
   } else if (rpcLink.startsWith("ws")) {
     const provider = new Web3.providers.WebsocketProvider(rpcLink, {
       clientConfig: {
