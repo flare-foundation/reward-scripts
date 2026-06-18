@@ -8,10 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+## \[[v1.6.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.6.0)\] - 2026-06-18
+
 ### Changed
 
 - Error and exit on: 0 uptime voters, 0 eligible nodes, distribution mismatch, or missing epoch data during summing
 - Pass network parameter to `sumStakingRewards` CLI for testnet paths
+
+### Fixed
+
+- Retry transient RPC errors (empty/invalid JSON responses, connection resets/timeouts, 429/502/503/504) with exponential backoff instead of aborting the reward run on the first failure
 
 ## \[[v1.5.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.5.0)\] - 2026-04-10
 
