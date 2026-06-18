@@ -1,5 +1,15 @@
 import { expect } from "chai";
-import { BIPS, round, compareObjArray, compareArray, nodeIdToBytes20, pAddressToBytes20 } from "../../src/utils/utils";
+import {
+  BIPS,
+  round,
+  compareObjArray,
+  compareArray,
+  nodeIdToBytes20,
+  pAddressToBytes20,
+  addRpcRetry,
+  isRetryableRpcError,
+  RetryableHttpProvider,
+} from "../../src/utils/utils";
 
 describe("utils", () => {
   describe("BIPS", () => {
@@ -34,6 +44,82 @@ describe("utils", () => {
     it("should handle zero input", () => {
       expect(round(0)).to.equal(0);
       expect(round(0, 5)).to.equal(0);
+    });
+  });
+
+  describe("isRetryableRpcError", () => {
+    it("should treat empty JSON RPC responses as retryable", () => {
+      expect(isRetryableRpcError(new Error('Invalid JSON RPC response: ""'))).to.be.true;
+    });
+
+    it("should not treat ordinary errors as retryable", () => {
+      expect(isRetryableRpcError(new Error("execution reverted"))).to.be.false;
+    });
+  });
+
+  describe("addRpcRetry", () => {
+    it("should retry transient RPC errors", async () => {
+      let calls = 0;
+      const response = { jsonrpc: "2.0", id: 1, result: "0x1" };
+      const provider: RetryableHttpProvider = {
+        send(_payload, callback) {
+          calls++;
+          if (calls === 1) {
+            callback?.(new Error('Invalid JSON RPC response: ""'), undefined);
+            return;
+          }
+
+          callback?.(null, response);
+        },
+      };
+
+      addRpcRetry(provider, undefined, { attempts: 2, initialDelayMs: 0, maxDelayMs: 0 });
+
+      const result = await new Promise((resolve, reject) => {
+        provider.send({ jsonrpc: "2.0", id: 1, method: "eth_blockNumber" }, (error, rpcResponse) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          resolve(rpcResponse);
+        });
+      });
+
+      expect(result).to.deep.equal(response);
+      expect(calls).to.equal(2);
+    });
+
+    it("should not retry non-transient RPC errors", async () => {
+      let calls = 0;
+      const provider: RetryableHttpProvider = {
+        send(_payload, callback) {
+          calls++;
+          callback?.(new Error("execution reverted"), undefined);
+        },
+      };
+
+      addRpcRetry(provider, undefined, { attempts: 2, initialDelayMs: 0, maxDelayMs: 0 });
+
+      let error: unknown;
+      try {
+        await new Promise((resolve, reject) => {
+          provider.send({ jsonrpc: "2.0", id: 1, method: "eth_call" }, (rpcError, rpcResponse) => {
+            if (rpcError) {
+              reject(rpcError);
+              return;
+            }
+
+            resolve(rpcResponse);
+          });
+        });
+      } catch (caught) {
+        error = caught;
+      }
+
+      expect(error).to.be.instanceOf(Error);
+      expect((error as Error).message).to.equal("execution reverted");
+      expect(calls).to.equal(1);
     });
   });
 
