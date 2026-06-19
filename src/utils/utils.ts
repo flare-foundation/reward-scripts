@@ -141,7 +141,9 @@ export function addRpcRetry<T extends RetryableHttpProvider>(
 export function getWeb3(rpcLink: string, logger?: AttLogger) {
   const web3 = new Web3();
   if (rpcLink.startsWith("http")) {
-    web3.setProvider(addRpcRetry(new Web3.providers.HttpProvider(rpcLink), logger));
+    web3.setProvider(
+      addRpcRetry(new Web3.providers.HttpProvider(rpcLink, { keepAlive: false, timeout: 60000 }), logger)
+    );
   } else if (rpcLink.startsWith("ws")) {
     const provider = new Web3.providers.WebsocketProvider(rpcLink, {
       clientConfig: {

@@ -1,6 +1,6 @@
 {
    "name": "calculating-staking-rewards",
-   "version": "1.6.0",
+   "version": "1.6.1",
    "description": "Script for calculating staking rewards",
    "main": "index.js",
    "engines": {

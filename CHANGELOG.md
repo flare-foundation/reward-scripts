@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## \[[v1.6.1](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.6.1)\] - 2026-06-19
+
+### Fixed
+
+- Disable HTTP keep-alive and set a 60s timeout on the web3 RPC provider — reused keep-alive connections intermittently returned empty bodies (`Invalid JSON RPC response: ""`) in CI, which the retry wrapper alone could not recover from
+
 ## \[[v1.6.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.6.0)\] - 2026-06-18
 
 ### Changed
