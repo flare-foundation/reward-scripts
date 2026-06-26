@@ -12,6 +12,7 @@
       "calculate-staking-rewards": "ts-node src/calculateRewards.ts",
       "calculate-testnet-rewards": "ts-node src/calculateTestnetRewards.ts",
       "auto-testnet-rewards": "ts-node src/autoTestnetRewards.ts",
+      "distribute-testnet-rewards": "ts-node src/distributeTestnetRewards.ts",
       "sum-staking-rewards": "ts-node src/sumStakingRewards.ts",
       "build": "tsc -p tsconfig.build.json",
       "test": "mocha",

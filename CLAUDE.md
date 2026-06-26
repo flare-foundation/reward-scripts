@@ -19,6 +19,8 @@ pnpm calculate-staking-rewards            # Calculate reward distribution for ep
 pnpm calculate-staking-rewards -e <N>     # Calculate rewards for specific epoch
 pnpm calculate-testnet-rewards             # Single-stage testnet reward calculation
 pnpm calculate-testnet-rewards -e <N>      # Calculate testnet rewards for specific epoch
+pnpm auto-testnet-rewards                 # Scheduled: backfill missing epochs + write current payout file (no on-chain)
+pnpm distribute-testnet-rewards           # Scheduled: distribute current committed payout window on-chain (idempotent via distributions.json)
 pnpm sum-staking-rewards                  # Aggregate rewards across epochs
 ```
 
@@ -33,6 +35,13 @@ pnpm sum-staking-rewards                  # Aggregate rewards across epochs
 ### Testnet (single-stage)
 
 **Calculate testnet rewards** — single-stage process that fetches validators/delegators, checks uptime, and calculates rewards in one pass. All uptime-eligible validators are rewarded (no minimal conditions check, no burn). Outputs `nodes-data.json` and `data.json`. Entry point: `src/calculateTestnetRewards.ts`, method: `calculateTestnetRewards()`. Default config: `configs/networks/coston2.json`.
+
+### Testnet automation (scheduled, coston2)
+
+The `auto-testnet-rewards` and `distribute-testnet-rewards` GitLab CI jobs (cron, `REWARD_NETWORK == "coston2"`) run as two distinct stages so funds never move without a durable record:
+
+1. **`auto-testnet-rewards`** (`src/autoTestnetRewards.ts`) — computes `targetEpoch = currentEpoch - 1`, then **backfills** every missing epoch in the current distribution window `[firstEpoch, targetEpoch]` (where `distributionEpoch = targetEpoch - targetEpoch % distributeEvery`, `firstEpoch = distributionEpoch - distributeEvery + 1`) and writes that window's payout file via `sumRewards`. It does **not** distribute on-chain. Backfilling (not just `currentEpoch-1`) and a drift-proof sum trigger (derive `distributionEpoch`, don't test `% distributeEvery`) keep it resilient to cron/epoch-boundary drift that previously dropped epochs and broke `%4` sums. CI commits + **pushes** the reward-epoch and payout files before stage 2.
+2. **`distribute-testnet-rewards`** (`src/distributeTestnetRewards.ts`) — distributes the current window's *already-committed* payout file on-chain, guarded for idempotency by the committed distributions file `generated-files/{network}/validator-rewards/distributions.json` (the public RPC caps `getPastEvents` at 30 blocks, so event-scan idempotency is infeasible). Key-gated by `DISTRIBUTOR_PRIVATE_KEY`. **First run self-initializes**: if the distributions file does not exist it records every window from `REWARD_EPOCH` through the current distribution epoch as already-paid (so windows already paid by the old single-stage code or manually are never re-paid) and distributes nothing — distribution then proceeds forward-only. CI commits + pushes the distributions file after.
 
 ### Service layer
 
