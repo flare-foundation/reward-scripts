@@ -701,6 +701,32 @@
       "txHashes": [],
       "timestamp": 1782501831149,
       "note": "already paid by previous automated/manual distribution; not re-distributed"
+    },
+    {
+      "window": "5741-5744",
+      "distributionEpoch": 5744,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x24ee85804ebae72Db31DeBD94C8c9C50efA849cb",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xDe0886C7b21E2547a821A75E4500Cf3ef023C86e",
+        "0xE3AAD67b842Dd4ed90Be1448d29646aD544c430F",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7"
+      ],
+      "rewardAmounts": [
+        "93592426549856199516",
+        "6472261127485183328",
+        "475280904362036520",
+        "93586579274869257908",
+        "158212880812357690",
+        "52625474882474452",
+        "205662613787732490586"
+      ],
+      "txHashes": [
+        "0x61d05154c4c1a72aa6a32e189fd46b763dfe4d4717bf02cee08971493f2b9df1"
+      ],
+      "timestamp": 1782523373238
     }
   ]
 }
