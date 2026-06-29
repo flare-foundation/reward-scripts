@@ -678,11 +678,31 @@
     {
       "window": "5729-5732",
       "distributionEpoch": 5732,
-      "addresses": [],
-      "rewardAmounts": [],
-      "txHashes": [],
-      "timestamp": 1782501831149,
-      "note": "already paid by previous automated/manual distribution; not re-distributed"
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x24ee85804ebae72Db31DeBD94C8c9C50efA849cb",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xDe0886C7b21E2547a821A75E4500Cf3ef023C86e",
+        "0xE3AAD67b842Dd4ed90Be1448d29646aD544c430F",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7"
+      ],
+      "rewardAmounts": [
+        "92838985427433897544",
+        "6360449457274429498",
+        "467070180058852336",
+        "3455103804014736768",
+        "92833185224390612902",
+        "155479671180663154",
+        "52201827389561798",
+        "203837524408257246000"
+      ],
+      "txHashes": [
+        "0x1d5d8a606c8f41bfb7ca18ba6a2135053a773b577d3873f69d00fde26f199f14"
+      ],
+      "timestamp": 1782578416668,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
     },
     {
       "window": "5733-5736",
