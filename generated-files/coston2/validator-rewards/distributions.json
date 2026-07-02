@@ -849,6 +849,32 @@
         "0xfbf9e5e7e0c58ad65b7faee45d87ada5774627bc8239f8853aa3eb4bcb49efd0"
       ],
       "timestamp": 1782869011038
+    },
+    {
+      "window": "5761-5764",
+      "distributionEpoch": 5764,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x24ee85804ebae72Db31DeBD94C8c9C50efA849cb",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xDe0886C7b21E2547a821A75E4500Cf3ef023C86e",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7"
+      ],
+      "rewardAmounts": [
+        "86495116128798623504",
+        "12832654670679132806",
+        "942346978453250396",
+        "3455088881901312936",
+        "86495116128798623502",
+        "313691185186648778",
+        "209465986026182408078"
+      ],
+      "txHashes": [
+        "0x36a146e912c3da18eab576aa8a3343715c3abcb49b310c4e7113ba8f968754df"
+      ],
+      "timestamp": 1782955407924
     }
   ]
 }
