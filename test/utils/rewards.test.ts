@@ -5,6 +5,7 @@ import {
   getTotalStakeAndCapVP,
   calculateRewardAmounts,
   aggregateRewards,
+  BURN_ADDRESS,
 } from "../../src/utils/rewards";
 import { Entity, NodeData, UptimeVote } from "../../src/utils/interfaces";
 
@@ -342,6 +343,114 @@ describe("rewards", () => {
       const validatorReward = rewards.find((r) => r.address === "0xValidator1");
       expect(validatorReward!.amount).to.equal(BigInt(800)); // 500 + 300
       expect(distributed).to.equal(BigInt(1000)); // 500 + 300 + 200
+    });
+
+    it("should burn a delegator reward when the delegator address is unbound", () => {
+      const node = makeNode({
+        nodeId: "node1",
+        uptimeEligible: true,
+        eligible: true,
+        cChainAddress: "0xValidator1",
+        validatorRewardAmount: BigInt(500),
+        delegators: [
+          {
+            pAddress: "P-unbound",
+            cAddress: "0x0000000000000000000000000000000000000000",
+            amount: BigInt(100),
+            delegatorRewardAmount: BigInt(200),
+          },
+        ],
+      });
+
+      const { rewards, distributed, unbound } = aggregateRewards([node], BigInt(700));
+      expect(rewards.find((r) => r.address === "0x0000000000000000000000000000000000000000")).to.be.undefined;
+      expect(rewards.find((r) => r.address === BURN_ADDRESS)!.amount).to.equal(BigInt(200));
+      expect(unbound).to.deep.equal({ count: 1, amount: BigInt(200) });
+      // The whole pot still has to be accounted for, or calculateRewards throws on the mismatch.
+      expect(distributed).to.equal(BigInt(700));
+    });
+
+    it("should burn a validator reward when the validator address is unbound", () => {
+      const node = makeNode({
+        nodeId: "node1",
+        uptimeEligible: true,
+        eligible: true,
+        cChainAddress: "0x0000000000000000000000000000000000000000",
+        validatorRewardAmount: BigInt(500),
+        delegators: [],
+      });
+
+      const { rewards, distributed, unbound } = aggregateRewards([node], BigInt(500));
+      expect(rewards.find((r) => r.address === BURN_ADDRESS)!.amount).to.equal(BigInt(500));
+      expect(unbound).to.deep.equal({ count: 1, amount: BigInt(500) });
+      expect(distributed).to.equal(BigInt(500));
+    });
+
+    it("should merge several unbound rewards into one burn entry", () => {
+      const node = makeNode({
+        nodeId: "node1",
+        uptimeEligible: true,
+        eligible: true,
+        cChainAddress: "0xValidator1",
+        validatorRewardAmount: BigInt(100),
+        delegators: [
+          {
+            pAddress: "P-unbound1",
+            cAddress: "0x0000000000000000000000000000000000000000",
+            amount: BigInt(10),
+            delegatorRewardAmount: BigInt(200),
+          },
+          {
+            pAddress: "P-unbound2",
+            cAddress: "0x0000000000000000000000000000000000000000",
+            amount: BigInt(10),
+            delegatorRewardAmount: BigInt(300),
+          },
+        ],
+      });
+
+      const { rewards, unbound } = aggregateRewards([node], BigInt(600));
+      expect(rewards.filter((r) => r.address === BURN_ADDRESS)).to.have.lengthOf(1);
+      expect(rewards.find((r) => r.address === BURN_ADDRESS)!.amount).to.equal(BigInt(500));
+      expect(unbound).to.deep.equal({ count: 2, amount: BigInt(500) });
+    });
+
+    it("should not count a zero-amount unbound delegator", () => {
+      const node = makeNode({
+        nodeId: "node1",
+        uptimeEligible: true,
+        eligible: true,
+        cChainAddress: "0xValidator1",
+        validatorRewardAmount: BigInt(500),
+        delegators: [
+          {
+            pAddress: "P-unbound",
+            cAddress: "0x0000000000000000000000000000000000000000",
+            amount: BigInt(100),
+            delegatorRewardAmount: BigInt(0),
+          },
+        ],
+      });
+
+      const { rewards, unbound } = aggregateRewards([node], BigInt(500));
+      expect(rewards.find((r) => r.address === BURN_ADDRESS)).to.be.undefined;
+      expect(unbound).to.deep.equal({ count: 0, amount: BigInt(0) });
+    });
+
+    it("should report no unbound addresses when everything is bound", () => {
+      const node = makeNode({
+        nodeId: "node1",
+        uptimeEligible: true,
+        eligible: true,
+        cChainAddress: "0xValidator1",
+        validatorRewardAmount: BigInt(500),
+        delegators: [
+          { pAddress: "P-del1", cAddress: "0xDel1", amount: BigInt(100), delegatorRewardAmount: BigInt(200) },
+        ],
+      });
+
+      const { unbound } = aggregateRewards([node], BigInt(700));
+      expect(unbound).to.deep.equal({ count: 0, amount: BigInt(0) });
     });
 
     it("should send ineligible node rewards to burn address", () => {

@@ -27,6 +27,7 @@ import {
   getTotalStakeAndCapVP,
   calculateRewardAmounts,
   aggregateRewards,
+  BURN_ADDRESS,
 } from "../utils/rewards";
 import { EntityManager } from "../../typechain-web3-v1/EntityManager";
 const VALIDATORS_API = "validators/list";
@@ -357,7 +358,8 @@ export class CalculatingRewardsService {
 
     // for the reward epoch create JSON file with rewarded addresses and reward amounts
     // sum rewards per epoch and address
-    const { rewards: rewardsData, distributed } = aggregateRewards(activeNodes, rewardAmount);
+    const { rewards: rewardsData, distributed, unbound } = aggregateRewards(activeNodes, rewardAmount);
+    this.logUnboundRedirect(unbound);
     if (distributed !== rewardAmount) {
       throw new Error(`Distribution mismatch: ${distributed} was distributed, expected ${rewardAmount}`);
     }
@@ -391,6 +393,15 @@ export class CalculatingRewardsService {
     // for the  whole rewarding period create JSON file with rewarded addresses, reward amounts and parameters needed to replicate output
     const fullDataJSON = JSON.stringify(fullData, (_, v: unknown) => (typeof v === "bigint" ? v.toString() : v), 2);
     fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
+  }
+
+  // The per-address "is not bound" errors are easy to lose among the other error lines, so state
+  // the total once. Unbound rewards are burned rather than stranded at address 0.
+  private logUnboundRedirect(unbound: { count: number; amount: bigint }) {
+    if (unbound.count === 0) return;
+    this.logger.error(
+      `^R${unbound.count} unbound address(es): ${unbound.amount} wei redirected to burn address ${BURN_ADDRESS}`
+    );
   }
 
   private getBoostingAddresses(boostingFile: string) {
@@ -760,7 +771,8 @@ export class CalculatingRewardsService {
     );
     fs.writeFileSync(`${generatedFilesPath}/nodes-data.json`, nodesDataJSON, "utf8");
 
-    const { rewards: rewardsData, distributed } = aggregateRewards(nodesForReward, rewardAmount);
+    const { rewards: rewardsData, distributed, unbound } = aggregateRewards(nodesForReward, rewardAmount);
+    this.logUnboundRedirect(unbound);
     if (distributed !== rewardAmount) {
       throw new Error(`Distribution mismatch: ${distributed} was distributed, expected ${rewardAmount}`);
     }
@@ -787,8 +799,13 @@ export class CalculatingRewardsService {
     fs.writeFileSync(`${generatedFilesPath}/data.json`, fullDataJSON, "utf8");
   }
 
-  public sumRewards(lastRewardEpoch: number, numberOfEpochs: number, network?: string) {
+  /**
+   * @param allowZeroAddress keep zero-address recipients verbatim instead of burning them, to
+   * reproduce a payout file that was already distributed with one in it.
+   */
+  public sumRewards(lastRewardEpoch: number, numberOfEpochs: number, network?: string, allowZeroAddress = false) {
     const rewardsData: RewardsData[] = [];
+    let zeroAddressRedirected = BigInt(0);
     const firstRewardEpoch = lastRewardEpoch - numberOfEpochs + 1;
     this.logger.info(`^Rsumming rewards for epochs ${firstRewardEpoch}-${lastRewardEpoch}`);
     const baseDir = network ? `generated-files/${network}` : "generated-files";
@@ -801,8 +818,19 @@ export class CalculatingRewardsService {
       const json = JSON.parse(fs.readFileSync(dataFile, "utf8")) as RewardingPeriodData;
 
       for (const obj of json.recipients) {
-        const address = obj.address;
         const amount = obj.amount;
+        // data.json files written before unbound rewards were burned still name address 0. Paying
+        // it is accepted on-chain and permanently unclaimable, so redirect here rather than making
+        // the epoch be recalculated: the epoch's own data.json stays a faithful record of what was
+        // computed, and only the payout file is corrected.
+        let address = obj.address;
+        if (address.toLowerCase() === ZERO_ADDRESS && !allowZeroAddress) {
+          this.logger.error(
+            `^Repoch ${epoch}: ${amount} wei to the zero address redirected to burn address ${BURN_ADDRESS}`
+          );
+          zeroAddressRedirected += BigInt(amount);
+          address = BURN_ADDRESS;
+        }
         const existing = rewardsData.find((rewardedData) => rewardedData.address === address);
         if (existing) {
           existing.amount += BigInt(amount);
@@ -813,6 +841,9 @@ export class CalculatingRewardsService {
           });
         }
       }
+    }
+    if (zeroAddressRedirected > BigInt(0)) {
+      this.logger.error(`^R${zeroAddressRedirected} wei total redirected from the zero address to the burn address`);
     }
     rewardsData.sort((a, b) => (a.address.toLowerCase() > b.address.toLowerCase() ? 1 : -1));
     const dataRewardManager = {} as DataValidatorRewardManager;
