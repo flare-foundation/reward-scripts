@@ -10,7 +10,7 @@ import {
   RewardingPeriodData,
   DataValidatorRewardManager,
 } from "../utils/interfaces";
-import { nodeIdToBytes20, pAddressToBytes20, sleepms } from "../utils/utils";
+import { httpWithRetry, nodeIdToBytes20, pAddressToBytes20, sleepms } from "../utils/utils";
 import { ConfigurationService } from "./ConfigurationService";
 import { ContractService } from "./ContractService";
 import { LoggerService } from "./LoggerService";
@@ -31,6 +31,11 @@ import {
 import { EntityManager } from "../../typechain-web3-v1/EntityManager";
 const VALIDATORS_API = "validators/list";
 const DELEGATORS_API = "delegators/list";
+// The p-chain indexer rejects a `limit` above 100, so a full delegator list takes 70+ sequential
+// requests, and delegations grow by roughly 300 (3 pages) per reward epoch.
+const INDEXER_PAGE_SIZE = 100;
+// Without a timeout a stalled request hangs the run forever instead of being retried.
+const INDEXER_REQUEST_TIMEOUT_MS = 30_000;
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const DAY_SECONDS = 24 * 60 * 60;
 
@@ -258,8 +263,13 @@ export class CalculatingRewardsService {
       bigIntReviver
     ) as NodeData[];
     // fetch minimal conditions file
-    const minimalConditionsResp = await axios.get<MinimalConditionEntry[]>(
-      `https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/${this.configurationService.network}/${rewardEpoch}/minimal-conditions.json`
+    const minimalConditionsResp = await httpWithRetry(
+      () =>
+        axios.get<MinimalConditionEntry[]>(
+          `https://raw.githubusercontent.com/flare-foundation/fsp-rewards/refs/heads/main/${this.configurationService.network}/${rewardEpoch}/minimal-conditions.json`
+        ),
+      `minimal conditions for epoch ${rewardEpoch}`,
+      { logger: this.logger }
     );
     const minimalConditionsData = minimalConditionsResp.data;
     const acqInfo = await flareSystemsManager.methods.getRandomAcquisitionInfo(rewardEpoch).call();
@@ -391,17 +401,33 @@ export class CalculatingRewardsService {
     const vpBlockTs = (await this.contractService.web3.eth.getBlock(vpBlock)).timestamp as number;
     const vpBlockISO = new Date(vpBlockTs * 1000).toISOString();
 
-    let fullData: (NodeData | DelegationData)[] = [];
-    let len = 100;
-    let offset = 0;
+    // Sending the pages back to back trips the indexer's rate limit (HTTP 429), so pace them and
+    // retry the transient failures instead of aborting the whole run.
+    const requestDelayMs = 1000 / this.configurationService.indexerRequestsPerSecond;
 
-    while (len === 100) {
+    let fullData: (NodeData | DelegationData)[] = [];
+    let len = INDEXER_PAGE_SIZE;
+    let offset = 0;
+    let requests = 0;
+
+    while (len === INDEXER_PAGE_SIZE) {
       const queryObj = {
-        limit: 100,
+        limit: INDEXER_PAGE_SIZE,
         offset: offset,
         time: vpBlockISO,
       };
-      const res = await axios.post<{ data: ActiveStakeApiEntry[] }>(`${path1}/${path2}`, queryObj);
+      if (requests > 0) {
+        await sleepms(requestDelayMs);
+      }
+      const res = await httpWithRetry(
+        () =>
+          axios.post<{ data: ActiveStakeApiEntry[] }>(`${path1}/${path2}`, queryObj, {
+            timeout: INDEXER_REQUEST_TIMEOUT_MS,
+          }),
+        `${path2} (offset ${offset})`,
+        { logger: this.logger }
+      );
+      requests++;
       const data = res.data["data"];
       const processed = data.map((node: ActiveStakeApiEntry) => {
         return {
@@ -416,6 +442,8 @@ export class CalculatingRewardsService {
       len = data.length;
       offset += len;
     }
+
+    this.logger.info(`fetched ${fullData.length} entries from ${path2} in ${requests} request(s)`);
 
     return fullData;
   }

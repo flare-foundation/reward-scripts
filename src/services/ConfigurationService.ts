@@ -3,6 +3,9 @@ import { readJSON } from "../utils/config-utils";
 import { INetworkConfigJson } from "../utils/interfaces";
 import { logException } from "../logger/logger";
 
+// The p-chain indexer rate limits well below the RPC, so it gets its own (lower) pacing.
+const DEFAULT_INDEXER_REQUESTS_PER_SECOND = 2;
+
 @Singleton
 @Factory(() => new ConfigurationService())
 export class ConfigurationService {
@@ -10,6 +13,7 @@ export class ConfigurationService {
   networkRPC!: string;
   maxBlocksForEventReads!: number;
   maxRequestsPerSecond!: number | string;
+  indexerRequestsPerSecond!: number;
   rewardEpoch?: number;
   requiredFtsoPerformanceWei!: string;
   boostingFactor!: number;
@@ -36,6 +40,9 @@ export class ConfigurationService {
       this.networkRPC = rpcOverride ?? configFile.RPC ?? "https://flare-api.flare.network/ext/C/rpc";
       this.maxBlocksForEventReads = configFile.MAX_BLOCKS_FOR_EVENT_READS ?? 30;
       this.maxRequestsPerSecond = rpcOverride ? "Infinity" : (configFile.MAX_REQUESTS_PER_SECOND ?? 3);
+      const indexerRps = Number(configFile.INDEXER_REQUESTS_PER_SECOND ?? DEFAULT_INDEXER_REQUESTS_PER_SECOND);
+      this.indexerRequestsPerSecond =
+        Number.isNaN(indexerRps) || indexerRps <= 0 ? DEFAULT_INDEXER_REQUESTS_PER_SECOND : indexerRps;
       this.rewardEpoch = configFile.REWARD_EPOCH ?? undefined;
       this.requiredFtsoPerformanceWei = configFile.REQUIRED_FTSO_PERFORMANCE_WEI ?? "0";
       this.boostingFactor = configFile.BOOSTING_FACTOR ?? 5;

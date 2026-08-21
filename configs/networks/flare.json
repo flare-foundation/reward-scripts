@@ -3,6 +3,7 @@
     "RPC": "https://flare-api.flare.network/ext/C/rpc",
     "MAX_BLOCKS_FOR_EVENT_READS": 30,
     "MAX_REQUESTS_PER_SECOND": 3,
+    "INDEXER_REQUESTS_PER_SECOND": 2,
     "API_PATH": "https://flare-p-chain-indexer.flare.network",
     "NUM_EPOCHS": 4,
     "BOOSTING_FACTOR": 5,

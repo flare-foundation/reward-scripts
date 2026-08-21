@@ -42,6 +42,7 @@ describe("ConfigurationService", () => {
       RPC: "http://localhost:8545",
       MAX_BLOCKS_FOR_EVENT_READS: 50,
       MAX_REQUESTS_PER_SECOND: 10,
+      INDEXER_REQUESTS_PER_SECOND: 4,
       REWARD_EPOCH: 100,
       REQUIRED_FTSO_PERFORMANCE_WEI: "1000",
       BOOSTING_FACTOR: 3,
@@ -62,6 +63,7 @@ describe("ConfigurationService", () => {
     expect(svc.networkRPC).to.equal("http://localhost:8545");
     expect(svc.maxBlocksForEventReads).to.equal(50);
     expect(svc.maxRequestsPerSecond).to.equal(10);
+    expect(svc.indexerRequestsPerSecond).to.equal(4);
     expect(svc.rewardEpoch).to.equal(100);
     expect(svc.requiredFtsoPerformanceWei).to.equal("1000");
     expect(svc.boostingFactor).to.equal(3);
@@ -84,6 +86,7 @@ describe("ConfigurationService", () => {
     expect(svc.networkRPC).to.equal("https://flare-api.flare.network/ext/C/rpc");
     expect(svc.maxBlocksForEventReads).to.equal(30);
     expect(svc.maxRequestsPerSecond).to.equal(3);
+    expect(svc.indexerRequestsPerSecond).to.equal(2);
     expect(svc.rewardEpoch).to.be.undefined;
     expect(svc.requiredFtsoPerformanceWei).to.equal("0");
     expect(svc.boostingFactor).to.equal(5);
@@ -137,6 +140,39 @@ describe("ConfigurationService", () => {
 
     const svc = new ConfigurationService();
     expect(svc.maxRequestsPerSecond).to.equal("Infinity");
+  });
+
+  it("should accept string Infinity for INDEXER_REQUESTS_PER_SECOND", () => {
+    const configPath = path.join(tmpDir, "string-indexer-rps.json");
+    fs.writeFileSync(configPath, JSON.stringify({ INDEXER_REQUESTS_PER_SECOND: "Infinity" }));
+    process.env.CONFIG_FILE = configPath;
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerRequestsPerSecond).to.equal(Infinity);
+  });
+
+  it("should fall back to the default for unusable INDEXER_REQUESTS_PER_SECOND values", () => {
+    for (const value of ["", "not-a-number", 0, -1]) {
+      const configPath = path.join(tmpDir, "bad-indexer-rps.json");
+      fs.writeFileSync(configPath, JSON.stringify({ INDEXER_REQUESTS_PER_SECOND: value }));
+      process.env.CONFIG_FILE = configPath;
+
+      const svc = new ConfigurationService();
+      expect(svc.indexerRequestsPerSecond, `value ${JSON.stringify(value)}`).to.equal(2);
+    }
+  });
+
+  it("should not let the RPC override change the indexer rate", () => {
+    const configPath = path.join(tmpDir, "indexer-rps-rpc-override.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", INDEXER_REQUESTS_PER_SECOND: 2 }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.RPC_URL_FLARE = "http://env-rpc.com";
+
+    const svc = new ConfigurationService();
+    expect(svc.maxRequestsPerSecond).to.equal("Infinity");
+    expect(svc.indexerRequestsPerSecond).to.equal(2);
+
+    delete process.env.RPC_URL_FLARE;
   });
 
   it("should override RPC with RPC_URL_{NETWORK} env var and set rps to Infinity", () => {

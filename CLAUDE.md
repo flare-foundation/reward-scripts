@@ -86,3 +86,4 @@ After every code change, run:
 - **BigInt serialization** — `src/utils/big-number-serialization.ts` provides custom JSON replacer/reviver for large numbers
 - Network config files in `configs/networks/` and contract addresses in `deploys/` are per-network (flare, coston2, check)
 - **RPC override** — `RPC_URL_{NETWORK}` env var (e.g. `RPC_URL_FLARE`) takes priority over config file RPC and automatically sets `maxRequestsPerSecond` to `Infinity` (no rate limiting for private RPCs)
+- **Indexer throttling** — the p-chain indexer (`API_PATH`) sits behind Cloudflare and caps `limit` at 100, so a full delegator list is 70+ sequential requests. `getActiveStakes` paces them at `INDEXER_REQUESTS_PER_SECOND` (config file, default 2; set `"Infinity"` for a private indexer) and retries 429/5xx through `httpWithRetry`, honouring `Retry-After`. This is separate from `MAX_REQUESTS_PER_SECOND`/`RPC_URL_{NETWORK}`, which pace the RPC only — do not reuse the RPC rate for the indexer

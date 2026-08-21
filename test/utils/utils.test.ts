@@ -8,6 +8,9 @@ import {
   pAddressToBytes20,
   addRpcRetry,
   isRetryableRpcError,
+  isRetryableHttpError,
+  retryAfterDelayMs,
+  httpWithRetry,
   RetryableHttpProvider,
 } from "../../src/utils/utils";
 
@@ -120,6 +123,163 @@ describe("utils", () => {
       expect(error).to.be.instanceOf(Error);
       expect((error as Error).message).to.equal("execution reverted");
       expect(calls).to.equal(1);
+    });
+  });
+
+  describe("isRetryableHttpError", () => {
+    it("should retry on rate limiting and gateway statuses", () => {
+      for (const status of [408, 425, 429, 500, 502, 503, 504]) {
+        expect(isRetryableHttpError({ response: { status } }), `status ${status}`).to.be.true;
+      }
+    });
+
+    it("should not retry on client errors that will not go away", () => {
+      for (const status of [400, 401, 403, 404, 422]) {
+        expect(isRetryableHttpError({ response: { status } }), `status ${status}`).to.be.false;
+      }
+    });
+
+    it("should fall back to the RPC classifier when there is no response", () => {
+      expect(isRetryableHttpError(new Error("socket hang up"))).to.be.true;
+      expect(isRetryableHttpError(new Error("ETIMEDOUT"))).to.be.true;
+      expect(isRetryableHttpError(new Error("some unrelated failure"))).to.be.false;
+    });
+  });
+
+  describe("retryAfterDelayMs", () => {
+    it("should read the Retry-After header in seconds", () => {
+      expect(retryAfterDelayMs({ response: { headers: { "retry-after": "30" } } })).to.equal(30000);
+      expect(retryAfterDelayMs({ response: { headers: { "Retry-After": 5 } } })).to.equal(5000);
+    });
+
+    it("should read retry_after from a Cloudflare 1015 body", () => {
+      expect(retryAfterDelayMs({ response: { data: { retry_after: 30 } } })).to.equal(30000);
+    });
+
+    it("should prefer the header over the body", () => {
+      const error = { response: { headers: { "retry-after": "1" }, data: { retry_after: 30 } } };
+      expect(retryAfterDelayMs(error)).to.equal(1000);
+    });
+
+    it("should return undefined when there is nothing usable", () => {
+      expect(retryAfterDelayMs(new Error("boom"))).to.be.undefined;
+      expect(retryAfterDelayMs({ response: {} })).to.be.undefined;
+      expect(retryAfterDelayMs({ response: { headers: { "retry-after": "Wed, 21 Oct 2026 07:28:00 GMT" } } })).to.be
+        .undefined;
+    });
+  });
+
+  describe("httpWithRetry", () => {
+    const fast = { attempts: 4, initialDelayMs: 1, maxDelayMs: 4 };
+    const httpError = (status: number, extra: Record<string, unknown> = {}) =>
+      Object.assign(new Error(`Request failed with status code ${status}`), {
+        response: { status, ...extra },
+      });
+
+    it("should return the result without retrying on success", async () => {
+      let calls = 0;
+      const result = await httpWithRetry(
+        () => {
+          calls++;
+          return Promise.resolve("ok");
+        },
+        "label",
+        fast
+      );
+      expect(result).to.equal("ok");
+      expect(calls).to.equal(1);
+    });
+
+    it("should retry a 429 and succeed", async () => {
+      let calls = 0;
+      const result = await httpWithRetry(
+        () => {
+          calls++;
+          if (calls < 3) {
+            return Promise.reject(httpError(429));
+          }
+          return Promise.resolve("ok");
+        },
+        "label",
+        fast
+      );
+      expect(result).to.equal("ok");
+      expect(calls).to.equal(3);
+    });
+
+    it("should give up after the configured number of attempts", async () => {
+      let calls = 0;
+      const error = httpError(429);
+      try {
+        await httpWithRetry(
+          () => {
+            calls++;
+            return Promise.reject(error);
+          },
+          "label",
+          fast
+        );
+        expect.fail("should have thrown");
+      } catch (e: unknown) {
+        expect(e).to.equal(error);
+      }
+      expect(calls).to.equal(4);
+    });
+
+    it("should not retry a non-retryable error", async () => {
+      let calls = 0;
+      const error = httpError(404);
+      try {
+        await httpWithRetry(
+          () => {
+            calls++;
+            return Promise.reject(error);
+          },
+          "label",
+          fast
+        );
+        expect.fail("should have thrown");
+      } catch (e: unknown) {
+        expect(e).to.equal(error);
+      }
+      expect(calls).to.equal(1);
+    });
+
+    it("should cap the Retry-After wait at maxDelayMs", async () => {
+      let calls = 0;
+      const start = Date.now();
+      await httpWithRetry(
+        () => {
+          calls++;
+          if (calls === 1) {
+            return Promise.reject(httpError(429, { data: { retry_after: 30 } }));
+          }
+          return Promise.resolve("ok");
+        },
+        "label",
+        { attempts: 2, initialDelayMs: 1, maxDelayMs: 20 }
+      );
+      expect(calls).to.equal(2);
+      expect(Date.now() - start).to.be.lessThan(1000);
+    });
+
+    it("should log a warning for every retry", async () => {
+      const warnings: string[] = [];
+      let calls = 0;
+      await httpWithRetry(
+        () => {
+          calls++;
+          if (calls < 3) {
+            return Promise.reject(httpError(503));
+          }
+          return Promise.resolve("ok");
+        },
+        "delegators/list (offset 100)",
+        { ...fast, logger: { warning: (message: string) => warnings.push(message) } as never }
+      );
+      expect(warnings).to.have.lengthOf(2);
+      expect(warnings[0]).to.contain("delegators/list (offset 100)");
+      expect(warnings[0]).to.contain("(1/4");
     });
   });
 
