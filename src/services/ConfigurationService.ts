@@ -6,8 +6,8 @@ import { logException } from "../logger/logger";
 // Unauthenticated, the p-chain indexer allows 60 requests/min — measured 2026-08-21: request 61
 // refused with `Retry-After: 60`. A full delegator sweep is 100+ requests, so it needs its own
 // pacing, well below the RPC's. Request latency adds to the sleep, so 1/s yields an effective
-// ~0.85/s (~50 req/min) and stays under the limit. An INDEXER_API_KEY lifts it: the same sweep ran
-// 107 requests at 239 req/min with no 429.
+// ~0.85/s (~50 req/min) and stays under the limit. An INDEXER_API_KEY_{NETWORK} lifts it: the
+// same sweep ran 107 requests at 239 req/min with no 429.
 const DEFAULT_INDEXER_REQUESTS_PER_SECOND = 1;
 
 @Singleton
@@ -49,7 +49,9 @@ export class ConfigurationService {
       this.networkRPC = rpcOverride ?? configFile.RPC ?? "https://flare-api.flare.network/ext/C/rpc";
       this.maxBlocksForEventReads = configFile.MAX_BLOCKS_FOR_EVENT_READS ?? 30;
       this.maxRequestsPerSecond = rpcOverride ? "Infinity" : (configFile.MAX_REQUESTS_PER_SECOND ?? 3);
-      this.indexerApiKey = process.env.INDEXER_API_KEY ?? undefined;
+      // Network-scoped: the coston2 jobs hit a different indexer host, so a single global key
+      // would be sent to a host it was not issued for.
+      this.indexerApiKey = process.env[`INDEXER_API_KEY_${this.network.toUpperCase()}`] ?? undefined;
       // The key lifts the request limit, so pacing is unnecessary once one is set. An explicit
       // INDEXER_REQUESTS_PER_SECOND wins over both, so the rate can be dialled back from CI
       // without a code change if the key's budget ever turns out to be finite after all.
