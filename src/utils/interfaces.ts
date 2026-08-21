@@ -139,6 +139,7 @@ export interface INetworkConfigJson {
   RPC: string;
   MAX_BLOCKS_FOR_EVENT_READS?: number;
   MAX_REQUESTS_PER_SECOND?: number | string;
+  INDEXER_REQUESTS_PER_SECOND?: number | string;
   REWARD_EPOCH: number;
   REQUIRED_FTSO_PERFORMANCE_WEI: string;
   BOOSTING_FACTOR: number;

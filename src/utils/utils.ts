@@ -86,6 +86,87 @@ export function isRetryableRpcError(error: unknown): boolean {
   ].some((retryableMessage) => message.includes(retryableMessage));
 }
 
+export interface HttpRetryOptions {
+  attempts?: number;
+  initialDelayMs?: number;
+  maxDelayMs?: number;
+  backoff?: number;
+  logger?: Pick<AttLogger, "warning">;
+}
+
+const DEFAULT_HTTP_RETRY_ATTEMPTS = 5;
+const DEFAULT_HTTP_RETRY_INITIAL_DELAY_MS = 1000;
+const DEFAULT_HTTP_RETRY_MAX_DELAY_MS = 60000;
+const DEFAULT_HTTP_RETRY_BACKOFF = 2;
+
+// 429 covers indexer/Cloudflare rate limiting, the 5xx codes cover gateway hiccups.
+const RETRYABLE_HTTP_STATUSES = [408, 425, 429, 500, 502, 503, 504];
+
+function httpErrorStatus(error: unknown): number | undefined {
+  const status = (error as { response?: { status?: unknown } } | undefined)?.response?.status;
+  return typeof status === "number" ? status : undefined;
+}
+
+export function isRetryableHttpError(error: unknown): boolean {
+  const status = httpErrorStatus(error);
+  // A response means the server answered, so only its status decides. Without one the request
+  // never completed, which is the same class of failure the RPC classifier already covers.
+  if (status !== undefined) {
+    return RETRYABLE_HTTP_STATUSES.includes(status);
+  }
+  return isRetryableRpcError(error);
+}
+
+// Honours `Retry-After` (seconds) and the `retry_after` field Cloudflare puts in its 1015 body.
+export function retryAfterDelayMs(error: unknown): number | undefined {
+  const response = (error as { response?: { headers?: unknown; data?: unknown } } | undefined)?.response;
+  if (response === undefined) {
+    return undefined;
+  }
+
+  const headers = response.headers as Record<string, unknown> | undefined;
+  const header = headers?.["retry-after"] ?? headers?.["Retry-After"];
+  const fromHeader = typeof header === "string" || typeof header === "number" ? Number(header) : NaN;
+  if (Number.isFinite(fromHeader) && fromHeader >= 0) {
+    return fromHeader * 1000;
+  }
+
+  const body = response.data as { retry_after?: unknown } | undefined;
+  const fromBody = typeof body?.retry_after === "number" ? body.retry_after : NaN;
+  if (Number.isFinite(fromBody) && fromBody >= 0) {
+    return fromBody * 1000;
+  }
+
+  return undefined;
+}
+
+export async function httpWithRetry<T>(
+  request: () => Promise<T>,
+  label: string,
+  options: HttpRetryOptions = {}
+): Promise<T> {
+  const attempts = Math.max(1, options.attempts ?? DEFAULT_HTTP_RETRY_ATTEMPTS);
+  const maxDelayMs = options.maxDelayMs ?? DEFAULT_HTTP_RETRY_MAX_DELAY_MS;
+  const backoff = options.backoff ?? DEFAULT_HTTP_RETRY_BACKOFF;
+  let delayMs = options.initialDelayMs ?? DEFAULT_HTTP_RETRY_INITIAL_DELAY_MS;
+
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await request();
+    } catch (error: unknown) {
+      if (attempt >= attempts || !isRetryableHttpError(error)) {
+        throw error;
+      }
+      const waitMs = Math.min(retryAfterDelayMs(error) ?? delayMs, maxDelayMs);
+      options.logger?.warning?.(
+        `Retrying ${label} after transient error (${attempt}/${attempts}, waiting ${waitMs} ms): ${errorMessage(error)}`
+      );
+      await sleepms(waitMs);
+      delayMs = Math.min(Math.round(delayMs * backoff), maxDelayMs);
+    }
+  }
+}
+
 function rpcMethodName(payload: object): string {
   if (Array.isArray(payload)) {
     return "batch";

@@ -3,6 +3,7 @@
     "RPC": "",
     "MAX_BLOCKS_FOR_EVENT_READS": "",
     "MAX_REQUESTS_PER_SECOND": "",
+    "INDEXER_REQUESTS_PER_SECOND": "",
     "API_PATH": "",
     "NUM_EPOCHS": "",
     "BOOSTING_FACTOR": "",
