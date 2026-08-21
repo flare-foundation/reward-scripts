@@ -31,8 +31,10 @@ import {
 import { EntityManager } from "../../typechain-web3-v1/EntityManager";
 const VALIDATORS_API = "validators/list";
 const DELEGATORS_API = "delegators/list";
-// The p-chain indexer rejects a `limit` above 100, so a full delegator list takes 70+ sequential
-// requests, and delegations grow by roughly 300 (3 pages) per reward epoch.
+// The p-chain indexer rejects a `limit` above 100, so a full delegator list (10.5k delegations at
+// epoch 425, up 46% in one epoch) takes 100+ sequential requests — more than the unauthenticated
+// 60 req/min budget. A keyed API_PATH lifts that; without one, pacing keeps the run under the
+// limit and the retry covers what pacing cannot.
 const INDEXER_PAGE_SIZE = 100;
 // Without a timeout a stalled request hangs the run forever instead of being retried.
 const INDEXER_REQUEST_TIMEOUT_MS = 30_000;
@@ -424,7 +426,8 @@ export class CalculatingRewardsService {
           axios.post<{ data: ActiveStakeApiEntry[] }>(`${path1}/${path2}`, queryObj, {
             timeout: INDEXER_REQUEST_TIMEOUT_MS,
           }),
-        `${path2} (offset ${offset})`,
+        // Host included so logs say which indexer refused, minus the query string that holds the key.
+        `${path1.split("?")[0]}/${path2} (offset ${offset})`,
         { logger: this.logger }
       );
       requests++;
