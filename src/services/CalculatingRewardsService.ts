@@ -10,7 +10,14 @@ import {
   RewardingPeriodData,
   DataValidatorRewardManager,
 } from "../utils/interfaces";
-import { httpWithRetry, nodeIdToBytes20, pAddressToBytes20, sleepms } from "../utils/utils";
+import {
+  httpWithRetry,
+  joinUrlPath,
+  nodeIdToBytes20,
+  pAddressToBytes20,
+  sleepms,
+  withQueryParam,
+} from "../utils/utils";
 import { ConfigurationService } from "./ConfigurationService";
 import { ContractService } from "./ContractService";
 import { LoggerService } from "./LoggerService";
@@ -36,6 +43,8 @@ const DELEGATORS_API = "delegators/list";
 // 60 req/min budget. A keyed API_PATH lifts that; without one, pacing keeps the run under the
 // limit and the retry covers what pacing cannot.
 const INDEXER_PAGE_SIZE = 100;
+// The indexer only honours the key as a query param; x-apikey and X-API-Key headers are ignored.
+const INDEXER_API_KEY_PARAM = "x-apikey";
 // Without a timeout a stalled request hangs the run forever instead of being retried.
 const INDEXER_REQUEST_TIMEOUT_MS = 30_000;
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -406,6 +415,12 @@ export class CalculatingRewardsService {
     // Sending the pages back to back trips the indexer's rate limit (HTTP 429), so pace them and
     // retry the transient failures instead of aborting the whole run.
     const requestDelayMs = 1000 / this.configurationService.indexerRequestsPerSecond;
+    // The key is appended here rather than baked into the configured path, so it never appears in
+    // a config file, a log label, or an error message.
+    const apiKey = this.configurationService.indexerApiKey;
+    const label = joinUrlPath(path1.split("?")[0] ?? "", path2);
+    const baseUrl = joinUrlPath(path1, path2);
+    const url = apiKey ? withQueryParam(baseUrl, INDEXER_API_KEY_PARAM, apiKey) : baseUrl;
 
     let fullData: (NodeData | DelegationData)[] = [];
     let len = INDEXER_PAGE_SIZE;
@@ -423,11 +438,10 @@ export class CalculatingRewardsService {
       }
       const res = await httpWithRetry(
         () =>
-          axios.post<{ data: ActiveStakeApiEntry[] }>(`${path1}/${path2}`, queryObj, {
+          axios.post<{ data: ActiveStakeApiEntry[] }>(url, queryObj, {
             timeout: INDEXER_REQUEST_TIMEOUT_MS,
           }),
-        // Host included so logs say which indexer refused, minus the query string that holds the key.
-        `${path1.split("?")[0]}/${path2} (offset ${offset})`,
+        `${label} (offset ${offset})`,
         { logger: this.logger }
       );
       requests++;

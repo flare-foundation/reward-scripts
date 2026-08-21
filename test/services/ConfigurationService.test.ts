@@ -14,7 +14,12 @@ describe("ConfigurationService", () => {
     origConfigFile = process.env.CONFIG_FILE;
     // Save and clear any RPC_URL_* env vars to prevent interference
     for (const key of Object.keys(process.env)) {
-      if (key.startsWith("RPC_URL_") || key.startsWith("API_PATH_") || key === "INDEXER_REQUESTS_PER_SECOND") {
+      if (
+        key.startsWith("RPC_URL_") ||
+        key.startsWith("API_PATH_") ||
+        key === "INDEXER_REQUESTS_PER_SECOND" ||
+        key === "INDEXER_API_KEY"
+      ) {
         savedEnvVars[key] = process.env[key];
         delete process.env[key];
       }
@@ -241,29 +246,45 @@ describe("ConfigurationService", () => {
     delete process.env.API_PATH_COSTON2;
   });
 
-  it("should lift the indexer rate when a keyed API_PATH override is set", () => {
-    const configPath = path.join(tmpDir, "api-path-rate.json");
+  it("should read INDEXER_API_KEY and lift the indexer rate", () => {
+    const configPath = path.join(tmpDir, "api-key-rate.json");
     fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", INDEXER_REQUESTS_PER_SECOND: 1 }));
     process.env.CONFIG_FILE = configPath;
-    process.env.API_PATH_FLARE = "http://env-indexer.com?x-apikey=secret";
+    process.env.INDEXER_API_KEY = "secret";
 
     const svc = new ConfigurationService();
+    expect(svc.indexerApiKey).to.equal("secret");
     expect(svc.indexerRequestsPerSecond).to.equal(Infinity);
+
+    delete process.env.INDEXER_API_KEY;
+  });
+
+  it("should leave the indexer rate paced when there is no key", () => {
+    const configPath = path.join(tmpDir, "api-no-key-rate.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", INDEXER_REQUESTS_PER_SECOND: 1 }));
+    process.env.CONFIG_FILE = configPath;
+    // A host override is not a key, so on its own it must not unthrottle the shared indexer.
+    process.env.API_PATH_FLARE = "http://env-indexer.com";
+    delete process.env.INDEXER_API_KEY;
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerApiKey).to.be.undefined;
+    expect(svc.indexerRequestsPerSecond).to.equal(1);
 
     delete process.env.API_PATH_FLARE;
   });
 
-  it("should let INDEXER_REQUESTS_PER_SECOND override a keyed API_PATH", () => {
-    const configPath = path.join(tmpDir, "api-path-rate-env.json");
+  it("should let INDEXER_REQUESTS_PER_SECOND override the key's lift", () => {
+    const configPath = path.join(tmpDir, "api-key-rate-env.json");
     fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare" }));
     process.env.CONFIG_FILE = configPath;
-    process.env.API_PATH_FLARE = "http://env-indexer.com?x-apikey=secret";
+    process.env.INDEXER_API_KEY = "secret";
     process.env.INDEXER_REQUESTS_PER_SECOND = "0.5";
 
     const svc = new ConfigurationService();
     expect(svc.indexerRequestsPerSecond).to.equal(0.5);
 
-    delete process.env.API_PATH_FLARE;
+    delete process.env.INDEXER_API_KEY;
     delete process.env.INDEXER_REQUESTS_PER_SECOND;
   });
 

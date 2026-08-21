@@ -49,6 +49,21 @@ export async function sleepms(milliseconds: number) {
   });
 }
 
+// Appends a path to a base URL, keeping any query string last. The indexer base URL can carry an
+// API key as a query param, and naive `${base}/${path}` concatenation would bury the path inside
+// that param's value (producing a 404).
+export function joinUrlPath(baseUrl: string, path: string): string {
+  const [origin, query] = baseUrl.split("?");
+  const joined = `${(origin ?? "").replace(/\/+$/, "")}/${path.replace(/^\/+/, "")}`;
+  return query ? `${joined}?${query}` : joined;
+}
+
+// Appends a query param, whether or not the URL already carries a query string.
+export function withQueryParam(url: string, name: string, value: string): string {
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+}
+
 export function round(x: number, decimal: number = 0) {
   if (decimal === 0) return Math.round(x);
 
