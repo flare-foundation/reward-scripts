@@ -20,6 +20,12 @@ const args = yargs
     alias: "l",
     type: "number",
     description: "Last reward epoch to use for summing rewards",
+  })
+  .option("allowZeroAddress", {
+    type: "boolean",
+    description:
+      "Keep zero-address recipients instead of burning them, to reproduce a payout file already distributed with one",
+    default: false,
   }).argv;
 
 process.env.CONFIG_FILE = args["config"] as string;
@@ -33,7 +39,8 @@ try {
   const numEpochs = args["numEpochs"] ? (args["numEpochs"] as number) : configurationService.numEpochs;
 
   const network = configurationService.network !== "flare" ? configurationService.network : undefined;
-  calculatingRewardsService.sumRewards(lastRewardEpoch, numEpochs, network);
+  const allowZeroAddress = args["allowZeroAddress"] as boolean;
+  calculatingRewardsService.sumRewards(lastRewardEpoch, numEpochs, network, allowZeroAddress);
   process.exit(0);
   /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 } catch (error) {

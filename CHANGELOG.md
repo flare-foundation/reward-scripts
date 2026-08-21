@@ -8,6 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+## \[[v1.7.0](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.7.0)\] - 2026-08-21
+
+### Added
+
+- `INDEXER_API_KEY_{NETWORK}` environment variable — appended as the `x-apikey` query param; lifts the indexer's 60 req/min limit and disables pacing (headers are ignored, only the query param works)
+- `API_PATH_{NETWORK}` environment variable — indexer host override for failover; unlike `RPC_URL_{NETWORK}` it does not change the request rate
+- `INDEXER_REQUESTS_PER_SECOND` config file and environment setting — paces indexer pagination, default 1
+- `sum-staking-rewards --allowZeroAddress` — reproduce a payout file that was already distributed with a zero-address recipient
+
+### Fixed
+
+- Burn rewards for unbound addresses instead of assigning them to `0x0`, where they are accepted on-chain but permanently unclaimable — 1137.41 FLR was stranded that way across epochs 419-421. `sumRewards` also redirects a `0x0` found in an older `data.json`, so no epoch needs recalculating
+- Pace indexer pagination and retry 429/5xx honouring `Retry-After`, with a 30s request timeout — a full delegator sweep is 100+ requests against a 60 req/min limit, which previously aborted the whole reward run
+- Splice the endpoint before the indexer query string — `${apiPath}/${endpoint}` buried the path inside a query param and returned 404
+
 ## \[[v1.6.1](https://github.com/flare-foundation/reward-scripts/releases/tag/v1.6.1)\] - 2026-06-19
 
 ### Fixed

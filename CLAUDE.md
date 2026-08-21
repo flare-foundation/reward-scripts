@@ -32,6 +32,8 @@ pnpm sum-staking-rewards                  # Aggregate rewards across epochs
 2. **Calculate staking rewards** — reads initial data + minimal conditions from GitHub, computes per-node rewards with boosting/caps/fees, outputs `generated-files/reward-epoch-{N}/data.json`
 3. **Sum staking rewards** — aggregates across epochs (default 4) for on-chain payout, outputs `generated-files/validator-rewards/epochs-{START}-{END}.json`
 
+Unbound addresses: a p-chain address with no bound C-chain counterpart resolves to `0x0`. Paying that is accepted on-chain and permanently unclaimable — 1137.41 FLR was stranded that way across epochs 419-421. `aggregateRewards` now sends such rewards to `BURN_ADDRESS` instead, and `sumRewards` redirects any `0x0` already present in an older `data.json` so those epochs need no recalculation (the epoch file stays a faithful record; only the payout file is corrected). Both paths log the amount. Pass `sum-staking-rewards --allowZeroAddress` to reproduce a payout file that was already distributed with a `0x0` recipient in it.
+
 ### Testnet (single-stage)
 
 **Calculate testnet rewards** — single-stage process that fetches validators/delegators, checks uptime, and calculates rewards in one pass. All uptime-eligible validators are rewarded (no minimal conditions check, no burn). Outputs `nodes-data.json` and `data.json`. Entry point: `src/calculateTestnetRewards.ts`, method: `calculateTestnetRewards()`. Default config: `configs/networks/coston2.json`.

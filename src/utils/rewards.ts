@@ -1,6 +1,7 @@
 import { Entity, NodeData, NodeInitialData, RewardsData, UptimeVote } from "./interfaces";
 
-const BURN_ADDRESS = "0xD9e5B450773B17593abAfCF73aB96ad99d589751";
+export const BURN_ADDRESS = "0xD9e5B450773B17593abAfCF73aB96ad99d589751";
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function getUptimeEligibleNodes(votingData: UptimeVote[], threshold: number): string[] {
   const voteCount = votingData.reduce(
@@ -130,18 +131,30 @@ export function calculateRewardAmounts(
 export interface AggregateRewardsResult {
   rewards: RewardsData[];
   distributed: bigint;
+  /** Rewards whose recipient had no bound C-chain address and were burned instead. */
+  unbound: { count: number; amount: bigint };
 }
 
 export function aggregateRewards(activeNodes: NodeData[], availableRewardAmount: bigint): AggregateRewardsResult {
   const epochRewardsData: RewardsData[] = [];
   let distributed = BigInt(0);
+  const unbound = { count: 0, amount: BigInt(0) };
+
+  // A p-chain address with no bound C-chain counterpart resolves to address 0. Paying that is
+  // accepted on-chain and permanently unclaimable, so burn it instead: the amount stays accounted for and `distributed` stays exact.
+  const rewardingAddress = (address: string, amount: bigint): string => {
+    if (address !== ZERO_ADDRESS) return address;
+    unbound.count++;
+    unbound.amount += amount;
+    return BURN_ADDRESS;
+  };
 
   activeNodes.forEach((node) => {
     if (node.uptimeEligible) {
       if (node.eligible) {
         const validatorRewardAmount = node.validatorRewardAmount!;
         if (validatorRewardAmount !== BigInt(0)) {
-          const address = node.cChainAddress!;
+          const address = rewardingAddress(node.cChainAddress!, validatorRewardAmount);
           const existing = epochRewardsData.find((validator) => validator.address === address);
           if (existing) {
             existing.amount += validatorRewardAmount;
@@ -155,9 +168,9 @@ export function aggregateRewards(activeNodes: NodeData[], availableRewardAmount:
         }
 
         node.delegators!.forEach((delegator) => {
-          const delegatorRewardingAddress = delegator.cAddress!;
           const delegatorRewardAmount = delegator.delegatorRewardAmount!;
           if (delegatorRewardAmount > BigInt(0)) {
+            const delegatorRewardingAddress = rewardingAddress(delegator.cAddress!, delegatorRewardAmount);
             const existing = epochRewardsData.find(
               (rewardedData) => rewardedData.address === delegatorRewardingAddress
             );
@@ -187,5 +200,5 @@ export function aggregateRewards(activeNodes: NodeData[], availableRewardAmount:
     }
   });
 
-  return { rewards: epochRewardsData, distributed };
+  return { rewards: epochRewardsData, distributed, unbound };
 }
