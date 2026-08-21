@@ -7,15 +7,20 @@ import { ConfigurationService } from "../../src/services/ConfigurationService";
 describe("ConfigurationService", () => {
   let tmpDir: string;
   let origConfigFile: string | undefined;
-  const savedRpcVars: Record<string, string | undefined> = {};
+  const savedEnvVars: Record<string, string | undefined> = {};
 
   before(() => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "config-svc-test-"));
     origConfigFile = process.env.CONFIG_FILE;
     // Save and clear any RPC_URL_* env vars to prevent interference
     for (const key of Object.keys(process.env)) {
-      if (key.startsWith("RPC_URL_")) {
-        savedRpcVars[key] = process.env[key];
+      if (
+        key.startsWith("RPC_URL_") ||
+        key.startsWith("API_PATH_") ||
+        key === "INDEXER_REQUESTS_PER_SECOND" ||
+        key.startsWith("INDEXER_API_KEY")
+      ) {
+        savedEnvVars[key] = process.env[key];
         delete process.env[key];
       }
     }
@@ -27,8 +32,8 @@ describe("ConfigurationService", () => {
     } else {
       delete process.env.CONFIG_FILE;
     }
-    // Restore RPC_URL_* env vars
-    for (const [key, value] of Object.entries(savedRpcVars)) {
+    // Restore RPC_URL_* / API_PATH_* env vars
+    for (const [key, value] of Object.entries(savedEnvVars)) {
       if (value !== undefined) {
         process.env[key] = value;
       }
@@ -86,7 +91,7 @@ describe("ConfigurationService", () => {
     expect(svc.networkRPC).to.equal("https://flare-api.flare.network/ext/C/rpc");
     expect(svc.maxBlocksForEventReads).to.equal(30);
     expect(svc.maxRequestsPerSecond).to.equal(3);
-    expect(svc.indexerRequestsPerSecond).to.equal(2);
+    expect(svc.indexerRequestsPerSecond).to.equal(1);
     expect(svc.rewardEpoch).to.be.undefined;
     expect(svc.requiredFtsoPerformanceWei).to.equal("0");
     expect(svc.boostingFactor).to.equal(5);
@@ -158,7 +163,7 @@ describe("ConfigurationService", () => {
       process.env.CONFIG_FILE = configPath;
 
       const svc = new ConfigurationService();
-      expect(svc.indexerRequestsPerSecond, `value ${JSON.stringify(value)}`).to.equal(2);
+      expect(svc.indexerRequestsPerSecond, `value ${JSON.stringify(value)}`).to.equal(1);
     }
   });
 
@@ -203,6 +208,109 @@ describe("ConfigurationService", () => {
     const svc = new ConfigurationService();
     expect(svc.networkRPC).to.equal("http://config-rpc.com");
     expect(svc.maxRequestsPerSecond).to.equal(5);
+  });
+
+  it("should override API_PATH with API_PATH_{NETWORK} env var", () => {
+    const configPath = path.join(tmpDir, "api-path-override.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", API_PATH: "http://config-indexer.com" }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.API_PATH_FLARE = "http://env-indexer.com?x-apikey=secret";
+
+    const svc = new ConfigurationService();
+    expect(svc.apiPath).to.equal("http://env-indexer.com?x-apikey=secret");
+
+    delete process.env.API_PATH_FLARE;
+  });
+
+  it("should use config API_PATH when the env var is not set", () => {
+    const configPath = path.join(tmpDir, "api-path-no-env.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", API_PATH: "http://config-indexer.com" }));
+    process.env.CONFIG_FILE = configPath;
+    delete process.env.API_PATH_FLARE;
+
+    const svc = new ConfigurationService();
+    expect(svc.apiPath).to.equal("http://config-indexer.com");
+  });
+
+  it("should use the network-specific API_PATH env var", () => {
+    const configPath = path.join(tmpDir, "api-path-network.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "coston2", API_PATH: "http://config-indexer.com" }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.API_PATH_FLARE = "http://flare-indexer.com";
+    process.env.API_PATH_COSTON2 = "http://coston2-indexer.com";
+
+    const svc = new ConfigurationService();
+    expect(svc.apiPath).to.equal("http://coston2-indexer.com");
+
+    delete process.env.API_PATH_FLARE;
+    delete process.env.API_PATH_COSTON2;
+  });
+
+  it("should read INDEXER_API_KEY_{NETWORK} and lift the indexer rate", () => {
+    const configPath = path.join(tmpDir, "api-key-rate.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", INDEXER_REQUESTS_PER_SECOND: 1 }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.INDEXER_API_KEY_FLARE = "secret";
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerApiKey).to.equal("secret");
+    expect(svc.indexerRequestsPerSecond).to.equal(Infinity);
+
+    delete process.env.INDEXER_API_KEY_FLARE;
+  });
+
+  it("should ignore another network's indexer key", () => {
+    const configPath = path.join(tmpDir, "api-key-other-network.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "coston2", INDEXER_REQUESTS_PER_SECOND: 1 }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.INDEXER_API_KEY_FLARE = "secret";
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerApiKey).to.be.undefined;
+    expect(svc.indexerRequestsPerSecond).to.equal(1);
+
+    delete process.env.INDEXER_API_KEY_FLARE;
+  });
+
+  it("should leave the indexer rate paced when there is no key", () => {
+    const configPath = path.join(tmpDir, "api-no-key-rate.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare", INDEXER_REQUESTS_PER_SECOND: 1 }));
+    process.env.CONFIG_FILE = configPath;
+    // A host override is not a key, so on its own it must not unthrottle the shared indexer.
+    process.env.API_PATH_FLARE = "http://env-indexer.com";
+    delete process.env.INDEXER_API_KEY_FLARE;
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerApiKey).to.be.undefined;
+    expect(svc.indexerRequestsPerSecond).to.equal(1);
+
+    delete process.env.API_PATH_FLARE;
+  });
+
+  it("should let INDEXER_REQUESTS_PER_SECOND override the key's lift", () => {
+    const configPath = path.join(tmpDir, "api-key-rate-env.json");
+    fs.writeFileSync(configPath, JSON.stringify({ NETWORK: "flare" }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.INDEXER_API_KEY_FLARE = "secret";
+    process.env.INDEXER_REQUESTS_PER_SECOND = "0.5";
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerRequestsPerSecond).to.equal(0.5);
+
+    delete process.env.INDEXER_API_KEY_FLARE;
+    delete process.env.INDEXER_REQUESTS_PER_SECOND;
+  });
+
+  it("should let INDEXER_REQUESTS_PER_SECOND override the config file", () => {
+    const configPath = path.join(tmpDir, "indexer-rate-env.json");
+    fs.writeFileSync(configPath, JSON.stringify({ INDEXER_REQUESTS_PER_SECOND: 1 }));
+    process.env.CONFIG_FILE = configPath;
+    process.env.INDEXER_REQUESTS_PER_SECOND = "4";
+
+    const svc = new ConfigurationService();
+    expect(svc.indexerRequestsPerSecond).to.equal(4);
+
+    delete process.env.INDEXER_REQUESTS_PER_SECOND;
   });
 
   it("should use correct network-specific env var", () => {

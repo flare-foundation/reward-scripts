@@ -7,6 +7,8 @@ import {
   nodeIdToBytes20,
   pAddressToBytes20,
   addRpcRetry,
+  joinUrlPath,
+  withQueryParam,
   isRetryableRpcError,
   isRetryableHttpError,
   retryAfterDelayMs,
@@ -123,6 +125,55 @@ describe("utils", () => {
       expect(error).to.be.instanceOf(Error);
       expect((error as Error).message).to.equal("execution reverted");
       expect(calls).to.equal(1);
+    });
+  });
+
+  describe("joinUrlPath", () => {
+    it("should append a path to a plain base URL", () => {
+      expect(joinUrlPath("https://indexer.example.com", "delegators/list")).to.equal(
+        "https://indexer.example.com/delegators/list"
+      );
+    });
+
+    it("should keep the query string after the path", () => {
+      expect(joinUrlPath("https://indexer.example.com?x-apikey=secret", "delegators/list")).to.equal(
+        "https://indexer.example.com/delegators/list?x-apikey=secret"
+      );
+    });
+
+    it("should not double up slashes", () => {
+      expect(joinUrlPath("https://indexer.example.com/", "/delegators/list")).to.equal(
+        "https://indexer.example.com/delegators/list"
+      );
+      expect(joinUrlPath("https://indexer.example.com//?key=1", "delegators/list")).to.equal(
+        "https://indexer.example.com/delegators/list?key=1"
+      );
+    });
+
+    it("should preserve multiple query params", () => {
+      expect(joinUrlPath("https://indexer.example.com?a=1&b=2", "validators/list")).to.equal(
+        "https://indexer.example.com/validators/list?a=1&b=2"
+      );
+    });
+  });
+
+  describe("withQueryParam", () => {
+    it("should start a query string when there is none", () => {
+      expect(withQueryParam("https://indexer.example.com/delegators/list", "x-apikey", "secret")).to.equal(
+        "https://indexer.example.com/delegators/list?x-apikey=secret"
+      );
+    });
+
+    it("should append to an existing query string", () => {
+      expect(withQueryParam("https://indexer.example.com/list?a=1", "x-apikey", "secret")).to.equal(
+        "https://indexer.example.com/list?a=1&x-apikey=secret"
+      );
+    });
+
+    it("should encode the name and value", () => {
+      expect(withQueryParam("https://indexer.example.com/list", "x-apikey", "a b&c=d")).to.equal(
+        "https://indexer.example.com/list?x-apikey=a%20b%26c%3Dd"
+      );
     });
   });
 
