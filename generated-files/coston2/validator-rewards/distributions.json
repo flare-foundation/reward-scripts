@@ -1973,6 +1973,28 @@
         "0x2750d7e7b5392928117591e8e8c5cf61551c3aaf506ee087ccae6e019c9fc699"
       ],
       "timestamp": 1787361819742
+    },
+    {
+      "window": "5969-5972",
+      "distributionEpoch": 5972,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xF6c3D5b9332f3b49bEBDBcD535131C3ED55eDbCd"
+      ],
+      "rewardAmounts": [
+        "97952567296077103732",
+        "8130193168665098252",
+        "97952567296077103732",
+        "195852550966042462696",
+        "112121273138231588"
+      ],
+      "txHashes": [
+        "0x372993c2b6b265f0422805eeada31ca31a91937efcdab04cef33872f77b20bb7"
+      ],
+      "timestamp": 1787448271291
     }
   ]
 }
