@@ -2017,6 +2017,28 @@
         "0x0dcf928c25add4f3c5355e86f9eb9a41ec06b91a3b6f1e65c3a3839ea152f583"
       ],
       "timestamp": 1787534618466
+    },
+    {
+      "window": "5977-5980",
+      "distributionEpoch": 5980,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xF6c3D5b9332f3b49bEBDBcD535131C3ED55eDbCd"
+      ],
+      "rewardAmounts": [
+        "93533757484915571400",
+        "7688833884013503872",
+        "93533757484915571400",
+        "205136586832062959464",
+        "107064314092393864"
+      ],
+      "txHashes": [
+        "0x3be353b8eda770977a1924832bf2f208cc1ec6b7a5810ff5f3dcee8245e4c777"
+      ],
+      "timestamp": 1787621012897
     }
   ]
 }
