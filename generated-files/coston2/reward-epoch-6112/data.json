@@ -1,0 +1,51 @@
+{
+  "recipients": [
+    {
+      "address": "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+      "amount": "22171456012169314800"
+    },
+    {
+      "address": "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+      "amount": "94719764088471207"
+    },
+    {
+      "address": "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+      "amount": "53345780472302604698"
+    },
+    {
+      "address": "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+      "amount": "22167000022388132646"
+    },
+    {
+      "address": "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+      "amount": "216274717851651710"
+    },
+    {
+      "address": "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+      "amount": "24929775682859535"
+    },
+    {
+      "address": "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+      "amount": "1835850927479367920"
+    },
+    {
+      "address": "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+      "amount": "71994154018798742"
+    },
+    {
+      "address": "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089",
+      "amount": "71994154018798742"
+    }
+  ],
+  "configFileData": {
+    "BOOSTING_FACTOR": 5,
+    "VOTE_POWER_CAP_BIPS": 500,
+    "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 600,
+    "UPTIME_VOTING_THRESHOLD": 1,
+    "MIN_FOR_BEB_GWEI": "1500",
+    "REWARD_EPOCH": 6112,
+    "REWARD_AMOUNT_EPOCH_WEI": "100000000000000000000"
+  },
+  "stakingVotePowerBlock": 35882005,
+  "stakingVPBlockTimestamp": 1790449331
+}
