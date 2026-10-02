@@ -83,7 +83,9 @@ auto-testnet-rewards:
     - git checkout main
   script:
     # Stage 1: backfill missing epochs and write the current window's payout file (no on-chain action).
-    - pnpm auto-testnet-rewards
+    # A failure is recorded rather than stopping the job, so epochs calculated before it are still
+    # committed below; the job is failed at the very end.
+    - pnpm auto-testnet-rewards || AUTO_FAILED=1
     - |
       if [ -n "$(git status --porcelain 'generated-files/*/reward-epoch-*')" ]; then
         EPOCH=$(git status --porcelain 'generated-files/*/reward-epoch-*' | grep -oP 'reward-epoch-\K\d+' | sort -n | tail -1 || echo "unknown")
@@ -115,6 +117,11 @@ auto-testnet-rewards:
         git commit -m "$MSG"
         git pull --rebase origin main
         git push origin main
+      fi
+    - |
+      if [ -n "${AUTO_FAILED:-}" ]; then
+        echo "auto-testnet-rewards failed (see its log above); calculated epochs were pushed"
+        exit 1
       fi
 
 prepare-initial-data:

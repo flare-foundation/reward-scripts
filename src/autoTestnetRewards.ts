@@ -100,10 +100,10 @@ async function run() {
 
   // === 2. Distribution sum ===
   // Per-epoch data is persisted (and committed by CI) before this point, so a failure summing
-  // can never discard a freshly calculated epoch.
+  // can never discard a freshly calculated epoch. Failures exit non-zero so CI marks the job
+  // failed (after committing what was calculated) instead of silently producing no payout.
   if (!backfillComplete) {
-    logger.error(`Skipping sum for epochs ${firstEpoch}-${distributionEpoch} due to backfill failure`);
-    return;
+    throw new Error(`Skipping sum for epochs ${firstEpoch}-${distributionEpoch} due to backfill failure`);
   }
 
   const summedFilePath = `generated-files/${network}/validator-rewards/epochs-${firstEpoch}-${distributionEpoch}.json`;
@@ -117,7 +117,7 @@ async function run() {
     calculatingRewardsService.sumRewards(distributionEpoch, distributeEvery, network);
     logger.info(`^GPayout file written: ${summedFilePath}`);
   } catch (error) {
-    logger.error(`Failed to sum rewards for epochs ${firstEpoch}-${distributionEpoch}: ${error as string}`);
+    throw new Error(`Failed to sum rewards for epochs ${firstEpoch}-${distributionEpoch}: ${error as string}`);
   }
 }
 /* eslint-enable @typescript-eslint/no-require-imports, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
