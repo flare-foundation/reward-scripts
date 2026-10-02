@@ -2743,6 +2743,378 @@
         "0x142107109e0cce5b68b4f40a6122d92f86064bc1b300c78eb17c20ee1a802847"
       ],
       "timestamp": 1790925883028
+    },
+    {
+      "window": "6081-6084",
+      "distributionEpoch": 6084,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x243C5F6D2497a1f9CDa2b67cd36e8268ff0cBB38",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88739015713248259460",
+        "99701657274314748",
+        "866073026837861068",
+        "288300895754542752",
+        "7351672841740840208",
+        "88739015713248259456",
+        "213627919256141379552",
+        "288300895754542756"
+      ],
+      "txHashes": [
+        "0xa9b42b1d0775bf9987c6b9ee5f49c4ca2f31b552d7058113df8312172369126a"
+      ],
+      "timestamp": 1790926454466,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6085-6088",
+      "distributionEpoch": 6088,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x243C5F6D2497a1f9CDa2b67cd36e8268ff0cBB38",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88730214541327698089",
+        "99618802309284465",
+        "865987129360368280",
+        "288272301953631249",
+        "7350943699817596820",
+        "74693387990705781",
+        "88730214541327698088",
+        "213571783293959385978",
+        "288272301953631250"
+      ],
+      "txHashes": [
+        "0xcc889fef8db056e21efe4038221c47a0dd117bbe1ed76497022d793b7a388422"
+      ],
+      "timestamp": 1790926460976,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6089-6092",
+      "distributionEpoch": 6092,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x243C5F6D2497a1f9CDa2b67cd36e8268ff0cBB38",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88715983260384839350",
+        "99594709662988516",
+        "865848235228369005",
+        "288226066472985185",
+        "7349764695061122168",
+        "99594709662988519",
+        "88718911949746085557",
+        "26358204251225567",
+        "213547492103056410948",
+        "288226066472985185"
+      ],
+      "txHashes": [
+        "0x09f0efbba2397860ad99dc41b07c6d3e5f1418a6c5ea6f4f4b57f428e93d59c9"
+      ],
+      "timestamp": 1790926466001,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6093-6096",
+      "distributionEpoch": 6096,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x243C5F6D2497a1f9CDa2b67cd36e8268ff0cBB38",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88655121436308643783",
+        "99599264014893154",
+        "865465116444628350",
+        "288098532783434660",
+        "7346512585977583824",
+        "99599264014893157",
+        "88671414797154876871",
+        "146640247616143934",
+        "213539450222901467604",
+        "288098532783434663"
+      ],
+      "txHashes": [
+        "0x4fd20ab2fbc8f1db431b687a01b44e6b561b7d4eaf475b4af854393d4462a671"
+      ],
+      "timestamp": 1790926471152,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6097-6100",
+      "distributionEpoch": 6100,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x243C5F6D2497a1f9CDa2b67cd36e8268ff0cBB38",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88649065021583868195",
+        "74697942342610416",
+        "865476309510745115",
+        "288102258763678479",
+        "7346607598473801232",
+        "99624863173961103",
+        "88666885173213659046",
+        "160381364668166229",
+        "213561057209505831702",
+        "288102258763678483"
+      ],
+      "txHashes": [
+        "0x179debf3c390fbd80ba057f55996f29c3c412acec02bec3dedae43303702c90e"
+      ],
+      "timestamp": 1790926476115,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6101-6104",
+      "distributionEpoch": 6104,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88665466299808828476",
+        "865214709198537887",
+        "288015176494629669",
+        "7344387000613056568",
+        "99716247879929289",
+        "88683289749297178908",
+        "324258613568661483",
+        "213441637026644548050",
+        "288015176494629670"
+      ],
+      "txHashes": [
+        "0x5865dcf25d39c1ca11a1f4d84fd4352a70ee7b7eac9a08c5888c1ad80235d7a1"
+      ],
+      "timestamp": 1790926481073,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6105-6108",
+      "distributionEpoch": 6108,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88668000089552530584",
+        "865098871406606840",
+        "287976616075194968",
+        "7343403709917471680",
+        "99719102731438140",
+        "88685824048677259200",
+        "378879056353884828",
+        "213383121889210418792",
+        "287976616075194968"
+      ],
+      "txHashes": [
+        "0x01d2bad5cc3b4b510e166de627abbfea956143fc296f32547e7175aee310f6ee"
+      ],
+      "timestamp": 1790926487735,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6109-6112",
+      "distributionEpoch": 6112,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88668000089552530584",
+        "865098871406606840",
+        "287976616075194968",
+        "7343403709917471680",
+        "99719102731438140",
+        "88685824048677259200",
+        "378879056353884828",
+        "213383121889210418792",
+        "287976616075194968"
+      ],
+      "txHashes": [
+        "0x50c5d87104db5a0eae2ed78fa75c7cd739240f8d1931dc6eeb6c9d45a7ea5961"
+      ],
+      "timestamp": 1790926494499,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6113-6116",
+      "distributionEpoch": 6116,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88668000089552530584",
+        "865098871406606840",
+        "287976616075194968",
+        "7343403709917471680",
+        "99719102731438140",
+        "88685824048677259200",
+        "378879056353884828",
+        "213383121889210418792",
+        "287976616075194968"
+      ],
+      "txHashes": [
+        "0x78cbc93c32973f09fc9654ffd196353961d4c6cf7baec5de34d072fbe4586b34"
+      ],
+      "timestamp": 1790926499422,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6117-6120",
+      "distributionEpoch": 6120,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+        "0xFAb092e87E4493fbCEB10F5a19e2afa88BBc1089"
+      ],
+      "rewardAmounts": [
+        "88681554905443027816",
+        "865371781436424101",
+        "288067463155774289",
+        "7327699060197399842",
+        "99742451241642064",
+        "88699381589047743079",
+        "378972494645568630",
+        "213443227792776023953",
+        "215982462056396226"
+      ],
+      "txHashes": [
+        "0x60b00a1a95fa87ba70205d48aafd367b3604b126329315fdcd39f7f9626f3585"
+      ],
+      "timestamp": 1790926504406,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6121-6124",
+      "distributionEpoch": 6124,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7"
+      ],
+      "rewardAmounts": [
+        "88722219353114519512",
+        "866190511525875884",
+        "288340004397512252",
+        "7280585111037184328",
+        "99812496772253836",
+        "88740054210159194716",
+        "379252809520620036",
+        "213623545503472839436"
+      ],
+      "txHashes": [
+        "0x77eb4cc1140bb868d3fc976de12ff88d5209676e9245a50c55bc9b0a52fb54d4"
+      ],
+      "timestamp": 1790926509340,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+    },
+    {
+      "window": "6125-6128",
+      "distributionEpoch": 6128,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7"
+      ],
+      "rewardAmounts": [
+        "88722219353114519512",
+        "866190511525875884",
+        "288340004397512252",
+        "7280585111037184328",
+        "99812496772253836",
+        "88740054210159194716",
+        "379252809520620036",
+        "213623545503472839436"
+      ],
+      "txHashes": [
+        "0x2015f0e605b7e17556fbe2f63561b9db36c239214c7cd5cbd716fad9e19d2a3c"
+      ],
+      "timestamp": 1790926516132,
+      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
     }
   ]
 }
