@@ -34,6 +34,11 @@ const args = yargs
     type: "boolean",
     description: "Print what would be distributed without sending any transaction",
     default: false,
+  })
+  .option("note", {
+    type: "string",
+    description: "Reason recorded in the distributions file for a --lastEpoch catch-up",
+    default: "manual catch-up via --lastEpoch",
   }).argv;
 
 process.env.CONFIG_FILE = args["config"] as string;
@@ -97,7 +102,7 @@ async function distributeOnChain(
 // Manual catch-up: distribute one specific already-summed window on-chain, even if its entry
 // was written as an unpaid placeholder by the first-run self-init. Requires distributions.json
 // to already exist (so the legacy history is recorded and the forward job won't double-pay).
-async function distributeSpecificWindow(distributionEpoch: number, dryRun: boolean) {
+async function distributeSpecificWindow(distributionEpoch: number, dryRun: boolean, note: string) {
   const logger = getGlobalLogger("distribute-rewards");
   const network = configurationService.network;
   const firstEpoch = distributionEpoch - distributeEvery + 1;
@@ -154,7 +159,7 @@ async function distributeSpecificWindow(distributionEpoch: number, dryRun: boole
     rewardAmounts: summedData.rewardAmounts,
     txHashes,
     timestamp: Date.now(),
-    note: "manual catch-up: window missed by the drift bug, distributed after recompute",
+    note,
   };
   if (index >= 0) {
     distributions.distributions[index] = entry;
@@ -176,7 +181,7 @@ async function run() {
   // Manual catch-up mode for a single past window.
   const overrideLastEpoch = args["lastEpoch"] as number | undefined;
   if (overrideLastEpoch !== undefined) {
-    await distributeSpecificWindow(overrideLastEpoch, args["dryRun"] as boolean);
+    await distributeSpecificWindow(overrideLastEpoch, args["dryRun"] as boolean, args["note"] as string);
     return;
   }
 
