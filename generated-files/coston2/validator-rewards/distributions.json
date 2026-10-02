@@ -2771,7 +2771,7 @@
         "0xa9b42b1d0775bf9987c6b9ee5f49c4ca2f31b552d7058113df8312172369126a"
       ],
       "timestamp": 1790926454466,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6085-6088",
@@ -2802,7 +2802,7 @@
         "0xcc889fef8db056e21efe4038221c47a0dd117bbe1ed76497022d793b7a388422"
       ],
       "timestamp": 1790926460976,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6089-6092",
@@ -2835,7 +2835,7 @@
         "0x09f0efbba2397860ad99dc41b07c6d3e5f1418a6c5ea6f4f4b57f428e93d59c9"
       ],
       "timestamp": 1790926466001,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6093-6096",
@@ -2868,7 +2868,7 @@
         "0x4fd20ab2fbc8f1db431b687a01b44e6b561b7d4eaf475b4af854393d4462a671"
       ],
       "timestamp": 1790926471152,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6097-6100",
@@ -2901,7 +2901,7 @@
         "0x179debf3c390fbd80ba057f55996f29c3c412acec02bec3dedae43303702c90e"
       ],
       "timestamp": 1790926476115,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6101-6104",
@@ -2932,7 +2932,7 @@
         "0x5865dcf25d39c1ca11a1f4d84fd4352a70ee7b7eac9a08c5888c1ad80235d7a1"
       ],
       "timestamp": 1790926481073,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6105-6108",
@@ -2963,7 +2963,7 @@
         "0x01d2bad5cc3b4b510e166de627abbfea956143fc296f32547e7175aee310f6ee"
       ],
       "timestamp": 1790926487735,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6109-6112",
@@ -2994,7 +2994,7 @@
         "0x50c5d87104db5a0eae2ed78fa75c7cd739240f8d1931dc6eeb6c9d45a7ea5961"
       ],
       "timestamp": 1790926494499,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6113-6116",
@@ -3025,7 +3025,7 @@
         "0x78cbc93c32973f09fc9654ffd196353961d4c6cf7baec5de34d072fbe4586b34"
       ],
       "timestamp": 1790926499422,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6117-6120",
@@ -3056,7 +3056,7 @@
         "0x60b00a1a95fa87ba70205d48aafd367b3604b126329315fdcd39f7f9626f3585"
       ],
       "timestamp": 1790926504406,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6121-6124",
@@ -3085,7 +3085,7 @@
         "0x77eb4cc1140bb868d3fc976de12ff88d5209676e9245a50c55bc9b0a52fb54d4"
       ],
       "timestamp": 1790926509340,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     },
     {
       "window": "6125-6128",
@@ -3114,7 +3114,7 @@
         "0x2015f0e605b7e17556fbe2f63561b9db36c239214c7cd5cbd716fad9e19d2a3c"
       ],
       "timestamp": 1790926516132,
-      "note": "manual catch-up: window missed by the drift bug, distributed after recompute"
+      "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
     }
   ]
 }
