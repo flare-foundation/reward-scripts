@@ -3115,6 +3115,40 @@
       ],
       "timestamp": 1790926516132,
       "note": "manual catch-up: window lapsed while coston2 rewards were blocked (uptime voter 0xBB6eae07aD2c5899A081984e31157035b0604106 stopped voting from epoch 6084), distributed after recompute"
+    },
+    {
+      "window": "6133-6136",
+      "distributionEpoch": 6136,
+      "addresses": [
+        "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+        "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+        "0x6Bf7d8D3042C6591b3a03bd045b0ce6B0cDc14Ae",
+        "0x725c69f98724B7B1693566407F2fA82D5Aa8092e",
+        "0x91401C111C3adD819e73bc8C109A2c9e5BF502d9",
+        "0x98c47ff8be9006D46C0e050dbAF74D34477c4B91",
+        "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+        "0xd920350fef79c2d64A97EF53F303c2dB15c49BdC",
+        "0xD9e5B450773B17593abAfCF73aB96ad99d589751",
+        "0xDB0130858e59BD80A9e8DA91348895b71C150983",
+        "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7"
+      ],
+      "rewardAmounts": [
+        "88668000089552530584",
+        "865098871406606840",
+        "287976616075194968",
+        "242935328162507361",
+        "7271409555898672940",
+        "99719102731438140",
+        "88685824048677259204",
+        "143988308037597484",
+        "238708072126068691",
+        "41223964102906260",
+        "213455116043229217528"
+      ],
+      "txHashes": [
+        "0x9f352182523435bf1430bf833ecf12ec117308321cddf8ef858b3c171c4b938d"
+      ],
+      "timestamp": 1790990617389
     }
   ]
 }
