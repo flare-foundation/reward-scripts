@@ -1,0 +1,43 @@
+{
+  "recipients": [
+    {
+      "address": "0xC444092BEd36EC1328D9DaC3586841FEE07037A5",
+      "amount": "22560906456788448975"
+    },
+    {
+      "address": "0xE6Aad8fC04490F49a38a3F864B15E6A0894207F7",
+      "amount": "54411027172227193506"
+    },
+    {
+      "address": "0x01945cedbB2D43a488Bb15af34dD2Dd07e7a9330",
+      "amount": "22560906456788448976"
+    },
+    {
+      "address": "0xd920350fef79c2d64A97EF53F303c2dB15c49BdC",
+      "amount": "147168339574614801"
+    },
+    {
+      "address": "0x2Da5803D64a526a775c4B4B51C1c3DB90847b811",
+      "amount": "221051219727402552"
+    },
+    {
+      "address": "0xecBb3ed2C734532F9fC12f7fF4Ac81bCb86dAFA5",
+      "amount": "73584169787307401"
+    },
+    {
+      "address": "0x22ef210f5a86AE63b26766c99f736DD327fe6512",
+      "amount": "25356185106583789"
+    }
+  ],
+  "configFileData": {
+    "BOOSTING_FACTOR": 5,
+    "VOTE_POWER_CAP_BIPS": 500,
+    "UPTIME_VOTING_PERIOD_LENGTH_SECONDS": 600,
+    "UPTIME_VOTING_THRESHOLD": 1,
+    "MIN_FOR_BEB_GWEI": "1500",
+    "REWARD_EPOCH": 6250,
+    "REWARD_AMOUNT_EPOCH_WEI": "100000000000000000000"
+  },
+  "stakingVotePowerBlock": 37280880,
+  "stakingVPBlockTimestamp": 1793441901
+}
